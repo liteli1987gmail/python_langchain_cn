@@ -1,0 +1,49 @@
+---
+hide_table_of_contents: true
+sidebar_position: 2
+---
+
+# Agent Executors
+
+:::info
+[概念指南](https://docs.langchain.com/docs/components/agents/agent-executor)
+:::
+
+为了让智能代理更加强大，我们需要使其迭代，即调用模型多次，直到达到最终答案。这就是 AgentExecutor 的工作。
+
+```typescript
+class AgentExecutor {
+
+  // a simplified implementation
+
+  run(inputs: object) {
+
+    const steps = [];
+
+    while (true) {
+
+      const step = await this.agent.plan(steps, inputs);
+
+      if (step instanceof AgentFinish) {
+
+        return step.returnValues;
+
+      }
+
+      steps.push(step);
+
+    }
+
+  }
+
+}
+
+```
+
+
+import DocCardList from "@theme/DocCardList";
+
+
+
+<DocCardList />
+

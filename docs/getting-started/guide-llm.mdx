@@ -1,0 +1,446 @@
+---
+sidebar_position: 2
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/models/llm/llm_streaming_stdout.ts";
+
+
+# 快速入门， 使用LLMs
+
+本教程将快速介绍如何使用LangChain构建端到端语言模型应用程序。
+
+## 安装和设置
+
+要开始，请按照[安装说明](./install)安装LangChain。
+
+## 选择LLM
+
+使用LangChain通常需要与一个或多个模型提供程序，数据存储，API等进行集成。
+
+对于这个例子，我们将使用OpenAI的API，因此不需要其他设置。
+
+## 构建语言模型应用程序
+
+现在我们已经安装了LangChain，可以开始构建我们的语言模型应用程序。
+
+LangChain提供了许多模块，可用于构建语言模型应用程序。可以将模块结合起来创建更复杂的应用程序，也可以单独用于简单的应用程序。
+
+### LLM:从语言模型获取预测
+
+LangChain的最基本构建模块是针对某些输入调用LLM。 让我们通过一个简单的示例来介绍如何执行此操作。 为此，假设我们正在构建一项服务，该服务根据公司生产的产品生成公司名称。
+
+为了做到这一点，我们首先需要导入LLM包装器。
+
+```typescript
+import { OpenAI } from "langchain/llms/openai";
+
+```
+
+
+然后，我们将需要设置OpenAI密钥的环境变量。 这里有三个选项:
+
+1. 我们可以通过在`.env`文件中设置值，并使用[dotenv](https://github.com/motdotla/dotenv)软件包来读取它。
+
+   1.1. For OpenAI Api
+
+
+   ```bash
+
+   OPENAI_API_KEY="..."
+
+   ```
+
+
+   1.2. For Azure OpenAI:
+
+
+   ```bash
+
+   AZURE_OPENAI_API_KEY="..."
+
+   AZURE_OPENAI_API_INSTANCE_NAME="..."
+
+   AZURE_OPENAI_API_DEPLOYMENT_NAME="..."
+
+   AZURE_OPENAI_API_COMPLETIONS_DEPLOYMENT_NAME="..."
+
+   AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME="..."
+
+   AZURE_OPENAI_API_VERSION="..."
+
+   ```
+
+
+
+2. 或者我们可以使用以下命令在你的shell中导出环境变量#。
+
+   2.1. For OpenAI Api
+
+
+   ```bash
+
+   export OPENAI_API_KEY=sk-....
+
+   ```
+
+
+   2.2. For Azure OpenAI:
+
+
+   ```bash
+
+   export AZURE_OPENAI_API_KEY="..."
+
+   export AZURE_OPENAI_API_INSTANCE_NAME="..."
+
+   export AZURE_OPENAI_API_DEPLOYMENT_NAME="..."
+
+   export AZURE_OPENAI_API_COMPLETIONS_DEPLOYMENT_NAME="..."
+
+   export AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME="..."
+
+   export AZURE_OPENAI_API_VERSION="..."
+
+   ```
+
+
+3. 或者我们可以在初始化wrapper时一起执行。在这个例子中，我们可能希望输出更随机，因此我们将使用高温度进行初始化。
+
+   3.1. For OpenAI Api
+
+
+   ```typescript
+
+   const model = new OpenAI({ openAIApiKey: "sk-...", temperature: 0.9 });
+
+   ```
+
+
+   3.2. For Azure OpenAI:
+
+
+   ```typescript
+
+   const model = new OpenAI({
+
+     azureOpenAIApiKey: "...",
+
+     azureOpenAIApiInstanceName: "....",
+
+     azureOpenAIApiDeploymentName: "....",
+
+     azureOpenAIApiVersion: "....",
+
+     temperature: 0.9,
+
+   });
+
+   ```
+
+
+初始化wrapper后，我们现在可以在一些输入上调用它！
+
+```typescript
+const res = await model.call(
+
+  "What would be a good company name a company that makes colorful socks?"
+
+);
+
+console.log(res);
+
+```
+
+
+```shell
+{ res: 'Fantasy Sockery' }
+
+```
+
+
+### 提示模板: 管理LLMs的提示
+
+调用LLM是一个很好的第一步，但这只是开始。通常当你在应用程序中使用LLM时，你不会直接将用户输入发送到LLM。相反，你可能会使用用户输入来构建一个提示，然后将它发送到LLM。
+
+例如，在前面的示例中，我们传递的文本是硬编码的，询问制作彩色袜子的公司名字。在这个想象中的服务中，我们只需要使用描述公司所做的事情的用户输入，并使用该信息格式化提示。
+
+使用LangChain很容易实现！
+
+首先让我们定义提示模板:
+
+```typescript
+import { PromptTemplate } from "langchain/prompts";
+
+
+
+const template = "What is a good name for a company that makes {product}?";
+
+const prompt = new PromptTemplate({
+
+  template: template,
+
+  inputVariables: ["product"],
+
+});
+
+```
+
+
+现在让我们看看它的工作原理！我们可以调用`.format`方法进行格式化。
+
+```typescript
+const res = await prompt.format({ product: "colorful socks" });
+
+console.log(res);
+
+```
+
+
+```shell
+{ res: 'What is a good name for a company that makes colorful socks?' }
+
+```
+
+
+### 链: 在多步骤工作流中组合LLMs和提示
+
+到目前为止，我们只是单独使用了PromptTemplate和LLM原语。但是，一个真正的应用程序不仅仅是一个原语，而是它们的组合。
+
+
+LangChain中的链是由链接组成的，可以是像LLMs这样的原语，也可以是其他chains。
+
+
+链的最核心类型是LLMChain，它由PromptTemplate和LLM组成。
+
+
+扩展前面的例子，我们可以构建一个LLMChain，它采用用户输入，用PromptTemplate格式化它，然后将格式化的响应传递给LLM。
+
+
+```typescript
+
+import { OpenAI } from "langchain/llms/openai";
+
+import { PromptTemplate } from "langchain/prompts";
+
+
+
+const model = new OpenAI({ temperature: 0.9 });
+
+const template = "What is a good name for a company that makes {product}?";
+
+const prompt = new PromptTemplate({
+
+  template: template,
+
+  inputVariables: ["product"],
+
+});
+
+```
+
+
+
+现在我们可以创建一个非常简单的链条，它将采用用户输入，用它格式化提示，然后将其发送给LLM:。
+
+
+```typescript
+
+import { LLMChain } from "langchain/chains";
+
+
+
+const chain = new LLMChain({ llm: model, prompt: prompt });
+
+```
+
+
+
+现在我们可以仅指定产品运行该链条！
+
+
+```typescript
+
+const res = await chain.call({ product: "colorful socks" });
+
+console.log(res);
+
+```
+
+
+
+```shell
+
+{ res: { text: 'ColorfulCo Sockery.' } }
+
+```
+
+
+
+这就是第一条链 - LLM Chain。这是比较简单的链条之一，但是了解它的工作原理将为您更好地处理更复杂的链条打下基础。
+
+
+### Agents: 根据用户输入动态运行链
+
+
+到目前为止，我们看过的链是以预定顺序运行的。
+
+
+代理不再执行它们使用LLM来确定要执行的操作以及顺序。动作可以是使用工具并观察其输出，或者返回给用户。
+
+
+如果正确使用代理，它们可以非常强大。在本教程中,我们通过最简单的，最高级别的API向您展示如何轻松使用代理。
+
+
+为了加载代理，您应该了解以下概念:
+
+
+- 工具（Tool）：执行特定职责的函数。这些职责可能包括：Google 搜索、数据库查询、代码 REPL（Read-Eval-Print Loop，读取-求值-输出循环）、其他链。目前工具的接口是一个期望输入字符串，并返回一个字符串的函数。
+- LLM: 代理使用的语言模型。
+- Agent: 所使用的代理。这应该是一个引用支持代理类的字符串。由于本教程重点介绍最简单的最高级API，因此仅涵盖使用标准支持的代理。
+
+对于这个例子，你需要在`.env`文件中设置SerpAPI环境变量。
+
+```bash
+SERPAPI_API_KEY="..."
+
+```
+
+
+安装`serpapi`包(Google搜索API):
+
+```bash npm2yarn
+npm install -S serpapi
+
+```
+
+
+现在我们可以开始了！
+
+```typescript
+import { OpenAI } from "langchain/llms/openai";
+
+import { initializeAgentExecutorWithOptions } from "langchain/agents";
+
+import { SerpAPI } from "langchain/tools";
+
+import { Calculator } from "langchain/tools/calculator";
+
+
+
+const model = new OpenAI({ temperature: 0 });
+
+const tools = [
+
+  new SerpAPI(process.env.SERPAPI_API_KEY, {
+
+    location: "Austin,Texas,United States",
+
+    hl: "en",
+
+    gl: "us",
+
+  }),
+
+  new Calculator(),
+
+];
+
+
+
+const executor = await initializeAgentExecutorWithOptions(tools, model, {
+
+  agentType: "zero-shot-react-description",
+
+});
+
+console.log("Loaded agent.");
+
+
+
+const input =
+
+  "Who is Olivia Wilde's boyfriend?" +
+
+  " What is his current age raised to the 0.23 power?";
+
+console.log(`Executing with input "${input}"...`);
+
+
+
+const result = await executor.call({ input });
+
+
+
+console.log(`Got output ${result.output}`);
+
+```
+
+
+```shell
+langchain-examples:start: Executing with input "Who is Olivia Wilde's boyfriend? What is his current age raised to the 0.23 power?"...
+
+langchain-examples:start: Got output Olivia Wilde's boyfriend is Jason Sudeikis, and his current age raised to the 0.23 power is 2.4242784855673896.
+
+```
+
+
+### Memory: 在链和代理中添加状态
+
+到目前为止，我们经历的所有链和代理都是无状态的。但是，通常情况下，您可能希望一个链或代理具有一些 "内存" 的概念，以便它可以记住其先前的交互信息。这是设计聊天机器人时的最明显和简单的例子 - 您希望它记住先前的消息，以便可以利用上下文进行更好的交流。这将是一种 "短期记忆"。在更复杂的情况下，您可以想象一个链/代理随着时间的推移记住关键信息 - 这将是一种 "长期记忆" 形式。
+
+LangChain提供了几个专门为此目的创建的链。本节介绍了使用这些链之一（“ConversationChain”)。
+
+默认情况下，“ConversationChain”具有一种简单的记忆类型，它会记住所有先前的输入/输出并将其添加到传递的上下文中。让我们来看看如何使用这个链。
+
+```typescript
+import { OpenAI } from "langchain/llms/openai";
+
+import { BufferMemory } from "langchain/memory";
+
+import { ConversationChain } from "langchain/chains";
+
+
+
+const model = new OpenAI({});
+
+const memory = new BufferMemory();
+
+const chain = new ConversationChain({ llm: model, memory: memory });
+
+const res1 = await chain.call({ input: "Hi! I'm Jim." });
+
+console.log(res1);
+
+```
+
+
+```shell
+{response: " Hi Jim! It's nice to meet you. My name is AI. What would you like to talk about?"}
+
+```
+
+
+```typescript
+const res2 = await chain.call({ input: "What's my name?" });
+
+console.log(res2);
+
+```
+
+
+```shell
+{response: ' You said your name is Jim. Is there anything else you would like to talk about?'}
+
+```
+
+
+## 流媒体
+
+
+您还可以使用流API，随着生成的单词的流式返回，这对于聊天机器人等场景很有用，您希望向用户显示正在生成的内容。注意: 目前OpenAI不支持启用流时的“tokenUsage”报告。
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+

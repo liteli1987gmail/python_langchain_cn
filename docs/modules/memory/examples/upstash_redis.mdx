@@ -1,0 +1,47 @@
+---
+hide_table_of_contents: true
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+
+# Upstash 基于 Redis 的聊天记忆
+
+由于 Upstash Redis 通过 REST API 工作,所以您可以将其与 [Vercel Edge](https：//vercel.com/docs/concepts/functions/edge-functions/edge-runtime)， [Cloudflare Workers] 一起使用（https：//developers.cloudflare.com/workers/)和其他无服务器环境。
+基于 Redis-Backed 聊天记忆。
+
+为了在聊天会话之间实现长期持久性,您可以将支持聊天记忆类（如 `BufferMemory`)的默认内存中的 `chatHistory` 替换为 Upstash [Redis] 实例（https：//redis.io/)。
+
+## 设置
+
+您需要在项目中安装 [@upstash/redis](https：//github.com/upstash/upstash-redis)
+
+```bash npm2yarn
+npm install @upstash/redis
+
+```
+
+
+您还需要一个 Upstash 帐户和一个 Redis 数据库进行连接。有关如何创建 HTTP 客户端的说明，请参见 [Upstash Docs](https：//docs.upstash.com/redis)。
+
+## 使用
+
+Redis 中存储的每个聊天历史记录会话必须具有唯一的 id。您可以提供可选的 `sessionTTL`，以使会话在确定的秒数后过期。
+直接将 `config` 参数传递到 [@upstash/redis](https：//docs.upstash.com/redis/sdks/javascriptsdk/overview) 的 `new Redis()` 构造函数中，并使用相同的参数。
+
+import Example from "!!raw-loader!@examples/memory/upstash_redis.ts";
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+
+
+## 高级用法
+
+您还可以直接传入先前创建的 [@upstash/redis](https：//docs.upstash.com/redis/sdks/javascriptsdk/overview) 客户端实例@＃
+
+import AdvancedExample from "!!raw-loader!@examples/memory/upstash_redis_advanced.ts";
+
+
+
+<CodeBlock language="typescript">{AdvancedExample}</CodeBlock>
+

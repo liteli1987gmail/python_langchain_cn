@@ -1,0 +1,45 @@
+---
+sidebar_label: 额外功能（Additional Functionality)
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+import PromptValue from "!!raw-loader!@examples/prompts/prompt_value.ts";
+
+import PartialValue from "!!raw-loader!@examples/prompts/partial.ts";
+
+import FewShot from "!!raw-loader!@examples/prompts/few_shot.ts";
+
+
+# 提示模板下的额外功能（Additional Functionality: Prompt Templates)
+
+我们提供了一些额外的功能，以便在提示模板中展示，如下所示:（We offer a number of extra features for prompt templates as shown below)
+
+## 提示值（Prompt Values)
+
+`PromptValue`是由`PromptTemplate`的`formatPromptValue`方法返回的对象。它可以被转换为一个字符串或一组 `ChatMessage` 对象。（A `PromptValue` is an object returned by the `formatPromptValue` of a `PromptTemplate`. It can be converted to a string or list of `ChatMessage` objects.)
+
+<CodeBlock language="typescript">{PromptValue}</CodeBlock>
+
+
+## 部分值（Partial Values)
+
+与其他方法一样，“部分化”提示模板是有意义的，例如将所需的值的子集传递给其余值的子集以创建只期望该子集的新提示模板。（Like other methods, it can make sense to "partial" a prompt template - eg pass in a subset of the required values as to create a new prompt template which expects only the remaining subset of values.)
+
+LangChain支持两种方式:（LangChain supports this in two ways:)
+
+1. 使用字符串值进行部分格式化。（1. Partial formatting with string values.)
+2. 使用返回字符串值的函数进行部分格式化。（2. Partial formatting with functions that return string values.)
+
+这两种不同的方式支持不同的用例。在下面的示例中，我们探讨了两种使用情况以及如何在LangChain中实现它。（These two different ways support different use cases. In the examples below, we go over the motivations for both use cases as well as how to do it in LangChain.)
+
+<CodeBlock language="typescript">{PartialValue}</CodeBlock>
+
+
+## 少量示例提示模板（Few-Shot Prompt Templates)
+
+少量示例提示模板指的是可以通过示例构建的提示模板。（A few-shot prompt template is a prompt template you can build with examples.)
+
+
+<CodeBlock language="typescript">{FewShot}</CodeBlock>
+

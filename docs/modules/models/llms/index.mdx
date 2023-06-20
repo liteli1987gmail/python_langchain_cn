@@ -1,0 +1,30 @@
+---
+hide_table_of_contents: true
+sidebar_label: LLMs
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/models/llm/llm_quick_start.ts";
+
+import DocCardList from "@theme/DocCardList";
+
+
+# 入门指南: LLMs
+
+:::info
+[概念指南](https://docs.langchain.com/docs/components/models/language-model)
+:::
+
+LangChain 提供了使用各种 LLM 的标准界面。
+
+要开始， 只需使用 `LLM` 实现的 `call` 方法， 传递一个 `string` 输入。在这个例子中， 我们使用了 `OpenAI` 实现:
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+
+
+## 深入研究
+
+
+<DocCardList />
+

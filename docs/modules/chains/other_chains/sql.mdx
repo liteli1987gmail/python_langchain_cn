@@ -1,0 +1,57 @@
+import CodeBlock from "@theme/CodeBlock";
+
+import SqlDBExample from "!!raw-loader!@examples/chains/sql_db.ts";
+
+import SqlDBSqlOutputExample from "!!raw-loader!@examples/chains/sql_db_sql_output.ts";
+
+
+# `SqlDatabaseChain` 中文：`Sql数据库链`
+
+`SqlDatabaseChain` 可以让您在 SQL 数据库上回答问题。
+此示例使用 Chinook 数据库，这是一个可用于 SQL Server、Oracle、MySQL 等的示例数据库。
+
+## 设置
+
+首先安装 `typeorm` ：`typeorm`包是必须安装的
+
+```bash npm2yarn
+npm install typeorm
+
+```
+
+
+然后安装所需的数据库依赖项。例如，对于 SQLite  
+
+```bash npm2yarn
+npm install sqlite3
+
+```
+
+
+对于其他数据库，请参阅 https://typeorm.io/#installation
+
+最后，按照 https://database.guide/2-sample-databases-sqlite/ 上的说明，获取此示例所需的样品数据库。
+
+<CodeBlock language="typescript">{SqlDBExample}</CodeBlock>
+
+
+您可以在创建 `SqlDatabase` 对象时包含或排除表格，以帮助链集中于您想要的表格。
+它还可以减少链中使用的令牌数量。
+
+```typescript 中文：如果需要，您可以在调用链时返回所使用的 SQL 命令。
+const db = await SqlDatabase.fromDataSourceParams({
+
+  appDataSource: datasource,
+
+  includesTables: ["Track"],
+
+});
+
+```
+
+
+如果需要，您可以在调用链时返回使用的 SQL 命令。
+
+
+<CodeBlock language="typescript">{SqlDBSqlOutputExample}</CodeBlock>
+

@@ -1,0 +1,52 @@
+---
+sidebar_label: 示例选择器
+sidebar_position: 3
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+
+# 示例选择器
+
+:::info
+[概念指南](https://docs.langchain.com/docs/components/prompts/example-selectors)
+:::
+
+如果您有大量的示例,您可能需要以编程方式选择要包含在提示中的示例。 ExampleSelector 是执行此操作的类。 基本接口定义如下。
+
+```typescript
+class BaseExampleSelector {
+
+  addExample(example: Example): Promise<void | string>;
+
+
+
+  selectExamples(input_variables: Example): Promise<Example[]>;
+
+}
+
+```
+
+
+它需要公开一个 `selectExamples` 方法 - 这需要输入变量，然后返回一个示例列表 - 和一个 `addExample` 方法,用于保存以后选择的示例。每个具体的实现都可以决定如何保存和选择这些示例。 让我们看一些示例。
+
+## 根据长度选择
+
+此 `ExampleSelector` 根据长度选择要使用的示例。 当您担心构建的提示会超过上下文窗口的长度时，这非常有用。 对于较长的输入,它会选择较少的示例进行包含,而对于较短的输入，则会选择更多示例。
+
+import ExampleLength from "!!raw-loader!@examples/prompts/length_based_example_selector.ts";
+
+
+<CodeBlock language="typescript">{ExampleLength}</CodeBlock>
+
+
+## 根据相似度选择
+
+`SemanticSimilarityExampleSelector` 根据与输入最相似的示例选择示例。 它通过查找具有与输入的余弦相似度最大的嵌入的示例来实现此目的。
+
+import ExampleSimilarity from "!!raw-loader!@examples/prompts/semantic_similarity_example_selector.ts";
+
+
+
+<CodeBlock language="typescript">{ExampleSimilarity}</CodeBlock>
+

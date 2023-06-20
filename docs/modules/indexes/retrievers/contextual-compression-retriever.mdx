@@ -1,0 +1,25 @@
+上下文压缩检索器
+
+
+上下文压缩检索器旨在通过更好地考虑查询上下文，改进向量存储文档相似性搜索返回的答案。
+
+
+它包装另一个检索器，并在初始相似性搜索后使用文档压缩器作为中间步骤，从检索到的文档中删除与初始查询无关的信息。
+这减少了后续链在解析检索到的文档和作出最终判断时必须处理的干扰量。
+
+
+## 用法
+
+
+This example shows how to intialize a `ContextualCompressionRetriever` with a vector store and a document compressor:
+
+
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/retrievers/contextual_compression.ts";
+
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+

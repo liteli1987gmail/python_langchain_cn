@@ -1,0 +1,30 @@
+---
+hide_table_of_contents: true
+sidebar_label: 提示模板
+sidebar_position: 1
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/prompts/prompts.ts";
+
+import DocCardList from "@theme/DocCardList";
+
+
+# 提示模板
+
+:::info
+[概念指南](https://docs.langchain.com/docs/components/prompts/prompt-template)
+:::
+
+ `PromptTemplate` 允许您使用模板生成提示。当您想在多个地方使用相同的提示概要，但更改某些值时，这非常有用。
+如下所示，`PromptTemplate`对LLM和聊天模型都有支持:
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+
+
+## 深入了解
+
+
+<DocCardList />
+

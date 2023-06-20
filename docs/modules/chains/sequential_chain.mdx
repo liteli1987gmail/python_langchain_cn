@@ -1,0 +1,34 @@
+---
+hide_table_of_contents: true
+sidebar_position: 3
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+import SimpleSequentialChainExample from "!!raw-loader!@examples/chains/simple_sequential_chain.ts";
+
+import SequentialChainExample from "!!raw-loader!@examples/chains/sequential_chain.ts";
+
+
+# 顺序链
+
+顺序链允许您连接多个链，并将它们组合成执行特定场景的管道。
+
+## `SimpleSequentialChain`
+
+让我们从最简单的情况开始，即`SimpleSequentialChain`。
+
+ `SimpleSequentialChain`是一种允许您将多个单输入/单输出链连接成一个链的链。
+
+下面的示例显示了一个样例用例。在第一步，给定一个标题，生成一个剧本的简介。在第二步，基于生成的简介，生成剧本的评论。
+
+<CodeBlock language="typescript">{SimpleSequentialChainExample}</CodeBlock>
+
+
+## `SequentialChain`
+
+更高级的情况非常有用，当您有多个具有多个输入或输出键的链时。
+
+
+<CodeBlock language="typescript">{SequentialChainExample}</CodeBlock>
+

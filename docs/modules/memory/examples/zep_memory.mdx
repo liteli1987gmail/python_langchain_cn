@@ -1,0 +1,30 @@
+---
+hide_table_of_contents: true
+---
+
+# Zep Memory
+
+[Zep](https://github.com/getzep/zep)是存储、，总结、内嵌、索引和丰富对话AI聊天历史、自治代理历史、文档Q&A历史的记忆服务器，并通过简单、低延迟的API公开它们。
+
+主要功能:
+
+- 长期存储记忆，无论您的总结策略如何，都可访问历史消息。
+- 基于可配置的消息窗口自动总结记忆消息。一系列的总结被存储，为未来的总结策略提供了灵活性。
+- 对记忆进行向量搜索，消息在创建时自动嵌入。
+- 自动记忆和摘要的令牌计数，允许更细粒度地控制提示组合。
+- [Python](https://github.com/getzep/zep-python)和[JavaScript](https://github.com/getzep/zep-js)SDK。
+
+## 设置
+
+请参阅[Zep](https://github.com/getzep/zep)的说明，以在本地或通过自动托管提供程序运行服务器。
+
+## 用法
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/memory/zep.ts";
+
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+

@@ -1,0 +1,124 @@
+---
+
+sidebar_label: 内存
+sidebar_position: 5
+---
+
+
+
+import DocCardList from "@theme/DocCardList";
+
+
+
+# 入门: 内存
+
+
+:::info
+[概念指南](https://docs.langchain.com/docs/components/memory)
+:::
+
+
+在对话过程中存储和检索数据的概念被称为内存。有两种主要方法， `loadMemoryVariables` 和 `saveContext`。第一种方法用于从内存中检索数据（可选择使用当前输入值)， 第二种方法用于将数据存储到内存中。
+
+
+```typescript
+export type InputValues = Record<string, any>;
+
+
+
+export type OutputValues = Record<string, any>;
+
+
+
+interface BaseMemory {
+
+  loadMemoryVariables(values: InputValues): Promise<MemoryVariables>;
+
+
+
+  saveContext(
+
+    inputValues: InputValues,
+
+    outputValues: OutputValues
+
+  ): Promise<void>;
+
+}
+
+```
+
+
+
+:::note
+不要在两个不同的链之间共享相同的存储器实例， 存储器实例代表单个对话的历史记录
+:::
+
+
+:::note
+如果您将LangChain应用部署在无服务器环境中，请不要将存储器实例存储在变量中， 因为您的托管提供商可能会在下一次调用该函数时重置它。
+:::
+
+
+## 所有内存类
+
+
+<DocCardList />
+
+
+
+## 高级
+
+
+要实现您自己的内存类，有两个选项:
+
+
+### 子类化 `BaseChatMemory`
+
+
+这是实现自己的内存类的最简单方法。您可以子类化 `BaseChatMemory`， 通过将输入和输出保存为[聊天消息](../schema/chat-messages.md)来处理 `saveContext`， 并仅实现 `loadMemoryVariables` 方法。该方法负责返回与当前输入值相关的存储器变量。
+
+
+```typescript
+abstract class BaseChatMemory extends BaseMemory {
+
+  chatHistory: ChatMessageHistory;
+
+
+
+  abstract loadMemoryVariables(values: InputValues): Promise<MemoryVariables>;
+
+}
+
+```
+
+
+
+### Subclassing `BaseMemory`
+
+
+
+如果您想要实现一个更自定义的内存类，您可以继承 `BaseMemory` 类并实现 `loadMemoryVariables` 和 `saveContext` 方法。`saveContext` 方法负责将输入和输出值存储在内存中。`loadMemoryVariables` 方法负责返回与当前输入值相关的内存变量。
+
+
+
+```typescript
+
+abstract class BaseMemory {
+
+  abstract loadMemoryVariables(values: InputValues): Promise<MemoryVariables>;
+
+
+
+  abstract saveContext(
+
+    inputValues: InputValues,
+
+    outputValues: OutputValues
+
+  ): Promise<void>;
+
+}
+
+```
+

@@ -1,0 +1,18 @@
+# 自我查询色度检索器
+
+自我查询检索器正如其名称所示具有查询自身的能力。具体而言给定任何自然语言查询检索器使用查询构建LLM链来撰写结构化查询，然后将该结构化查询应用于其基础向量存储中。这使得检索器不仅可以使用用户输入的查询进行与存储文档内容的语义相似性比较，而且可以从用户查询中提取存储文档的元数据过滤器并执行这些过滤器。
+
+此示例使用Chroma向量存储。
+
+## 用法
+
+此示例演示如何使用向量存储初始化`SelfQueryRetriever` :
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/retrievers/chroma_self_query.ts";
+
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+

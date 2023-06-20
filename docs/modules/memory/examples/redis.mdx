@@ -1,0 +1,44 @@
+---
+hide_table_of_contents: true
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+
+# 基于Redis的聊天存储
+
+如果需要在聊天会话之间进行长期持久化，可以将默认的内存`chatHistory`替换为一个[Redis](https://redis.io/)实例来支持聊天存储类，如`BufferMemory`。
+
+## 设置
+
+您需要在项目中安装[node-redis](https://github.com/redis/node-redis)。
+
+```bash npm2yarn
+npm install redis
+
+```
+
+
+您还需要一个Redis实例来连接。请参阅[Redis官方网站](https://redis.io/docs/getting-started/)上运行本地服务器的说明。
+
+## 用法
+
+Redis中存储的每个聊天历史记录会话都必须具有唯一的ID。你可以提供一个可选的`sessionTTL`参数来使会话在一定时间后过期。
+传递给`createClient`方法的`config`参数直接传递给[node-redis](https://github.com/redis/node-redis)，并使用所有相同的参数。
+
+import Example from "!!raw-loader!@examples/memory/redis.ts";
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+
+
+## 高级用法
+
+您也可以直接传递先前创建的[node-redis](https://github.com/redis/node-redis)客户端实例:
+
+import AdvancedExample from "!!raw-loader!@examples/memory/redis-advanced.ts";
+
+
+
+<CodeBlock language="typescript">{AdvancedExample}</CodeBlock>
+

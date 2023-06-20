@@ -1,0 +1,61 @@
+---
+hide_table_of_contents: true
+sidebar_position: 3
+---
+
+import DocCardList from "@theme/DocCardList";
+
+
+# 工具
+
+:::info
+[概念指南](https://docs.langchain.com/docs/components/agents/tool)
+:::
+
+工具是一个函数的抽象，使得语言模型可以轻松地与之交互。具体来说，工具的接口有一个文本输入和一个文本输出。它包括名称和描述，向[模型](../../models/)传达工具的作用和何时使用它。
+
+```typescript
+interface Tool {
+
+  call(arg: string): Promise<string>;
+
+
+
+  name: string;
+
+
+
+  description: string;
+
+}
+
+```
+
+
+## 所有工具
+
+<DocCardList />
+
+
+## 高级
+
+要实现自己的工具，你可以将`Tool`类作为子类，并实现`_call`方法。`_call`方法使用输入文本调用，应返回输出文本。Tool超类实现了`call`方法,在调用`_call`方法之前和之后调用正确的CallbackManager方法。当出现错误时，`_call`方法应返回表示错误的字符串，而不是抛出错误。这允许错误传递给LLM，并且LLM可以决定如何处理它。如果抛出错误，则代理的执行将停止。
+
+```typescript
+
+abstract class Tool {
+
+  abstract _call(arg: string): Promise<string>;
+
+
+
+  abstract name: string;
+
+
+
+  abstract description: string;
+
+}
+
+```
+

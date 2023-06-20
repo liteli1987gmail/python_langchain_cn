@@ -1,0 +1,27 @@
+---
+hide_table_of_contents: true
+sidebar_position: 1
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+
+# 提示组合
+
+流水线提示模板允许您将多个单独的提示模板组合在一起。
+当您想重用单个提示的部分时，这可能很有用。
+
+与将`inputVariables`作为参数不同，流水线提示模板需要两个新参数:
+
+- `pipelinePrompts`: 一个包含字符串 (`name`) 和 `PromptTemplate` 对象的数组。
+- 每一个 `PromptTemplate` 会被格式化，然后作为一个输入变量传递给管道中下一个提示模板，并使用与 `name` 相同的名称。
+- `finalPrompt`: 将返回的最终提示。
+
+以下是实际操作的示例:
+
+import Example from "!!raw-loader!@examples/prompts/pipeline_prompt.ts";
+
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+

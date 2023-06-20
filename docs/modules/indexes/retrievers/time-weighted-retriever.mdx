@@ -1,0 +1,37 @@
+# 时间加权召回器
+
+
+时间加权召回器是一种综合考虑相似性和新近度的召回器。评分算法为 :。
+
+
+```typescript
+let score = (1.0 - this.decayRate) ** hoursPassed + vectorRelevance;
+
+```
+
+
+
+特别注意：`hoursPassed` 指的是自上次访问以来的时间，而不是对象创建以来的时间。这意味着经常访问的对象保持“新鲜”，并且具有更高的分数。
+
+
+`this.decayRate` 是一个可配置的小数，介于 0 和 1 之间。较小的数字意味着文档将被“记住”的时间更长，而较高的数字则更加强调最近访问的文档。
+
+
+请注意，将衰减速率设置为恰好为0或1使 `hoursPassed` 无关，使得此召回器等价于标准的向量查找。
+
+
+## 使用
+
+
+下面是一个使用向量存储库初始化 `TimeWeightedVectorStoreRetriever` 的示例。
+重要提示：由于所需的元数据，所有文档都必须使用 **召回器** 上的 `addDocuments` 方法添加到后端向量存储库中，而不是直接添加到向量存储库本身。
+
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/retrievers/time-weighted-retriever.ts";
+
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+

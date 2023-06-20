@@ -1,0 +1,36 @@
+---
+hide_table_of_contents: true
+---
+
+# TokenTextSplitter
+
+最后， `TokenTextSplitter` 将原始文本字符串转换为 BPE 标记，并将这些标记分成块，然后将单个块中的标记转换回文本。#（Finally)
+
+```typescript
+
+import { Document } from "langchain/document";
+
+import { TokenTextSplitter } from "langchain/text_splitter";
+
+
+
+const text = "foo bar baz 123";
+
+
+
+const splitter = new TokenTextSplitter({
+
+  encodingName: "gpt2",
+
+  chunkSize: 10,
+
+  chunkOverlap: 0,
+
+});
+
+
+
+const output = await splitter.createDocuments([text]);
+
+```
+

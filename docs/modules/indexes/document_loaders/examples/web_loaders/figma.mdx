@@ -1,0 +1,25 @@
+---
+hide_table_of_contents: true
+---
+
+# Figma
+
+本例演示如何从Figma文件加载数据。
+您需要Figma访问令牌才能开始使用。
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/document_loaders/figma.ts";
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+
+
+您可以通过在浏览器中打开文件并从URL中提取它们来找到Figma文件的密钥和节点ID:
+
+```
+
+https://www.figma.com/file/<YOUR FILE KEY HERE>/LangChainJS-Test?type=whiteboard&node-id=<YOUR NODE ID HERE>&t=e6lqWkKecuYQRyRg-0
+
+```
+

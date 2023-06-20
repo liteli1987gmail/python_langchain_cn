@@ -1,0 +1,395 @@
+---
+sidebar_position: 3
+sidebar_label: 集成
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+
+# 集成: LLMs
+
+LangChain提供了多种LLM实现，可与各种模型提供者集成。这些是:
+
+## `OpenAI`
+
+```typescript
+import { OpenAI } from "langchain/llms/openai";
+
+
+
+const model = new OpenAI({
+
+  temperature: 0.9,
+
+  openAIApiKey: "YOUR-API-KEY", // In Node.js defaults to process.env.OPENAI_API_KEY
+
+});
+
+const res = await model.call(
+
+  "What would be a good company name a company that makes colorful socks?"
+
+);
+
+console.log({ res });
+
+```
+
+
+## Azure `OpenAI`
+
+```typescript
+import { OpenAI } from "langchain/llms/openai";
+
+
+
+const model = new OpenAI({
+
+  temperature: 0.9,
+
+  azureOpenAIApiKey: "YOUR-API-KEY",
+
+  azureOpenAIApiInstanceName: "YOUR-INSTANCE-NAME",
+
+  azureOpenAIApiDeploymentName: "YOUR-DEPLOYMENT-NAME",
+
+  azureOpenAIApiVersion: "YOUR-API-VERSION",
+
+});
+
+const res = await model.call(
+
+  "What would be a good company name a company that makes colorful socks?"
+
+);
+
+console.log({ res });
+
+```
+
+
+## Google Vertex AI
+
+Vertex AI实现适用于Node.js，而不适用于直接在浏览器中使用，因为它需要一个服务帐户来使用。
+
+在运行此代码之前，请确保您的Google Cloud控制台的相关项目已启用Vertex AI API，并且您已使用以下方法之一进行了身份验证:
+
+- 您已登录帐户（使用`gcloud auth application-default login`)
+- 您正在运行使用许可的服务帐户的计算机上
+
+- 您已下载了允许使用的服务帐户的凭据
+  permitted to that project.
+
+
+  to the project.
+
+```bash npm2yarn
+  to the project and set the `GOOGLE_APPLICATION_CREDENTIALS` environment
+
+  variable to the path of this file.
+
+
+## `HuggingFaceInference`
+
+```bash npm2yarn
+
+
+import GoogleVertexAIExample from "!!raw-loader!@examples/llms/googlevertexai.ts";
+
+
+<CodeBlock language="typescript">{GoogleVertexAIExample}</CodeBlock>
+
+
+## `Cohere`
+
+```bash npm2yarn
+npm install @huggingface/inference@1
+
+```
+
+
+```typescript
+import { HuggingFaceInference } from "langchain/llms/hf";
+
+
+
+const model = new HuggingFaceInference({
+
+  model: "gpt2",
+
+  apiKey: "YOUR-API-KEY", // In Node.js defaults to process.env.HUGGINGFACEHUB_API_KEY
+
+});
+
+const res = await model.call("1 + 1 =");
+
+console.log({ res });
+
+```
+
+
+## `Replicate`
+
+```bash npm2yarn
+npm install cohere-ai
+
+```
+
+
+```typescript
+import { Cohere } from "langchain/llms/cohere";
+
+
+
+const model = new Cohere({
+
+  maxTokens: 20,
+
+  apiKey: "YOUR-API-KEY", // In Node.js defaults to process.env.COHERE_API_KEY
+
+});
+
+const res = await model.call(
+
+  "What would be a good company name a company that makes colorful socks?"
+
+);
+
+console.log({ res });
+
+```
+
+
+## `AWS SageMakerEndpoint`
+
+查阅[AWS SageMaker JumpStart](https://aws.amazon.com/sagemaker/jumpstart/)了解可用模型列表以及如何部署您自己的模型。
+
+
+```typescript
+
+
+const model = new Replicate({
+
+  model:
+
+    "daanelson/flan-t5:04e422a9b85baed86a4f24981d7f9953e20c5fd82f6103b74ebc431588e1cec8",
+
+  apiKey: "YOUR-API-KEY", // In Node.js defaults to process.env.REPLICATE_API_KEY
+
+});
+
+const res = await modelA.call(
+
+  "What would be a good company name a company that makes colorful socks?"
+
+);
+
+console.log({ res });
+
+```
+
+
+## AWS `SageMakerEndpoint`
+
+查阅[AWS SageMaker JumpStart](https://aws.amazon.com/sagemaker/jumpstart/)了解可用模型列表以及如何部署您自己的模型。
+
+```bash npm2yarn
+npm install @aws-sdk/client-sagemaker-runtime
+
+```
+
+
+import SageMakerEndpointExample from "!!raw-loader!@examples/models/llm/sagemaker_endpoint.ts";
+
+
+<CodeBlock language="typescript">{SageMakerEndpointExample}</CodeBlock>
+
+
+## `AI21`
+
+
+您可以通过在他们的网站上注册API密钥 [https://www.ai21.com/]，使用AI21Labs的侏罗纪系列模型开始工作并查看可用的基础模型列表。
+
+
+import AI21Example from "!!raw-loader!@examples/models/llm/ai21.ts";
+
+
+
+<CodeBlock language="typescript">{AI21Example}</CodeBlock>
+
+
+
+## 其他LLM实现
+
+
+### `PromptLayerOpenAI`
+
+
+LangChain与PromptLayer集成，以记录和调试提示信息和响应。要添加对PromptLayer的支持，请执行以下操作:：
+
+
+1. 在此处创建PromptLayer帐户: [https://promptlayer.com](https://promptlayer.com)。
+2. 创建API令牌，并将其作为 `PromptLayerOpenAI` 构造函数中的 `promptLayerApiKey` 参数或 `PROMPTLAYER_API_KEY` 环境变量传递。
+
+
+```typescript
+import { PromptLayerOpenAI } from "langchain/llms/openai";
+
+
+
+const model = new PromptLayerOpenAI({
+
+  temperature: 0.9,
+
+  openAIApiKey: "YOUR-API-KEY", // In Node.js defaults to process.env.OPENAI_API_KEY
+
+  promptLayerApiKey: "YOUR-API-KEY", // In Node.js defaults to process.env.PROMPTLAYER_API_KEY
+
+});
+
+const res = await model.call(
+
+  "What would be a good company name a company that makes colorful socks?"
+
+);
+
+```
+
+您还可以传递可选的 `returnPromptLayerId` 布尔值，以获得如下 `promptLayerRequestId`
+You can also pass in the optional `returnPromptLayerId` boolean to get a `promptLayerRequestId` like below
+
+
+
+```typescript
+import { PromptLayerOpenAI } from "langchain/llms/openai";
+
+
+
+const model = new PromptLayerOpenAI({
+
+  temperature: 0.9,
+
+  openAIApiKey: "YOUR-API-KEY", // In Node.js defaults to process.env.OPENAI_API_KEY
+
+  promptLayerApiKey: "YOUR-API-KEY", // In Node.js defaults to process.env.PROMPTLAYER_API_KEY
+
+  returnPromptLayerId: true,
+
+});
+
+const res = await model.generate([
+
+  "What would be a good company name a company that makes colorful socks?",
+
+]);
+
+
+
+console.log(JSON.stringify(res, null, 3));
+
+
+
+/*
+
+  {
+
+    "generations": [
+
+      [
+
+        {
+
+          "text": " Socktastic!",
+
+          "generationInfo": {
+
+            "finishReason": "stop",
+
+            "logprobs": null,
+
+            "promptLayerRequestId": 2066417
+
+          }
+
+        }
+
+      ]
+
+    ],
+
+    "llmOutput": {
+
+      "tokenUsage": {
+
+        "completionTokens": 5,
+
+        "promptTokens": 23,
+
+        "totalTokens": 28
+
+      }
+
+    }
+
+  }
+
+*/
+
+```
+
+
+
+### Azure `PromptLayerOpenAI`
+
+
+LangChain与PromptLayer集成，以记录和调试提示信息和响应。要添加对PromptLayer的支持，请执行以下操作:：
+
+
+1. 在此处创建PromptLayer帐户: [https://promptlayer.com](https://promptlayer.com)。
+2. 创建API令牌，并将其作为 `PromptLayerOpenAI` 构造函数中的 `promptLayerApiKey` 参数或 `PROMPTLAYER_API_KEY` 环境变量传递。
+
+
+```typescript
+import { PromptLayerOpenAI } from "langchain/llms/openai";
+
+
+
+const model = new PromptLayerOpenAI({
+
+  temperature: 0.9,
+
+  azureOpenAIApiKey: "YOUR-AOAI-API-KEY", // In Node.js defaults to process.env.AZURE_OPENAI_API_KEY
+
+  azureOpenAIApiInstanceName: "YOUR-AOAI-INSTANCE-NAME", // In Node.js defaults to process.env.AZURE_OPENAI_API_INSTANCE_NAME
+
+  azureOpenAIApiDeploymentName: "YOUR-AOAI-DEPLOYMENT-NAME", // In Node.js defaults to process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME
+
+  azureOpenAIApiCompletionsDeploymentName:
+
+    "YOUR-AOAI-COMPLETIONS-DEPLOYMENT-NAME", // In Node.js defaults to process.env.AZURE_OPENAI_API_COMPLETIONS_DEPLOYMENT_NAME
+
+  azureOpenAIApiEmbeddingsDeploymentName:
+
+    "YOUR-AOAI-EMBEDDINGS-DEPLOYMENT-NAME", // In Node.js defaults to process.env.AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME
+
+  azureOpenAIApiVersion: "YOUR-AOAI-API-VERSION", // In Node.js defaults to process.env.AZURE_OPENAI_API_VERSION
+
+  promptLayerApiKey: "YOUR-API-KEY", // In Node.js defaults to process.env.PROMPTLAYER_API_KEY
+
+});
+
+const res = await model.call(
+
+  "What would be a good company name a company that makes colorful socks?"
+
+);
+
+```
+
+
+
+请求和响应将记录在 [PromptLayer仪表板](https://promptlayer.com/home) 中。
+
+
+> 注意：在流式模式下，PromptLayer 不会记录响应。
+

@@ -1,0 +1,40 @@
+---
+hide_table_of_contents: true
+---
+
+# 无结构
+
+本示例介绍如何使用[无结构](../../../../../ecosystem/unstructured)读取多种类型的文件。无结构目前支持加载文本文件、PPT、HTML、PDF、图片等。
+
+## 设置
+
+您可以在计算机上使用Docker运行无结构。要这样做，您需要安装Docker。您可以在此处找到安装Docker的说明 [here](https://docs.docker.com/get-docker/)。
+
+```bash
+docker run -p 8000:8000 -d --rm --name unstructured-api quay.io/unstructured-io/unstructured-api:latest --port 8000 --host 0.0.0.0
+
+```
+
+
+## 用法
+
+运行无结构后，您可以使用它从计算机中加载文件。您可以使用以下代码从计算机中加载文件。
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/document_loaders/unstructured.ts";
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+
+
+## 目录
+
+您还可以使用 'UnstructuredDirectoryLoader' 从目录中加载所有文件，其继承自 ['DirectoryLoader'](./directory.md)
+
+import DirectoryExample from "!!raw-loader!@examples/document_loaders/unstructured_directory.ts";
+
+
+
+<CodeBlock language="typescript">{DirectoryExample}</CodeBlock>
+

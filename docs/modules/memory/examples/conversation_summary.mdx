@@ -1,0 +1,36 @@
+---
+hide_table_of_contents: true
+sidebar_label: Conversation Summary（对话总结)
+---
+
+
+import CodeBlock from "@theme/CodeBlock";
+
+
+
+# Conversation Summary Memory（对话总结记忆)
+
+
+对话总结记忆会在对话进行时对其进行总结并储存在记忆中。这个记忆能够被用于将当前对话总结注入到提示/链中。这个记忆在对较长的对话进行总结时非常有用，因为直接在提示中保留所有过去的对话历史信息将会占用过多的token。
+
+
+## Usage（使用方法)，与LLM一起使用
+
+
+import TextExample from "!!raw-loader!@examples/memory/summary_llm.ts";
+
+
+
+<CodeBlock language="typescript">{TextExample}</CodeBlock>
+
+
+
+## Usage（使用方法)，与聊天模型一起使用
+
+
+import ChatExample from "!!raw-loader!@examples/memory/summary_chat.ts";
+
+
+
+<CodeBlock language="typescript">{ChatExample}</CodeBlock>
+

@@ -1,0 +1,18 @@
+# 自查Pinecone检索器
+
+自查检索器具备查询自身的能力，正如其名称所示。具体地说，对于任何自然语言查询，检索器使用基于查询结构构建的LLM链来编写结构化查询，然后将该结构化查询应用于其底层向量存储。这不仅允许检索器使用用户输入的查询与所存储文件内容进行语义相似性比较，还可以从用户查询中提取有关存储文档元数据的过滤器并执行这些过滤器。[注：LLM链，指的是“罗杰局部语言模型”，是一种NLP技术]
+
+本示例使用Pinecone向量存储。
+
+## 用法
+
+本示例演示如何使用向量存储来初始化`SelfQueryRetriever`。:
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/retrievers/pinecone_self_query.ts";
+
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+

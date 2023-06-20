@@ -1,0 +1,26 @@
+---
+hide_table_of_contents: true
+sidebar_position: 2
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/agents/plan_and_execute.ts";
+
+
+# 计划执行代理
+
+这个例子展示了如何使用一个使用计划执行框架来回答查询的代理。
+该框架与其他目前支持的代理（全部被归类为行动代理)的工作方式不同，因为它使用了一个两步过程:。
+
+1. 首先，代理使用 LLM 创建一个带有明确步骤的计划来回答查询。
+2. 一旦它有了计划，它就使用嵌入式传统行动代理来解决每一步。
+
+这个想法是计划步骤通过将一个较大的任务分解成更简单的子任务，使 LLM 保持更“在轨道”上。
+然而，这种方法需要更多的单独 LLM 查询，并且与行动代理相比具有更高的延迟。
+
+**注**: 这个代理目前只支持聊天模型。
+
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+

@@ -1,0 +1,34 @@
+---
+hide_table_of_contents: true
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+
+# Momento支持的聊天记录
+
+如果要在聊天会话中使用分布式、无服务器的持久性,可以使用Momento支持的聊天消息历史记录，即刻缓存，无需任何基础设施维护,无论是在本地构建还是在生产环境中都是一个很好的起点。
+
+
+## 设置
+
+在项目中安装[Momento客户端库](https://github.com/momentohq/client-sdk-javascript):
+
+```bash npm2yarn
+npm install @gomomento/sdk
+
+```
+
+
+您还需要从[Momento](https://gomomento.com/)获得API密钥。您可以在此处签署免费帐户[这里](https://console.gomomento.com/)。
+
+## 用法
+
+为了区分一个聊天历史记录会话和另一个会话,我们需要一个唯一的“sessionId”。您还可以提供一个可选的“sessionTtl”，以使会话在给定的秒数后过期。
+
+import MomentoExample from "!!raw-loader!@examples/memory/momento.ts";
+
+
+
+<CodeBlock language="typescript">{MomentoExample}</CodeBlock>
+

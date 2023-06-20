@@ -1,0 +1,65 @@
+---
+hide_table_of_contents: true
+sidebar_label: 提示选择器
+---
+
+# 提示选择器
+
+:::info
+[概念指南](https://docs.langchain.com/docs/components/chains/prompt-selector)
+:::
+
+通常， 根据链中使用的模型类型，您会想要以编程方式选择提示。特别是在交换聊天模型和LLM时，这尤其重要。
+
+提示选择器的界面非常简单。:
+
+```typescript
+abstract class BasePromptSelector {
+
+  abstract getPrompt(llm: BaseLanguageModel): BasePromptTemplate;
+
+}
+
+```
+
+
+getPrompt方法接受一个语言模型并返回一个适当的提示模板。
+
+我们目前提供了一个ConditionalPromptSelector，允许您指定一组条件和提示模板。评估为true的第一个条件将用于选择提示模板。
+
+```typescript
+const QA_PROMPT_SELECTOR = new ConditionalPromptSelector(DEFAULT_QA_PROMPT, [
+
+  [isChatModel, CHAT_PROMPT],
+
+]);
+
+```
+
+
+如果该模型不是聊天模型，则返回`DEFAULT_QA_PROMPT`，如果是，则返回`CHAT_PROMPT`。
+
+下面的示例展示了如何在加载链时使用提示选择器。:
+
+```typescript
+
+const loadQAStuffChain = (
+
+  llm: BaseLanguageModel,
+
+  params: StuffQAChainParams = {}
+
+) => {
+
+  const { prompt = QA_PROMPT_SELECTOR.getPrompt(llm) } = params;
+
+  const llmChain = new LLMChain({ prompt, llm });
+
+  const chain = new StuffDocumentsChain({ llmChain });
+
+  return chain;
+
+};
+
+```
+

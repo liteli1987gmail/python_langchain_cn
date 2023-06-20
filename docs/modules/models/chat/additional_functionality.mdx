@@ -1,0 +1,103 @@
+---
+sidebar_label: 附加功能
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+import Example from "!!raw-loader!@examples/models/chat/chat.ts";
+
+import StreamingExample from "!!raw-loader!@examples/models/chat/chat_streaming.ts";
+
+import TimeoutExample from "!!raw-loader!@examples/models/chat/chat_timeout.ts";
+
+import CancellationExample from "!!raw-loader!@examples/models/chat/chat_cancellation.ts";
+
+import DebuggingExample from "!!raw-loader!@examples/models/chat/chat_debugging.ts";
+
+
+# 附加功能: 聊天模型
+
+我们为聊天模型提供了许多附加功能。在以下示例中，我们将使用 `ChatOpenAI` 模型。
+
+## 附加方法
+
+L angChain 为与聊天模型交互提供了许多附加方法:
+
+<CodeBlock language="typescript">{Example}</CodeBlock>
+
+
+## 流式传输
+
+与 LLMs 类似，您可以从聊天模型中流式传输响应。这对于需要实时响应用户输入的聊天机器人非常有用。
+
+<CodeBlock language="typescript">{StreamingExample}</CodeBlock>
+
+
+## 添加超时
+
+默认情况下，LangChain 会无限期等待模型提供者的响应。如果您想添加超时，可以在调用模型时传递一个以毫秒为单位的 `timeout` 选项。例如，对于 OpenAI:
+
+<CodeBlock language="typescript">{TimeoutExample}</CodeBlock>
+
+
+## 取消请求
+
+您可以在调用模型时通过传递 `signal` 选项来取消请求。例如，对于 OpenAI:
+
+<CodeBlock language="typescript">{CancellationExample}</CodeBlock>
+
+
+注意，只有底层提供程序暴露该选项时，才会取消正在进行的请求。如果可能，LangChain 将取消底层请求，否则将取消响应的处理。
+
+## 处理速率限制
+
+一些提供程序具有速率限制。如果超过速率限制，您将收到错误提示。为帮助您处理这种情况，LangChain 在实例化聊天模型时提供了 `maxConcurrency` 选项。该选项允许您指定要向提供程序发出的并发请求的最大数量。如果超出此数字，则 LangChain 将自动将您的请求排队，以在之前的请求完成后发送。
+
+
+例如，如果您设置`maxConcurrency:5`，则LangChain一次仅会向提供程序发送5个请求。如果您发送10个请求，则会立即发送前5个请求，并将下一个5个请求排队。一旦前5个请求中的一个完成，队列中的下一个请求将被发送。
+
+
+要使用此功能，只需在实例化LLM时传递`maxConcurrency:<number>`即可。例如：
+
+
+```typescript
+
+import { ChatOpenAI } from "langchain/chat_models/openai";
+
+
+
+const model = new ChatOpenAI({ maxConcurrency: 5 });
+
+```
+
+
+
+## 处理API错误
+
+
+如果模型提供程序从其API返回错误，则默认情况下，LangChain将在指数回退上重试最多6次。这使得错误恢复无需任何额外的努力。如果您想更改此行为，则可以在实例化模型时传递`maxRetries`选项。例如@＃：
+
+
+```typescript
+
+import { ChatOpenAI } from "langchain/chat_models/openai";
+
+
+
+const model = new ChatOpenAI({ maxRetries: 10 });
+
+```
+
+
+
+## 订阅事件
+
+
+特别是使用代理时，作为聊天模型处理提示时可能会有很多事情来回发生。对于代理，响应对象包含一个intermediateSteps对象，您可以打印以查看它所采取的步骤概述。如果这还不够，您想查看与聊天模型的每个交换，您可以将回调传递给聊天模型以进行自定义日志记录（或任何其他您想要执行的操作)，因为模型通过这些步骤@＃。
+
+有关可用事件的更多信息，请参见文档中的回调（Callbacks）[Callbacks](/docs/production/callbacks/)部分。
+
+
+
+<CodeBlock language="typescript">{DebuggingExample}</CodeBlock>
+

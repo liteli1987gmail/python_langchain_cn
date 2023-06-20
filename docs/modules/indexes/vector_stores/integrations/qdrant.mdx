@@ -1,0 +1,89 @@
+---
+sidebar_class_name: 只适用于Node.js
+---
+
+# Qdrant
+
+[Qdrant](https://qdrant.tech/) 是一个向量相似度搜索引擎。它提供了一个方便的API来存储、搜索和管理带有附加有效负载的点 - 向量。
+
+:::tip 兼容性
+仅适用于Node.js。
+:::
+
+## 配置
+
+1. 根据 [Qdrant 设置说明](https://qdrant.tech/documentation/install/) 在您的计算机上使用Docker运行Qdrant实例。
+2. 安装Qdrant Node.js SDK。
+
+   ```bash npm2yarn
+
+   npm install -S @qdrant/js-client-rest
+
+   ```
+
+
+3. 运行代码前为Qdrant设置Env变量。
+
+   3.1 OpenAI
+
+
+   ```bash
+
+   export OPENAI_API_KEY=YOUR_OPENAI_API_KEY_HERE
+
+   export QDRANT_URL=YOUR_QDRANT_URL_HERE # for example http://localhost:6333
+
+   ```
+
+
+   3.2 Azure OpenAI
+
+
+   ```bash
+
+   export AZURE_OPENAI_API_KEY=YOUR_AZURE_OPENAI_API_KEY_HERE
+
+   export AZURE_OPENAI_API_INSTANCE_NAME=YOUR_AZURE_OPENAI_INSTANCE_NAME_HERE
+
+   export AZURE_OPENAI_API_DEPLOYMENT_NAME=YOUR_AZURE_OPENAI_DEPLOYMENT_NAME_HERE
+
+   export AZURE_OPENAI_API_COMPLETIONS_DEPLOYMENT_NAME=YOUR_AZURE_OPENAI_COMPLETIONS_DEPLOYMENT_NAME_HERE
+
+   export AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME=YOUR_AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT_NAME_HERE
+
+   export AZURE_OPENAI_API_VERSION=YOUR_AZURE_OPENAI_API_VERSION_HERE
+
+   export QDRANT_URL=YOUR_QDRANT_URL_HERE # for example http://localhost:6333
+
+   ```
+
+
+import CodeBlock from "@theme/CodeBlock";
+
+
+## 用法
+
+### 从文本中创建新的索引
+
+import TextsExample from "!!raw-loader!@examples/indexes/vector_stores/qdrant/fromTexts.ts";
+
+
+<CodeBlock language="typescript">{TextsExample}</CodeBlock>
+
+
+### 从文档中创建新的索引
+
+import DocsExample from "!!raw-loader!@examples/indexes/vector_stores/qdrant/fromDocs.ts";
+
+
+<CodeBlock language="typescript">{DocsExample}</CodeBlock>
+
+
+### 从现有集合查询文档
+
+import ExistingExample from "!!raw-loader!@examples/indexes/vector_stores/qdrant/fromExisting.ts";
+
+
+
+<CodeBlock language="typescript">{ExistingExample}</CodeBlock>
+

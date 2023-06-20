@@ -1,0 +1,43 @@
+---
+sidebar_class_name: 仅限节点
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+
+# MyScale
+
+:::info 兼容性
+仅在Node.js上可用。
+:::
+
+[MyScale](https://myscale.com/)是一款新兴的人工智能数据库，将向量搜索和SQL分析的强大功能相结合，提供管理、高效、响应迅速的体验。
+
+## 安装
+
+1. 通过[MyScale Web控制台](https://console.myscale.com/)启动集群。更多信息请参见[MyScale官方文档](https://docs.myscale.com/zh-CN/quickstart/)。
+2. 启动集群后，请从集群的“操作”菜单中查看您的“连接详细信息”。您需要主机名、端口、用户名和密码。
+3. 在您的工作区中安装所需的Node.js版本。
+
+```bash npm2yarn
+npm install -S @clickhouse/client
+
+```
+
+
+## 索引与查询文档
+
+import InsertExample from "!!raw-loader!@examples/indexes/vector_stores/myscale_fromTexts.ts";
+
+
+<CodeBlock language="typescript">{InsertExample}</CodeBlock>
+
+
+## 从现有集合中查询文档
+
+import SearchExample from "!!raw-loader!@examples/indexes/vector_stores/myscale_search.ts";
+
+
+
+<CodeBlock language="typescript">{SearchExample}</CodeBlock>
+

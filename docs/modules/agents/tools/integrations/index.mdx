@@ -1,0 +1,48 @@
+---
+sidebar_label: 集成
+hide_table_of_contents: true
+sidebar_position: 1
+---
+
+import DocCardList from "@theme/DocCardList";
+
+
+# 集成: 工具
+
+LangChain提供以下可立即使用的工具:
+
+- [`AWSLambda`][AWSLambda] - AWS Lambda API的包装器，通过Amazon Web Services Node.js SDK调用。对于触发具有您需要提供给代理的任何行为的无服务器函数很有用。
+- [`BingSerpAPI`][BingSerpAPI] - Bing Search API的包装器。在需要回答有关当前事件的问题时很有用。输入应该是一个搜索查询。
+- [`BraveSearch`][BraveSearch] - Brave Search API的包装器。在需要回答有关当前事件的问题时很有用。输入应该是一个搜索查询。
+- [`Calculator`][Calculator] - 用于获取数学表达式的结果。这个工具的输入应该是一个可以由简单计算器执行的有效的数学表达式。
+- [`GoogleCustomSearch`][GoogleCustomSearch] - Google Custom Search API的包装器。在需要回答有关当前事件的问题时很有用。输入应该是一个搜索查询。
+- [`IFTTTWebHook`][IFTTTWebHook] - IFTTT Webhook API的包装器。用于触发IFTTT动作。
+- [`JsonListKeysTool`][JsonListKeysTool]和[`JsonGetValueTool`][JsonGetValueTool] - 用于从JSON对象中提取数据。这些工具可在[`JsonToolkit`][JsonToolkit]中集体使用。
+- [`RequestsGetTool`][RequestsGetTool]和[`RequestsPostTool`][RequestsPostTool] - 用于发出HTTP请求。
+- [`SerpAPI`][SerpAPI] - A wrapper around the SerpAPI API. Useful for when you need to answer questions about current events. Input should be a search query.
+
+- [`QuerySqlTool`][查询SQL工具]， [`InfoSqlTool`][信息SQL工具]， [`ListTablesSqlTool`][列出表格SQL工具]， 和 [`QueryCheckerTool`][查询检查工具] - 用于与SQL数据库进行交互。可以与 [`SqlToolkit`][SQL工具包] 一起使用。
+- [`VectorStoreQATool`][向量存储问答工具] - 可用于从向量存储中检索相关文本数据。
+- [`ZapierNLARunAction`][ZapierNLA运行操作] - 封装了Zapier NLP API。用于以自然语言输入触发Zapier操作。最好与 [`ZapierToolkit`][Zapier工具包] 一起使用。
+
+[AWSLambda]: /docs/api/tools_aws_lambda/classes/AWSLambda
+[BingSerpAPI]: /docs/api/tools/classes/BingSerpAPI
+[BraveSearch]: /docs/api/tools/classes/BraveSearch
+[Calculator]: /docs/api/tools_calculator/classes/Calculator
+[GoogleCustomSearch]: /docs/api/tools/classes/GoogleCustomSearch
+[IFTTTWebHook]: /docs/api/tools/classes/IFTTTWebHook
+[JsonListKeysTool]: /docs/api/tools/classes/JsonListKeysTool
+[JsonGetValueTool]: /docs/api/tools/classes/JsonGetValueTool
+[JsonToolkit]: ../../toolkits/json
+[RequestsGetTool]: /docs/api/tools/classes/RequestsGetTool
+[RequestsPostTool]: /docs/api/tools/classes/RequestsPostTool
+[SerpAPI]: /docs/api/tools/classes/SerpAPI
+[QuerySqlTool]: /docs/api/tools/classes/QuerySqlTool
+[InfoSqlTool]: /docs/api/tools/classes/InfoSqlTool
+[ListTablesSqlTool]: /docs/api/tools/classes/ListTablesSqlTool
+[QueryCheckerTool]: /docs/api/tools/classes/QueryCheckerTool
+[SqlToolkit]: ../../toolkits/sql
+[VectorStoreQATool]: /docs/api/tools/classes/VectorStoreQATool
+[ZapierNLARunAction]: /docs/api/tools/classes/ZapierNLARunAction
+[ZapierToolkit]: ../zapier_agent
+

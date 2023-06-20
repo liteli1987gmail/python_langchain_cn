@@ -1,0 +1,66 @@
+---
+hide_table_of_contents: true
+sidebar_class_name: node-only
+---
+
+# Apify 数据集
+
+本指南展示如何使用 [Apify](https://apify.com) 和 LangChain 从 Apify 数据集中加载文档。
+
+## 概述
+
+[Apify](https://apify.com) 是一个云端网页抓取和数据提取平台，
+提供了一个包含一千多个现成应用程序（称作 _Actors_)的 [生态系统](https://apify.com/store)，用于各种网络抓取，爬取，和数据提取的用例。
+
+本指南展示如何加载文档
+用于存储结构化网络抓取结果的存储空间，
+from an [Apify Dataset](https://docs.apify.com/platform/storage/dataset) — a scalable append-only
+
+例如产品列表或 Google SERPs 等，然后将它们导出到各种格式，如 JSON， CSV， 或 Excel。
+
+数据集通常用于保存演员的结果。
+例如， [网站内容爬虫](https://apify.com/apify/website-content-crawler) 演员，
+
+深度爬取网站，如文档，知识库，帮助中心或博客等，并将网页的文本内容存储到数据集中。，
+
+## 设置
+
+您首先需要安装官方的 Apify 客户端:
+
+```npm2yarn
+
+npm install apify-client
+
+```
+
+您还需要注册并获取您的 [Apify API 令牌](https://console.apify.com/account/integrations)。
+
+## 用法
+
+### 从新数据集
+
+如果您尚未在 Apify 平台上拥有现有数据集，则需要调用 Actor 并等待结果来初始化文档加载程序。
+
+**注意:** 调用演员可能需要很长时间，大约需要数小时或甚至数日来处理大型网站！
+
+
+以下是一个例子:
+
+import CodeBlock from "@theme/CodeBlock";
+
+import NewExample from "!!raw-loader!@examples/document_loaders/apify_dataset_new.ts";
+
+
+<CodeBlock language="typescript">{NewExample}</CodeBlock>
+
+
+## 来自现有数据集
+
+如果您已经在Apify平台上拥有现有的数据集，您可以直接使用构造函数初始化文档加载器:
+
+import ExistingExample from "!!raw-loader!@examples/document_loaders/apify_dataset_existing.ts";
+
+
+
+<CodeBlock language="typescript">{ExistingExample}</CodeBlock>
+

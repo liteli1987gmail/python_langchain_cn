@@ -1,0 +1,65 @@
+---
+sidebar_class_name: 仅限Node
+---
+
+import CodeBlock from "@theme/CodeBlock";
+
+
+# HNSWLib
+
+:::info 兼容性
+仅适用于Node.js。
+:::
+
+HNSWLib是一个内存向量存储器，可以保存到文件中。它使用[HNSWLib](https://github.com/nmslib/hnswlib)。
+
+## 设置
+
+:::注意
+
+ **在Windows上**，你可能需要先安装[Visual Studio](https://visualstudio.microsoft.com/downloads/)才能正确构建`hnswlib-node`包。
+
+:::
+
+您可以通过以下方式进行安装
+
+```bash npm2yarn
+npm install hnswlib-node
+
+```
+
+
+## 用法
+
+### 从文本创建新索引
+
+import ExampleTexts from "!!raw-loader!@examples/indexes/vector_stores/hnswlib.ts";
+
+
+<CodeBlock language="typescript">{ExampleTexts}</CodeBlock>
+
+
+### 从加载器创建新索引
+
+import ExampleLoader from "!!raw-loader!@examples/indexes/vector_stores/hnswlib_fromdocs.ts";
+
+
+<CodeBlock language="typescript">{ExampleLoader}</CodeBlock>
+
+
+### 将索引保存到文件并重新加载
+
+import ExampleSave from "!!raw-loader!@examples/indexes/vector_stores/hnswlib_saveload.ts";
+
+
+<CodeBlock language="typescript">{ExampleSave}</CodeBlock>
+
+
+### 过滤文档
+
+import ExampleFilter from "!!raw-loader!@examples/indexes/vector_stores/hnswlib_filter.ts";
+
+
+
+<CodeBlock language="typescript">{ExampleFilter}</CodeBlock>
+

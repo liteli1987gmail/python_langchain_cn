@@ -1,0 +1,17 @@
+import CodeBlock from "@theme/CodeBlock";
+
+
+# 生成式智能体
+
+import GenerativeAgentsScript from "!!raw-loader!@examples/experimental/generative_agents/generative_agents.ts";
+
+
+该脚本实现了一种基于论文[Generating Agents  交互式仿真人类行为](https  //arxiv.org/abs/2304.03442)的生成式智能体, 作者为Park et.al. 
+
+在其中，我们利用了由LangChain检索器支持的时态加权记忆体对象。
+下面的脚本创建了两个生成式智能体的实例Tommy和Eve，并通过他们的观察运行了一个交互的模拟。
+Tommy扮演一个搬到新城镇寻找工作的人，Eve则扮演职业顾问。
+
+
+<CodeBlock language="typescript">{GenerativeAgentsScript}</CodeBlock>
+

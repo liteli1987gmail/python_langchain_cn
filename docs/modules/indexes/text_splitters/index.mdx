@@ -1,0 +1,128 @@
+---
+sidebar_label: 文本分割器（Text Splitters)
+hide_table_of_contents: true
+sidebar_position: 2
+---
+
+import DocCardList from "@theme/DocCardList";
+
+import CodeBlock from "@theme/CodeBlock";
+
+
+# 入门: 文本分割器（Text Splitters)
+
+:::info
+[概念指南](https://docs.langchain.com/docs/components/indexing/text-splitters)
+:::
+
+语言模型通常受到可以传递给它们的文本数量的限制，因此将文本分割为较小的块是必要的。
+
+LangChain提供了几种实用工具来完成此操作。
+
+使用文本分割器也可以帮助改善向量存储的搜索结果，因为较小的块有时更容易匹配查询。
+
+测试不同的块大小（和块重叠)是一个值得的练习，以适应您的用例。
+
+## 参数
+
+- `chunkSize?: number = 1000`: 每个块中最大字符数。默认值为1000个标记（tokens)。
+- `chunkOverlap?: number = 200`: 相邻块之间重叠的字符数。默认值为200个标记（tokens)。
+
+```typescript
+type TextSplitterChunkHeaderOptions = {
+
+  chunkHeader?: string;
+
+  chunkOverlapHeader?: string;
+
+  appendChunkOverlapHeader?: boolean;
+
+};
+
+
+
+interface TextSplitter {
+
+  chunkSize: number;
+
+
+
+  chunkOverlap: number;
+
+
+
+  createDocuments(
+
+    texts: string[],
+
+    metadatas?: Record<string, any>[],
+
+    chunkHeaderOptions: TextSplitterChunkHeaderOptions = {}
+
+  ): Promise<Document[]>;
+
+
+
+  splitDocuments(
+
+    documents: Document[],
+
+    chunkHeaderOptions: TextSplitterChunkHeaderOptions = {}
+
+  ): Promise<Document[]>;
+
+}
+
+```
+
+
+文本分割器提供了两种方法：， `createDocuments` 和 `splitDocuments`。
+
+前者获取原始文本字符串的列表并返回文档的列表，后者获取文档列表并返回文档的列表。
+
+区别在于 `createDocuments` 将原始文本字符串拆分成块，而 `splitDocuments` 将文档拆分成块。
+
+### 何时使用 `chunkHeaderOptions`
+
+仅仅通过重叠文本来分割文档可能无法提供足够的上下文信息，让LLMs确定多个块是否引用了相同的信息或如何解决来自相互矛盾的源的信息。
+
+
+给每个文档打标签是一个解决方案，如果你知道需要过滤哪些信息，但是你可能事先不知道你的向量存储将需要处理哪些查询。
+在每个块中直接包含其他上下文信息，例如标题，可以帮助处理任意查询。
+
+
+Here's an example:
+
+
+
+import ChunkHeaderExample from "!!raw-loader!@examples/indexes/text_splitter_with_chunk_header.ts";
+
+
+
+<CodeBlock language="typescript">{ChunkHeaderExample}</CodeBlock>;
+
+
+
+## All Text Splitters
+
+
+
+<DocCardList />
+
+
+
+## 高级
+
+如果你想要实现自己的定制文本分割器，你只需要继承`TextSplitter`类并且实现一个方法`splitText`即可。该方法接收一个字符串作为输入，并返回一个字符串列表。返回的字符串列表将被用作输入数据的分块。
+
+
+```typescript
+
+abstract class TextSplitter {
+
+  abstract splitText(text: string): Promise<string[]>;
+
+}
+
+```
+
