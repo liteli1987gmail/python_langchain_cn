@@ -149,7 +149,7 @@ const config = {
             position: "left",
           },
           {
-            to: "/docs/get_started/introduction",
+            to: "/docs/",
             label: "Python Docs",
             position: "left",
           },
@@ -236,5 +236,4 @@ const config = {
       },
     }),
 };
-console.log(config)
 module.exports = config;
