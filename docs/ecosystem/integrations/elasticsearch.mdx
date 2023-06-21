@@ -1,0 +1,24 @@
+# Elasticsearch
+
+>[Elasticsearch](https://www.elastic.co/elasticsearch/) 是一个分布式的、RESTful的搜索和分析引擎。
+> 它提供了一个分布式的、多租户的全文搜索引擎，具有HTTP Web界面和无模式（schema-free）的JSON文档。
+> JSON文档。
+
+
+## 安装和设置
+
+```bash
+pip install elasticsearch
+```
+
+## 检索器
+
+>在信息检索中，[Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25)（BM是最佳匹配的缩写）是搜索引擎中用于估计文档与给定搜索查询相关性的排名函数。它是基于20世纪70年代和80年代由Stephen E. Robertson、Karen Spärck Jones等人开发的概率检索框架。
+
+>实际排名函数的名称是BM25。更完整的名称是Okapi BM25，其中包含了第一个使用它的系统的名称，它是在20世纪80年代和90年代在伦敦城市大学实施的Okapi信息检索系统。BM25及其更新的变体（例如，可以考虑文档结构和锚文本的BM25F版本）代表在文档检索中使用的类似TF-IDF的检索函数。
+
+查看一个[使用示例](/docs/modules/data_connection/retrievers/integrations/elastic_search_bm25.html)。
+
+```python
+from langchain.retrievers import ElasticSearchBM25Retriever
+```

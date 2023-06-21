@@ -1,0 +1,27 @@
+# 提取 extraction
+
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+
+
+大多数API和数据库仍然处理结构化信息。
+因此，为了更好地处理这些信息，从文本中提取结构化信息是有用的。
+例如：
+
+- 从句子中提取一个结构化行以插入数据库
+- 从长文档中提取多个行以插入数据库
+- 从用户查询中提取正确的API参数
+
+这项工作与[输出解析](/docs/modules/prompts/output_parsers.html)密切相关。
+输出解析器负责指导LLM以特定格式进行响应。
+在这种情况下，输出解析器指定了您希望从文档中提取的数据的格式。
+此外，除了输出格式指令，提示还应包含您希望提取信息的数据。
+
+尽管普通的输出解析器足以对响应数据进行基本的结构化处理，
+但在进行提取时，您经常希望提取更复杂或嵌套的结构。
+如果您想深入了解提取，请查看[`kor`](https://eyurtsev.github.io/kor/)，
+这是一个使用现有的LangChain链和OutputParser抽象的库
+但是允许提取更复杂模式的深入研究。

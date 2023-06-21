@@ -1,0 +1,49 @@
+# 代理（Agents）
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+
+
+代理（Agents）可以用于各种任务。
+代理（Agents）将语言模型的决策能力与工具相结合，以创建一个可以代表您执行和实现解决方案的系统
+在继续阅读之前，强烈建议您阅读`agent`模块中的文档，以更好地理解与代理（agents）相关的概念。
+具体而言，在继续阅读之前，您应该熟悉`agent`、`tool`和`agent executor`的抽象概念。
+- [代理（Agent）文档](/docs/modules/agents.html)（用于与外部世界进行交互）
+
+## 创建自己的代理（Agent）
+
+## Create Your Own Agent
+
+阅读完文档后，您应该准备创建自己的代理（Agent）。
+那具体是什么意思？
+以下是我们建议开始创建自己的代理（Agent）的方式：
+
+### 第1步：创建工具（Tools）
+
+代理（Agents）的定义很大程度上取决于它们可以使用的工具（Tools）。
+如果您有特定的任务要求代理（Agent）完成，您必须使其能够访问合适的工具（Tools）。
+我们在LangChain中本地提供了许多工具（Tools），因此您应首先查看是否有任何工具（Tools）满足您的需求。
+但我们也提供了定义自定义工具（Tools）的简化方式，所以如果您需要自定义工具（Tools），绝对可以这样做。
+
+### （可选）第2步：修改代理（Agent）
+
+内置的LangChain代理（Agent）类型被设计用于在一般情况下发挥良好的作用，
+但是通过修改代理（Agent）实现，您可能能够提高性能。
+有几种方法可以做到这一点：
+
+1. 修改基本提示（base prompt）。这可用于为代理（Agent）提供更多关于其行为方式等方面的上下文。
+2. 修改输出解析器（output parser）。如果代理（Agent）在解析语言模型输出时遇到问题，这是必要的。
+
+### （可选）第3步：修改代理执行器（Agent Executor）
+
+通常情况下，这一步骤是不必要的，因为这是相当通用的逻辑。
+您希望修改此部分的原因可能包括添加不同的停止条件或处理错误。
+
+## 示例
+
+代理（Agent）的具体示例包括：
+
+- [AI插件代理（AI Plugins）](./custom_agent_with_plugin_retrieval.html)：一个实现了能够使用所有AI插件的代理（Agent）。
+- [Plug-and-PlAI（插件数据库）](./custom_agent_with_plugin_retrieval_using_plugnplai.html)：一个实现了能够使用从PlugNPlAI检索到的所有AI插件的代理（Agent）。
+- [Wikibase代理（Agent）](./wikibase_agent.html)：一个与Wikibase进行交互的代理（Agent）的实现。
+- [销售GPT代理（Sales GPT）](./sales_agent_with_context.html)：此notebook演示了一个上下文感知的AI销售代理（Agent）的实现。
+- [多模态输出代理（Agent）](./multi_modal_output_agent.html)：一个可以生成文本和图像的多模态输出代理（Agent）的实现。

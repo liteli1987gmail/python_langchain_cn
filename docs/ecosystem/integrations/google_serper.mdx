@@ -1,0 +1,73 @@
+# Google Serper（谷歌搜索引擎）
+
+本页面介绍了如何在LangChain中使用[Serper](https://serper.dev)谷歌搜索API。Serper是一个低成本的谷歌搜索API，可用于从谷歌搜索中添加答案框、知识图谱和有机搜索结果数据。
+它分为两个部分：设置和特定谷歌Serper包装的参考。
+
+## 设置
+- 前往[serper.dev](https://serper.dev)注册免费帐户
+- 获取API密钥并将其设置为环境变量（`SERPER_API_KEY`）
+
+## 包装器
+
+### 实用工具
+
+存在一个GoogleSerperAPIWrapper实用工具，用于封装此API。要导入此实用工具：
+
+```python
+from langchain.utilities import GoogleSerperAPIWrapper
+```
+
+您可以将其作为Self Ask链的一部分使用：
+
+```python
+from langchain.utilities import GoogleSerperAPIWrapper
+from langchain.llms.openai import OpenAI
+from langchain.agents import initialize_agent, Tool
+from langchain.agents import AgentType
+
+import os
+
+os.environ["SERPER_API_KEY"] = ""
+os.environ['OPENAI_API_KEY'] = ""
+
+llm = OpenAI(temperature=0)
+search = GoogleSerperAPIWrapper()
+tools = [
+    Tool(
+        name="Intermediate Answer",
+        func=search.run,
+        description="useful for when you need to ask with search"
+    )
+]
+
+self_ask_with_search = initialize_agent(tools, llm, agent=AgentType.SELF_ASK_WITH_SEARCH, verbose=True)
+self_ask_with_search.run("What is the hometown of the reigning men's U.S. Open champion?")
+```
+
+#### 输出
+```
+Entering new AgentExecutor chain...
+ Yes.
+Follow up: Who is the reigning men's U.S. Open champion?
+Intermediate answer: Current champions Carlos Alcaraz, 2022 men's singles champion.
+Follow up: Where is Carlos Alcaraz from?
+Intermediate answer: El Palmar, Spain
+So the final answer is: El Palmar, Spain
+
+> Finished chain.
+
+'El Palmar, Spain'
+```
+
+有关此包装器的更详细演示，请参阅[此笔记本](/docs/modules/agents/tools/integrations/google_serper.html)。
+
+### 工具
+
+您还可以将此包装器轻松加载为工具（用于与Agent一起使用）。
+您可以通过以下方式实现：
+```python
+from langchain.agents import load_tools
+tools = load_tools(["google-serper"])
+```
+
+有关更多信息，请参阅[此页面](/docs/modules/agents/tools/getting_started.md)

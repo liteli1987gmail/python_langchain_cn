@@ -1,0 +1,29 @@
+# PGVector
+
+本页面介绍如何在LangChain中使用Postgres [PGVector](https://github.com/pgvector/pgvector)生态系统
+它分为两部分：安装和设置，以及对特定PGVector包装器的引用。
+
+## 安装
+- 使用 `pip install pgvector` 安装Python包
+
+
+## 设置
+1. 第一步是创建一个安装了 `pgvector` 扩展的数据库。
+
+    按照[PGVector安装步骤](https://github.com/pgvector/pgvector#installation)中的步骤来安装数据库和扩展。使用Docker镜像是最简单的入门方式。
+
+## 包装器
+
+### VectorStore
+
+存在一个围绕Postgres向量数据库的包装器，允许您将其用作向量存储，
+无论是用于语义搜索还是示例选择。
+
+要导入此向量存储：
+```python
+from langchain.vectorstores.pgvector import PGVector
+```
+
+### 用法
+
+有关PGVector包装器的更详细演示，请参阅[此笔记本](/docs/modules/data_connection/vectorstores/integrations/pgvector.html)

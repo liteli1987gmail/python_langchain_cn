@@ -1,0 +1,17 @@
+# 验证模板 validate_template
+
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+
+默认情况下，`PromptTemplate`会通过检查`input_variables`是否与`template`中定义的变量匹配来验证`template`字符串。您可以将`validate_template`设置为`False`来禁用此行为。
+
+```python
+template = "I am learning langchain because {reason}."
+
+prompt_template = PromptTemplate(template=template,
+                                 input_variables=["reason", "foo"]) # ValueError due to extra variables
+prompt_template = PromptTemplate(template=template,
+                                 input_variables=["reason", "foo"],
+                                 validate_template=False) # No error
+```
+

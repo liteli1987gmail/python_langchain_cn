@@ -1,5 +1,8 @@
 # Map reduce（Map Reduce）
 
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+
 map reduce文档链首先将LLM链应用于每个单独的文档（Map步骤），将链的输出视为新文档。然后将所有新文档传递给单独的合并文档链以获得单个输出（Reduce步骤）。如果需要，它可以选择先压缩或折叠映射的文档，以确保它们适合合并文档链（通常将它们传递给LLM）。如果需要，此压缩步骤会递归执行。
 
 ![map_reduce图示（map_reduce_diagram）](/img/map_reduce.jpg)

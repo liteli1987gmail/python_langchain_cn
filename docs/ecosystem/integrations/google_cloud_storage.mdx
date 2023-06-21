@@ -1,0 +1,26 @@
+# Google Cloud Storage
+
+>[Google Cloud Storage](https://en.wikipedia.org/wiki/Google_Cloud_Storage) 是用于存储非结构化数据的托管服务。
+
+## 安装和设置
+
+首先，您需要安装 `google-cloud-bigquery` Python 包。
+
+```bash
+pip install google-cloud-storage
+```
+
+## 文档加载器
+
+对于 `Google Cloud Storage`，有两个加载器：`Directory` 和 `File`。
+
+查看[使用示例](/docs/modules/data_connection/document_loaders/integrations/google_cloud_storage_directory.html)。
+
+```python
+from langchain.document_loaders import GCSDirectoryLoader
+```
+查看[使用示例](/docs/modules/data_connection/document_loaders/integrations/google_cloud_storage_file.html)。
+
+```python
+from langchain.document_loaders import GCSFileLoader
+```

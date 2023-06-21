@@ -1,0 +1,29 @@
+# Chroma
+
+>[Chroma](https://docs.trychroma.com/getting-started) 是一个用于构建具有嵌入的AI应用程序的数据库。
+
+## 安装和设置
+
+```bash
+pip install chromadb
+```
+
+
+## VectorStore
+
+存在一个围绕Chroma向量数据库的包装器，允许您将其用作向量存储，
+无论是用于语义搜索还是示例选择。
+
+```python
+from langchain.vectorstores import Chroma
+```
+
+有关Chroma包装器的更详细说明，请参阅[此笔记本](/docs/modules/data_connection/vectorstores/integrations/chroma.html)
+
+## Retriever
+
+查看[使用示例](/docs/modules/data_connection/retrievers/how_to/self_query/chroma_self_query.html)。
+
+```python
+from langchain.retrievers import SelfQueryRetriever
+```

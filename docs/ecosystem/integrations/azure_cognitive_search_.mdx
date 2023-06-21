@@ -1,0 +1,24 @@
+# Azure Cognitive Search
+
+>[Azure Cognitive Search](https://learn.microsoft.com/zh-cn/azure/search/search-what-is-azure-search)（以前称为`Azure Search`）是一项云搜索服务，为开发人员提供构建丰富搜索体验的基础设施、API和工具，用于在Web、移动和企业应用程序中处理私有异构内容。
+
+>搜索是向用户呈现文本的任何应用程序的基础，常见的场景包括目录或文档搜索、在线零售应用程序或对专有内容进行数据探索。创建搜索服务时，您将使用以下功能：
+>- 用于在包含用户拥有内容的搜索索引上进行全文搜索的搜索引擎
+>- 丰富的索引功能，包括词法分析和可选的AI增强，用于内容提取和转换
+>- 用于文本搜索、模糊搜索、自动完成、地理搜索等的丰富查询语法
+>- 通过Azure SDK中的REST API和客户端库进行编程
+>- 在数据层、机器学习层和AI（认知服务）层进行Azure集成
+
+
+## 安装和设置
+
+请参阅[设置说明](https://learn.microsoft.com/zh-cn/azure/search/search-create-service-portal)。
+
+
+## 取回器
+
+请参阅[用法示例](/docs/modules/data_connection/retrievers/integrations/azure_cognitive_search.html)。
+
+```python
+from langchain.retrievers import AzureCognitiveSearchRetriever
+```

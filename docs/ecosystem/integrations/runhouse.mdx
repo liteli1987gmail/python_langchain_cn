@@ -1,0 +1,29 @@
+# Runhouse（运行房屋）
+
+本页面介绍如何在LangChain中使用[Runhouse（运行房屋）](https://github.com/run-house/runhouse)生态系统。
+它分为三个部分：安装和设置、LLMs和嵌入。
+
+## 安装和设置
+- 使用`pip install runhouse`安装Python SDK
+- 如果您想使用按需集群，请使用`sky check`检查您的云凭据
+
+## 自托管LLMs
+对于基本的自托管LLM，您可以使用`SelfHostedHuggingFaceLLM`类。对于更多
+自定义LLMs，您可以使用`SelfHostedPipeline`父类。
+
+```python
+from langchain.llms import SelfHostedPipeline, SelfHostedHuggingFaceLLM
+```
+
+有关自托管LLMs的更详细说明，请参见[此笔记本](/docs/modules/model_io/models/llms/integrations/runhouse.html)
+
+## 自托管嵌入
+通过Runhouse，LangChain提供了几种使用自托管嵌入的方式。
+
+对于来自Hugging Face Transformers模型的基本自托管嵌入，您可以使用
+`SelfHostedEmbedding`类。
+```python
+from langchain.llms import SelfHostedPipeline, SelfHostedHuggingFaceLLM
+```
+
+有关自托管嵌入的更详细说明，请参见[此笔记本](/docs/modules/data_connection/text_embedding/integrations/self-hosted.html)

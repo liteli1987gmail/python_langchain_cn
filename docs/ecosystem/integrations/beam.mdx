@@ -1,0 +1,92 @@
+# Beam（波束）
+
+本页面介绍如何在LangChain中使用Beam。
+它分为两部分：安装和设置，以及对特定Beam封装的参考。
+
+## 安装和设置
+
+- [创建账户](https://www.beam.cloud/)
+- 使用 `curl https://raw.githubusercontent.com/slai-labs/get-beam/main/get-beam.sh -sSfL | sh` 安装Beam CLI
+- 使用 `beam configure` 注册API密钥
+- 设置环境变量 (`BEAM_CLIENT_ID`) 和 (`BEAM_CLIENT_SECRET`)
+- 使用 `pip install beam-sdk` 安装Beam SDK
+
+## 封装器
+
+### LLM
+
+有一个名为Beam LLM的封装器，您可以通过以下方式访问
+
+```python
+from langchain.llms.beam import Beam
+```
+
+## 定义您的Beam应用程序
+
+这是您在开始应用程序后将要开发的环境
+它还用于定义模型的最大响应长度
+```python
+llm = Beam(model_name="gpt2",
+           name="langchain-gpt2-test",
+           cpu=8,
+           memory="32Gi",
+           gpu="A10G",
+           python_version="python3.8",
+           python_packages=[
+               "diffusers[torch]>=0.10",
+               "transformers",
+               "torch",
+               "pillow",
+               "accelerate",
+               "safetensors",
+               "xformers",],
+           max_length="50",
+           verbose=False)
+```
+
+## 部署您的Beam应用程序
+
+一旦定义，您可以通过调用模型的 `_deploy()` 方法来部署您的Beam应用程序
+
+```python
+llm._deploy()
+```
+
+## 调用您的Beam应用程序
+
+一旦部署了Beam模型，可以通过调用模型的 `_call()` 方法来调用它
+这将返回GPT2对您的提示的文本响应
+
+```python
+response = llm._call("Running machine learning on a remote GPU")
+```
+
+部署模型并调用它的示例脚本如下：
+
+```python
+from langchain.llms.beam import Beam
+import time
+
+llm = Beam(model_name="gpt2",
+           name="langchain-gpt2-test",
+           cpu=8,
+           memory="32Gi",
+           gpu="A10G",
+           python_version="python3.8",
+           python_packages=[
+               "diffusers[torch]>=0.10",
+               "transformers",
+               "torch",
+               "pillow",
+               "accelerate",
+               "safetensors",
+               "xformers",],
+           max_length="50",
+           verbose=False)
+
+llm._deploy()
+
+response = llm._call("Running machine learning on a remote GPU")
+
+print(response)
+```

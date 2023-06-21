@@ -1,0 +1,75 @@
+# 模板仓库
+
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+
+所以，你创建了一个非常酷的链 - 然后呢？如何部署它并与世界轻松共享？
+
+本节介绍了几种选项。请注意，这些选项旨在快速部署原型和演示，而不是用于生产系统。如果您需要帮助部署生产系统，请直接与我们联系。
+
+接下来是一份模板 GitHub 仓库列表，旨在轻松分叉和修改以使用您的链。此列表远非详尽无遗，我们非常欢迎在此方面的贡献。
+
+## [Streamlit](https://github.com/hwchase17/langchain-streamlit-template)
+
+此仓库可作为如何使用 Streamlit 部署 LangChain 的模板。
+它实现了一个聊天机器人界面。
+它还包含有关如何在 Streamlit 平台上部署此应用程序的说明。
+
+## [Gradio（在 Hugging Face 上）](https://github.com/hwchase17/langchain-gradio-template)
+
+此仓库可作为如何使用 Gradio 部署 LangChain 的模板。
+它实现了一个聊天机器人界面，并采用“自带令牌”的方法（这样不会产生大额费用）。
+它还包含有关如何在 Hugging Face 平台上部署此应用程序的说明。
+这受到了 James Weaver 的 [优秀示例](https://huggingface.co/JavaFXpert) 的很大影响。
+
+## [Chainlit](https://github.com/Chainlit/cookbook)
+
+此仓库是一个解释如何使用 Chainlit 可视化和部署 LangChain 代理的食谱。
+您可以使用 Chainlit 创建类似 ChatGPT 的用户界面。一些关键功能包括中间步骤可视化、元素管理和显示（图像、文本、轮播等），以及云部署。
+Chainlit [文档](https://docs.chainlit.io/langchain) 关于与 LangChain 集成的说明
+
+## [Beam](https://github.com/slai-labs/get-beam/tree/main/examples/langchain-question-answering)
+
+此仓库可作为如何使用 [Beam](https://beam.cloud) 部署 LangChain 的模板。
+
+它实现了一个问答应用程序，并包含部署该应用程序作为无服务器 REST API 的说明。
+
+## [Vercel](https://github.com/homanp/vercel-langchain)
+
+一个使用 Flask 在 Vercel 上运行 LangChain 的最简示例。
+
+## [FastAPI + Vercel](https://github.com/msoedov/langcorn)
+
+一个使用 FastAPI 和 LangCorn/Uvicorn 在 Vercel 上运行 LangChain 的最简示例。
+
+## [Kinsta](https://github.com/kinsta/hello-world-langchain)
+
+一个使用 Flask 在 [Kinsta](https://kinsta.com) 上部署 LangChain 的最简示例。
+
+## [Fly.io](https://github.com/fly-apps/hello-fly-langchain)
+
+一个使用 Flask 在 [Fly.io](https://fly.io/) 上部署 LangChain 的最简示例。
+
+## [Digitalocean App Platform](https://github.com/homanp/digitalocean-langchain)
+
+一个在 DigitalOcean App Platform 上部署 LangChain 的最简示例。
+
+## [Google Cloud Run](https://github.com/homanp/gcp-langchain)
+
+一个在 Google Cloud Run 上部署 LangChain 的最简示例。
+
+## [SteamShip](https://github.com/steamship-core/steamship-langchain/)
+
+此仓库包含了 Steamship 的 LangChain 适配器，使 LangChain 开发人员能够快速部署他们的应用程序到 Steamship 上。这包括：面向生产的终端点、跨依赖项的水平扩展、应用程序状态的持久性存储、多租户支持等。
+
+## [Langchain-serve](https://github.com/jina-ai/langchain-serve)
+
+此仓库允许用户将本地链和代理作为 RESTful、gRPC 或 WebSocket API 提供服务，感谢 [Jina](https://docs.jina.ai/)。轻松部署您的链和代理，并享受独立扩展、无服务器和自动缩放的 API，以及 Jina AI Cloud 上的 Streamlit 游乐场。
+
+## [BentoML](https://github.com/ssheng/BentoChain)
+
+此仓库提供了一个使用 [BentoML](https://github.com/bentoml/BentoML) 部署 LangChain 应用程序的示例。BentoML 是一个将机器学习应用程序容器化为标准 OCI 图像的框架。BentoML 还允许自动生成 OpenAPI 和 gRPC 终端点。使用 BentoML，您可以集成来自所有流行 ML 框架的模型，并将其部署为在最优硬件上运行并独立缩放的微服务。
+
+## [Databutton](https://databutton.com/home?new-data-app=true)
+
+这些模板示例演示了如何使用 Databutton 构建、部署和共享 LangChain 应用程序。您可以使用 Streamlit 创建用户界面，通过调度 Python 代码自动化任务，并在内置存储中存储文件和数据。示例包括带有对话记忆的聊天机器人界面、个人搜索引擎以及 LangChain 应用程序的起始模板。部署和共享仅需一键点击。

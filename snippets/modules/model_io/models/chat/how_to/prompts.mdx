@@ -1,7 +1,6 @@
-You can make use of templating by using a `MessagePromptTemplate`. You can build a `ChatPromptTemplate` from one or more `MessagePromptTemplates`. You can use `ChatPromptTemplate`'s `format_prompt` -- this returns a `PromptValue`, which you can convert to a string or Message object, depending on whether you want to use the formatted value as input to an llm or chat model.
+你可以使用 `MessagePromptTemplate` 来利用模板。你可以从一个或多个 `MessagePromptTemplates` 构建一个 `ChatPromptTemplate`。您可以使用 `ChatPromptTemplate` 的 `format_prompt` 方法，这将返回一个 `PromptValue`，您可以将其转换为字符串或消息对象，具体取决于您想要将格式化的值用作 LLM 或聊天模型的输入。
 
-For convenience, there is a `from_template` method exposed on the template. If you were to use this template, this is what it would look like:
-
+为方便起见，模板上还公开了一个 `from_template` 方法。如果您要使用此模板，则如下所示：
 
 ```python
 from langchain import PromptTemplate
@@ -22,7 +21,7 @@ human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 ```python
 chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
 
-# get a chat completion from the formatted messages
+# 获取来自格式化消息的聊天完成。
 chat(chat_prompt.format_prompt(input_language="English", output_language="French", text="I love programming.").to_messages())
 ```
 
@@ -34,8 +33,7 @@ chat(chat_prompt.format_prompt(input_language="English", output_language="French
 
 </CodeOutputBlock>
 
-If you wanted to construct the MessagePromptTemplate more directly, you could create a PromptTemplate outside and then pass it in, eg:
-
+如果您想要更直接地构建 MessagePromptTemplate，可以在外部创建一个 PromptTemplate 然后将其传入，例如：
 
 ```python
 prompt=PromptTemplate(

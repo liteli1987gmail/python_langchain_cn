@@ -1,0 +1,28 @@
+# 代码理解 code
+
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+
+
+LangChain 是一个有用的工具，旨在解析 GitHub 代码仓库。通过利用 VectorStores、Conversational RetrieverChain 和 GPT-4，它可以在整个 GitHub 仓库的上下文中回答问题或生成新的代码。本文档页面概述了系统的基本组件，并指导如何在 GitHub 仓库中使用 LangChain 进行更好的代码理解、上下文问题回答和代码生成。
+
+## 对话式检索器链
+
+Conversational RetrieverChain 是一个以检索为重点的系统，与存储在 VectorStore 中的数据进行交互。利用上下文感知过滤和排序等先进技术，它为给定的用户查询检索出最相关的代码片段和信息。Conversational RetrieverChain 经过工程化设计，考虑了对话历史和上下文，以提供高质量、相关性强的结果。
+
+LangChain 代码理解和生成的工作流程
+
+1. 对代码库进行索引：克隆目标仓库，加载其中的所有文件，对文件进行分块，并执行索引过程。可选择跳过此步骤，使用已经索引过的数据集。
+
+2. 嵌入和代码存储：使用代码感知嵌入模型对代码片段进行嵌入，并存储在 VectorStore 中。
+查询理解：GPT-4 处理用户查询，抓取上下文并提取相关细节。
+
+3. 构建检索器：Conversational RetrieverChain 搜索 VectorStore，为给定的查询识别出最相关的代码片段。
+
+4. 构建对话链：根据需要自定义检索器设置并定义任何用户定义的过滤器。
+
+5. 提问问题：定义一个关于代码库的问题列表，然后使用 ConversationalRetrievalChain 生成上下文感知的答案。LLM（GPT-4）根据检索到的代码片段和对话历史生成全面的、上下文感知的答案。
+
+完整的教程如下所示。
+- [使用 Deep Lake 对 the-algorithm 代码库进行分析](./twitter-the-algorithm-analysis-deeplake.html)：通过分析 GitHub 源代码并运行查询对代码进行解析的笔记本。
+- [使用 Deep Lake 对 LangChain 代码库进行分析](./code-analysis-deeplake.html)：通过分析和对此代码库进行问答，对代码进行解析的笔记本。

@@ -1,0 +1,49 @@
+# 非结构化
+
+>来自 `unstructured` 包
+[Unstructured.IO](https://www.unstructured.io/) 从原始源文件（如PDF和Word文档）中提取干净的文本。
+本页面介绍如何在LangChain中使用 [`unstructured`](https://github.com/Unstructured-IO/unstructured)
+生态系统。
+ecosystem within LangChain.
+
+## 安装和设置
+
+如果您正在使用本地运行的加载程序，请按照以下步骤获取`unstructured`和
+其依赖项在本地运行。
+
+- 使用 `pip install "unstructured[local-inference]"` 安装Python SDK
+- 如果系统上尚未安装以下系统依赖项，请安装它们。
+  根据您要解析的文档类型，您可能不需要全部。
+    - `libmagic-dev`（文件类型检测）
+    - `poppler-utils`（图像和PDF）
+    - `tesseract-ocr`（图像和PDF）
+    - `libreoffice`（MS Office文档）
+    - `pandoc`（EPUB）
+
+如果您希望快速上手，可以
+直接运行 `pip install unstructured` 并使用 `UnstructuredAPIFileLoader` 或
+`UnstructuredAPIFileIOLoader`。这将使用托管的Unstructured API处理您的文档。
+请注意，当前（截至2023年5月1日）Unstructured API是开放的，但很快将需要
+API密钥。一旦可用，[Unstructured文档页面](https://unstructured-io.github.io/) 将提供
+有关如何生成API密钥的说明。如果您想自己托管Unstructured API或在本地运行，请查看
+[此处的说明](https://github.com/Unstructured-IO/unstructured-api#dizzy-instructions-for-using-the-docker-image)
+。
+
+## 封装器
+
+### 数据加载器
+
+`langchain` 中的主要 `unstructured` 封装器是数据加载器。以下
+演示了如何使用最基本的非结构化数据加载器。在 `langchain.document_loaders` 模块中还有其他特定于文件的
+数据加载器可供使用。
+
+```python
+from langchain.document_loaders import UnstructuredFileLoader
+
+loader = UnstructuredFileLoader("state_of_the_union.txt")
+loader.load()
+```
+
+如果使用 `UnstructuredFileLoader(mode="elements")` 实例化加载器，加载器
+将在可用时跟踪其他元数据，例如页码和文本类型（例如标题、叙述文本）
+。

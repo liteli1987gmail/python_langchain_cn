@@ -1,0 +1,93 @@
+# 关于文档的问答
+
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+
+
+在这个背景下，问答是指对您的文档数据进行问答。
+对于其他类型数据的问答，请参考其他来源的文档，比如[SQL数据库问答](../tabular)或[与API交互](../apis)。
+
+对于多文档的问答，您几乎总是希望创建一个数据索引。
+这可以智能地访问与给定问题最相关的文档，避免将所有文档传递给LLM（节省时间和金钱）。
+
+**加载您的文档**
+
+```python
+from langchain.document_loaders import TextLoader
+loader = TextLoader('../state_of_the_union.txt')
+```
+
+有关如何开始加载文档的更多信息，请参见[此处](/docs/modules/data_connection/document_loaders)。
+
+**创建您的索引**
+
+```python
+from langchain.indexes import VectorstoreIndexCreator
+index = VectorstoreIndexCreator().from_loaders([loader])
+```
+
+目前最好且最受欢迎的索引是VectorStore索引。
+
+**查询您的索引**
+
+```python
+query = "What did the president say about Ketanji Brown Jackson"
+index.query(query)
+```
+
+或者，使用`query_with_sources`还可以获取涉及的源
+
+```python
+query = "What did the president say about Ketanji Brown Jackson"
+index.query_with_sources(query)
+```
+
+同样，这些高级接口掩盖了许多底层操作，请参见[此笔记本](/docs/modules/data_connection/getting_started.html)以进行低级别演练。
+
+## 文档问答
+
+问答涉及获取多个文档，然后对它们进行提问。
+LLM的响应将根据文档的内容包含您问题的答案。
+
+使用问答链开始的推荐方法是：
+
+```python
+from langchain.chains.question_answering import load_qa_chain
+chain = load_qa_chain(llm, chain_type="stuff")
+chain.run(input_documents=docs, question=query)
+```
+
+存在以下资源:
+
+- [问答笔记本](/docs/modules/chains/index_examples/question_answering.html)：演示如何完成此任务的笔记本。
+- [VectorDB问答笔记本](/docs/modules/chains/index_examples/vector_db_qa.html)：演示如何对矢量数据库进行问答。当您有大量文档时，您不想将它们全部传递给LLM，而是想首先对嵌入进行一些语义搜索时，这通常很有用。
+
+## 添加来源
+
+还有一种变体，除了回答问题之外，语言模型还会引用它使用的来源（例如传递给它的文档之一）。
+
+使用带有来源的问答链开始的推荐方法是：
+
+```python
+from langchain.chains.qa_with_sources import load_qa_with_sources_chain
+chain = load_qa_with_sources_chain(llm, chain_type="stuff")
+chain({"input_documents": docs, "question": query}, return_only_outputs=True)
+```
+
+存在以下资源:
+
+- [带来源的问答笔记本](/docs/modules/chains/index_examples/qa_with_sources.html)：演示如何完成此任务的笔记本。
+- [VectorDB带来源的问答笔记本](/docs/modules/chains/index_examples/vector_db_qa_with_sources.html)：演示如何对矢量数据库进行带来源的问答。当您有大量文档时，您不想将它们全部传递给LLM，而是想首先对嵌入进行一些语义搜索时，这通常很有用。
+
+## 其他相关资源
+
+其他相关资源包括:
+
+- [处理文档的构建块](/docs/modules/data_connection)：介绍了一些对于此任务非常有用的实用程序，包括文本拆分器（用于拆分长文档）和嵌入和向量存储（对于上述矢量数据库示例非常有用）。
+- [CombineDocuments链](/docs/modules/chains/documents)：介绍了一些特定类型的链，可以完成此任务。
+
+## 全流程示例
+
+有关以全流程方式完成此任务的示例，请参见以下资源:
+
+- [使用来源的群组聊天进行语义搜索笔记本](./semantic-search-over-chat.html)：对群组聊天进行语义搜索的笔记本。

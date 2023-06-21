@@ -1,0 +1,28 @@
+# 代理模拟
+
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+
+
+代理模拟涉及与一个或多个代理进行交互。
+代理模拟通常包括两个主要组成部分：
+
+- 长期记忆
+- 模拟环境
+
+代理模拟（或代理模拟的部分）的具体实现包括：
+
+## 单代理模拟
+- [模拟环境：Gymnasium](./gymnasium.html)：使用[Gymnasium](https://gymnasium.farama.org/)（前身为[OpenAI Gym](https://github.com/openai/gym)）创建简单的代理-环境交互循环的示例。
+
+## 双代理模拟
+- [CAMEL](./camel_role_playing.html)：实现了CAMEL（大规模语言模型社会的沟通代理）论文中的内容，其中两个代理进行通信。
+- [两人D&D](./two_player_dnd.html)：演示如何使用通用模拟器实现两个代理的变种“龙与地下城”角色扮演游戏。
+- [带有工具的代理辩论](./two_agent_debate_tools.html)：演示如何使对话代理能够使用工具来提供回答。
+
+## 多代理模拟
+- [多人D&D](./multi_player_dnd.html)：演示如何使用自定义的发言顺序和通用对话模拟器来实现多个对话代理，以一种变种的“龙与地下城”角色扮演游戏为例。
+- [分散式发言者选择](./multiagent_bidding.html)：演示如何在多代理对话中没有固定的发言顺序的情况下实现多代理对话。代理通过出价来决定谁发言。此示例展示了如何在虚构的总统辩论情景中实现此功能。
+- [集权式发言者选择](./multiagent_authoritarian.html)：演示如何实现多代理对话，其中特权代理指导发言内容。此示例还展示了如何使特权代理确定对话何时结束。此示例展示了如何在虚构的新闻节目情景中实现此功能。
+- [模拟环境：PettingZoo](./petting_zoo.html)：使用[PettingZoo](https://pettingzoo.farama.org/)（[Gymnasium](https://gymnasium.farama.org/)的多代理版本）创建多个代理的代理-环境交互循环的示例。
+- [生成型代理](./characters.html)：此笔记本实现了基于论文[生成型代理：交互式的人类行为仿真](https://arxiv.org/abs/2304.03442)（Park等人撰写）的生成型代理。

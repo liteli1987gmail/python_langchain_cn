@@ -1,0 +1,30 @@
+# 深湖
+本页面介绍如何在LangChain中使用深湖（Deep Lake）生态系统。
+
+## 为什么选择深湖？
+- 不仅仅是一个（多模态）向量存储库。您还可以使用数据集来微调自己的LLM模型。
+- 不仅存储嵌入向量，还具备自动版本控制的原始数据。
+- 真正的无服务器。不需要另一个服务，可与主要的云提供商（AWS S3、GCS等）一起使用。
+
+## 更多资源
+1. [LangChain和深湖终极指南：构建ChatGPT以回答关于您的金融数据的问题](https://www.activeloop.ai/resources/ultimate-guide-to-lang-chain-deep-lake-build-chat-gpt-to-answer-questions-on-your-financial-data/)
+2. [使用深湖进行Twitter算法代码分析](../use_cases/code/twitter-the-algorithm-analysis-deeplake.html)
+3. 这是[白皮书](https://www.deeplake.ai/whitepaper)和[学术论文](https://arxiv.org/pdf/2209.10785.pdf)关于深湖的。
+4. 这是一套额外的资源可供查阅：[深湖](https://github.com/activeloopai/deeplake)，[开始](https://docs.activeloop.ai/getting-started)和[Tutorials](https://docs.activeloop.ai/hub-tutorials)
+
+## 安装和设置
+- 使用`pip install deeplake`安装Python包
+
+## 封装
+
+### 向量存储库
+
+存在一个围绕深湖的封装，它是用于深度学习应用的数据湖，您可以将其用作向量存储库（目前），无论是用于语义搜索还是示例选择。
+
+要导入此向量存储库：
+```python
+from langchain.vectorstores import DeepLake
+```
+
+
+有关深湖封装的更详细演练，请参阅[此笔记本](/docs/modules/data_connection/vectorstores/integrations/deeplake.html)

@@ -1,0 +1,27 @@
+# 自主（长期运行）代理
+
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+
+
+自主代理是设计成更长期运行的代理。
+您可以给它们一个或多个长期目标，它们会独立地朝这些目标执行。
+这些应用程序结合了工具使用和长期记忆。
+
+目前，自主代理还处于实验阶段，基于其他开源项目开发而来。
+通过在LangChain原语中实现这些开源项目，我们可以获得LangChain的好处 - 
+轻松切换和尝试多个LLM，使用不同的向量存储作为记忆，
+使用LangChain的工具集。
+
+## Baby AGI（[原始仓库](https://github.com/yoheinakajima/babyagi)）
+
+- [Baby AGI](./autonomous_agents/baby_agi.html): 作为LLM链实现BabyAGI的笔记本
+- [带工具的Baby AGI](./autonomous_agents/baby_agi_with_agent.html): 在上述笔记本的基础上构建，此示例将代理工具替换为执行工具，使其能够真正执行操作。
+
+
+## AutoGPT（[原始仓库](https://github.com/Significant-Gravitas/Auto-GPT)）
+- [AutoGPT](./autonomous_agents/autogpt.html): 在LangChain原语中实现AutoGPT的笔记本
+- [WebSearch Research Assistant](./autonomous_agents/marathon_times.html): 展示如何使用AutoGPT加上特定工具作为能够使用网络的研究助手的笔记本。
+
+## MetaPrompt（[原始仓库](https://github.com/ngoodman/metaprompt)）
+- [Meta-Prompt](./autonomous_agents/meta_prompt.html): 在LangChain原语中实现Meta-Prompt的笔记本

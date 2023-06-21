@@ -1,0 +1,36 @@
+# Azure Blob Storage
+
+>[Azure Blob Storage](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction) 是 Microsoft 的云端对象存储解决方案。Blob Storage 专为存储大量非结构化数据而优化。非结构化数据是不符合特定数据模型或定义的数据，例如文本或二进制数据。
+
+>[Azure Files](https://learn.microsoft.com/en-us/azure/storage/files/storage-files-introduction) 提供完全托管的
+> 云端文件共享，可通过行业标准的 Server Message Block (`SMB`) 协议，
+> Network File System (`NFS`) 协议和 `Azure Files REST API` 进行访问。`Azure Files` 基于 `Azure Blob Storage`。
+
+`Azure Blob Storage` 适用于以下方案：
+- 直接向浏览器提供图像或文档。
+- 用于分布式访问的文件存储。
+- 流式传输视频和音频。
+- 写入日志文件。
+- 存储数据以进行备份和恢复、灾难恢复和归档。
+- 存储供本地或 Azure 托管服务分析的数据。
+
+## 安装和设置
+
+```bash
+pip install azure-storage-blob
+```
+
+
+## 文档加载器
+
+请参阅 [Azure Blob Storage 的使用示例](/docs/modules/data_connection/document_loaders/integrations/azure_blob_storage_container.html)。
+
+```python
+from langchain.document_loaders import AzureBlobStorageContainerLoader
+```
+
+请参阅 [Azure Files 的使用示例](/docs/modules/data_connection/document_loaders/integrations/azure_blob_storage_file.html)。
+
+```python
+from langchain.document_loaders import AzureBlobStorageFileLoader
+```

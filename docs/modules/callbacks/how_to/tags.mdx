@@ -1,0 +1,5 @@
+# 标签 tags
+
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+你可以通过将`tags`参数传递给`call()`/`run()`/`apply()`方法来为回调函数添加标签。这对于过滤日志非常有用，例如，如果您想记录对特定LLMChain所做的所有请求，您可以添加一个标签，然后通过该标签对日志进行筛选。您可以将标签传递给构造函数和请求回调函数，详见上面的示例。这些标签然后传递给"start"回调方法的`tags`参数，即`on_llm_start`，`on_chat_model_start`，`on_chain_start`，`on_tool_start`。

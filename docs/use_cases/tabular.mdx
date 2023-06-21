@@ -1,0 +1,34 @@
+# 分析结构化数据 tabular
+
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+
+许多数据和信息都存储在表格数据中，无论是csv、excel表格还是SQL表。
+本页面涵盖了LangChain中用于处理此类格式数据的所有资源。
+
+## 文档加载
+如果您有以表格格式存储的文本数据，您可能希望将数据加载到文档中，然后像处理其他文本/非结构化数据一样对其进行索引。
+为此，您应该使用类似[CSVLoader](/docs/modules/data_connection/document_loaders/how_to/csv.html)的文档加载器
+然后您应该[创建一个索引](/docs/modules/data_connection)来索引该数据，并且[以此方式查询](/docs/modules/chains/popular/vector_db_qa.html)。
+
+## 查询
+如果您有更多的数值型表格数据，或者有大量数据而不想对其进行索引，那么您应该从查看我们用于处理此类数据的各种链式和代理开始。
+### 链式
+
+如果您刚刚开始，并且您有相对较小/简单的表格数据，您应该从链式开始。
+
+If you are just getting started, and you have relatively small/simple tabular data, you should get started with chains.
+链式是一系列预定步骤，因此它们很适合入门，因为它们给您更多控制权，并且让您更好地了解正在发生的事情。
+- [SQL数据库链](/docs/modules/chains/popular/sqlite.html)
+
+- [SQL Database Chain](/docs/modules/chains/popular/sqlite.html)
+
+### 代理
+
+代理更复杂，涉及多个查询到LLM以了解要做什么。
+代理的缺点是您的控制权较少。优点是它们更强大，
+这使您可以在更大的数据库和更复杂的模式上使用它们。
+
+- [SQL代理](/docs/modules/agents/toolkits/integrations/sql_database.html)
+- [Pandas代理](/docs/modules/agents/toolkits/integrations/pandas.html)
+- [CSV代理](/docs/modules/agents/toolkits/integrations/csv.html)

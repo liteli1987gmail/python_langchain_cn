@@ -1,0 +1,19 @@
+# 摘要 summarize
+![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+
+摘要是指对多个较长文档进行概括总结。
+这对于将长文档浓缩为核心信息非常有用。
+
+使用摘要链的推荐方法是：
+
+```python
+from langchain.chains.summarize import load_summarize_chain
+chain = load_summarize_chain(llm, chain_type="map_reduce")
+chain.run(docs)
+```
+
+存在以下资源：
+- [摘要笔记本](/docs/modules/chains/popular/summarize.html): 一个指导如何完成这个任务的笔记本。
+
+其他相关资源包括：
+- [用于处理文档的工具](/api_reference/utils.html): 介绍如何使用几个对该任务有帮助的工具，包括文本分割器（用于拆分长文档）。

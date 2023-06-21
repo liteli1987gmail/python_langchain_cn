@@ -1,0 +1,28 @@
+# Zep
+
+>[Zep](https://docs.getzep.com/) - 一个用于LLM应用程序的长期存储器。
+
+>`Zep`存储、总结、嵌入、索引和丰富了对话型AI聊天历史记录，并通过简单的、低延迟的API进行公开。
+>- 长期存储，无论您的摘要策略如何，都可以访问历史消息。
+>- 基于可配置的消息窗口自动摘要存储的消息。一系列的摘要被存储，为将来的摘要策略提供了灵活性。
+>- 对记忆的向量搜索，消息在创建时自动嵌入。
+>- 对记忆和摘要的自动令牌计数，允许更精细地控制提示组装。
+>- Python和JavaScript SDK。
+
+
+`Zep` [项目](https://github.com/getzep/zep) 
+
+## 安装和设置
+
+```bash
+pip install zep_python
+```
+
+
+## 检索器
+
+请参阅[使用示例](/docs/modules/data_connection/retrievers/integrations/zep_memorystore.html)。
+
+```python
+from langchain.retrievers import ZepRetriever
+```

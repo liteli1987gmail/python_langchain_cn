@@ -1,0 +1,49 @@
+# PromptLayer（PromptLayer）
+
+本页介绍如何在LangChain中使用[PromptLayer](https://www.promptlayer.com)。
+它分为两个部分：安装和设置，以及特定PromptLayer包装器的参考。
+
+## 安装和设置
+
+如果您想使用PromptLayer：
+- 安装promptlayer python库 `pip install promptlayer`
+- 创建一个PromptLayer账户
+- 创建一个API令牌并将其设置为环境变量（`PROMPTLAYER_API_KEY`）
+
+## 包装器
+
+### LLM（LLM）
+
+存在一个PromptLayer OpenAI LLM包装器，您可以通过以下方式访问
+```python
+from langchain.llms import PromptLayerOpenAI
+```
+
+要为请求添加标签，请在实例化LLM时使用参数`pl_tags`
+```python
+from langchain.llms import PromptLayerOpenAI
+llm = PromptLayerOpenAI(pl_tags=["langchain-requests", "chatbot"])
+```
+
+要获取PromptLayer请求ID，请在实例化LLM时使用参数`return_pl_id`
+```python
+from langchain.llms import PromptLayerOpenAI
+llm = PromptLayerOpenAI(return_pl_id=True)
+```
+这将在使用`.generate`或`.agenerate`时，将PromptLayer请求ID添加到`Generation`的`generation_info`字段中
+
+例如：
+```python
+llm_results = llm.generate(["hello world"])
+for res in llm_results.generations:
+    print("pl request id: ", res[0].generation_info["pl_request_id"])
+```
+您可以使用PromptLayer请求ID将提示、分数或其他元数据添加到您的请求中。[在此处阅读更多](https://magniv.notion.site/Track-4deee1b1f7a34c1680d085f82567dab9)。
+
+这个LLM与[OpenAI LLM](./openai.md)相同，除了
+- 所有的请求都将记录到您的PromptLayer账户中
+- 您可以在实例化时添加`pl_tags`以在PromptLayer上标记您的请求
+- 您可以在实例化时添加`return_pl_id`以返回PromptLayer请求ID，以便在[跟踪请求](https://magniv.notion.site/Track-4deee1b1f7a34c1680d085f82567dab9)时使用
+
+
+PromptLayer还为[`PromptLayerChatOpenAI`](/docs/modules/model_io/models/chat/integrations/promptlayer_chatopenai.html)和`PromptLayerOpenAIChat`提供了原生包装器
