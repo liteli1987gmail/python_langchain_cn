@@ -93,7 +93,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/liteli1987gmail/js-langchain-CN/tree/main/",
+          editUrl: "https://github.com/liteli1987gmail/python_langchain_cn/tree/main/",
           remarkPlugins: [
             [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
           ],
@@ -160,7 +160,7 @@ const config = {
           },
           // Please keep GitHub link to the right for consistency.
           {
-            href: "https://github.com/liteli1987gmail/js-langchain-CN",
+            href: "https://github.com/liteli1987gmail/python_langchain_cn",
             label: "GitHub",
             position: "right",
           },
@@ -208,7 +208,7 @@ const config = {
             items: [
               {
                 label: "Python",
-                href: "https://github.com/liteli1987gmail/langchainzh",
+                href: "https://github.com/liteli1987gmail/python_langchain_cn",
               },
               {
                 label: "JS/TS",

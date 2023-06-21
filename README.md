@@ -1,9 +1,8 @@
 # Langchain中文网 PYTHON 教程
 
-Langchain中文网是Langchain的中文社区。
+Langchain 中文网是 Langchain 的中文社区。
 
-
-Langchain中文网的目的是帮助中国人阅读 Langchain 的 PYTHON 文档。
+Langchain 中文网的目的是帮助中国人阅读 Langchain 的 PYTHON 文档。
 
 如果遇到翻译错误，请指出错误，欢迎热爱社区的人一起来翻译。
 
@@ -11,9 +10,41 @@ Langchain中文网的目的是帮助中国人阅读 Langchain 的 PYTHON 文档�
 
 更多关于如何使用Langchain的信息，请参阅[文档](https://python.langchain.com.cn)。
 
+
+## 🚀 Langchain 可以帮助什么？
+
+LangChain 旨在提供六个主要领域的帮助。这六个领域按照复杂度递增排序如下：
+
+**📃 LLM 和 Prompt(Prompt)** ：
+
+这包括 prompt(Prompt) 管理、prompt(Prompt) 优化、面向所有 LLM 的通用接口和处理 LLM 的常见工具。
+
+**🔗 Chains 链：**
+
+Chains 链超越了单个 LLM 调用，涉及调用序列（无论是 LLM 还是不同的实用程序）。LangChain 为链提供了标准接口、大量与其他工具的集成和针对常见应用的端到端链。
+
+**📚 数据增强式生成：**
+
+数据增强式生成涉及到特定类型的链，它首先与外部数据源交互以获取用于生成步骤的数据。例如，文本的摘要和针对特定数据源的问答。
+
+**🤖 代理程序：**
+
+代理程序涉及到 LLM 做出哪些操作决策、采取该操作、看到观察结果，并一直重复直到完成。LangChain 为代理程序提供了标准接口、可以选择的代理程序和端到端代理程序的示例。
+
+**🧠 记忆：**
+
+记忆是指在链/代理程序的多次调用之间保留状态。LangChain 为记忆提供了标准接口、一系列记忆实现和使用记忆的链/代理程序的示例。
+
+**🧐 评估：**
+
+（[BETA]）生成模型以传统度量方式进行评估极其困难，评估的一个新方法是使用语言模型本身来进行评估。LangChain 提供了一些提示/链来协助进行此项工作。
+
+有关这些概念的更多信息，请参阅我们的[完整文档](https://python.langchain.com)。
+
+
 ## 贡献指南
 
-如果你想为Langchain中文网做出贡献，你可以在GitHub上fork我们的仓库并创建一个分支来提交你的更改。
+如果你想为 Langchain 中文网做出贡献，你可以在 GitHub 上 fork 我们的仓库并创建一个分支来提交你的更改。
 
 我们欢迎任何形式的贡献，包括但不限于：
 
