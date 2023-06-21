@@ -1,0 +1,9 @@
+## 准备数据
+首先我们准备数据。在这个示例中，我们对向量数据库进行相似性搜索，但这些文档可以以任何方式获取（这个笔记本的重点是突出显示在获取文档之后要做的事情）。
+    """Base interface for chains combining documents."""
+
+    @abstractmethod
+    def combine_docs(self, docs: List[Document], **kwargs: Any) -> Tuple[str, dict]:
+        """Combine documents into a single string."""
+
+```

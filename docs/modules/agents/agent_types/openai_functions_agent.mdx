@@ -1,0 +1,11 @@
+# OpenAI 函数
+
+某些 OpenAI 模型（如 gpt-3.5-turbo-0613 和 gpt-4-0613）经过微调，可以检测何时应调用函数，并回复应传递给函数的输入。
+在 API 调用中，您可以描述函数，并让模型智能地选择输出一个包含调用这些函数所需参数的 JSON 对象。
+OpenAI 函数 API 的目标是相较于通用的文本补全或聊天 API 更可靠地返回有效和有用的函数调用。
+
+OpenAI 函数代理（Functions Agent）专为这些模型设计。
+
+import Example from "@snippets/modules/agents/agent_types/openai_functions_agent.mdx";
+
+<Example/>

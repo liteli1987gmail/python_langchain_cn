@@ -1,0 +1,55 @@
+## 官方发布
+from langchain.agents import load_tools
+要安装LangChain，请运行：
+from langchain.agents import AgentType
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from "@theme/CodeBlock";
+# First, let's load the language model we're going to use to control the agent.
+<Tabs>
+  <TabItem value="pip" label="Pip" default>
+    <CodeBlock language="bash">pip install langchain</CodeBlock>
+  </TabItem>
+  <TabItem value="conda" label="Conda">
+    <CodeBlock language="bash">conda install langchain -c conda-forge</CodeBlock>
+  </TabItem>
+</Tabs>
+
+这将安装LangChain的最低要求。
+LangChain的价值在于将其与各种模型提供商、数据存储等集成时体现出来。
+默认情况下，不会安装执行此操作所需的依赖项。
+但是，还有另外两种安装LangChain的方式，可以带来这些依赖项。
+```pycon
+要安装常见LLM提供商所需的模块，请运行：
+Thought: I need to use a search engine to find Olivia Wilde's boyfriend and a calculator to raise his age to the 0.23 power.
+Action:
+{
+    "action": "Search",
+    "action_input": "Olivia Wilde boyfriend"
+要安装所有集成所需的模块，请运行：
+
+Observation: Sudeikis and Wilde's relationship ended in November 2020. Wilde was publicly served with court documents regarding child custody while she was presenting Don't Worry Darling at CinemaCon 2022. In January 2021, Wilde began dating singer Harry Styles after meeting during the filming of Don't Worry Darling.
+Thought:I need to use a search engine to find Harry Styles' current age.
+Action:
+{
+请注意，如果您使用的是`zsh`，在将它们作为命令的参数传递时，您需要引用方括号，例如：
+    "action_input": "Harry Styles age"
+}
+
+Observation: 29 years
+Thought:Now I need to calculate 29 raised to the 0.23 power.
+## 从源代码安装
+{
+如果您想从源代码安装，可以通过克隆存储库并运行以下命令来实现：
+    "action_input": "29^0.23"
+}
+
+Observation: Answer: 2.169459462491557
+
+Thought:I now know the final answer.
+Final Answer: 2.169459462491557
+
+> Finished chain.
+'2.169459462491557'
+```
+

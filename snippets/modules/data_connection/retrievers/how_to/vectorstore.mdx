@@ -1,0 +1,88 @@
+```python
+from langchain.document_loaders import TextLoader
+loader = TextLoader('../../../state_of_the_union.txt')
+```
+
+
+```python
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import FAISS
+from langchain.embeddings import OpenAIEmbeddings
+
+documents = loader.load()
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+texts = text_splitter.split_documents(documents)
+embeddings = OpenAIEmbeddings()
+db = FAISS.from_documents(texts, embeddings)
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    Exiting: Cleaning up .chroma directory
+```
+
+</CodeOutputBlock>
+
+
+```python
+retriever = db.as_retriever()
+```
+
+
+```python
+docs = retriever.get_relevant_documents("what did he say about ketanji brown jackson")
+```
+
+## 最大边际相关性检索
+默认情况下，向量存储检索器使用相似性搜索。如果底层的向量存储支持最大边际相关性搜索，您可以指定该搜索类型。
+
+
+```python
+retriever = db.as_retriever(search_type="mmr")
+```
+
+
+```python
+docs = retriever.get_relevant_documents("what did he say abotu ketanji brown jackson")
+```
+
+## 相似性分数阈值检索
+
+您还可以指定一个检索方法，该方法设置一个相似性分数阈值，并只返回分数高于该阈值的文档
+
+
+```python
+retriever = db.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": .5})
+```
+
+
+```python
+docs = retriever.get_relevant_documents("what did he say abotu ketanji brown jackson")
+```
+
+## 指定 top k
+您还可以指定搜索参数，例如 `k`，在执行检索时使用。
+
+
+```python
+retriever = db.as_retriever(search_kwargs={"k": 1})
+```
+
+
+```python
+docs = retriever.get_relevant_documents("what did he say abotu ketanji brown jackson")
+```
+
+
+```python
+len(docs)
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    1
+```
+
+</CodeOutputBlock>

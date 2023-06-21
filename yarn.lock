@@ -8138,12 +8138,12 @@ typedoc-plugin-frontmatter@>=0.0.2:
   dependencies:
     yaml "^2.2.2"
 
-typedoc-plugin-markdown@>=4.0.0-next.13, typedoc-plugin-markdown@next:
+typedoc-plugin-markdown@>=4.0.0-next.13:
   version "4.0.0-next.13"
   resolved "https://registry.npmjs.org/typedoc-plugin-markdown/-/typedoc-plugin-markdown-4.0.0-next.13.tgz"
   integrity sha512-ZOcLsJoGN4QI5x1iS2M5lj6bA3MABf6hA183W1KebbxcBA+SFr+XIu73Uovv3SiwqPa+viBftLzkZlLyA6J9bg==
 
-typedoc@^0.24.4, typedoc@>=0.24.0:
+typedoc@>=0.24.0:
   version "0.24.8"
   resolved "https://registry.npmjs.org/typedoc/-/typedoc-0.24.8.tgz"
   integrity sha512-ahJ6Cpcvxwaxfu4KtjA8qZNqS43wYt6JL27wYiIgl1vd38WW/KWX11YuAeZhuz9v+ttrutSsgK+XO1CjL1kA3w==

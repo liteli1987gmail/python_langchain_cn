@@ -1,0 +1,238 @@
+LangChain中的`BaseRetriever`类如下所示：
+
+```python
+from abc import ABC, abstractmethod
+from typing import List
+from langchain.schema import Document
+
+class BaseRetriever(ABC):
+    @abstractmethod
+    def get_relevant_documents(self, query: str) -> List[Document]:
+        """Get texts relevant for a query.
+
+        Args:
+            query: string to find relevant texts for
+
+        Returns:
+            List of relevant documents
+        """
+```
+
+就是这样！`get_relevant_documents`方法可以根据您的需要进行实现。
+
+当然，我们还会帮助构建我们认为有用的检索器。我们关注的主要检索器类型是向量存储检索器。本指南的剩余部分将重点介绍该类型。
+
+为了理解向量存储检索器是什么，了解向量存储是很重要的。所以让我们来看看它。
+
+默认情况下，LangChain使用[Chroma](../../ecosystem/chroma.md)作为向量存储来索引和搜索嵌入。为了完成本教程，我们首先需要安装 `chromadb`。
+
+```
+pip install chromadb
+```
+
+此示例展示了对文档的问答功能。
+我们选择这个作为入门示例，因为它很好地结合了许多不同的元素（文本分割器、嵌入、向量存储），并展示了如何在链中使用它们。
+
+对文档进行问答包括四个步骤：
+
+1. 创建索引
+2. 从索引创建检索器
+3. 创建问答链
+4. 提出问题！
+
+每个步骤都有多个子步骤和潜在的配置。在本教程中，我们主要关注（1）。我们将首先展示一行代码的方式，然后分解实际发生的情况。
+
+首先，让我们导入一些无论如何都会使用的常见类。
+
+
+```python
+from langchain.chains import RetrievalQA
+from langchain.llms import OpenAI
+```
+
+接下来，在通用设置中，让我们指定要使用的文档加载器。您可以在此处下载 `state_of_the_union.txt` 文件 [here](https://github.com/hwchase17/langchain/blob/master/docs/modules/state_of_the_union.txt)
+
+
+```python
+from langchain.document_loaders import TextLoader
+loader = TextLoader('../state_of_the_union.txt', encoding='utf8')
+```
+
+## 一行代码创建索引
+
+为了尽快入门，我们可以使用 `VectorstoreIndexCreator`。
+
+
+```python
+from langchain.indexes import VectorstoreIndexCreator
+```
+
+
+```python
+index = VectorstoreIndexCreator().from_loaders([loader])
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    Running Chroma using direct local API.
+    Using DuckDB in-memory for database. Data will be transient.
+```
+
+</CodeOutputBlock>
+
+现在索引已经创建，我们可以使用它来对数据进行问答！请注意，在幕后，这实际上也有一些步骤，我们将在本指南的后面介绍。
+
+
+```python
+query = "What did the president say about Ketanji Brown Jackson"
+index.query(query)
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    " The president said that Ketanji Brown Jackson is one of the nation's top legal minds, a former top litigator in private practice, a former federal public defender, and from a family of public school educators and police officers. He also said that she is a consensus builder and has received a broad range of support from the Fraternal Order of Police to former judges appointed by Democrats and Republicans."
+```
+
+</CodeOutputBlock>
+
+
+```python
+query = "What did the president say about Ketanji Brown Jackson"
+index.query_with_sources(query)
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    {'question': 'What did the president say about Ketanji Brown Jackson',
+     'answer': " The president said that he nominated Circuit Court of Appeals Judge Ketanji Brown Jackson, one of the nation's top legal minds, to continue Justice Breyer's legacy of excellence, and that she has received a broad range of support from the Fraternal Order of Police to former judges appointed by Democrats and Republicans.\n",
+     'sources': '../state_of_the_union.txt'}
+```
+
+</CodeOutputBlock>
+
+`VectorstoreIndexCreator` 返回的是 `VectorStoreIndexWrapper`，它提供了这些方便的 `query` 和 `query_with_sources` 功能。如果我们只想直接访问向量存储，也可以这样做。
+
+
+```python
+index.vectorstore
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    <langchain.vectorstores.chroma.Chroma at 0x119aa5940>
+```
+
+</CodeOutputBlock>
+
+如果我们然后想要访问 `VectorstoreRetriever`，可以使用以下代码：
+
+
+```python
+index.vectorstore.as_retriever()
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    VectorStoreRetriever(vectorstore=<langchain.vectorstores.chroma.Chroma object at 0x119aa5940>, search_kwargs={})
+```
+
+</CodeOutputBlock>
+
+## 演练
+
+好吧，实际上发生了什么？这个索引是如何创建的？
+
+很多的魔法都被隐藏在这个 `VectorstoreIndexCreator` 中。它在做什么？
+
+文档加载后会经过三个主要步骤：
+
+1. 将文档拆分为块
+2. 为每个文档创建嵌入
+3. 在向量存储中存储文档和嵌入
+
+让我们来看看这段代码
+
+
+```python
+documents = loader.load()
+```
+
+接下来，我们将把文档拆分成块。
+
+
+```python
+from langchain.text_splitter import CharacterTextSplitter
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+texts = text_splitter.split_documents(documents)
+```
+
+然后，我们将选择要使用的嵌入。
+
+
+```python
+from langchain.embeddings import OpenAIEmbeddings
+embeddings = OpenAIEmbeddings()
+```
+
+现在，我们创建要用作索引的向量存储。
+
+
+```python
+from langchain.vectorstores import Chroma
+db = Chroma.from_documents(texts, embeddings)
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    Running Chroma using direct local API.
+    Using DuckDB in-memory for database. Data will be transient.
+```
+
+</CodeOutputBlock>
+
+这就是创建索引的过程。然后，我们将在检索器接口中公开该索引。
+
+
+```python
+retriever = db.as_retriever()
+```
+
+然后，与以前一样，我们创建一个链并用它来回答问题！
+
+
+```python
+qa = RetrievalQA.from_chain_type(llm=OpenAI(), chain_type="stuff", retriever=retriever)
+```
+
+
+```python
+query = "What did the president say about Ketanji Brown Jackson"
+qa.run(query)
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    " The President said that Judge Ketanji Brown Jackson is one of the nation's top legal minds, a former top litigator in private practice, a former federal public defender, and from a family of public school educators and police officers. He said she is a consensus builder and has received a broad range of support from organizations such as the Fraternal Order of Police and former judges appointed by Democrats and Republicans."
+```
+
+</CodeOutputBlock>
+
+`VectorstoreIndexCreator` 只是围绕所有这些逻辑的包装器。它可配置所使用的文本分割器、嵌入和向量存储。例如，您可以进行以下配置：
+
+
+```python
+index_creator = VectorstoreIndexCreator(
+    vectorstore_cls=Chroma,
+    embedding=OpenAIEmbeddings(),
+    text_splitter=CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+)
+```
+
+希望这突出了 `VectorstoreIndexCreator` 幕后发生的情况。虽然我们认为创建索引的简单方法很重要，但我们也认为了解幕后发生的情况很重要。

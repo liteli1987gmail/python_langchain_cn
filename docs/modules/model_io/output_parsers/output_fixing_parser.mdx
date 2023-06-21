@@ -1,0 +1,9 @@
+# 自动修复解析器 output_fixing_parser
+
+此输出解析器包装另一个输出解析器，如果第一个解析器失败，则调用另一个LLM来修复任何错误。
+
+但除了抛出错误之外，我们还可以做其他事情。具体来说，我们可以将格式不正确的输出和格式化的指令一起传递给模型，并要求它修复它。
+
+import Example from "@snippets/modules/model_io/output_parsers/output_fixing_parser.mdx"
+
+<Example/>

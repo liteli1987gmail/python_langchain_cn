@@ -1,0 +1,398 @@
+```python
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.llms import OpenAI
+from langchain.chains import ConversationalRetrievalChain
+```
+
+加载文档。您可以将其替换为任何类型数据的加载器
+
+
+```python
+from langchain.document_loaders import TextLoader
+loader = TextLoader("../../state_of_the_union.txt")
+documents = loader.load()
+```
+
+如果您有多个要合并的加载器，可以这样做：
+
+
+```python
+# loaders = [....]
+# docs = []
+# for loader in loaders:
+#     docs.extend(loader.load())
+```
+
+现在我们将文档拆分，为它们创建嵌入，并将它们放入向量存储中。这使我们能够对它们进行语义搜索。
+
+
+```python
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+documents = text_splitter.split_documents(documents)
+
+embeddings = OpenAIEmbeddings()
+vectorstore = Chroma.from_documents(documents, embeddings)
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    Using embedded DuckDB without persistence: data will be transient
+```
+
+</CodeOutputBlock>
+
+现在我们可以创建一个内存对象，这对于跟踪输入/输出并进行对话是必要的。
+
+
+```python
+from langchain.memory import ConversationBufferMemory
+memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+```
+
+现在我们初始化 `ConversationalRetrievalChain`
+
+
+```python
+qa = ConversationalRetrievalChain.from_llm(OpenAI(temperature=0), vectorstore.as_retriever(), memory=memory)
+```
+
+
+```python
+query = "What did the president say about Ketanji Brown Jackson"
+result = qa({"question": query})
+```
+
+
+```python
+result["answer"]
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    " The president said that Ketanji Brown Jackson is one of the nation's top legal minds, a former top litigator in private practice, a former federal public defender, and from a family of public school educators and police officers. He also said that she is a consensus builder and has received a broad range of support from the Fraternal Order of Police to former judges appointed by Democrats and Republicans."
+```
+
+</CodeOutputBlock>
+
+
+```python
+query = "Did he mention who she suceeded"
+result = qa({"question": query})
+```
+
+
+```python
+result['answer']
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    ' Ketanji Brown Jackson succeeded Justice Stephen Breyer on the United States Supreme Court.'
+```
+
+</CodeOutputBlock>
+
+## 传入聊天历史
+
+在上面的示例中，我们使用了一个内存对象来跟踪聊天历史。我们也可以直接将其传递进去。为了做到这一点，我们需要初始化一个没有任何内存对象的链。
+
+
+```python
+qa = ConversationalRetrievalChain.from_llm(OpenAI(temperature=0), vectorstore.as_retriever())
+```
+
+以下是没有聊天历史的问题示例
+
+
+```python
+chat_history = []
+query = "What did the president say about Ketanji Brown Jackson"
+result = qa({"question": query, "chat_history": chat_history})
+```
+
+
+```python
+result["answer"]
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    " The president said that Ketanji Brown Jackson is one of the nation's top legal minds, a former top litigator in private practice, a former federal public defender, and from a family of public school educators and police officers. He also said that she is a consensus builder and has received a broad range of support from the Fraternal Order of Police to former judges appointed by Democrats and Republicans."
+```
+
+</CodeOutputBlock>
+
+以下是带有一些聊天历史的问题示例
+
+
+```python
+chat_history = [(query, result["answer"])]
+query = "Did he mention who she suceeded"
+result = qa({"question": query, "chat_history": chat_history})
+```
+
+
+```python
+result['answer']
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    ' Ketanji Brown Jackson succeeded Justice Stephen Breyer on the United States Supreme Court.'
+```
+
+</CodeOutputBlock>
+
+## 使用不同的模型来压缩问题
+
+该链有两个步骤。首先，它将当前问题和聊天历史压缩为一个独立的问题。这是创建用于检索的独立向量的必要步骤。之后，它进行检索，然后使用单独的模型进行检索增强生成来回答问题。LangChain声明性的特性之一是您可以轻松为每个调用使用单独的语言模型。这对于在简化问题的较简单任务中使用更便宜和更快的模型，然后在回答问题时使用更昂贵的模型非常有用。下面是一个示例。
+
+
+```python
+from langchain.chat_models import ChatOpenAI
+```
+
+
+```python
+qa = ConversationalRetrievalChain.from_llm(
+    ChatOpenAI(temperature=0, model="gpt-4"),
+    vectorstore.as_retriever(),
+    condense_question_llm = ChatOpenAI(temperature=0, model='gpt-3.5-turbo'),
+)
+```
+
+
+```python
+chat_history = []
+query = "What did the president say about Ketanji Brown Jackson"
+result = qa({"question": query, "chat_history": chat_history})
+```
+
+
+```python
+chat_history = [(query, result["answer"])]
+query = "Did he mention who she suceeded"
+result = qa({"question": query, "chat_history": chat_history})
+```
+
+## 返回源文档
+您还可以轻松地从 ConversationalRetrievalChain 返回源文档。这在您想要检查返回了哪些文档时非常有用。
+
+
+```python
+qa = ConversationalRetrievalChain.from_llm(OpenAI(temperature=0), vectorstore.as_retriever(), return_source_documents=True)
+```
+
+
+```python
+chat_history = []
+query = "What did the president say about Ketanji Brown Jackson"
+result = qa({"question": query, "chat_history": chat_history})
+```
+
+
+```python
+result['source_documents'][0]
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    Document(page_content='Tonight. I call on the Senate to: Pass the Freedom to Vote Act. Pass the John Lewis Voting Rights Act. And while you’re at it, pass the Disclose Act so Americans can know who is funding our elections. \n\nTonight, I’d like to honor someone who has dedicated his life to serve this country: Justice Stephen Breyer—an Army veteran, Constitutional scholar, and retiring Justice of the United States Supreme Court. Justice Breyer, thank you for your service. \n\nOne of the most serious constitutional responsibilities a President has is nominating someone to serve on the United States Supreme Court. \n\nAnd I did that 4 days ago, when I nominated Circuit Court of Appeals Judge Ketanji Brown Jackson. One of our nation’s top legal minds, who will continue Justice Breyer’s legacy of excellence.', metadata={'source': '../../state_of_the_union.txt'})
+```
+
+</CodeOutputBlock>
+
+## ConversationalRetrievalChain 与 `search_distance`
+如果您正在使用支持按搜索距离进行过滤的向量存储，可以添加阈值参数。
+
+
+```python
+vectordbkwargs = {"search_distance": 0.9}
+```
+
+
+```python
+qa = ConversationalRetrievalChain.from_llm(OpenAI(temperature=0), vectorstore.as_retriever(), return_source_documents=True)
+chat_history = []
+query = "What did the president say about Ketanji Brown Jackson"
+result = qa({"question": query, "chat_history": chat_history, "vectordbkwargs": vectordbkwargs})
+```
+
+## ConversationalRetrievalChain 与 `map_reduce`
+我们还可以将不同类型的组合文档链与 ConversationalRetrievalChain 链一起使用。
+
+
+```python
+from langchain.chains import LLMChain
+from langchain.chains.question_answering import load_qa_chain
+from langchain.chains.conversational_retrieval.prompts import CONDENSE_QUESTION_PROMPT
+```
+
+
+```python
+llm = OpenAI(temperature=0)
+question_generator = LLMChain(llm=llm, prompt=CONDENSE_QUESTION_PROMPT)
+doc_chain = load_qa_chain(llm, chain_type="map_reduce")
+
+chain = ConversationalRetrievalChain(
+    retriever=vectorstore.as_retriever(),
+    question_generator=question_generator,
+    combine_docs_chain=doc_chain,
+)
+```
+
+
+```python
+chat_history = []
+query = "What did the president say about Ketanji Brown Jackson"
+result = chain({"question": query, "chat_history": chat_history})
+```
+
+
+```python
+result['answer']
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    " The president said that Ketanji Brown Jackson is one of the nation's top legal minds, a former top litigator in private practice, a former federal public defender, from a family of public school educators and police officers, a consensus builder, and has received a broad range of support from the Fraternal Order of Police to former judges appointed by Democrats and Republicans."
+```
+
+</CodeOutputBlock>
+
+## ConversationalRetrievalChain 与带有来源的问答
+
+您还可以将此链与带有来源的问答链一起使用。
+
+
+```python
+from langchain.chains.qa_with_sources import load_qa_with_sources_chain
+```
+
+
+```python
+llm = OpenAI(temperature=0)
+question_generator = LLMChain(llm=llm, prompt=CONDENSE_QUESTION_PROMPT)
+doc_chain = load_qa_with_sources_chain(llm, chain_type="map_reduce")
+
+chain = ConversationalRetrievalChain(
+    retriever=vectorstore.as_retriever(),
+    question_generator=question_generator,
+    combine_docs_chain=doc_chain,
+)
+```
+
+
+```python
+chat_history = []
+query = "What did the president say about Ketanji Brown Jackson"
+result = chain({"question": query, "chat_history": chat_history})
+```
+
+
+```python
+result['answer']
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    " The president said that Ketanji Brown Jackson is one of the nation's top legal minds, a former top litigator in private practice, a former federal public defender, from a family of public school educators and police officers, a consensus builder, and has received a broad range of support from the Fraternal Order of Police to former judges appointed by Democrats and Republicans. \nSOURCES: ../../state_of_the_union.txt"
+```
+
+</CodeOutputBlock>
+
+## ConversationalRetrievalChain 与流式传输至 `stdout`
+
+在此示例中，链的输出将逐个令牌流式传输到 `stdout`。
+
+
+```python
+from langchain.chains.llm import LLMChain
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain.chains.conversational_retrieval.prompts import CONDENSE_QUESTION_PROMPT, QA_PROMPT
+from langchain.chains.question_answering import load_qa_chain
+
+# Construct a ConversationalRetrievalChain with a streaming llm for combine docs
+# and a separate, non-streaming llm for question generation
+llm = OpenAI(temperature=0)
+streaming_llm = OpenAI(streaming=True, callbacks=[StreamingStdOutCallbackHandler()], temperature=0)
+
+question_generator = LLMChain(llm=llm, prompt=CONDENSE_QUESTION_PROMPT)
+doc_chain = load_qa_chain(streaming_llm, chain_type="stuff", prompt=QA_PROMPT)
+
+qa = ConversationalRetrievalChain(
+    retriever=vectorstore.as_retriever(), combine_docs_chain=doc_chain, question_generator=question_generator)
+```
+
+
+```python
+chat_history = []
+query = "What did the president say about Ketanji Brown Jackson"
+result = qa({"question": query, "chat_history": chat_history})
+```
+
+<CodeOutputBlock lang="python">
+
+```
+     The president said that Ketanji Brown Jackson is one of the nation's top legal minds, a former top litigator in private practice, a former federal public defender, and from a family of public school educators and police officers. He also said that she is a consensus builder and has received a broad range of support from the Fraternal Order of Police to former judges appointed by Democrats and Republicans.
+```
+
+</CodeOutputBlock>
+
+
+```python
+chat_history = [(query, result["answer"])]
+query = "Did he mention who she suceeded"
+result = qa({"question": query, "chat_history": chat_history})
+```
+
+<CodeOutputBlock lang="python">
+
+```
+     Ketanji Brown Jackson succeeded Justice Stephen Breyer on the United States Supreme Court.
+```
+
+</CodeOutputBlock>
+
+## get_chat_history 函数
+您还可以指定一个 `get_chat_history` 函数，用于格式化聊天历史字符串。
+
+
+```python
+def get_chat_history(inputs) -> str:
+    res = []
+    for human, ai in inputs:
+        res.append(f"Human:{human}\nAI:{ai}")
+    return "\n".join(res)
+qa = ConversationalRetrievalChain.from_llm(OpenAI(temperature=0), vectorstore.as_retriever(), get_chat_history=get_chat_history)
+```
+
+
+```python
+chat_history = []
+query = "What did the president say about Ketanji Brown Jackson"
+result = qa({"question": query, "chat_history": chat_history})
+```
+
+
+```python
+result['answer']
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    " The president said that Ketanji Brown Jackson is one of the nation's top legal minds, a former top litigator in private practice, a former federal public defender, and from a family of public school educators and police officers. He also said that she is a consensus builder and has received a broad range of support from the Fraternal Order of Police to former judges appointed by Democrats and Republicans."
+```
+
+</CodeOutputBlock>

@@ -1,0 +1,120 @@
+### 设置
+
+首先，我们需要安装OpenAI Python包：
+
+```bash
+pip install openai
+```
+
+访问API需要API密钥，您可以通过创建帐户并转到此处（https://platform.openai.com/account/api-keys）获取密钥。一旦我们有了密钥，我们将希望通过运行以下命令将其设置为环境变量：
+
+```bash
+export OPENAI_API_KEY="..."
+```
+如果您不想设置环境变量，可以在初始化OpenAI LLM类时直接通过“openai_api_key”命名参数传递密钥：
+
+```python
+from langchain.chat_models import ChatOpenAI
+
+chat = ChatOpenAI(open_api_key="...")
+```
+
+否则，您可以不使用任何参数进行初始化：
+```python
+from langchain.chat_models import ChatOpenAI
+
+chat = ChatOpenAI()
+```
+
+### 消息
+
+聊天模型界面基于消息而不是原始文本。
+LangChain目前支持的消息类型有“AIMessage”，“HumanMessage”，“SystemMessage”和“ChatMessage” - “ChatMessage”接受一个任意角色参数。大多数时候，您只需处理“HumanMessage”，“AIMessage”和“SystemMessage”
+
+### `__call__`
+#### 输入消息 -> 输出消息
+
+通过将一个或多个消息传递给聊天模型，您可以获得聊天完成。响应将是一条消息。
+
+```python
+from langchain.schema import (
+    AIMessage,
+    HumanMessage,
+    SystemMessage
+)
+
+chat([HumanMessage(content="Translate this sentence from English to French: I love programming.")])
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    AIMessage(content="J'aime programmer.", additional_kwargs={})
+```
+
+</CodeOutputBlock>
+
+OpenAI的聊天模型支持多个消息作为输入。有关更多信息，请参见此处（https://platform.openai.com/docs/guides/chat/chat-vs-completions）。以下是向聊天模型发送系统消息和用户消息的示例：
+
+
+```python
+messages = [
+    SystemMessage(content="You are a helpful assistant that translates English to French."),
+    HumanMessage(content="I love programming.")
+]
+chat(messages)
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    AIMessage(content="J'aime programmer.", additional_kwargs={})
+```
+
+</CodeOutputBlock>
+
+### `generate`
+#### 批量调用，更丰富的输出
+
+您可以进一步使用`generate`为多组消息生成完成。这将返回一个带有额外`message`参数的`LLMResult`。
+
+```python
+batch_messages = [
+    [
+        SystemMessage(content="You are a helpful assistant that translates English to French."),
+        HumanMessage(content="I love programming.")
+    ],
+    [
+        SystemMessage(content="You are a helpful assistant that translates English to French."),
+        HumanMessage(content="I love artificial intelligence.")
+    ],
+]
+result = chat.generate(batch_messages)
+result
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    LLMResult(generations=[[ChatGeneration(text="J'aime programmer.", generation_info=None, message=AIMessage(content="J'aime programmer.", additional_kwargs={}))], [ChatGeneration(text="J'aime l'intelligence artificielle.", generation_info=None, message=AIMessage(content="J'aime l'intelligence artificielle.", additional_kwargs={}))]], llm_output={'token_usage': {'prompt_tokens': 57, 'completion_tokens': 20, 'total_tokens': 77}})
+```
+
+</CodeOutputBlock>
+
+您可以从这个LLMResult中恢复诸如令牌使用情况之类的东西
+
+
+```python
+result.llm_output
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    {'token_usage': {'prompt_tokens': 57,
+      'completion_tokens': 20,
+      'total_tokens': 77}}
+```
+
+</CodeOutputBlock>
+

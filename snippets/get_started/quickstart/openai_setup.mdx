@@ -1,0 +1,19 @@
+首先，我们需要安装他们的Python包：
+
+```bash
+pip install openai
+```
+
+访问API需要一个API密钥，您可以通过创建一个帐户并前往 [这里](https://platform.openai.com/account/api-keys) 来获取。一旦我们有了密钥，我们将希望通过运行以下命令将其设置为环境变量：
+
+```bash
+export OPENAI_API_KEY="..."
+```
+
+如果您不希望设置环境变量，可以在初始化OpenAI LLM类时直接通过 `openai_api_key` 命名参数传递密钥：
+
+```python
+from langchain.llms import OpenAI
+
+llm = OpenAI(openai_api_key="...")
+```

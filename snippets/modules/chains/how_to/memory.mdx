@@ -1,0 +1,25 @@
+```python
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
+
+conversation = ConversationChain(
+    llm=chat,
+    memory=ConversationBufferMemory()
+)
+
+conversation.run("Answer briefly. What are the first 3 colors of a rainbow?")
+# -> The first three colors of a rainbow are red, orange, and yellow.
+conversation.run("And the next 4?")
+# -> The next four colors of a rainbow are green, blue, indigo, and violet.
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    'The next four colors of a rainbow are green, blue, indigo, and violet.'
+```
+
+</CodeOutputBlock>
+
+基本上，`BaseMemory` 定义了 `langchain` 存储内存的接口。它通过 `load_memory_variables` 方法读取存储的数据，并通过 `save_context` 方法存储新数据。您可以在 [Memory](../memory.html) 部分了解更多信息。
+

@@ -1,0 +1,17 @@
+---
+sidebar_position: 0
+---
+# 文档加载器 (Document loaders)
+
+使用文档加载器从源中加载数据作为 `Document`。 `Document` 是一段文本
+和关联的元数据。例如，有用于加载简单 `.txt` 文件的文档加载器，用于加载任何网页的文本
+内容，甚至用于加载 YouTube 视频的转录稿。
+
+文档加载器公开了一个“load”方法，用于从配置的源加载数据作为文档。它们还可以选择
+实现“延迟加载”，以便将数据懒加载到内存中。
+
+## 入门
+
+import GetStarted from "@snippets/modules/data_connection/document_loaders/get_started.mdx"
+
+<GetStarted/>

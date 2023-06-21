@@ -1,0 +1,158 @@
+# 快速入门
+
+## 安装
+
+要安装LangChain，请运行以下命令：
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Install from "@snippets/get_started/quickstart/installation.mdx"
+
+<Install/>
+
+有关更多详细信息，请参阅我们的[安装指南](/docs/get_started/installation.html)。
+
+## 环境设置
+
+使用LangChain通常需要与一个或多个模型提供者、数据存储、API等集成。在此示例中，我们将使用OpenAI的模型API。
+
+import OpenAISetup from "@snippets/get_started/quickstart/openai_setup.mdx"
+
+<OpenAISetup/>
+
+## 构建应用程序
+
+现在我们可以开始构建我们的语言模型应用程序了。LangChain提供了许多可以用于构建语言模型应用程序的模块。这些模块可以作为简单应用程序中的独立模块使用，也可以组合在一起用于更复杂的用例。
+
+## LLMs
+#### 从语言模型获取预测结果
+
+LangChain的基本构建模块是LLM，它接受文本并生成更多的文本。
+
+例如，假设我们正在构建一个根据公司描述生成公司名称的应用程序。为了做到这一点，我们需要初始化一个OpenAI模型封装器。在这种情况下，由于我们希望输出更随机，我们将使用较高的温度来初始化我们的模型。
+
+import LLM from "@snippets/get_started/quickstart/llm.mdx"
+
+<LLM/>
+
+## 聊天模型
+
+聊天模型是语言模型的一种变体。虽然聊天模型在内部使用语言模型，但其公开的接口略有不同：它们不是提供“文本输入，文本输出”的API，而是提供了一个“聊天消息”作为输入和输出的接口。
+
+您可以通过将一个或多个消息传递给聊天模型来获取聊天补全。响应将是一条消息。LangChain当前支持的消息类型有`AIMessage`、`HumanMessage`、`SystemMessage`和`ChatMessage` -- `ChatMessage`接受一个任意的角色参数。大多数情况下，您只需要处理`HumanMessage`、`AIMessage`和`SystemMessage`。
+
+import ChatModel from "@snippets/get_started/quickstart/chat_model.mdx"
+
+<ChatModel/>
+
+## 提示模板
+
+大多数LLM应用程序不会直接将用户输入传递给LLM。通常，它们会将用户输入添加到一个更大的文本片段中，称为提示模板，在特定任务上提供额外的上下文。
+
+在前面的示例中，我们传递给模型的文本包含了生成公司名称的指令。对于我们的应用程序来说，如果用户只需要提供公司/产品的描述，而不必担心给模型提供指令，那就太好了。
+
+import PromptTemplateLLM from "@snippets/get_started/quickstart/prompt_templates_llms.mdx"
+import PromptTemplateChatModel from "@snippets/get_started/quickstart/prompt_templates_chat_models.mdx"
+
+<Tabs>
+    <TabItem value="llms" label="LLMs" default>
+
+使用PromptTemplates非常简单！在这种情况下，我们的模板将非常简单：
+
+<PromptTemplateLLM/>
+</TabItem>
+<TabItem value="chat_models" label="Chat models">
+
+与LLMs类似，您可以使用`MessagePromptTemplate`来使用模板。您可以从一个或多个`MessagePromptTemplate`构建一个`ChatPromptTemplate`。您可以使用`ChatPromptTemplate`的`format_messages`方法来生成格式化的消息。
+
+因为这是生成消息列表，所以它比普通的提示模板稍微复杂一些，普通的提示模板只生成一个字符串。请参阅有关提示的详细指南，了解此处可用的更多选项。
+
+<PromptTemplateChatModel/>
+    </TabItem>
+</Tabs>
+
+## 链
+
+现在，我们已经有了一个模型和一个提示模板，我们将希望将两者结合起来。链提供了一种将多个原语（如模型、提示和其他链）链接（或链）在一起的方法。
+
+import ChainLLM from "@snippets/get_started/quickstart/chains_llms.mdx"
+import ChainChatModel from "@snippets/get_started/quickstart/chains_chat_models.mdx"
+
+<Tabs>
+<TabItem value="llms" label="LLMs" default>
+
+最简单、最常见的链类型是LLMChain，它首先将输入传递给PromptTemplate，然后再传递给LLM。我们可以从现有的模型和提示模板构建一个LLM链。
+
+<ChainLLM/>
+
+这就是我们的第一个链！理解这个简单链的工作原理将为您处理更复杂的链提供良好的基础。
+
+</TabItem>
+<TabItem value="chat_models" label="Chat models">
+
+`LLMChain`也可以与聊天模型一起使用：
+
+<ChainChatModel/>
+</TabItem>
+</Tabs>
+
+## 代理
+
+import AgentLLM from "@snippets/get_started/quickstart/agents_llms.mdx"
+import AgentChatModel from "@snippets/get_started/quickstart/agents_chat_models.mdx"
+
+我们的第一个链运行了一个预定的步骤序列。为了处理复杂的工作流程，我们需要能够根据输入动态选择操作。
+
+代理正是这样做的：它们使用语言模型来确定要采取的动作及其顺序。代理可以访问工具，并反复选择工具、运行工具并观察输出，直到得出最终答案。
+
+要加载一个代理，您需要选择一个：
+- LLM/Chat模型：为代理提供动力的语言模型。
+- 工具：执行特定任务的函数。这可以是诸如：Google搜索、数据库查找、Python REPL、其他链等。有关预定义工具及其规范的列表，请参阅[工具文档](/docs/modules/agents/tools/)。
+- 代理名称：一个字符串，用于引用支持的代理类。代理类主要由语言模型用于确定要采取的动作的提示参数化。因为本笔记本专注于最简单、最高级别的API，所以这只涵盖了使用标准支持的代理的情况。如果您想实现自定义代理，请参阅[这里](/docs/modules/agents/how_to/custom_agent.html)。有关支持的代理及其规范的列表，请参阅[这里](/docs/modules/agents/agent_types/)。
+
+在本示例中，我们将使用SerpAPI来查询搜索引擎。
+
+您需要安装SerpAPI Python包：
+
+```bash
+pip install google-search-results
+```
+
+并设置`SERPAPI_API_KEY`环境变量。
+
+<Tabs>
+<TabItem value="llms" label="LLMs" default>
+<AgentLLM/>
+</TabItem>
+<TabItem value="chat_models" label="Chat models">
+
+代理也可以与聊天模型一起使用，您可以使用`AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION`作为代理类型进行初始化。
+
+<AgentChatModel/>
+</TabItem>
+</Tabs>
+
+## 内存
+
+到目前为止，我们所看到的链和代理都是无状态的，但对于许多应用程序来说，引用过去的交互是必要的。一个明显的例子是聊天机器人，你希望它能够在过去的消息上下文中理解新的消息。
+
+内存模块提供了一种维护应用程序状态的方法。基本的内存接口很简单：它允许您根据最新的运行输入和输出更新状态，并使用存储的状态修改（或上下文化）下一个输入。
+
+有许多内置的内存系统。其中最简单的是缓冲内存，它只是将最近的几个输入/输出添加到当前输入的前面 - 我们将在下面的示例中使用它。
+
+import MemoryLLM from "@snippets/get_started/quickstart/memory_llms.mdx"
+import MemoryChatModel from "@snippets/get_started/quickstart/memory_chat_models.mdx"
+
+<Tabs>
+<TabItem value="llms" label="LLMs" default>
+
+<MemoryLLM/>
+</TabItem>
+<TabItem value="chat_models" label="Chat models">
+
+您可以将内存与使用聊天模型初始化的链和代理一起使用。与用于LLM的内存不同之处在于，我们可以将它们保留为自己独特的内存对象，而不是尝试将所有先前的消息压缩成一个字符串。
+
+<MemoryChatModel/>
+
+</TabItem>
+</Tabs>

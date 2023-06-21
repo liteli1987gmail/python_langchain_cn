@@ -1,0 +1,47 @@
+## 官方发布
+
+要安装LangChain，请运行：
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from "@theme/CodeBlock";
+
+<Tabs>
+  <TabItem value="pip" label="Pip" default>
+    <CodeBlock language="bash">pip install langchain</CodeBlock>
+  </TabItem>
+  <TabItem value="conda" label="Conda">
+    <CodeBlock language="bash">conda install langchain -c conda-forge</CodeBlock>
+  </TabItem>
+</Tabs>
+
+这将安装LangChain的最低要求。
+LangChain的价值在于将其与各种模型提供商、数据存储等集成时体现出来。
+默认情况下，不会安装执行此操作所需的依赖项。
+但是，还有另外两种安装LangChain的方式，可以带来这些依赖项。
+
+要安装常见LLM提供商所需的模块，请运行：
+
+```bash
+pip install langchain[llms]
+```
+
+要安装所有集成所需的模块，请运行：
+
+```bash
+pip install langchain[all]
+```
+
+请注意，如果您使用的是`zsh`，在将它们作为命令的参数传递时，您需要引用方括号，例如：
+
+```bash
+pip install 'langchain[all]'
+```
+
+## 从源代码安装
+
+如果您想从源代码安装，可以通过克隆存储库并运行以下命令来实现：
+
+```bash
+pip install -e .
+```

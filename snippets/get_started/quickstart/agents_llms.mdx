@@ -1,0 +1,39 @@
+## 官方发布
+from langchain.agents import AgentType, initialize_agent, load_tools
+要安装LangChain，请运行：
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from "@theme/CodeBlock";
+
+# The tools we'll give the Agent access to. Note that the 'llm-math' tool uses an LLM, so we need to pass that in.
+
+<Tabs>
+  <TabItem value="pip" label="Pip" default>
+    <CodeBlock language="bash">pip install langchain</CodeBlock>
+  </TabItem>
+  <TabItem value="conda" label="Conda">
+    <CodeBlock language="bash">conda install langchain -c conda-forge</CodeBlock>
+  </TabItem>
+</Tabs>
+```pycon
+这将安装LangChain的最低要求。
+LangChain的价值在于将其与各种模型提供商、数据存储等集成时体现出来。
+默认情况下，不会安装执行此操作所需的依赖项。
+但是，还有另外两种安装LangChain的方式，可以带来这些依赖项。
+Action Input: "High temperature in SF yesterday"
+要安装常见LLM提供商所需的模块，请运行：
+
+Thought: I now have the temperature, so I can use the calculator to raise it to the .023 power.
+Action: Calculator
+Action Input: 57^.023
+Observation: Answer: 1.0974509573251117
+要安装所有集成所需的模块，请运行：
+Thought: I now know the final answer
+Final Answer: The high temperature in SF yesterday in Fahrenheit raised to the .023 power is 1.0974509573251117.
+
+> Finished chain.
+```
+请注意，如果您使用的是`zsh`，在将它们作为命令的参数传递时，您需要引用方括号，例如：
+The high temperature in SF yesterday in Fahrenheit raised to the .023 power is 1.0974509573251117.
+```

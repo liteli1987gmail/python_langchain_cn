@@ -1,0 +1,11 @@
+# 基于向量存储的记忆 vectorstore_retriever_memory
+
+`VectorStoreRetrieverMemory` 在 VectorDB 中存储记忆，并在每次调用时查询最具"显著性"的前 K 个文档。
+
+与大多数其他 Memory 类不同的是，它不明确跟踪交互的顺序。
+
+在这种情况下，"docs" 是先前对话片段。这对于引用对话中 AI 之前告知的相关信息非常有用。
+
+import Example from "@snippets/modules/memory/how_to/vectorstore_retriever_memory.mdx"
+
+<Example/>

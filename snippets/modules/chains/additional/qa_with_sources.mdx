@@ -1,0 +1,23 @@
+我们还可以进行文档问答，并返回用于回答问题的来源。为了做到这一点，我们只需要确保每个文档的元数据中有一个"source"键，并使用`load_qa_with_sources`助手来构建我们的链：
+
+```python
+docsearch = Chroma.from_texts(texts, embeddings, metadatas=[{"source": str(i)} for i in range(len(texts))])
+query = "What did the president say about Justice Breyer"
+docs = docsearch.similarity_search(query)
+```
+
+```python
+from langchain.chains.qa_with_sources import load_qa_with_sources_chain
+
+chain = load_qa_with_sources_chain(OpenAI(temperature=0), chain_type="stuff")
+query = "What did the president say about Justice Breyer"
+chain({"input_documents": docs, "question": query}, return_only_outputs=True)
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    {'output_text': ' The president thanked Justice Breyer for his service.\nSOURCES: 30-pl'}
+```
+
+</CodeOutputBlock>

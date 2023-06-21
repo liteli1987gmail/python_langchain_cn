@@ -1,0 +1,15 @@
+```python
+from langchain.agents import load_tools
+tool_names = [...]
+tools = load_tools(tool_names)
+```
+
+一些工具（例如chains，agents）可能需要一个基础LLM来初始化它们。
+在这种情况下，您也可以传递一个LLM：
+
+```python
+from langchain.agents import load_tools
+tool_names = [...]
+llm = ...
+tools = load_tools(tool_names, llm=llm)
+```

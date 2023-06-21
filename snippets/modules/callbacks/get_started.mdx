@@ -1,0 +1,142 @@
+---
+sidebar_position: 5
+---
+您可以使用 API 中的 `callbacks` 参数订阅这些事件。该参数是一个处理程序对象列表，这些对象应该详细实现下面描述的一个或多个方法。
+
+## 回调处理程序
+
+`CallbackHandlers` 是实现 `CallbackHandler` 接口的对象，每个事件都可以订阅一个方法。当触发事件时，`CallbackManager` 会调用每个处理程序上的适当方法。
+
+```python
+class BaseCallbackHandler:
+    """Base callback handler that can be used to handle callbacks from langchain."""
+
+    def on_llm_start(
+        self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any
+    ) -> Any:
+        """Run when LLM starts running."""
+
+    def on_chat_model_start(
+        self, serialized: Dict[str, Any], messages: List[List[BaseMessage]], **kwargs: Any
+    ) -> Any:
+        """Run when Chat Model starts running."""
+
+    def on_llm_new_token(self, token: str, **kwargs: Any) -> Any:
+        """Run on new LLM token. Only available when streaming is enabled."""
+
+    def on_llm_end(self, response: LLMResult, **kwargs: Any) -> Any:
+        """Run when LLM ends running."""
+
+    def on_llm_error(
+        self, error: Union[Exception, KeyboardInterrupt], **kwargs: Any
+    ) -> Any:
+        """Run when LLM errors."""
+
+    def on_chain_start(
+        self, serialized: Dict[str, Any], inputs: Dict[str, Any], **kwargs: Any
+    ) -> Any:
+        """Run when chain starts running."""
+
+    def on_chain_end(self, outputs: Dict[str, Any], **kwargs: Any) -> Any:
+        """Run when chain ends running."""
+
+    def on_chain_error(
+        self, error: Union[Exception, KeyboardInterrupt], **kwargs: Any
+    ) -> Any:
+        """Run when chain errors."""
+
+    def on_tool_start(
+        self, serialized: Dict[str, Any], input_str: str, **kwargs: Any
+    ) -> Any:
+        """Run when tool starts running."""
+
+    def on_tool_end(self, output: str, **kwargs: Any) -> Any:
+        """Run when tool ends running."""
+
+    def on_tool_error(
+        self, error: Union[Exception, KeyboardInterrupt], **kwargs: Any
+    ) -> Any:
+        """Run when tool errors."""
+
+    def on_text(self, text: str, **kwargs: Any) -> Any:
+        """Run on arbitrary text."""
+
+    def on_agent_action(self, action: AgentAction, **kwargs: Any) -> Any:
+        """Run on agent action."""
+
+    def on_agent_finish(self, finish: AgentFinish, **kwargs: Any) -> Any:
+        """Run on agent end."""
+```
+
+## 入门
+
+LangChain 提供了一些内置的处理程序，您可以使用它们进行入门。这些处理程序在 `langchain/callbacks` 模块中可用。最基本的处理程序是 `StdOutCallbackHandler`，它只是将所有事件记录到 `stdout`。
+
+**注意** 当对象上的 `verbose` 标志设置为 true 时，即使没有显式传递，`StdOutCallbackHandler` 也会被调用。
+
+```python
+from langchain.callbacks import StdOutCallbackHandler
+from langchain.chains import LLMChain
+from langchain.llms import OpenAI
+from langchain.prompts import PromptTemplate
+
+handler = StdOutCallbackHandler()
+llm = OpenAI()
+prompt = PromptTemplate.from_template("1 + {number} = ")
+
+# Constructor callback: First, let's explicitly set the StdOutCallbackHandler when initializing our chain
+chain = LLMChain(llm=llm, prompt=prompt, callbacks=[handler])
+chain.run(number=2)
+
+# Use verbose flag: Then, let's use the `verbose` flag to achieve the same result
+chain = LLMChain(llm=llm, prompt=prompt, verbose=True)
+chain.run(number=2)
+
+# Request callbacks: Finally, let's use the request `callbacks` to achieve the same result
+chain = LLMChain(llm=llm, prompt=prompt)
+chain.run(number=2, callbacks=[handler])
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    > Entering new LLMChain chain...
+    Prompt after formatting:
+    1 + 2 = 
+    
+    > Finished chain.
+    
+    
+    > Entering new LLMChain chain...
+    Prompt after formatting:
+    1 + 2 = 
+    
+    > Finished chain.
+    
+    
+    > Entering new LLMChain chain...
+    Prompt after formatting:
+    1 + 2 = 
+    
+    > Finished chain.
+
+
+    '\n\n3'
+```
+
+</CodeOutputBlock>
+
+## 在哪里传递回调
+
+`callbacks` 参数在 API 的大多数对象（Chains、Models、Tools、Agents 等）中都可用，有两个不同的位置：
+
+- **构造函数回调**：在构造函数中定义，例如 `LLMChain(callbacks=[handler], tags=['a-tag'])`，它将用于该对象上的所有调用，并仅限于该对象的范围，例如，如果您将处理程序传递给 `LLMChain` 构造函数，它将不会被附加到该链上的模型使用。
+- **请求回调**：在发出请求的 `call()`/`run()`/`apply()` 方法中定义，例如 `chain.call(inputs, callbacks=[handler])`，它仅用于该特定请求以及它包含的所有子请求（例如，对 LLMChain 的调用触发对模型的调用，模型使用在 `call()` 方法中传递的相同处理程序）。
+
+`verbose` 参数在 API 的大多数对象（Chains、Models、Tools、Agents 等）中都可用作构造函数参数，例如 `LLMChain(verbose=True)`，它等效于将 `ConsoleCallbackHandler` 传递给该对象及其所有子对象的 `callbacks` 参数。这对于调试非常有用，因为它会将所有事件记录到控制台。
+
+### 在什么情况下使用这些选项？
+
+- 构造函数回调最适用于记录、监视等与单个请求无关的用例。例如，如果您想记录对 LLMChain 的所有请求，您可以将处理程序传递给构造函数。
+- 请求回调最适用于流式传输等用例，其中您希望将单个请求的输出流式传输到特定的 WebSocket 连接或其他类似用例。例如，如果您想将单个请求的输出流式传输到 WebSocket，您可以将处理程序传递给 `call()` 方法。
+

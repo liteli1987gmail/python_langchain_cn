@@ -1,0 +1,73 @@
+### 设置
+
+首先，我们需要安装OpenAI Python包：
+
+```bash
+pip install openai
+```
+
+访问API需要一个API密钥，您可以通过创建一个帐户并访问[此处](https://platform.openai.com/account/api-keys)来获取。一旦我们有了密钥，我们将通过运行以下命令将其设置为环境变量：
+
+```bash
+export OPENAI_API_KEY="..."
+```
+
+如果您不想设置环境变量，您可以在初始化OpenAI LLM类时直接通过`openai_api_key`命名参数传递密钥：
+
+```python
+from langchain.embeddings import OpenAIEmbeddings
+
+embeddings_model = OpenAIEmbeddings(openai_api_key="...")
+```
+
+否则，您可以不使用任何参数进行初始化：
+```python
+from langchain.embeddings import OpenAIEmbeddings
+
+embeddings_model = OpenAIEmbeddings()
+```
+
+### `embed_documents`
+#### 嵌入文本列表
+
+```python
+embeddings = embedding_model.embed_documents(
+    [
+        "Hi there!",
+        "Oh, hello!",
+        "What's your name?",
+        "My friends call me World",
+        "Hello World!"
+    ]
+)
+len(embeddings), len(embeddings[0])
+```
+
+<CodeOutputBlock language="python">
+
+```
+(5, 1536)
+```
+
+</CodeOutputBlock>
+
+### `embed_query`
+#### 嵌入单个查询
+嵌入单个文本以便与其他嵌入的文本进行比较。
+
+```python
+embedded_query = embedding_model.embed_query("What was the name mentioned in the conversation?")
+embedded_query[:5]
+```
+
+<CodeOutputBlock language="python">
+
+```
+[0.0053587136790156364,
+ -0.0004999046213924885,
+ 0.038883671164512634,
+ -0.003001077566295862,
+ -0.00900818221271038]
+```
+
+</CodeOutputBlock>

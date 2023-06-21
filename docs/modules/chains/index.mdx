@@ -1,50 +1,33 @@
 ---
-hide_table_of_contents: true
-sidebar_label: 链
-sidebar_position: 6
+sidebar_position: 2
 ---
 
-import DocCardList from "@theme/DocCardList";
+# 链 (Chains)
 
-import CodeBlock from "@theme/CodeBlock";
+在独立使用LLM进行简单应用时是可以的，
+但更复杂的应用需要将LLM进行链式调用 - 可以是与其他LLM进行链式调用，也可以是与其他组件进行链式调用。
 
+LangChain为这种“链式”应用提供了**Chain**接口。我们将Chain定义得非常通用，作为一个调用组件的序列，其中可以包含其他链。基本接口很简单:
 
-# 入门指南: 链
+import BaseClass from "@snippets/modules/chains/base_class.mdx"
 
-:::info
-[概念指南](https://docs.langchain.com/docs/components/chains)
-:::info
+<BaseClass/>
 
-在一些应用中，仅使用一个语言模型是可以的，但通常将语言模型与其他信息源（例如第三方API或其他语言模型)组合使用是非常有用的。
+将组件以链式方式组合在一起的思想简单而强大。它极大地简化和模块化了复杂应用的实现，从而使调试、维护和改进应用变得更加容易。
 
-这就是链的概念。
+更多具体信息请查看:
+- [如何使用](/docs/modules/chains/how_to/)，了解不同链特性的详细步骤
+- [基础](/docs/modules/chains/foundational/)，熟悉核心构建块链
+- [文档](/docs/modules/chains/document/)，了解如何将文档纳入链中
+- [常用](/docs/modules/chains/popular/)链，用于最常见的用例
+- [附加](/docs/modules/chains/additional/)，查看一些更高级的链和集成，可以直接使用
 
-LangChain提供了一个用于链的标准接口，以及一些可直接使用的内置链。您也可以创建自己的链。
+## 为什么我们需要链? (Why do we need chains?)
 
-<DocCardList />
+链允许我们将多个组件组合在一起，创建一个单一而连贯的应用程序。例如，我们可以创建一个链，接受用户输入，使用PromptTemplate进行格式化，然后将格式化的响应传递给LLM。我们可以通过将多个链组合在一起或将链与其他组件组合来构建更复杂的链。
 
+## 快速入门 (Get started)
 
-## 高级
+import GetStarted from "@snippets/modules/chains/get_started.mdx"
 
-要实现自己的自定义链，您可以继承`BaseChain`并实现以下方法:
-
-import SubclassInterface from "!!raw-loader!@examples/chains/advanced_subclass.ts";
-
-
-<CodeBlock language="typescript">{SubclassInterface}</CodeBlock>
-
-
-### 继承`BaseChain`
-
-`_call`方法是自定义链必须实现的主要方法。它接受输入记录并返回输出记录。接收到的输入应符合`inputKeys`数组，返回的输出应符合`outputKeys`数组。
-
-在自定义链中实现此方法时，值得特别关注的是`runManager`参数，它允许您的自定义链参与与内置链相同的回调系统[callbacks system](../../production/callbacks/)。
-
-如果在自定义链中调用另一个链/模型/代理，则应将其传递给调用`runManager？.getChild（)`的结果，该结果将生成一个新的回调管理器，范围限定为该内部运行。例如:
-
-import SubclassCall from "!!raw-loader!@examples/chains/advanced_subclass_call.ts";
-
-
-
-<CodeBlock language="typescript">{SubclassCall}</CodeBlock>
-
+<GetStarted/>

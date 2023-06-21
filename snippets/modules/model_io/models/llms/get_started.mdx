@@ -1,0 +1,108 @@
+### 设置
+
+首先，我们需要安装OpenAI Python包：
+
+```bash
+pip install openai
+```
+
+使用API需要一个API密钥，您可以通过创建帐户并转到[此处](https://platform.openai.com/account/api-keys)获取。一旦我们获得密钥，我们将希望通过运行以下命令将其设置为环境变量：
+
+```bash
+export OPENAI_API_KEY="..."
+```
+
+如果您不想设置环境变量，可以在初始化OpenAI LLM类时直接通过`openai_api_key`命名参数传递密钥：
+
+```python
+from langchain.llms import OpenAI
+
+llm = OpenAI(openai_api_key="...")
+```
+
+否则，您可以不使用任何参数进行初始化：
+```python
+from langchain.llms import OpenAI
+
+llm = OpenAI()
+```
+
+### `__call__`：输入字符串 -> 输出字符串
+使用LLM的最简单方法是可调用的：输入一个字符串，获得一个字符串完成结果。
+
+```python
+llm("Tell me a joke")
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    'Why did the chicken cross the road?\n\nTo get to the other side.'
+```
+
+</CodeOutputBlock>
+
+### `generate`：批量调用，更丰富的输出
+`generate`允许您使用字符串列表调用模型，获得比仅文本更完整的响应。这个完整的响应可以包括多个顶部响应和其他LLM提供程序特定的信息：
+
+```python
+llm_result = llm.generate(["Tell me a joke", "Tell me a poem"]*15)
+```
+
+
+```python
+len(llm_result.generations)
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    30
+```
+
+</CodeOutputBlock>
+
+
+```python
+llm_result.generations[0]
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    [Generation(text='\n\nWhy did the chicken cross the road?\n\nTo get to the other side!'),
+     Generation(text='\n\nWhy did the chicken cross the road?\n\nTo get to the other side.')]
+```
+
+</CodeOutputBlock>
+
+
+```python
+llm_result.generations[-1]
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    [Generation(text="\n\nWhat if love neverspeech\n\nWhat if love never ended\n\nWhat if love was only a feeling\n\nI'll never know this love\n\nIt's not a feeling\n\nBut it's what we have for each other\n\nWe just know that love is something strong\n\nAnd we can't help but be happy\n\nWe just feel what love is for us\n\nAnd we love each other with all our heart\n\nWe just don't know how\n\nHow it will go\n\nBut we know that love is something strong\n\nAnd we'll always have each other\n\nIn our lives."),
+     Generation(text='\n\nOnce upon a time\n\nThere was a love so pure and true\n\nIt lasted for centuries\n\nAnd never became stale or dry\n\nIt was moving and alive\n\nAnd the heart of the love-ick\n\nIs still beating strong and true.')]
+```
+
+</CodeOutputBlock>
+
+您还可以访问返回的特定于提供程序的信息。此信息在不同提供程序之间是标准化的。
+
+
+```python
+llm_result.llm_output
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    {'token_usage': {'completion_tokens': 3903,
+      'total_tokens': 4023,
+      'prompt_tokens': 120}}
+```
+
+</CodeOutputBlock>

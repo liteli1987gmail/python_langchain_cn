@@ -6,7 +6,8 @@
 const { ProvidePlugin } = require("webpack");
 const path = require("path");
 
-const examplesPath = path.resolve(__dirname, ".", "examples", "src");
+const examplesPath = path.resolve(__dirname, ".", "examples");
+const snippetsPath = path.resolve(__dirname, ".", "snippets");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -20,7 +21,7 @@ const config = {
     "img/hmbd.js"
   ],
   // Set the production url of your site here
-  url: "https://js.langchain.com.cn",
+  url: "https://python.langchain.com.cn",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
@@ -43,7 +44,7 @@ const config = {
             url: false,
           },
           alias: {
-            "@examples": examplesPath
+            "@snippets": snippetsPath
           },
         },
         module: {
@@ -59,9 +60,26 @@ const config = {
               },
             },
             {
-              test: /\.ts$/,
-              use: 'raw-loader'
-            }
+              test: /\.py$/,
+              loader: "raw-loader",
+              resolve: {
+                fullySpecified: false,
+              },
+            },
+            {
+              test: /\.ipynb$/,
+              loader: "raw-loader",
+              resolve: {
+                fullySpecified: false
+              }
+            },
+            // {
+            //   test: /\.mdx$/,
+            //   loader: "raw-loader",
+            //   resolve: {
+            //     fullySpecified: false
+            //   }
+            // },
           ],
         },
       }),
@@ -131,12 +149,12 @@ const config = {
             position: "left",
           },
           {
-            href: "https://www.langchain.com.cn/",
+            to: "/docs/get_started/introduction",
             label: "Python Docs",
             position: "left",
           },
           {
-            to: "/docs/",
+            href: "https://js.langchain.com.cn/docs/",
             label: "JS/TS Docs",
             position: "left",
           },
@@ -218,5 +236,5 @@ const config = {
       },
     }),
 };
-
+console.log(config)
 module.exports = config;

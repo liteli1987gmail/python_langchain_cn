@@ -1,0 +1,92 @@
+## 部分使用字符串
+
+希望部分填充提示模板的一个常见用例是如果您在获取某些变量之前获得了其他变量。例如，假设您有一个需要两个变量 `foo` 和 `baz` 的提示模板。如果您在链条中早期获得了 `foo` 的值，但稍后才获得 `baz` 的值，那么等到两个变量在同一个位置时将它们传递给提示模板可能会很麻烦。相反，您可以使用 `foo` 的值部分填充提示模板，然后传递部分填充的提示模板，并只使用它。下面是一个示例：
+
+<!-- 警告：此文件是自动生成的！请勿编辑！请改用具有相同位置和名称的笔记本进行编辑。 -->
+
+
+```python
+from langchain.prompts import PromptTemplate
+```
+
+
+```python
+prompt = PromptTemplate(template="{foo}{bar}", input_variables=["foo", "bar"])
+partial_prompt = prompt.partial(foo="foo");
+print(partial_prompt.format(bar="baz"))
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    foobaz
+```
+
+</CodeOutputBlock>
+
+您还可以使用部分填充的变量初始化提示。
+
+
+```python
+prompt = PromptTemplate(template="{foo}{bar}", input_variables=["bar"], partial_variables={"foo": "foo"})
+print(prompt.format(bar="baz"))
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    foobaz
+```
+
+</CodeOutputBlock>
+
+## 部分使用函数
+
+另一个常见用途是使用函数进行部分填充。这种情况是当您知道您总是希望以常见方式获取某个变量时使用的。一个典型的例子是日期或时间。想象一下，您有一个始终希望具有当前日期的提示。您不能在提示中硬编码它，并且将其与其他输入变量一起传递有点麻烦。在这种情况下，使用一个始终返回当前日期的函数来部分填充提示非常方便。
+
+
+```python
+from datetime import datetime
+
+def _get_datetime():
+    now = datetime.now()
+    return now.strftime("%m/%d/%Y, %H:%M:%S")
+```
+
+
+```python
+prompt = PromptTemplate(
+    template="Tell me a {adjective} joke about the day {date}", 
+    input_variables=["adjective", "date"]
+);
+partial_prompt = prompt.partial(date=_get_datetime)
+print(partial_prompt.format(adjective="funny"))
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    Tell me a funny joke about the day 02/27/2023, 22:15:16
+```
+
+</CodeOutputBlock>
+
+您还可以使用部分填充的变量初始化提示，这在这个工作流中通常更合理。
+
+
+```python
+prompt = PromptTemplate(
+    template="Tell me a {adjective} joke about the day {date}", 
+    input_variables=["adjective"],
+    partial_variables={"date": _get_datetime}
+);
+print(prompt.format(adjective="funny"))
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    Tell me a funny joke about the day 02/27/2023, 22:15:16
+```
+
+</CodeOutputBlock>

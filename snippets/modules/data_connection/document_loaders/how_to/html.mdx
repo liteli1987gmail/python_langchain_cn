@@ -1,0 +1,50 @@
+```python
+from langchain.document_loaders import UnstructuredHTMLLoader
+```
+
+
+```python
+loader = UnstructuredHTMLLoader("example_data/fake-content.html")
+```
+
+
+```python
+data = loader.load()
+```
+
+
+```python
+data
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    [Document(page_content='My First Heading\n\nMy first paragraph.', lookup_str='', metadata={'source': 'example_data/fake-content.html'}, lookup_index=0)]
+```
+
+</CodeOutputBlock>
+
+## 使用BeautifulSoup4加载HTML
+
+我们还可以使用`BeautifulSoup4`使用`BSHTMLLoader`加载HTML文档。这将提取HTML中的文本到`page_content`，并将页面标题作为`metadata`的`title`。
+
+
+```python
+from langchain.document_loaders import BSHTMLLoader
+```
+
+
+```python
+loader = BSHTMLLoader("example_data/fake-content.html")
+data = loader.load()
+data
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    [Document(page_content='\n\nTest Title\n\n\nMy First Heading\nMy first paragraph.\n\n\n', metadata={'source': 'example_data/fake-content.html', 'title': 'Test Title'})]
+```
+
+</CodeOutputBlock>

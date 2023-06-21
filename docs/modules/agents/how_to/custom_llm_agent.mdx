@@ -1,0 +1,14 @@
+# 自定义LLM代理
+
+本笔记本介绍如何创建您自己的自定义LLM代理。
+
+一个LLM代理由三个部分组成：
+
+- PromptTemplate：这是可以用来指导语言模型做什么的提示模板
+- LLM：这是驱动代理的语言模型
+- `stop`序列：指示LLM在找到此字符串时停止生成
+- OutputParser：确定如何将LLMOutput解析为AgentAction或AgentFinish对象
+
+import Example from "@snippets/modules/agents/how_to/custom_llm_agent.mdx"
+
+<Example/>

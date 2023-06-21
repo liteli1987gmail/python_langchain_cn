@@ -1,0 +1,216 @@
+LLMAgent在AgentExecutor中使用。可以将AgentExecutor大致看作是一个循环，它：1. 将用户输入和任何先前的步骤传递给Agent（在本例中为LLMAgent）2. 如果Agent返回`AgentFinish`，则直接将其返回给用户3. 如果Agent返回`AgentAction`，则使用它调用工具并获得`Observation`4. 重复以上步骤，将`AgentAction`和`Observation`传递回Agent，直到发出`AgentFinish`
+`AgentAction`是一个由`action`和`action_input`组成的响应。`action`指的是要使用的工具，`action_input`指的是该工具的输入。还可以提供`log`作为更多的上下文（可用于日志记录、跟踪等）。
+`AgentFinish`是一个包含要发送回用户的最终消息的响应。应该用它来结束代理运行。
+在本笔记本中，我们将介绍如何创建自定义LLM代理。
+<!-- 警告：此文件是自动生成的！请勿编辑！请编辑具有相同位置和名称的笔记本文件。 -->
+## 设置环境
+进行必要的导入等操作。
+
+```bash
+pip install langchain
+pip install google-search-results
+pip install openai
+```
+
+
+```python
+from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent, AgentOutputParser
+from langchain.prompts import BaseChatPromptTemplate
+from langchain import SerpAPIWrapper, LLMChain
+from langchain.chat_models import ChatOpenAI
+from typing import List, Union
+from langchain.schema import AgentAction, AgentFinish, HumanMessage
+import re
+from getpass import getpass
+```
+
+## 设置工具
+设置代理可能需要使用的任何工具。这可能需要放在提示中（以便代理知道使用这些工具）。
+
+```python
+SERPAPI_API_KEY = getpass()
+```
+
+
+```python
+# Define which tools the agent can use to answer user queries
+search = SerpAPIWrapper(serpapi_api_key=SERPAPI_API_KEY)
+tools = [
+    Tool(
+        name = "Search",
+        func=search.run,
+        description="useful for when you need to answer questions about current events"
+    )
+]
+```
+
+## 提示模板
+这指示代理要做什么。通常，模板应该包括：    
+- `tools`：代理可以访问的工具以及如何何时调用它们。- `intermediate_steps`：这些是先前的（`AgentAction`，`Observation`）对的元组。通常情况下，它们不会直接传递给模型，但是提示模板会以特定方式格式化它们。- `input`：通用用户输入
+
+```python
+# Set up the base template
+template = """Complete the objective as best you can. You have access to the following tools:
+
+{tools}
+
+Use the following format:
+
+Question: the input question you must answer
+Thought: you should always think about what to do
+Action: the action to take, should be one of [{tool_names}]
+Action Input: the input to the action
+Observation: the result of the action
+... (this Thought/Action/Action Input/Observation can repeat N times)
+Thought: I now know the final answer
+Final Answer: the final answer to the original input question
+
+These were previous tasks you completed:
+
+
+
+Begin!
+
+Question: {input}
+{agent_scratchpad}"""
+```
+
+
+```python
+# Set up a prompt template
+class CustomPromptTemplate(BaseChatPromptTemplate):
+    # The template to use
+    template: str
+    # The list of tools available
+    tools: List[Tool]
+    
+    def format_messages(self, **kwargs) -> str:
+        # Get the intermediate steps (AgentAction, Observation tuples)
+        # Format them in a particular way
+        intermediate_steps = kwargs.pop("intermediate_steps")
+        thoughts = ""
+        for action, observation in intermediate_steps:
+            thoughts += action.log
+            thoughts += f"\nObservation: {observation}\nThought: "
+        # Set the agent_scratchpad variable to that value
+        kwargs["agent_scratchpad"] = thoughts
+        # Create a tools variable from the list of tools provided
+        kwargs["tools"] = "\n".join([f"{tool.name}: {tool.description}" for tool in self.tools])
+        # Create a list of tool names for the tools provided
+        kwargs["tool_names"] = ", ".join([tool.name for tool in self.tools])
+        formatted = self.template.format(**kwargs)
+        return [HumanMessage(content=formatted)]
+```
+
+
+```python
+prompt = CustomPromptTemplate(
+    template=template,
+    tools=tools,
+    # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
+    # This includes the `intermediate_steps` variable because that is needed
+    input_variables=["input", "intermediate_steps"]
+)
+```
+
+## 输出解析器
+输出解析器负责将LLM输出解析为`AgentAction`和`AgentFinish`。这通常严重依赖于所使用的提示。
+在这里，您可以更改解析器以进行重试、处理空格等操作。
+
+```python
+class CustomOutputParser(AgentOutputParser):
+    
+    def parse(self, llm_output: str) -> Union[AgentAction, AgentFinish]:
+        # Check if agent should finish
+        if "Final Answer:" in llm_output:
+            return AgentFinish(
+                # Return values is generally always a dictionary with a single `output` key
+                # It is not recommended to try anything else at the moment :)
+                return_values={"output": llm_output.split("Final Answer:")[-1].strip()},
+                log=llm_output,
+            )
+        # Parse out the action and action input
+        regex = r"Action\s*\d*\s*:(.*?)\nAction\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
+        match = re.search(regex, llm_output, re.DOTALL)
+        if not match:
+            raise ValueError(f"Could not parse LLM output: `{llm_output}`")
+        action = match.group(1).strip()
+        action_input = match.group(2)
+        # Return the action and action input
+        return AgentAction(tool=action, tool_input=action_input.strip(" ").strip('"'), log=llm_output)
+```
+
+
+```python
+output_parser = CustomOutputParser()
+```
+
+## 设置LLM
+选择要使用的LLM！
+
+```python
+OPENAI_API_KEY = getpass()
+```
+
+
+```python
+llm = ChatOpenAI(openai_api_key=OPENAI_API_KEY, temperature=0)
+```
+
+## 定义停止序列
+这很重要，因为它告诉LLM何时停止生成。
+这严重依赖于所使用的提示和模型。通常情况下，您希望这是您在提示中用于表示`Observation`开始的令牌（否则，LLM可能会为您产生幻觉的观察结果）。
+## 设置代理
+现在我们可以将所有内容组合起来设置我们的代理
+
+```python
+# LLM chain consisting of the LLM and a prompt
+llm_chain = LLMChain(llm=llm, prompt=prompt)
+```
+
+
+```python
+tool_names = [tool.name for tool in tools]
+agent = LLMSingleActionAgent(
+    llm_chain=llm_chain, 
+    output_parser=output_parser,
+    stop=["\nObservation:"], 
+    allowed_tools=tool_names
+)
+```
+
+## 使用代理
+现在我们可以使用它了！
+
+```python
+agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=True)
+```
+
+
+```python
+agent_executor.run("Search for Leo DiCaprio's girlfriend on the internet.")
+```
+<CodeOutputBlock lang="python">
+
+```
+    
+    
+    > Entering new AgentExecutor chain...
+    Thought: I should use a reliable search engine to get accurate information.
+    Action: Search
+    Action Input: "Leo DiCaprio girlfriend"
+    
+    Observation:He went on to date Gisele Bündchen, Bar Refaeli, Blake Lively, Toni Garrn and Nina Agdal, among others, before finally settling down with current girlfriend Camila Morrone, who is 23 years his junior.
+    I have found the answer to the question.
+    Final Answer: Leo DiCaprio's current girlfriend is Camila Morrone.
+    
+    > Finished chain.
+
+
+
+
+
+    "Leo DiCaprio's current girlfriend is Camila Morrone."
+```
+
+</CodeOutputBlock>

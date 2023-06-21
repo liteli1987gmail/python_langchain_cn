@@ -1,0 +1,140 @@
+这是最简单的示例：
+
+```python
+from langchain import PromptTemplate
+
+
+template = """/
+You are a naming consultant for new companies.
+What is a good name for a company that makes {product}?
+"""
+
+prompt = PromptTemplate.from_template(template)
+prompt.format(product="colorful socks")
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    I want you to act as a naming consultant for new companies.
+    What is a good name for a company that makes colorful socks?
+```
+
+</CodeOutputBlock>
+
+
+## 创建提示模板
+
+您可以使用 `PromptTemplate` 类创建简单的硬编码提示。提示模板可以接受任意数量的输入变量，并可以格式化生成提示。
+
+
+```python
+from langchain import PromptTemplate
+
+# An example prompt with no input variables
+no_input_prompt = PromptTemplate(input_variables=[], template="Tell me a joke.")
+no_input_prompt.format()
+# -> "Tell me a joke."
+
+# An example prompt with one input variable
+one_input_prompt = PromptTemplate(input_variables=["adjective"], template="Tell me a {adjective} joke.")
+one_input_prompt.format(adjective="funny")
+# -> "Tell me a funny joke."
+
+# An example prompt with multiple input variables
+multiple_input_prompt = PromptTemplate(
+    input_variables=["adjective", "content"], 
+    template="Tell me a {adjective} joke about {content}."
+)
+multiple_input_prompt.format(adjective="funny", content="chickens")
+# -> "Tell me a funny joke about chickens."
+```
+
+如果您不想手动指定 `input_variables`，也可以使用 `from_template` 类方法创建 `PromptTemplate`。`LangChain` 将根据传递的 `template` 自动推断 `input_variables`。
+
+```python
+template = "Tell me a {adjective} joke about {content}."
+
+prompt_template = PromptTemplate.from_template(template)
+prompt_template.input_variables
+# -> ['adjective', 'content']
+prompt_template.format(adjective="funny", content="chickens")
+# -> Tell me a funny joke about chickens.
+```
+
+您可以创建自定义的提示模板，以任何您想要的方式格式化提示。有关更多信息，请参阅[自定义提示模板](./custom_prompt_template.html)。
+
+
+<!-- TODO(shreya): 添加到 Jinja 的链接 -->
+
+## 聊天提示模板
+
+[聊天模型](../models/chat)以聊天消息列表作为输入 - 这个列表通常称为 `prompt`。
+这些聊天消息与原始字符串不同（您会将其传递给[LLM](/docs/modules/model_io/models/llms)模型），因为每个消息都与一个 `role` 相关联。
+
+例如，在OpenAI的[聊天补全 API](https://platform.openai.com/docs/guides/chat/introduction)中，一个聊天消息可以与 AI、人类或系统角色相关联。模型应更密切地遵循系统聊天消息的指令。
+
+LangChain 提供了几个提示模板，以便更轻松地构建和处理提示。在查询聊天模型时，建议您使用这些与聊天相关的提示模板，以充分发挥底层聊天模型的潜力。
+
+
+<!-- 警告：此文件是自动生成的！请勿编辑！相反，请编辑具有位置和名称的笔记本作为此文件。 -->
+
+
+```python
+from langchain.prompts import (
+    ChatPromptTemplate,
+    PromptTemplate,
+    SystemMessagePromptTemplate,
+    AIMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
+from langchain.schema import (
+    AIMessage,
+    HumanMessage,
+    SystemMessage
+)
+```
+
+要创建与角色相关联的消息模板，可以使用 `MessagePromptTemplate`。
+
+为了方便起见，模板上暴露了 `from_template` 方法。如果您要使用此模板，它将如下所示：
+
+
+```python
+template="You are a helpful assistant that translates {input_language} to {output_language}."
+system_message_prompt = SystemMessagePromptTemplate.from_template(template)
+human_template="{text}"
+human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
+```
+
+如果您想更直接地构建 `MessagePromptTemplate`，您可以在外部创建一个 PromptTemplate，然后将其传递进去，例如：
+
+
+```python
+prompt=PromptTemplate(
+    template="You are a helpful assistant that translates {input_language} to {output_language}.",
+    input_variables=["input_language", "output_language"],
+)
+system_message_prompt_2 = SystemMessagePromptTemplate(prompt=prompt)
+
+assert system_message_prompt == system_message_prompt_2
+```
+
+之后，您可以从一个或多个 `MessagePromptTemplates` 构建一个 `ChatPromptTemplate`。您可以使用 `ChatPromptTemplate` 的 `format_prompt` 方法 - 这将返回一个 `PromptValue`，您可以将其转换为字符串或 Message 对象，具体取决于您是否希望将格式化的值用作 llm 或 chat 模型的输入。
+
+
+```python
+chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
+
+# get a chat completion from the formatted messages
+chat_prompt.format_prompt(input_language="English", output_language="French", text="I love programming.").to_messages()
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    [SystemMessage(content='You are a helpful assistant that translates English to French.', additional_kwargs={}),
+     HumanMessage(content='I love programming.', additional_kwargs={})]
+```
+
+</CodeOutputBlock>

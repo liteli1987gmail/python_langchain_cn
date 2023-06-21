@@ -1,0 +1,356 @@
+LLMAgent在AgentExecutor中被使用。AgentExecutor可以被视为一个循环，它：
+1. 将用户输入和任何先前的步骤传递给Agent（在本例中为LLMAgent）
+2. 如果Agent返回`AgentFinish`，则直接将其返回给用户
+3. 如果Agent返回`AgentAction`，则使用它调用一个工具并获取一个`Observation`
+4. 重复上述步骤，将`AgentAction`和`Observation`传递回Agent，直到发出`AgentFinish`
+
+`AgentAction`是一个由`action`和`action_input`组成的响应。`action`指的是要使用的工具，`action_input`指的是该工具的输入。`log`也可以作为更多的上下文提供（可用于日志记录、跟踪等）。
+
+`AgentFinish`是一个包含要发送回用户的最终消息的响应。这应该用于结束Agent运行。
+
+在本笔记本中，我们将介绍如何创建一个自定义的LLM Agent。
+
+<!-- 警告：此文件是自动生成的！请勿编辑！而是编辑带有此文件位置和名称的笔记本。 -->
+
+## 设置环境
+
+进行必要的导入等操作。
+
+
+```python
+from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent, AgentOutputParser
+from langchain.prompts import StringPromptTemplate
+from langchain import OpenAI, SerpAPIWrapper, LLMChain
+from typing import List, Union
+from langchain.schema import AgentAction, AgentFinish, OutputParserException
+import re
+```
+
+## 设置工具
+
+设置Agent可能想要使用的任何工具。这可能需要放入提示中（以便Agent知道何时使用这些工具）。
+
+
+```python
+# Define which tools the agent can use to answer user queries
+search = SerpAPIWrapper()
+tools = [
+    Tool(
+        name = "Search",
+        func=search.run,
+        description="useful for when you need to answer questions about current events"
+    )
+]
+```
+
+## 提示模板
+
+这将指示Agent该如何操作。通常，模板应包含：
+
+- `tools`：Agent可以访问哪些工具以及如何何时调用它们。
+- `intermediate_steps`：这些是之前的（`AgentAction`，`Observation`）对的元组。通常情况下，它们不会直接传递给模型，但是提示模板会以特定的方式对其进行格式化。
+- `input`：通用用户输入
+
+
+```python
+# Set up the base template
+template = """Answer the following questions as best you can, but speaking as a pirate might speak. You have access to the following tools:
+
+{tools}
+
+Use the following format:
+
+Question: the input question you must answer
+Thought: you should always think about what to do
+Action: the action to take, should be one of [{tool_names}]
+Action Input: the input to the action
+Observation: the result of the action
+... (this Thought/Action/Action Input/Observation can repeat N times)
+Thought: I now know the final answer
+Final Answer: the final answer to the original input question
+
+Begin! Remember to speak as a pirate when giving your final answer. Use lots of "Arg"s
+
+Question: {input}
+{agent_scratchpad}"""
+```
+
+
+```python
+# Set up a prompt template
+class CustomPromptTemplate(StringPromptTemplate):
+    # The template to use
+    template: str
+    # The list of tools available
+    tools: List[Tool]
+
+    def format(self, **kwargs) -> str:
+        # Get the intermediate steps (AgentAction, Observation tuples)
+        # Format them in a particular way
+        intermediate_steps = kwargs.pop("intermediate_steps")
+        thoughts = ""
+        for action, observation in intermediate_steps:
+            thoughts += action.log
+            thoughts += f"\nObservation: {observation}\nThought: "
+        # Set the agent_scratchpad variable to that value
+        kwargs["agent_scratchpad"] = thoughts
+        # Create a tools variable from the list of tools provided
+        kwargs["tools"] = "\n".join([f"{tool.name}: {tool.description}" for tool in self.tools])
+        # Create a list of tool names for the tools provided
+        kwargs["tool_names"] = ", ".join([tool.name for tool in self.tools])
+        return self.template.format(**kwargs)
+```
+
+
+```python
+prompt = CustomPromptTemplate(
+    template=template,
+    tools=tools,
+    # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
+    # This includes the `intermediate_steps` variable because that is needed
+    input_variables=["input", "intermediate_steps"]
+)
+```
+
+## 输出解析器
+
+输出解析器负责将LLM的输出解析为`AgentAction`和`AgentFinish`。这通常严重依赖于所使用的提示。
+
+这是您可以更改解析以进行重试、处理空格等操作的位置
+
+
+```python
+class CustomOutputParser(AgentOutputParser):
+
+    def parse(self, llm_output: str) -> Union[AgentAction, AgentFinish]:
+        # Check if agent should finish
+        if "Final Answer:" in llm_output:
+            return AgentFinish(
+                # Return values is generally always a dictionary with a single `output` key
+                # It is not recommended to try anything else at the moment :)
+                return_values={"output": llm_output.split("Final Answer:")[-1].strip()},
+                log=llm_output,
+            )
+        # Parse out the action and action input
+        regex = r"Action\s*\d*\s*:(.*?)\nAction\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
+        match = re.search(regex, llm_output, re.DOTALL)
+        if not match:
+            raise OutputParserException(f"Could not parse LLM output: `{llm_output}`")
+        action = match.group(1).strip()
+        action_input = match.group(2)
+        # Return the action and action input
+        return AgentAction(tool=action, tool_input=action_input.strip(" ").strip('"'), log=llm_output)
+```
+
+
+```python
+output_parser = CustomOutputParser()
+```
+
+## 设置LLM
+
+选择您想要使用的LLM！
+
+
+```python
+llm = OpenAI(temperature=0)
+```
+
+## 定义停止序列
+
+这很重要，因为它告诉LLM何时停止生成。
+
+这严重依赖于所使用的提示和模型。通常情况下，您希望这是您在提示中用于表示`Observation`开始的令牌（否则，LLM可能会为您产生虚构的观察结果）。
+
+## 设置Agent
+
+现在我们可以将所有内容组合起来设置我们的Agent
+
+
+```python
+# LLM chain consisting of the LLM and a prompt
+llm_chain = LLMChain(llm=llm, prompt=prompt)
+```
+
+```python
+tool_names = [tool.name for tool in tools]
+agent = LLMSingleActionAgent(
+    llm_chain=llm_chain,
+    output_parser=output_parser,
+    stop=["Observation:"],
+    allowed_tools=tool_names
+)
+```
+
+## 使用Agent
+
+现在我们可以使用它了！
+
+
+```python
+agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=True)
+```
+
+
+```python
+agent_executor.run("How many people live in canada as of 2023?")
+```
+
+<CodeOutputBlock lang="python">
+
+```
+
+
+    > Entering new AgentExecutor chain...
+    Thought: I need to find out the population of Canada in 2023
+    Action: Search
+    Action Input: Population of Canada in 2023
+
+    Observation:The current population of Canada is 38,658,314 as of Wednesday, April 12, 2023, based on Worldometer elaboration of the latest United Nations data. I now know the final answer
+    Final Answer: Arrr, there be 38,658,314 people livin' in Canada as of 2023!
+
+    > Finished chain.
+
+
+
+
+
+    "Arrr, there be 38,658,314 people livin' in Canada as of 2023!"
+```
+
+</CodeOutputBlock>
+
+## 添加内存
+
+如果您想向Agent添加内存，您需要：
+
+1. 在自定义提示中添加聊天历史的位置
+2. 向Agent执行器添加一个内存对象。
+
+
+```python
+# Set up the base template
+template_with_history = """Answer the following questions as best you can, but speaking as a pirate might speak. You have access to the following tools:
+
+{tools}
+
+Use the following format:
+
+Question: the input question you must answer
+Thought: you should always think about what to do
+Action: the action to take, should be one of [{tool_names}]
+Action Input: the input to the action
+Observation: the result of the action
+... (this Thought/Action/Action Input/Observation can repeat N times)
+Thought: I now know the final answer
+Final Answer: the final answer to the original input question
+
+Begin! Remember to speak as a pirate when giving your final answer. Use lots of "Arg"s
+
+Previous conversation history:
+{history}
+
+New question: {input}
+{agent_scratchpad}
+"""
+```
+
+
+```python
+prompt_with_history = CustomPromptTemplate(
+    template=template_with_history,
+    tools=tools,
+    # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
+    # This includes the `intermediate_steps` variable because that is needed
+    input_variables=["input", "intermediate_steps", "history"]
+)
+```
+
+
+```python
+llm_chain = LLMChain(llm=llm, prompt=prompt_with_history)
+```
+
+
+```python
+tool_names = [tool.name for tool in tools]
+agent = LLMSingleActionAgent(
+    llm_chain=llm_chain,
+    output_parser=output_parser,
+    stop=["\nObservation:"],
+    allowed_tools=tool_names
+)
+```
+
+
+```python
+from langchain.memory import ConversationBufferWindowMemory
+```
+
+
+```python
+memory=ConversationBufferWindowMemory(k=2)
+```
+
+
+```python
+agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=True, memory=memory)
+```
+
+
+```python
+agent_executor.run("How many people live in canada as of 2023?")
+```
+
+<CodeOutputBlock lang="python">
+
+```
+
+
+    > Entering new AgentExecutor chain...
+    Thought: I need to find out the population of Canada in 2023
+    Action: Search
+    Action Input: Population of Canada in 2023
+
+    Observation:The current population of Canada is 38,658,314 as of Wednesday, April 12, 2023, based on Worldometer elaboration of the latest United Nations data. I now know the final answer
+    Final Answer: Arrr, there be 38,658,314 people livin' in Canada as of 2023!
+
+    > Finished chain.
+
+
+
+
+
+    "Arrr, there be 38,658,314 people livin' in Canada as of 2023!"
+```
+
+</CodeOutputBlock>
+
+
+```python
+agent_executor.run("how about in mexico?")
+```
+
+<CodeOutputBlock lang="python">
+
+```
+
+
+    > Entering new AgentExecutor chain...
+    Thought: I need to find out how many people live in Mexico.
+    Action: Search
+    Action Input: How many people live in Mexico as of 2023?
+
+    Observation:The current population of Mexico is 132,679,922 as of Tuesday, April 11, 2023, based on Worldometer elaboration of the latest United Nations data. Mexico 2020 ... I now know the final answer.
+    Final Answer: Arrr, there be 132,679,922 people livin' in Mexico as of 2023!
+
+    > Finished chain.
+
+
+
+
+
+    "Arrr, there be 132,679,922 people livin' in Mexico as of 2023!"
+```
+
+</CodeOutputBlock>
