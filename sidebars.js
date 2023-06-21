@@ -50,7 +50,7 @@ module.exports = {
   sidebar: [
     {
       type: "html",
-      value: "<h3>   Langchain 中文网</h3><hr>",
+      value: "<h3>   Langchain 中文网 v0.0.207</h3><hr>",
       defaultStyle: true,
     },
     {
