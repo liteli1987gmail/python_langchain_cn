@@ -1,11 +1,16 @@
-.features {
+/* .features {
   display: flex;
   align-items: center;
   padding: 2rem 0;
   width: 100%;
-}
+} */
 
 .featureSvg {
   height: 200px;
   width: 200px;
+}
+
+.container {
+  height: 10rem;
+  background-color: #2e8555;
 }

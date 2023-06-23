@@ -9,6 +9,17 @@
   position: relative;
   overflow: hidden;
 }
+.main-wrapper {
+  background-color: #2e8555 !important;
+}
+
+.introwrap {
+  padding: 5% 0 0;
+}
+
+.introwrap p {
+  margin: 2% 0 0;
+}
 
 @media screen and (max-width: 996px) {
   .heroBanner {
@@ -21,3 +32,4 @@
   align-items: center;
   justify-content: center;
 }
+
