@@ -21,7 +21,7 @@ human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 ```python
 chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
 
-# 获取来自格式化消息的聊天完成。
+# get a chat completion from the formatted messages
 chat(chat_prompt.format_prompt(input_language="English", output_language="French", text="I love programming.").to_messages())
 ```
 

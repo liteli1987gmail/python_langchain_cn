@@ -34,7 +34,8 @@ retriever = db.as_retriever()
 docs = retriever.get_relevant_documents("what did he say about ketanji brown jackson")
 ```
 
-## 最大边际相关性检索
+## 最大边际相关性检索 (Maximum Marginal Relevance Retrieval)
+
 默认情况下，向量存储检索器使用相似性搜索。如果底层的向量存储支持最大边际相关性搜索，您可以指定该搜索类型。
 
 
@@ -47,7 +48,7 @@ retriever = db.as_retriever(search_type="mmr")
 docs = retriever.get_relevant_documents("what did he say abotu ketanji brown jackson")
 ```
 
-## 相似性分数阈值检索
+## 相似性分数阈值检索 (Similarity Score Threshold Retrieval)
 
 您还可以指定一个检索方法，该方法设置一个相似性分数阈值，并只返回分数高于该阈值的文档
 
@@ -62,6 +63,7 @@ docs = retriever.get_relevant_documents("what did he say abotu ketanji brown jac
 ```
 
 ## 指定 top k
+
 您还可以指定搜索参数，例如 `k`，在执行检索时使用。
 
 

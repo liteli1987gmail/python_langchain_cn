@@ -172,12 +172,13 @@ llm = OpenAI(temperature=0)
 llm_chain = LLMChain(llm=llm, prompt=prompt)
 ```
 
+
 ```python
 tool_names = [tool.name for tool in tools]
 agent = LLMSingleActionAgent(
     llm_chain=llm_chain,
     output_parser=output_parser,
-    stop=["Observation:"],
+    stop=["\nObservation:"],
     allowed_tools=tool_names
 )
 ```
@@ -251,8 +252,7 @@ Previous conversation history:
 {history}
 
 New question: {input}
-{agent_scratchpad}
-"""
+{agent_scratchpad}"""
 ```
 
 

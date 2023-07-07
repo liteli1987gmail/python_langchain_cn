@@ -5,7 +5,8 @@ def pretty_print_docs(docs):
     print(f"\n{'-' * 100}\n".join([f"Document {i+1}:\n\n" + d.page_content for i, d in enumerate(docs)]))
 ```
 
-## 使用纯净向量存储检索器
+## 使用纯向量存储检索器
+
 让我们从初始化一个简单的向量存储检索器并存储2023年国情咨文演讲（以分块方式）开始。我们可以看到，给定一个示例问题，我们的检索器返回一个或两个相关文档和几个不相关的文档。而且即使相关的文档中也有很多不相关的信息。
 
 
@@ -87,6 +88,7 @@ pretty_print_docs(docs)
 </CodeOutputBlock>
 
 ## 添加上下文压缩使用 `LLMChainExtractor`
+
 现在让我们用 `ContextualCompressionRetriever` 包装我们的基本检索器。我们将添加一个 `LLMChainExtractor`，它将迭代最初返回的文档，并从每个文档中提取与查询相关的内容。
 
 
@@ -120,7 +122,9 @@ pretty_print_docs(compressed_docs)
 </CodeOutputBlock>
 
 ## 更多内置压缩器：过滤器
+
 ### `LLMChainFilter`
+
 `LLMChainFilter` 是一个稍微简单但更健壮的压缩器，它使用 LLM 链来决定哪些最初检索到的文档要被过滤掉，哪些要返回，而无需操作文档内容。
 
 
@@ -212,6 +216,7 @@ pretty_print_docs(compressed_docs)
 </CodeOutputBlock>
 
 # 将压缩器和文档转换器串联起来
+
 使用 `DocumentCompressorPipeline` 我们还可以轻松地将多个压缩器按顺序组合起来。除了压缩器，我们还可以将 `BaseDocumentTransformer` 添加到我们的管道中，它们不执行任何上下文压缩，只是在一组文档上执行一些转换。例如，`TextSplitter` 可以用作文档转换器，将文档分割成较小的片段，而 `EmbeddingsRedundantFilter` 可以基于文档之间的嵌入相似性过滤掉冗余文档。
 
 下面，我们通过首先将文档分割成较小的块，然后删除冗余文档，最后根据与查询的相关性进行过滤，创建了一个压缩器管道。

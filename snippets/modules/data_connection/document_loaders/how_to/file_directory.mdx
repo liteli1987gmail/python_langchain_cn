@@ -29,9 +29,9 @@ len(docs)
 
 </CodeOutputBlock>
 
-## 显示进度条
+## Show a progress bar
 
-默认情况下不会显示进度条。要显示进度条，请安装`tqdm`库（例如`pip install tqdm`），并将`show_progress`参数设置为`True`。
+By default a progress bar will not be shown. To show a progress bar, install the `tqdm` library (e.g. `pip install tqdm`), and set the `show_progress` parameter to `True`.
 
 
 ```python
@@ -50,7 +50,7 @@ docs = loader.load()
 
 </CodeOutputBlock>
 
-## 使用多线程
+## 使用多线程 （Use multithreading）
 
 默认情况下，加载操作在一个线程中进行。为了利用多个线程，将`use_multithreading`标志设置为True。
 
@@ -61,6 +61,7 @@ docs = loader.load()
 ```
 
 ## 更改加载器类
+
 默认情况下使用`UnstructuredLoader`类。但是，您可以相当容易地更改加载器的类型。
 
 
@@ -218,7 +219,7 @@ loader.load()
 
 ### B. 静默失败
 
-我们可以将参数`silent_errors`传递给`DirectoryLoader`以跳过无法加载的文件并继续加载过程。
+We can pass the parameter `silent_errors` to the `DirectoryLoader` to skip the files which could not be loaded and continue the load process.
 
 
 ```python
@@ -251,7 +252,7 @@ doc_sources
 
 ### C. 自动检测编码
 
-我们还可以要求`TextLoader`在失败之前自动检测文件编码，方法是将`autodetect_encoding`传递给加载器类。
+We can also ask `TextLoader` to auto detect the file encoding before failing, by passing the `autodetect_encoding` to the loader class.
 
 
 ```python

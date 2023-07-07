@@ -29,7 +29,7 @@ documents = text_splitter.split_documents(raw_documents)
 db = FAISS.from_documents(documents, OpenAIEmbeddings())
 ```
 
-### 相似性搜索
+### Similarity search
 
 ```python
 query = "What did the president say about Ketanji Brown Jackson"
@@ -51,7 +51,7 @@ print(docs[0].page_content)
 
 </CodeOutputBlock>
 
-### 通过向量进行相似性搜索
+### 通过向量进行相似性搜索 (Similarity search by vector)
 
 还可以使用`similarity_search_by_vector`来搜索与给定嵌入向量相似的文档，该函数接受一个嵌入向量作为参数，而不是一个字符串。
 

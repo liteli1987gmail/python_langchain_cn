@@ -1,4 +1,5 @@
 ## 准备数据
+
 首先我们准备数据。在这个示例中，我们对向量数据库进行相似性搜索，但这些文档可以以任何方式获取（这个笔记本的重点是突出显示在获取文档之后要做的事情）。
 
 
@@ -65,11 +66,11 @@ chain.run(input_documents=docs, question=query)
 
 </CodeOutputBlock>
 
-如果您希望更多地控制和了解正在发生的事情，请参阅下面的信息。
+If you want more control and understanding over what is happening, please see the information below.
 
-## `stuff` 链
+## The `stuff` Chain
 
-本节展示使用 `stuff` 链进行问答的结果。
+This sections shows results of using the `stuff` Chain to do question answering.
 
 
 ```python
@@ -90,7 +91,7 @@ chain({"input_documents": docs, "question": query}, return_only_outputs=True)
 
 </CodeOutputBlock>
 
-**自定义提示**
+**Custom Prompts**
 
 您还可以使用自己的提示与此链一起使用。在这个示例中，我们将用意大利语回答。
 
@@ -117,7 +118,7 @@ chain({"input_documents": docs, "question": query}, return_only_outputs=True)
 
 </CodeOutputBlock>
 
-## `map_reduce` 链
+## The `map_reduce` Chain
 
 本节展示使用 `map_reduce` 链进行问答的结果。
 
@@ -140,7 +141,7 @@ chain({"input_documents": docs, "question": query}, return_only_outputs=True)
 
 </CodeOutputBlock>
 
-**中间步骤**
+**中间步骤 (Intermediate Steps)**
 
 我们还可以返回 `map_reduce` 链的中间步骤，以便检查它们。这可以通过设置 `return_map_steps` 变量来实现。
 
@@ -208,7 +209,7 @@ chain({"input_documents": docs, "question": query}, return_only_outputs=True)
 
 </CodeOutputBlock>
 
-**批次大小**
+**Batch Size**
 
 使用 `map_reduce` 链时，需要记住的一个问题是在映射步骤中使用的批次大小。如果太大，可能会导致速率限制错误。您可以通过设置所使用的 LLM 上的批次大小来控制此参数。请注意，这仅适用于具有此参数的 LLM。下面是一个示例：
 
@@ -216,7 +217,7 @@ chain({"input_documents": docs, "question": query}, return_only_outputs=True)
 llm = OpenAI(batch_size=5, temperature=0)
 ```
 
-## `refine` 链
+## The `refine` Chain
 
 本节展示使用 `refine` 链进行问答的结果。
 
@@ -239,7 +240,7 @@ chain({"input_documents": docs, "question": query}, return_only_outputs=True)
 
 </CodeOutputBlock>
 
-**中间步骤**
+**Intermediate Steps**
 
 我们还可以返回 `refine` 链的中间步骤，以便检查它们。这可以通过设置 `return_refine_steps` 变量来实现。
 
@@ -265,7 +266,7 @@ chain({"input_documents": docs, "question": query}, return_only_outputs=True)
 
 </CodeOutputBlock>
 
-**自定义提示**
+**Custom Prompts**
 
 您还可以使用自己的提示与此链一起使用。在这个示例中，我们将用意大利语回答。
 
@@ -317,7 +318,7 @@ chain({"input_documents": docs, "question": query}, return_only_outputs=True)
 
 </CodeOutputBlock>
 
-## `map-rerank` 链
+## The `map-rerank` Chain
 
 本节展示使用 `map-rerank` 链和源进行问答的结果。
 
@@ -362,7 +363,7 @@ results["intermediate_steps"]
 
 </CodeOutputBlock>
 
-**自定义提示**
+**Custom Prompts**
 
 您还可以使用自己的提示与此链一起使用。在这个示例中，我们将用意大利语回答。
 

@@ -25,7 +25,7 @@ documents = loader.load()
 #     docs.extend(loader.load())
 ```
 
-现在我们将文档拆分，为它们创建嵌入，并将它们放入向量存储中。这使我们能够对它们进行语义搜索。
+We now split the documents, create embeddings for them, and put them in a vectorstore. This allows us to do semantic search over them.
 
 
 ```python
@@ -52,7 +52,7 @@ from langchain.memory import ConversationBufferMemory
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 ```
 
-现在我们初始化 `ConversationalRetrievalChain`
+We now initialize the `ConversationalRetrievalChain`
 
 
 ```python
@@ -128,7 +128,7 @@ result["answer"]
 
 </CodeOutputBlock>
 
-以下是带有一些聊天历史的问题示例
+Here's an example of asking a question with some chat history
 
 
 ```python
@@ -183,6 +183,7 @@ result = qa({"question": query, "chat_history": chat_history})
 ```
 
 ## 返回源文档
+
 您还可以轻松地从 ConversationalRetrievalChain 返回源文档。这在您想要检查返回了哪些文档时非常有用。
 
 
@@ -211,6 +212,7 @@ result['source_documents'][0]
 </CodeOutputBlock>
 
 ## ConversationalRetrievalChain 与 `search_distance`
+
 如果您正在使用支持按搜索距离进行过滤的向量存储，可以添加阈值参数。
 
 
@@ -226,8 +228,8 @@ query = "What did the president say about Ketanji Brown Jackson"
 result = qa({"question": query, "chat_history": chat_history, "vectordbkwargs": vectordbkwargs})
 ```
 
-## ConversationalRetrievalChain 与 `map_reduce`
-我们还可以将不同类型的组合文档链与 ConversationalRetrievalChain 链一起使用。
+## ConversationalRetrievalChain with `map_reduce`
+We can also use different types of combine document chains with the ConversationalRetrievalChain chain.
 
 
 ```python
@@ -365,6 +367,7 @@ result = qa({"question": query, "chat_history": chat_history})
 </CodeOutputBlock>
 
 ## get_chat_history 函数
+
 您还可以指定一个 `get_chat_history` 函数，用于格式化聊天历史字符串。
 
 

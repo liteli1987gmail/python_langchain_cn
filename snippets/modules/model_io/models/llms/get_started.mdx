@@ -21,13 +21,15 @@ llm = OpenAI(openai_api_key="...")
 ```
 
 否则，您可以不使用任何参数进行初始化：
+
 ```python
 from langchain.llms import OpenAI
 
 llm = OpenAI()
 ```
 
-### `__call__`：输入字符串 -> 输出字符串
+### `__call__`: string in -> string out
+
 使用LLM的最简单方法是可调用的：输入一个字符串，获得一个字符串完成结果。
 
 ```python
@@ -42,8 +44,8 @@ llm("Tell me a joke")
 
 </CodeOutputBlock>
 
-### `generate`：批量调用，更丰富的输出
-`generate`允许您使用字符串列表调用模型，获得比仅文本更完整的响应。这个完整的响应可以包括多个顶部响应和其他LLM提供程序特定的信息：
+### `generate`: batch calls, richer outputs
+`generate` lets you can call the model with a list of strings, getting back a more complete response than just the text. This complete response can includes things like multiple top responses and other LLM provider-specific information:
 
 ```python
 llm_result = llm.generate(["Tell me a joke", "Tell me a poem"]*15)

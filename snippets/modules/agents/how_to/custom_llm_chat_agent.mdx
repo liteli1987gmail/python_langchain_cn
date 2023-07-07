@@ -2,8 +2,11 @@ LLMAgent在AgentExecutor中使用。可以将AgentExecutor大致看作是一个�
 `AgentAction`是一个由`action`和`action_input`组成的响应。`action`指的是要使用的工具，`action_input`指的是该工具的输入。还可以提供`log`作为更多的上下文（可用于日志记录、跟踪等）。
 `AgentFinish`是一个包含要发送回用户的最终消息的响应。应该用它来结束代理运行。
 在本笔记本中，我们将介绍如何创建自定义LLM代理。
+
 <!-- 警告：此文件是自动生成的！请勿编辑！请编辑具有相同位置和名称的笔记本文件。 -->
+
 ## 设置环境
+
 进行必要的导入等操作。
 
 ```bash
@@ -25,6 +28,7 @@ from getpass import getpass
 ```
 
 ## 设置工具
+
 设置代理可能需要使用的任何工具。这可能需要放在提示中（以便代理知道使用这些工具）。
 
 ```python
@@ -45,7 +49,9 @@ tools = [
 ```
 
 ## 提示模板
+
 这指示代理要做什么。通常，模板应该包括：    
+
 - `tools`：代理可以访问的工具以及如何何时调用它们。- `intermediate_steps`：这些是先前的（`AgentAction`，`Observation`）对的元组。通常情况下，它们不会直接传递给模型，但是提示模板会以特定方式格式化它们。- `input`：通用用户输入
 
 ```python
@@ -114,7 +120,9 @@ prompt = CustomPromptTemplate(
 ```
 
 ## 输出解析器
+
 输出解析器负责将LLM输出解析为`AgentAction`和`AgentFinish`。这通常严重依赖于所使用的提示。
+
 在这里，您可以更改解析器以进行重试、处理空格等操作。
 
 ```python
@@ -146,6 +154,7 @@ output_parser = CustomOutputParser()
 ```
 
 ## 设置LLM
+
 选择要使用的LLM！
 
 ```python
@@ -158,9 +167,11 @@ llm = ChatOpenAI(openai_api_key=OPENAI_API_KEY, temperature=0)
 ```
 
 ## 定义停止序列
-这很重要，因为它告诉LLM何时停止生成。
-这严重依赖于所使用的提示和模型。通常情况下，您希望这是您在提示中用于表示`Observation`开始的令牌（否则，LLM可能会为您产生幻觉的观察结果）。
+
+这很重要，因为它告诉LLM何时停止生成。这严重依赖于所使用的提示和模型。通常情况下，您希望这是您在提示中用于表示`Observation`开始的令牌（否则，LLM可能会为您产生幻觉的观察结果）。
+
 ## 设置代理
+
 现在我们可以将所有内容组合起来设置我们的代理
 
 ```python
@@ -180,6 +191,7 @@ agent = LLMSingleActionAgent(
 ```
 
 ## 使用代理
+
 现在我们可以使用它了！
 
 ```python
@@ -190,6 +202,7 @@ agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, ve
 ```python
 agent_executor.run("Search for Leo DiCaprio's girlfriend on the internet.")
 ```
+
 <CodeOutputBlock lang="python">
 
 ```

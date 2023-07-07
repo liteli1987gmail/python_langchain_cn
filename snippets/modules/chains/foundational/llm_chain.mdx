@@ -96,7 +96,7 @@ llm_chain.predict(adjective="sad", subject="ducks")
 
 </CodeOutputBlock>
 
-## 解析输出
+## Parsing the outputs
 
 默认情况下，`LLMChain`不会解析输出，即使底层的`prompt`对象具有输出解析器。如果您想在LLM输出上应用该输出解析器，请使用`predict_and_parse`而不是`predict`，使用`apply_and_parse`而不是`apply`。
 

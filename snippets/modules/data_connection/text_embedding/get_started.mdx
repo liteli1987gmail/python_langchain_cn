@@ -21,6 +21,7 @@ embeddings_model = OpenAIEmbeddings(openai_api_key="...")
 ```
 
 否则，您可以不使用任何参数进行初始化：
+
 ```python
 from langchain.embeddings import OpenAIEmbeddings
 
@@ -28,7 +29,7 @@ embeddings_model = OpenAIEmbeddings()
 ```
 
 ### `embed_documents`
-#### 嵌入文本列表
+#### Embed list of texts
 
 ```python
 embeddings = embedding_model.embed_documents(
@@ -52,9 +53,10 @@ len(embeddings), len(embeddings[0])
 </CodeOutputBlock>
 
 ### `embed_query`
-#### 嵌入单个查询
-嵌入单个文本以便与其他嵌入的文本进行比较。
 
+#### 嵌入单个查询 (Embed single query)
+
+嵌入单个文本以便与其他嵌入的文本进行比较。
 ```python
 embedded_query = embedding_model.embed_query("What was the name mentioned in the conversation?")
 embedded_query[:5]

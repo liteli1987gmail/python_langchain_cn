@@ -58,7 +58,7 @@ from langchain.document_loaders import TextLoader
 loader = TextLoader('../state_of_the_union.txt', encoding='utf8')
 ```
 
-## 一行代码创建索引
+## 一行代码创建索引 (One Line Index Creation)
 
 为了尽快入门，我们可以使用 `VectorstoreIndexCreator`。
 
@@ -128,7 +128,7 @@ index.vectorstore
 
 </CodeOutputBlock>
 
-如果我们然后想要访问 `VectorstoreRetriever`，可以使用以下代码：
+If we then want to access the VectorstoreRetriever, we can do that with:
 
 
 ```python
@@ -143,7 +143,7 @@ index.vectorstore.as_retriever()
 
 </CodeOutputBlock>
 
-## 演练
+## Walkthrough
 
 好吧，实际上发生了什么？这个索引是如何创建的？
 

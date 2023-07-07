@@ -49,6 +49,7 @@ vectorstore = Pinecone.from_documents(
 ```
 
 ## 创建自查询检索器
+
 现在，我们可以实例化我们的检索器。为此，我们需要提前提供有关文档支持的元数据字段和文档内容的简短描述。
 
 
@@ -85,6 +86,7 @@ retriever = SelfQueryRetriever.from_llm(llm, vectorstore, document_content_descr
 ```
 
 ## 测试
+
 现在，我们可以尝试使用我们的检索器！
 
 

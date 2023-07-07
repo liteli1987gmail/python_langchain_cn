@@ -1,6 +1,7 @@
 我们将介绍最简单的存储形式：“缓冲”存储，它只涉及保留所有先前的消息的缓冲区。我们将展示如何在这里使用模块化实用函数，然后展示它如何在链中使用（返回字符串以及消息列表）。
 
-## 聊天消息历史
+## 聊天消息历史 (ChatMessageHistory)
+
 大多数（如果不是全部）内存模块的核心实用类之一是`ChatMessageHistory`类。这是一个超轻量级的包装器，它公开了方便的方法来保存人类消息、AI消息，然后获取它们全部。
 
 如果您在链外管理内存，可能需要直接使用此类。
@@ -32,7 +33,7 @@ history.messages
 
 </CodeOutputBlock>
 
-## 会话缓冲内存
+## ConversationBufferMemory
 
 现在我们展示如何在链中使用这个简单的概念。我们首先展示`ConversationBufferMemory`，它只是ChatMessageHistory的一个包装器，可以提取变量中的消息。
 
@@ -86,8 +87,8 @@ memory.load_memory_variables({})
 
 </CodeOutputBlock>
 
-## 在链中使用
-最后，让我们看看如何在链中使用此功能（设置`verbose=True`以便我们可以看到提示）。
+## Using in a chain
+Finally, let's take a look at using this in a chain (setting `verbose=True` so we can see the prompt).
 
 
 ```python

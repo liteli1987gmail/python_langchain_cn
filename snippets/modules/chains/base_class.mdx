@@ -1,11 +1,11 @@
----
-sidebar_position: 5
----
-您可以使用 API 中的 `callbacks` 参数订阅这些事件。该参数是一个处理程序对象列表，这些对象应该详细实现下面描述的一个或多个方法。
-    memory: BaseMemory
-## 回调处理程序
+```python
+class Chain(BaseModel, ABC):
+    """Base interface that all chains should implement."""
 
-`CallbackHandlers` 是实现 `CallbackHandler` 接口的对象，每个事件都可以订阅一个方法。当触发事件时，`CallbackManager` 会调用每个处理程序上的适当方法。
+    memory: BaseMemory
+    callbacks: Callbacks
+
+    def __call__(
         self,
         inputs: Any,
         return_only_outputs: bool = False,

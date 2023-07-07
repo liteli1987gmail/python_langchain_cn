@@ -20,21 +20,23 @@ chat = ChatOpenAI(open_api_key="...")
 ```
 
 否则，您可以不使用任何参数进行初始化：
+
 ```python
 from langchain.chat_models import ChatOpenAI
 
 chat = ChatOpenAI()
 ```
 
-### 消息
+### Messages
 
 聊天模型界面基于消息而不是原始文本。
+
 LangChain目前支持的消息类型有“AIMessage”，“HumanMessage”，“SystemMessage”和“ChatMessage” - “ChatMessage”接受一个任意角色参数。大多数时候，您只需处理“HumanMessage”，“AIMessage”和“SystemMessage”
 
 ### `__call__`
-#### 输入消息 -> 输出消息
+#### Messages in -> message out
 
-通过将一个或多个消息传递给聊天模型，您可以获得聊天完成。响应将是一条消息。
+You can get chat completions by passing one or more messages to the chat model. The response will be a message.
 
 ```python
 from langchain.schema import (
@@ -54,7 +56,7 @@ chat([HumanMessage(content="Translate this sentence from English to French: I lo
 
 </CodeOutputBlock>
 
-OpenAI的聊天模型支持多个消息作为输入。有关更多信息，请参见此处（https://platform.openai.com/docs/guides/chat/chat-vs-completions）。以下是向聊天模型发送系统消息和用户消息的示例：
+OpenAI's chat model supports multiple messages as input. See [here](https://platform.openai.com/docs/guides/chat/chat-vs-completions) for more information. Here is an example of sending a system and user message to the chat model:
 
 
 ```python
@@ -74,7 +76,7 @@ chat(messages)
 </CodeOutputBlock>
 
 ### `generate`
-#### 批量调用，更丰富的输出
+#### 批量调用，更丰富的输出 (Batch calls, richer outputs)
 
 您可以进一步使用`generate`为多组消息生成完成。这将返回一个带有额外`message`参数的`LLMResult`。
 

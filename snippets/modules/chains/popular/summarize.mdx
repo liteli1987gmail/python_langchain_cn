@@ -1,4 +1,5 @@
 ## 准备数据
+
 首先我们准备数据。在这个例子中，我们从一个长文档中创建多个文档，但是这些文档可以以任何方式获取（这个笔记本的重点是强调在获取文档之后要做什么）。
 
 ```python
@@ -48,11 +49,11 @@ chain.run(docs)
 
 </CodeOutputBlock>
 
-如果您希望更多地控制和了解正在发生的事情，请参阅下面的信息。
+If you want more control and understanding over what is happening, please see the information below.
 
-## `stuff` 链
+## The `stuff` Chain
 
-本节展示了使用 `stuff` 链进行摘要的结果。
+This sections shows results of using the `stuff` Chain to do summarization.
 
 
 ```python
@@ -72,9 +73,9 @@ chain.run(docs)
 
 </CodeOutputBlock>
 
-**自定义提示**
+**Custom Prompts**
 
-您还可以使用自己的提示来使用此链。在这个例子中，我们将以意大利语回答。
+You can also use your own prompts with this chain. In this example, we will respond in Italian.
 
 
 ```python
@@ -98,9 +99,9 @@ chain.run(docs)
 
 </CodeOutputBlock>
 
-## `map_reduce` 链
+## The `map_reduce` Chain
 
-本节展示了使用 `map_reduce` 链进行摘要的结果。
+This sections shows results of using the `map_reduce` Chain to do summarization.
 
 
 ```python
@@ -120,9 +121,9 @@ chain.run(docs)
 
 </CodeOutputBlock>
 
-**中间步骤**
+**Intermediate Steps**
 
-我们还可以返回 `map_reduce` 链的中间步骤，以便进行检查。这是通过 `return_map_steps` 变量完成的。
+We can also return the intermediate steps for `map_reduce` chains, should we want to inspect them. This is done with the `return_map_steps` variable.
 
 
 ```python
@@ -145,7 +146,7 @@ chain({"input_documents": docs}, return_only_outputs=True)
 
 </CodeOutputBlock>
 
-**自定义提示**
+**Custom Prompts**
 
 您还可以使用自己的提示来使用此链。在这个例子中，我们将以意大利语回答。
 
@@ -176,9 +177,9 @@ chain({"input_documents": docs}, return_only_outputs=True)
 
 ## 自定义 `MapReduceChain`
 
-**多输入提示**
+***多样化输入提示 (Multi input prompt)**
 
-您还可以使用多输入的提示。在这个例子中，我们将使用 MapReduce 链来回答关于我们的代码的特定问题。
+您还可以使用多样化输入的提示。在这个例子中，我们将使用 MapReduce 链来回答关于我们的代码的特定问题。
 
 
 ```python
@@ -283,7 +284,7 @@ map_reduce.run(input_text=code, question="Which function has a better time compl
 
 </CodeOutputBlock>
 
-## `refine` 链
+## The `refine` Chain
 
 本节展示了使用 `refine` 链进行摘要的结果。
 
@@ -302,9 +303,9 @@ chain.run(docs)
 
 </CodeOutputBlock>
 
-**中间步骤**
+**Intermediate Steps**
 
-我们还可以返回 `refine` 链的中间步骤，以便进行检查。这是通过 `return_refine_steps` 变量完成的。
+We can also return the intermediate steps for `refine` chains, should we want to inspect them. This is done with the `return_refine_steps` variable.
 
 
 ```python
@@ -324,7 +325,7 @@ chain({"input_documents": docs}, return_only_outputs=True)
 
 </CodeOutputBlock>
 
-**自定义提示**
+**Custom Prompts**
 
 您还可以使用自己的提示来使用此链。在这个例子中，我们将以意大利语回答。
 

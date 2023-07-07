@@ -57,8 +57,8 @@ print(response)
     Action:
     ```
     {
-      "action": "最终答案",
-      "action_input": "你好 Erica，我今天怎样帮助你？"
+      "action": "Final Answer",
+      "action_input": "Hello Erica, how can I assist you today?"
     }
     ```
     
@@ -103,7 +103,7 @@ print(response)
     Action:
     ```
     {
-      "action": "浏览器导航",
+      "action": "navigate_browser",
       "action_input": {
         "url": "https://blog.langchain.dev/"
       }
@@ -116,7 +116,7 @@ print(response)
     Action:
     ```
     {
-      "action": "提取文本",
+      "action": "extract_text",
       "action_input": {}
     }
     ```
@@ -172,7 +172,7 @@ print(response)
     Action:
     ```
     {
-      "action": "浏览器导航",
+      "action": "navigate_browser",
       "action_input": {
         "url": "https://xkcd.com/"
       }
@@ -184,7 +184,7 @@ print(response)
     Action:
     ```
     {
-      "action": "获取元素",
+      "action": "get_elements",
       "action_input": {
         "selector": "#ctitle, #comic img",
         "attributes": ["alt", "src"]
@@ -200,9 +200,9 @@ print(response)
 
 </CodeOutputBlock>
 
-## 添加内存
+## Adding in memory
 
-以下是如何将内存添加到此代理的方法
+Here is how you add in memory to this agent
 
 
 ```python
@@ -246,8 +246,8 @@ print(response)
     Action:
     ```
     {
-      "action": "最终答案",
-      "action_input": "嗨 Erica！我今天怎么帮助你？"
+      "action": "Final Answer",
+      "action_input": "Hi Erica! How can I assist you today?"
     }
     ```
     
