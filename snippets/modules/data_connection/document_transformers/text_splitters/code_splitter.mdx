@@ -7,7 +7,7 @@ from langchain.text_splitter import (
 
 
 ```python
-# Full list of support languages
+Full list of support languages
 [e.value for e in Language]
 ```
 
@@ -36,7 +36,7 @@ from langchain.text_splitter import (
 
 
 ```python
-# You can also see the separators used for a given language
+You can also see the separators used for a given language
 RecursiveCharacterTextSplitter.get_separators_for_language(Language.PYTHON)
 ```
 
@@ -50,7 +50,7 @@ RecursiveCharacterTextSplitter.get_separators_for_language(Language.PYTHON)
 
 ## Python
 
-这里是使用PythonTextSplitter的示例
+这里是使用 PythonTextSplitter 的示例
 
 
 ```python
@@ -79,7 +79,7 @@ python_docs
 
 ## JS
 
-这里是使用JS文本分割器的示例
+这里是使用 JS 文本分割器的示例
 
 
 ```python
@@ -110,7 +110,7 @@ js_docs
 
 ## Markdown
 
-这里是使用Markdown文本分割器的示例
+这里是使用 Markdown 文本分割器的示例
 
 
 ```python
@@ -121,7 +121,7 @@ markdown_text = """
 
     ## Quick Install
 
-        ```bash
+        ``` bash
             pip install langchain
         ```
 
@@ -144,9 +144,9 @@ md_docs
     [Document(page_content='# 🦜️🔗 LangChain', metadata={}),
      Document(page_content='⚡ Building applications with LLMs through composability ⚡', metadata={}),
      Document(page_content='## Quick Install', metadata={}),
-     Document(page_content="```bash\n# Hopefully this code block isn't split", metadata={}),
-     Document(page_content='pip install langchain', metadata={}),
-     Document(page_content='```', metadata={}),
+     Document(page_content="``` bash\n# Hopefully this code block isn't split ", metadata ={}),
+     Document(page_content ='pip install langchain', metadata ={}),
+     Document(page_content ='```', metadata={}),
      Document(page_content='As an open source project in a rapidly developing field, we', metadata={}),
      Document(page_content='are extremely open to contributions.', metadata={})]
 ```
@@ -155,7 +155,7 @@ md_docs
 
 ## Latex
 
-这里是使用Latex文本的示例
+这里是使用 Latex 文本的示例
 
 
 ```python
@@ -219,7 +219,7 @@ latex_docs
 
 ## HTML
 
-这里是使用HTML文本分割器的示例
+这里是使用 HTML 文本分割器的示例
 
 
 ```python
@@ -283,7 +283,7 @@ html_docs
 
 ## Solidity
 
-这里是使用Solidity文本分割器的示例
+这里是使用 Solidity 文本分割器的示例
 
 ```python
 SOL_CODE = """

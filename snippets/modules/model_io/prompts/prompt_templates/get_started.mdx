@@ -62,17 +62,17 @@ prompt_template.format(adjective="funny", content="chickens")
 # -> Tell me a funny joke about chickens.
 ```
 
-您可以创建自定义的提示模板，以任何您想要的方式格式化提示。有关更多信息，请参阅[自定义提示模板](./custom_prompt_template.html)。
+您可以创建自定义的提示模板，以任何您想要的方式格式化提示。有关更多信息，请参阅 [自定义提示模板](./custom_prompt_template.html)。
 
 
 <!-- TODO(shreya): Add link to Jinja -->
 
 ## 聊天提示模板
 
-[聊天模型](../models/chat)以聊天消息列表作为输入 - 这个列表通常称为 `prompt`。
-这些聊天消息与原始字符串不同（您会将其传递给[LLM](/docs/modules/model_io/models/llms)模型），因为每个消息都与一个 `role` 相关联。
+[聊天模型](../models/chat) 以聊天消息列表作为输入 - 这个列表通常称为 `prompt`。
+这些聊天消息与原始字符串不同（您会将其传递给 [LLM](/docs/modules/model_io/models/llms) 模型），因为每个消息都与一个 `role` 相关联。
 
-例如，在OpenAI的[聊天补全 API](https://platform.openai.com/docs/guides/chat/introduction)中，一个聊天消息可以与 AI、人类或系统角色相关联。模型应更密切地遵循系统聊天消息的指令。
+例如，在 OpenAI 的 [聊天补全 API](https://platform.openai.com/docs/guides/chat/introduction) 中，一个聊天消息可以与 AI、人类或系统角色相关联。模型应更密切地遵循系统聊天消息的指令。
 
 LangChain 提供了几个提示模板，以便更轻松地构建和处理提示。在查询聊天模型时，建议您使用这些与聊天相关的提示模板，以充分发挥底层聊天模型的潜力。
 

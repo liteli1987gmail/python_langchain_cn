@@ -1,6 +1,6 @@
-## 使用PyPDF
+## 使用 PyPDF
 
-使用`pypdf`将PDF加载到文档数组中，其中每个文档包含页面内容和元数据，以及`page`号码。
+使用 `pypdf` 将 PDF 加载到文档数组中，其中每个文档包含页面内容和元数据，以及 `page` 号码。
 
 
 ```bash
@@ -30,7 +30,7 @@ pages[0]
 
 这种方法的优点是可以通过页面号码检索文档。
 
-我们想使用`OpenAIEmbeddings`，所以我们需要获取OpenAI API密钥。
+我们想使用 `OpenAIEmbeddings`，所以我们需要获取 OpenAI API 密钥。
 
 
 ```python
@@ -74,9 +74,9 @@ for doc in docs:
 
 </CodeOutputBlock>
 
-## 使用MathPix
+## 使用 MathPix
 
-受Daniel Gross的[https://gist.github.com/danielgross/3ab4104e14faccc12b49200843adab21](https://gist.github.com/danielgross/3ab4104e14faccc12b49200843adab21)的启发
+受 Daniel Gross 的 [https://gist.github.com/danielgross/3ab4104e14faccc12b49200843adab21](https://gist.github.com/danielgross/3ab4104e14faccc12b49200843adab21) 的启发
 
 
 ```python
@@ -112,7 +112,7 @@ data = loader.load()
 
 ### 保留元素 （Retain Elements）
 
-在内部，Unstructured为不同的文本块创建不同的"元素"。默认情况下，我们将它们组合在一起，但您可以通过指定`mode="elements"`轻松保持分离。
+在内部，Unstructured 为不同的文本块创建不同的 "元素"。默认情况下，我们将它们组合在一起，但您可以通过指定 `mode="elements"` 轻松保持分离。
 
 
 ```python
@@ -137,11 +137,11 @@ data[0]
 
 </CodeOutputBlock>
 
-### 使用Unstructured获取远程PDF
+### 使用 Unstructured 获取远程 PDF
 
-这涵盖了如何将在线PDF加载到我们可以在下游使用的文档格式中。这可用于各种在线PDF网站，如https://open.umn.edu/opentextbooks/textbooks/和https://arxiv.org/archive/
+这涵盖了如何将在线 PDF 加载到我们可以在下游使用的文档格式中。这可用于各种在线 PDF 网站，如 https://open.umn.edu/opentextbooks/textbooks/和 https://arxiv.org/archive/
 
-注意：所有其他PDF加载器也可用于获取远程PDF，但`OnlinePDFLoader`是一个旧版本函数，专门与`UnstructuredPDFLoader`配合使用。
+注意：所有其他 PDF 加载器也可用于获取远程 PDF，但 `OnlinePDFLoader` 是一个旧版本函数，专门与 `UnstructuredPDFLoader` 配合使用。
 
 
 
@@ -172,7 +172,7 @@ print(data)
 
 </CodeOutputBlock>
 
-## 使用PyPDFium2
+## 使用 PyPDFium2
 
 
 ```python
@@ -189,7 +189,7 @@ loader = PyPDFium2Loader("example_data/layout-parser-paper.pdf")
 data = loader.load()
 ```
 
-## 使用PDFMiner
+## 使用 PDFMiner
 
 
 ```python
@@ -206,9 +206,9 @@ loader = PDFMinerLoader("example_data/layout-parser-paper.pdf")
 data = loader.load()
 ```
 
-### 使用PDFMiner生成HTML文本
+### 使用 PDFMiner 生成 HTML 文本
 
-这对于将文本语义分块到部分中非常有用，因为输出的HTML内容可以通过`BeautifulSoup`解析，以获取有关字体大小、页码、PDF标题/页脚等更结构化和丰富的信息。
+这对于将文本语义分块到部分中非常有用，因为输出的 HTML 内容可以通过 `BeautifulSoup` 解析，以获取有关字体大小、页码、PDF 标题/页脚等更结构化和丰富的信息。
 
 
 ```python
@@ -305,9 +305,9 @@ semantic_snippets[4]
 
 </CodeOutputBlock>
 
-## 使用PyMuPDF
+## 使用 PyMuPDF
 
-这是PDF解析选项中最快的，并且包含有关PDF及其页面的详细元数据，以及每个页面返回一个文档。
+这是 PDF 解析选项中最快的，并且包含有关 PDF 及其页面的详细元数据，以及每个页面返回一个文档。
 
 
 ```python
@@ -337,11 +337,11 @@ data[0]
 
 </CodeOutputBlock>
 
-此外，您可以将[PyMuPDF文档](https://pymupdf.readthedocs.io/en/latest/app1.html#plain-text/)中的任何选项作为关键字参数传递给`load`调用，并将其传递给`get_text()`调用。
+此外，您可以将 [PyMuPDF 文档](https://pymupdf.readthedocs.io/en/latest/app1.html#plain-text/) 中的任何选项作为关键字参数传递给 `load` 调用，并将其传递给 `get_text()` 调用。
 
-## PyPDF目录
+## PyPDF 目录
 
-从目录加载PDF
+从目录加载 PDF
 
 
 ```python
@@ -358,9 +358,9 @@ loader = PyPDFDirectoryLoader("example_data/")
 docs = loader.load()
 ```
 
-## 使用pdfplumber
+## 使用 pdfplumber
 
-与PyMuPDF类似，输出的文档包含有关PDF及其页面的详细元数据，并且每个页面返回一个文档。
+与 PyMuPDF 类似，输出的文档包含有关 PDF 及其页面的详细元数据，并且每个页面返回一个文档。
 
 
 ```python

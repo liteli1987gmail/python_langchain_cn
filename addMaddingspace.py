@@ -2,7 +2,7 @@ import os
 import subprocess
 
 # 指定 cn_docs 文件夹的路径
-folder_path = './docs'
+folder_path = './snippets/'
 
 # 遍历 cn_docs 文件夹下的每个文件
 for root, dirs, files in os.walk(folder_path):

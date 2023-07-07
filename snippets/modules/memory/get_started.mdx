@@ -2,7 +2,7 @@
 
 ## 聊天消息历史 (ChatMessageHistory)
 
-大多数（如果不是全部）内存模块的核心实用类之一是`ChatMessageHistory`类。这是一个超轻量级的包装器，它公开了方便的方法来保存人类消息、AI消息，然后获取它们全部。
+大多数（如果不是全部）内存模块的核心实用类之一是 `ChatMessageHistory` 类。这是一个超轻量级的包装器，它公开了方便的方法来保存人类消息、AI 消息，然后获取它们全部。
 
 如果您在链外管理内存，可能需要直接使用此类。
 
@@ -35,7 +35,7 @@ history.messages
 
 ## ConversationBufferMemory
 
-现在我们展示如何在链中使用这个简单的概念。我们首先展示`ConversationBufferMemory`，它只是ChatMessageHistory的一个包装器，可以提取变量中的消息。
+现在我们展示如何在链中使用这个简单的概念。我们首先展示 `ConversationBufferMemory`，它只是 ChatMessageHistory 的一个包装器，可以提取变量中的消息。
 
 我们可以首先将其提取为字符串。
 
@@ -200,7 +200,7 @@ conversation.predict(input="Tell me about yourself.")
 
 ## 保存消息历史
 
-您经常需要保存消息，然后加载它们以便再次使用。这可以通过先将消息转换为普通的Python字典，保存这些字典（如json或其他格式），然后加载它们来轻松完成。以下是一个示例。
+您经常需要保存消息，然后加载它们以便再次使用。这可以通过先将消息转换为普通的 Python 字典，保存这些字典（如 json 或其他格式），然后加载它们来轻松完成。以下是一个示例。
 
 
 ```python

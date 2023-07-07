@@ -27,7 +27,7 @@ example_selector = LengthBasedExampleSelector(
     # This is the function used to get the length of a string, which is used
     # to determine which examples to include. It is commented out because
     # it is provided as a default value if none is specified.
-    # get_text_length: Callable[[str], int] = lambda x: len(re.split("\n| ", x))
+    # get_text_length: Callable [[str], int] = lambda x: len(re.split("\n| ", x))
 )
 dynamic_prompt = FewShotPromptTemplate(
     # We provide an ExampleSelector instead of examples.
@@ -41,7 +41,7 @@ dynamic_prompt = FewShotPromptTemplate(
 
 
 ```python
-# An example with small input, so it selects all examples.
+An example with small input, so it selects all examples.
 print(dynamic_prompt.format(adjective="big"))
 ```
 
@@ -73,7 +73,7 @@ print(dynamic_prompt.format(adjective="big"))
 
 
 ```python
-# An example with long input, so it selects only one example.
+An example with long input, so it selects only one example.
 long_string = "big and huge and massive and large and gigantic and tall and much much much much much bigger than everything else"
 print(dynamic_prompt.format(adjective=long_string))
 ```
@@ -94,7 +94,7 @@ print(dynamic_prompt.format(adjective=long_string))
 
 
 ```python
-# You can add an example to an example selector as well.
+You can add an example to an example selector as well.
 new_example = {"input": "big", "output": "small"}
 dynamic_prompt.example_selector.add_example(new_example)
 print(dynamic_prompt.format(adjective="enthusiastic"))

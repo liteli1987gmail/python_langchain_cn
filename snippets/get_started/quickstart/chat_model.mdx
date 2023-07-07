@@ -8,7 +8,7 @@ from langchain.schema import (
 
 chat = ChatOpenAI(temperature=0)
 chat.predict_messages([HumanMessage(content="Translate this sentence from English to French. I love programming.")])
-# >> AIMessage(content="J'aime programmer.", additional_kwargs={})
+# >> AIMessage(content = "J'aime programmer.", additional_kwargs ={})
 ```
 
 It is useful to understand how chat models are different from a normal LLM, but it can often be handy to just be able to treat them the same.

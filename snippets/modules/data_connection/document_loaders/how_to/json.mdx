@@ -1,9 +1,9 @@
->`JSONLoader` 使用指定的 [jq schema](https://en.wikipedia.org/wiki/Jq_(programming_language)) 来解析 JSON 文件。它使用 `jq` python 包。
+> `JSONLoader` 使用指定的 [jq schema](https://en.wikipedia.org/wiki/Jq_(programming_language)) 来解析 JSON 文件。它使用 `jq` python 包。
 查看这个 [手册](https://stedolan.github.io/jq/manual/#Basicfilters) 来详细了解 `jq` 语法。
 
 
 ```python
-#!pip install jq
+pip install jq
 ```
 
 
@@ -138,7 +138,7 @@ pprint(data)
 
 
 ```python
-# Define the metadata extraction function.
+Define the metadata extraction function.
 def metadata_func(record: dict, metadata: dict) -> dict:
 
     metadata["sender_name"] = record.get("sender_name")
@@ -192,7 +192,7 @@ pprint(data)
 
 
 ```python
-# Define the metadata extraction function.
+Define the metadata extraction function.
 def metadata_func(record: dict, metadata: dict) -> dict:
 
     metadata["sender_name"] = record.get("sender_name")

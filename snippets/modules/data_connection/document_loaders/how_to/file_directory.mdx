@@ -1,10 +1,10 @@
-在底层，默认情况下使用[UnstructuredLoader](./unstructured_file.html)
+在底层，默认情况下使用 [UnstructuredLoader](./unstructured_file.html)
 
 ```python
 from langchain.document_loaders import DirectoryLoader
 ```
 
-我们可以使用`glob`参数来控制要加载的文件。请注意，这里不加载`.rst`文件或`.html`文件。
+我们可以使用 `glob` 参数来控制要加载的文件。请注意，这里不加载 `.rst` 文件或 `.html` 文件。
 
 
 ```python
@@ -52,7 +52,7 @@ docs = loader.load()
 
 ## 使用多线程 （Use multithreading）
 
-默认情况下，加载操作在一个线程中进行。为了利用多个线程，将`use_multithreading`标志设置为True。
+默认情况下，加载操作在一个线程中进行。为了利用多个线程，将 `use_multithreading` 标志设置为 True。
 
 
 ```python
@@ -62,7 +62,7 @@ docs = loader.load()
 
 ## 更改加载器类
 
-默认情况下使用`UnstructuredLoader`类。但是，您可以相当容易地更改加载器的类型。
+默认情况下使用 `UnstructuredLoader` 类。但是，您可以相当容易地更改加载器的类型。
 
 
 ```python
@@ -92,7 +92,7 @@ len(docs)
 
 </CodeOutputBlock>
 
-如果需要加载Python源代码文件，请使用`PythonLoader`。
+如果需要加载 Python 源代码文件，请使用 `PythonLoader`。
 
 
 ```python
@@ -122,9 +122,9 @@ len(docs)
 
 </CodeOutputBlock>
 
-## 使用TextLoader自动检测文件编码
+## 使用 TextLoader 自动检测文件编码
 
-在这个示例中，我们将看到一些在使用`TextLoader`类从目录加载一系列任意文件时可能有用的策略。
+在这个示例中，我们将看到一些在使用 `TextLoader` 类从目录加载一系列任意文件时可能有用的策略。
 
 首先为了说明问题，让我们尝试加载多个具有任意编码的文本。
 
@@ -213,9 +213,9 @@ loader.load()
 
 </HTMLOutputBlock>
 
-文件`example-non-utf8.txt`使用了不同的编码，`load()`函数会失败，并显示一条有用的消息指示哪个文件解码失败。
+文件 `example-non-utf8.txt` 使用了不同的编码，`load()` 函数会失败，并显示一条有用的消息指示哪个文件解码失败。
 
-使用`TextLoader`的默认行为，任何一个文档加载失败，整个加载过程都将失败，并且不会加载任何文档。
+使用 `TextLoader` 的默认行为，任何一个文档加载失败，整个加载过程都将失败，并且不会加载任何文档。
 
 ### B. 静默失败
 

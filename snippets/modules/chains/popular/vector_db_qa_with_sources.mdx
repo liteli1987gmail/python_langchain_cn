@@ -42,7 +42,7 @@ result["source_documents"]
 
 </CodeOutputBlock>
 
-或者，如果我们的文档有一个"source"元数据键，我们可以使用`RetrievalQAWithSourceChain`来引用我们的来源：
+或者，如果我们的文档有一个 "source" 元数据键，我们可以使用 `RetrievalQAWithSourceChain` 来引用我们的来源：
 
 ```python
 docsearch = Chroma.from_texts(texts, embeddings, metadatas=[{"source": f"{i}-pl"} for i in range(len(texts))])

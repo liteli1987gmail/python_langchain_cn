@@ -1,4 +1,4 @@
-我们还可以进行文档问答，并返回用于回答问题的来源。为了做到这一点，我们只需要确保每个文档的元数据中有一个"source"键，并使用`load_qa_with_sources`助手来构建我们的链：
+我们还可以进行文档问答，并返回用于回答问题的来源。为了做到这一点，我们只需要确保每个文档的元数据中有一个 "source" 键，并使用 `load_qa_with_sources` 助手来构建我们的链：
 
 ```python
 docsearch = Chroma.from_texts(texts, embeddings, metadatas=[{"source": str(i)} for i in range(len(texts))])

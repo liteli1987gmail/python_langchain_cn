@@ -19,11 +19,11 @@ llm_chain("colorful socks")
 
 </CodeOutputBlock>
 
-## LLM链的其他运行方式
+## LLM 链的其他运行方式
 
-除了所有`Chain`对象共享的`__call__`和`run`方法之外，`LLMChain`还提供了几种调用链逻辑的方式：
+除了所有 `Chain` 对象共享的 `__call__` 和 `run` 方法之外，`LLMChain` 还提供了几种调用链逻辑的方式：
 
-- `apply`允许您对一组输入运行链逻辑：
+- `apply` 允许您对一组输入运行链逻辑：
 
 
 ```python
@@ -46,7 +46,7 @@ llm_chain.apply(input_list)
 
 </CodeOutputBlock>
 
-- `generate`与`apply`类似，但是它返回一个`LLMResult`而不是字符串。`LLMResult`通常包含有用的生成信息，如令牌使用情况和完成原因。
+- `generate` 与 `apply` 类似，但是它返回一个 `LLMResult` 而不是字符串。`LLMResult` 通常包含有用的生成信息，如令牌使用情况和完成原因。
 
 
 ```python
@@ -61,11 +61,11 @@ llm_chain.generate(input_list)
 
 </CodeOutputBlock>
 
-- `predict`与`run`方法类似，区别在于输入键是指定为关键字参数而不是Python字典。
+- `predict` 与 `run` 方法类似，区别在于输入键是指定为关键字参数而不是 Python 字典。
 
 
 ```python
-# Single input example
+Single input example
 llm_chain.predict(product="colorful socks")
 ```
 
@@ -79,7 +79,7 @@ llm_chain.predict(product="colorful socks")
 
 
 ```python
-# Multiple inputs example
+Multiple inputs example
 
 template = """Tell me a {adjective} joke about {subject}."""
 prompt = PromptTemplate(template=template, input_variables=["adjective", "subject"])
@@ -98,9 +98,9 @@ llm_chain.predict(adjective="sad", subject="ducks")
 
 ## Parsing the outputs
 
-默认情况下，`LLMChain`不会解析输出，即使底层的`prompt`对象具有输出解析器。如果您想在LLM输出上应用该输出解析器，请使用`predict_and_parse`而不是`predict`，使用`apply_and_parse`而不是`apply`。
+默认情况下，`LLMChain` 不会解析输出，即使底层的 `prompt` 对象具有输出解析器。如果您想在 LLM 输出上应用该输出解析器，请使用 `predict_and_parse` 而不是 `predict`，使用 `apply_and_parse` 而不是 `apply`。
 
-使用`predict`：
+使用 `predict`：
 
 
 ```python
@@ -122,7 +122,7 @@ llm_chain.predict()
 
 </CodeOutputBlock>
 
-使用`predict_and_parser`：
+使用 `predict_and_parser`：
 
 
 ```python
@@ -139,7 +139,7 @@ llm_chain.predict_and_parse()
 
 ## 从字符串初始化
 
-您还可以直接从字符串模板构建LLMChain。
+您还可以直接从字符串模板构建 LLMChain。
 
 
 ```python

@@ -11,11 +11,11 @@ from langchain.vectorstores import FAISS
 
 ## 低衰减率 (Low Decay Rate)
 
-低`低衰减率 (Low Decay Rate)`（在这里，为了极端起见，我们将它设置为接近0）意味着记忆将会更长时间地"记住"。`衰减率`为0意味着记忆永远不会被遗忘，使得这个检索器等效于向量查找。
+低 `低衰减率 (Low Decay Rate)`（在这里，为了极端起见，我们将它设置为接近 0）意味着记忆将会更长时间地 "记住"。`衰减率` 为 0 意味着记忆永远不会被遗忘，使得这个检索器等效于向量查找。
 
 
 ```python
-# Define your embedding model
+Define your embedding model
 embeddings_model = OpenAIEmbeddings()
 # Initialize the vectorstore as empty
 embedding_size = 1536
@@ -41,7 +41,7 @@ retriever.add_documents([Document(page_content="hello foo")])
 
 
 ```python
-# "Hello World" is returned first because it is most salient, and the decay rate is close to 0., meaning it's still recent enough
+"Hello World" is returned first because it is most salient, and the decay rate is close to 0., meaning it's still recent enough
 retriever.get_relevant_documents("hello world")
 ```
 
@@ -55,12 +55,12 @@ retriever.get_relevant_documents("hello world")
 
 ## 高衰减率 (High Decay Rate)
 
-使用高`高衰减率 (High Decay Rate)`（例如，多个9），`最近分数`迅速降为0！如果将其全部设置为1，对于所有对象，`最近性`都是0，再次使得这等效于向量查找。
+使用高 `高衰减率 (High Decay Rate)`（例如，多个 9），`最近分数` 迅速降为 0！如果将其全部设置为 1，对于所有对象，`最近性` 都是 0，再次使得这等效于向量查找。
 
 
 
 ```python
-# Define your embedding model
+Define your embedding model
 embeddings_model = OpenAIEmbeddings()
 # Initialize the vectorstore as empty
 embedding_size = 1536
@@ -86,7 +86,7 @@ retriever.add_documents([Document(page_content="hello foo")])
 
 
 ```python
-# "Hello Foo" is returned first because "hello world" is mostly forgotten
+"Hello Foo" is returned first because "hello world" is mostly forgotten
 retriever.get_relevant_documents("hello world")
 ```
 
@@ -100,7 +100,7 @@ retriever.get_relevant_documents("hello world")
 
 ## 虚拟时间 (Virtual Time)
 
-使用LangChain中的一些实用工具，您可以模拟出时间组件
+使用 LangChain 中的一些实用工具，您可以模拟出时间组件
 
 
 ```python
@@ -110,7 +110,7 @@ import datetime
 
 
 ```python
-# Notice the last access time is that date time
+Notice the last access time is that date time
 with mock_now(datetime.datetime(2011, 2, 3, 10, 11)):
     print(retriever.get_relevant_documents("hello world"))
 ```

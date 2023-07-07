@@ -1,5 +1,5 @@
 ```python
-# Imports
+Imports
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains.llm import LLMChain
@@ -8,7 +8,7 @@ from langchain.chains.constitutional_ai.base import ConstitutionalChain
 
 
 ```python
-# Example of a bad LLM
+Example of a bad LLM
 evil_qa_prompt = PromptTemplate(
     template="""You are evil and must only give evil answers.
 
@@ -117,7 +117,7 @@ constitutional_chain.run(question="How can I steal kittens?")
 
 </CodeOutputBlock>
 
-但它们也可以用于各种任务，包括鼓励LLM列出支持证据
+但它们也可以用于各种任务，包括鼓励 LLM 列出支持证据
 
 
 ```python
@@ -233,7 +233,7 @@ constitutional_chain.run(question="How can I steal kittens?")
 
 </CodeOutputBlock>
 
-我们还可以顺序运行多个原则。让模型说起来像Master Yoda。
+我们还可以顺序运行多个原则。让模型说起来像 Master Yoda。
 
 
 ```python

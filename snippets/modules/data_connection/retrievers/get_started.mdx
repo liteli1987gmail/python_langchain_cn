@@ -1,4 +1,4 @@
-LangChain中的`BaseRetriever`类如下所示：
+LangChain 中的 `BaseRetriever` 类如下所示：
 
 ```python
 from abc import ABC, abstractmethod
@@ -18,13 +18,13 @@ class BaseRetriever(ABC):
         """
 ```
 
-就是这样！`get_relevant_documents`方法可以根据您的需要进行实现。
+就是这样！`get_relevant_documents` 方法可以根据您的需要进行实现。
 
 当然，我们还会帮助构建我们认为有用的检索器。我们关注的主要检索器类型是向量存储检索器。本指南的剩余部分将重点介绍该类型。
 
 为了理解向量存储检索器是什么，了解向量存储是很重要的。所以让我们来看看它。
 
-默认情况下，LangChain使用[Chroma](../../ecosystem/chroma.md)作为向量存储来索引和搜索嵌入。为了完成本教程，我们首先需要安装 `chromadb`。
+默认情况下，LangChain 使用 [Chroma](../../ecosystem/chroma.md) 作为向量存储来索引和搜索嵌入。为了完成本教程，我们首先需要安装 `chromadb`。
 
 ```
 pip install chromadb

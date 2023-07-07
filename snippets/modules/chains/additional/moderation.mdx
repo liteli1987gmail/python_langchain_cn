@@ -1,7 +1,7 @@
 我们将展示：
 
 1. 如何将任何文本通过审核链运行。
-2. 如何将审核链附加到LLMChain中。
+2. 如何将审核链附加到 LLMChain 中。
 
 <!-- 警告：该文件是自动生成的！请勿编辑！而是编辑具有相同位置和名称的笔记本。 -->
 
@@ -121,7 +121,7 @@ moderation_chain_error.run("I will kill you")
 
 </CodeOutputBlock>
 
-以下是创建具有自定义错误消息的自定义审核链的示例。它需要对OpenAI的审核终端结果有一些了解（[请参阅此处的文档](https://beta.openai.com/docs/api-reference/moderations)）。
+以下是创建具有自定义错误消息的自定义审核链的示例。它需要对 OpenAI 的审核终端结果有一些了解（[请参阅此处的文档](https://beta.openai.com/docs/api-reference/moderations)）。
 
 
 ```python
@@ -162,11 +162,11 @@ custom_moderation.run("I will kill you")
 
 </CodeOutputBlock>
 
-## 如何将审核链附加到LLMChain
+## 如何将审核链附加到 LLMChain
 
-要将审核链与LLMChain轻松组合在一起，您可以使用SequentialChain抽象。
+要将审核链与 LLMChain 轻松组合在一起，您可以使用 SequentialChain 抽象。
 
-让我们从一个简单的例子开始，LLMChain只有一个输入。为此，我们将提示模型说一些有害的内容。
+让我们从一个简单的例子开始，LLMChain 只有一个输入。为此，我们将提示模型说一些有害的内容。
 
 
 ```python
@@ -215,7 +215,7 @@ chain.run(text)
 
 </CodeOutputBlock>
 
-现在让我们通过一个使用具有多个输入的LLMChain的示例来演示它（稍微复杂一些，因为我们不能使用SimpleSequentialChain）
+现在让我们通过一个使用具有多个输入的 LLMChain 的示例来演示它（稍微复杂一些，因为我们不能使用 SimpleSequentialChain）
 
 
 ```python
@@ -249,7 +249,7 @@ llm_chain(inputs, return_only_outputs=True)
 
 
 ```python
-# Setting the input/output keys so it lines up
+Setting the input/output keys so it lines up
 moderation_chain.input_key = "text"
 moderation_chain.output_key = "sanitized_text"
 ```

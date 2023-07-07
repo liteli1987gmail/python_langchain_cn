@@ -3,13 +3,13 @@
 
 首先，我们需要创建一个 `Pinecone` VectorStore，并使用一些数据进行初始化。我们创建了一个包含电影摘要的小型演示文档集。
 
-要使用 Pinecone，您需要安装 `pinecone` 包，并拥有 API 密钥和环境。请参阅[安装说明](https://docs.pinecone.io/docs/quickstart)。
+要使用 Pinecone，您需要安装 `pinecone` 包，并拥有 API 密钥和环境。请参阅 [安装说明](https://docs.pinecone.io/docs/quickstart)。
 
 注意：自查询检索器要求您安装了 `lark` 包。
 
 
 ```python
-# !pip install lark pinecone-client
+! pip install lark pinecone-client
 ```
 
 
@@ -91,7 +91,7 @@ retriever = SelfQueryRetriever.from_llm(llm, vectorstore, document_content_descr
 
 
 ```python
-# This example only specifies a relevant query
+This example only specifies a relevant query
 retriever.get_relevant_documents("What are some movies about dinosaurs")
 ```
 
@@ -111,7 +111,7 @@ retriever.get_relevant_documents("What are some movies about dinosaurs")
 
 
 ```python
-# This example only specifies a filter
+This example only specifies a filter
 retriever.get_relevant_documents("I want to watch a movie rated higher than 8.5")
 ```
 
@@ -129,7 +129,7 @@ retriever.get_relevant_documents("I want to watch a movie rated higher than 8.5"
 
 
 ```python
-# This example specifies a query and a filter
+This example specifies a query and a filter
 retriever.get_relevant_documents("Has Greta Gerwig directed any movies about women")
 ```
 
@@ -146,7 +146,7 @@ retriever.get_relevant_documents("Has Greta Gerwig directed any movies about wom
 
 
 ```python
-# This example specifies a composite filter
+This example specifies a composite filter
 retriever.get_relevant_documents("What's a highly rated (above 8.5) science fiction film?")
 ```
 
@@ -163,7 +163,7 @@ retriever.get_relevant_documents("What's a highly rated (above 8.5) science fict
 
 
 ```python
-# This example specifies a query and composite filter
+This example specifies a query and composite filter
 retriever.get_relevant_documents("What's a movie after 1990 but before 2005 that's all about toys, and preferably is animated")
 ```
 
@@ -198,6 +198,6 @@ retriever = SelfQueryRetriever.from_llm(
 
 
 ```python
-# This example only specifies a relevant query
+This example only specifies a relevant query
 retriever.get_relevant_documents("What are two movies about dinosaurs")
 ```

@@ -52,7 +52,7 @@ similar_prompt = FewShotPromptTemplate(
 
 
 ```python
-# Input is a feeling, so should select the happy/sad example
+Input is a feeling, so should select the happy/sad example
 print(similar_prompt.format(adjective="worried"))
 ```
 
@@ -72,7 +72,7 @@ print(similar_prompt.format(adjective="worried"))
 
 
 ```python
-# Input is a measurement, so should select the tall/short example
+Input is a measurement, so should select the tall/short example
 print(similar_prompt.format(adjective="fat"))
 ```
 
@@ -92,7 +92,7 @@ print(similar_prompt.format(adjective="fat"))
 
 
 ```python
-# You can add new examples to the SemanticSimilarityExampleSelector as well
+You can add new examples to the SemanticSimilarityExampleSelector as well
 similar_prompt.example_selector.add_example({"input": "enthusiastic", "output": "apathetic"})
 print(similar_prompt.format(adjective="joyful"))
 ```

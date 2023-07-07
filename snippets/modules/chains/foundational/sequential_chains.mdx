@@ -6,7 +6,7 @@ from langchain.prompts import PromptTemplate
 
 
 ```python
-# This is an LLMChain to write a synopsis given a title of a play.
+This is an LLMChain to write a synopsis given a title of a play.
 llm = OpenAI(temperature=.7)
 template = """You are a playwright. Given the title of play, it is your job to write a synopsis for that title.
 
@@ -18,7 +18,7 @@ synopsis_chain = LLMChain(llm=llm, prompt=prompt_template)
 
 
 ```python
-# This is an LLMChain to write a review of a play given a synopsis.
+This is an LLMChain to write a review of a play given a synopsis.
 llm = OpenAI(temperature=.7)
 template = """You are a play critic from the New York Times. Given the synopsis of play, it is your job to write a review for that play.
 
@@ -31,7 +31,7 @@ review_chain = LLMChain(llm=llm, prompt=prompt_template)
 
 
 ```python
-# This is the overall chain where we run these two chains in sequence.
+This is the overall chain where we run these two chains in sequence.
 from langchain.chains import SimpleSequentialChain
 overall_chain = SimpleSequentialChain(chains=[synopsis_chain, review_chain], verbose=True)
 ```
@@ -94,7 +94,7 @@ print(review)
 
 
 ```python
-# This is an LLMChain to write a synopsis given a title of a play and the era it is set in.
+This is an LLMChain to write a synopsis given a title of a play and the era it is set in.
 llm = OpenAI(temperature=.7)
 template = """You are a playwright. Given the title of play and the era it is set in, it is your job to write a synopsis for that title.
 
@@ -107,7 +107,7 @@ synopsis_chain = LLMChain(llm=llm, prompt=prompt_template, output_key="synopsis"
 
 
 ```python
-# This is an LLMChain to write a review of a play given a synopsis.
+This is an LLMChain to write a review of a play given a synopsis.
 llm = OpenAI(temperature=.7)
 template = """You are a play critic from the New York Times. Given the synopsis of play, it is your job to write a review for that play.
 
@@ -120,7 +120,7 @@ review_chain = LLMChain(llm=llm, prompt=prompt_template, output_key="review")
 
 
 ```python
-# This is the overall chain where we run these two chains in sequence.
+This is the overall chain where we run these two chains in sequence.
 from langchain.chains import SequentialChain
 overall_chain = SequentialChain(
     chains=[synopsis_chain, review_chain],
@@ -158,9 +158,9 @@ overall_chain({"title":"Tragedy at sunset on the beach", "era": "Victorian Engla
 
 ### 顺序链中的记忆（Memory in Sequential Chains）
 
-有时，您可能希望在链的每个步骤或链的后面的某个部分传递一些上下文，但是维护和链接输入/输出变量可能会很快变得混乱。使用`SimpleMemory`是一种方便的方法来管理这个上下文并简化您的链。
+有时，您可能希望在链的每个步骤或链的后面的某个部分传递一些上下文，但是维护和链接输入/输出变量可能会很快变得混乱。使用 `SimpleMemory` 是一种方便的方法来管理这个上下文并简化您的链。
 
-例如，使用前面的playwright顺序链，假设您想要包含有关剧本的日期、时间和位置的某些上下文，并使用生成的简介和评论创建一些社交媒体发布文本。您可以将这些新的上下文变量添加为`input_variables`，或者我们可以在链中添加一个`SimpleMemory`来管理这个上下文：
+例如，使用前面的 playwright 顺序链，假设您想要包含有关剧本的日期、时间和位置的某些上下文，并使用生成的简介和评论创建一些社交媒体发布文本。您可以将这些新的上下文变量添加为 `input_variables`，或者我们可以在链中添加一个 `SimpleMemory` 来管理这个上下文：
 
 
 

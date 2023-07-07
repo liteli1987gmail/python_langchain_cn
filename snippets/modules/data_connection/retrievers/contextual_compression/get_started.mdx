@@ -1,5 +1,5 @@
 ```python
-# Helper function for printing docs
+Helper function for printing docs
 
 def pretty_print_docs(docs):
     print(f"\n{'-' * 100}\n".join([f"Document {i+1}:\n\n" + d.page_content for i, d in enumerate(docs)]))
@@ -7,7 +7,7 @@ def pretty_print_docs(docs):
 
 ## 使用纯向量存储检索器
 
-让我们从初始化一个简单的向量存储检索器并存储2023年国情咨文演讲（以分块方式）开始。我们可以看到，给定一个示例问题，我们的检索器返回一个或两个相关文档和几个不相关的文档。而且即使相关的文档中也有很多不相关的信息。
+让我们从初始化一个简单的向量存储检索器并存储 2023 年国情咨文演讲（以分块方式）开始。我们可以看到，给定一个示例问题，我们的检索器返回一个或两个相关文档和几个不相关的文档。而且即使相关的文档中也有很多不相关的信息。
 
 
 ```python

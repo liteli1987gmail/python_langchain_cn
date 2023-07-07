@@ -36,7 +36,7 @@ qa.run(query)
 
 ## 链类型 （Chain Type）
 
-您可以轻松指定要在 RetrievalQA 链中加载和使用的不同链类型。有关这些类型的更详细的步骤，请参见[此笔记本](question_answering.html)。
+您可以轻松指定要在 RetrievalQA 链中加载和使用的不同链类型。有关这些类型的更详细的步骤，请参见 [此笔记本](question_answering.html)。
 
 有两种加载不同链类型的方法。首先，您可以在 `from_chain_type` 方法中指定链类型参数。这允许您传递要使用的链类型的名称。例如，在下面的示例中，我们将链类型更改为 `map_reduce`。
 
@@ -59,7 +59,7 @@ qa.run(query)
 
 </CodeOutputBlock>
 
-上述方法允许您非常简单地更改链类型，但它确实在链类型的参数上提供了大量的灵活性。如果您想要控制这些参数，您可以直接加载链（就像在[此笔记本](question_answering.html)中所做的那样），然后将其直接传递给 RetrievalQA 链，使用 `combine_documents_chain` 参数。例如：
+上述方法允许您非常简单地更改链类型，但它确实在链类型的参数上提供了大量的灵活性。如果您想要控制这些参数，您可以直接加载链（就像在 [此笔记本](question_answering.html) 中所做的那样），然后将其直接传递给 RetrievalQA 链，使用 `combine_documents_chain` 参数。例如：
 
 
 ```python
@@ -84,7 +84,7 @@ qa.run(query)
 
 ## 自定义提示 （Custom Prompts）
 
-您可以传递自定义提示来进行问题回答。这些提示与您可以传递给[基本问题回答链](./question_answering.html)的提示相同
+您可以传递自定义提示来进行问题回答。这些提示与您可以传递给 [基本问题回答链](./question_answering.html) 的提示相同
 
 
 ```python

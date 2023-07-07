@@ -31,7 +31,7 @@ llm("Tell me a joke")
 
 
 ```python
-# The second time it is, so it goes faster
+The second time it is, so it goes faster
 llm("Tell me a joke")
 ```
 
@@ -47,7 +47,7 @@ llm("Tell me a joke")
 
 </CodeOutputBlock>
 
-## SQLite缓存（SQLite Cache）
+## SQLite 缓存（SQLite Cache）
 
 
 ```bash
@@ -56,14 +56,14 @@ rm .langchain.db
 
 
 ```python
-# We can do the same thing with a SQLite cache
+We can do the same thing with a SQLite cache
 from langchain.cache import SQLiteCache
 langchain.llm_cache = SQLiteCache(database_path=".langchain.db")
 ```
 
 
 ```python
-# The first time, it is not yet in cache, so it should take longer
+The first time, it is not yet in cache, so it should take longer
 llm("Tell me a joke")
 ```
 
@@ -81,7 +81,7 @@ llm("Tell me a joke")
 
 
 ```python
-# The second time it is, so it goes faster
+The second time it is, so it goes faster
 llm("Tell me a joke")
 ```
 
@@ -99,7 +99,7 @@ llm("Tell me a joke")
 
 ## 链中的可选缓存（Optional Caching in Chains）
 
-您还可以关闭链中特定节点的缓存。请注意，由于某些接口的原因，先构建链，然后再编辑LLM通常更容易。
+您还可以关闭链中特定节点的缓存。请注意，由于某些接口的原因，先构建链，然后再编辑 LLM 通常更容易。
 
 例如，我们将加载一个摘要映射-减少链。我们将对映射步骤的结果进行缓存，但不对合并步骤进行冻结。
 

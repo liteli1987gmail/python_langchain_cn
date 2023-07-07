@@ -55,7 +55,7 @@ from langchain.llms import OpenAI
 from langchain.chains import ConversationChain
 conversation_with_summary = ConversationChain(
     llm=OpenAI(temperature=0), 
-    # We set a low k=2, to only keep the last 2 interactions in memory
+    # We set a low k = 2, to only keep the last 2 interactions in memory
     memory=ConversationBufferWindowMemory(k=2), 
     verbose=True
 )
@@ -153,7 +153,7 @@ conversation_with_summary.predict(input="Is it going well?")
 
 
 ```python
-# Notice here that the first interaction does not appear.
+Notice here that the first interaction does not appear.
 conversation_with_summary.predict(input="What's the solution?")
 ```
 
