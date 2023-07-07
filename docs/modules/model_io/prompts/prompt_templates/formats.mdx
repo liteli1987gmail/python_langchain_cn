@@ -2,7 +2,7 @@
  
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
-默认情况下，`PromptTemplate`会将提供的模板视为Python f-string。您可以通过`template_format`参数指定其他模板格式：
+默认情况下，`PromptTemplate` 会将提供的模板视为 Python f-string。您可以通过 `template_format` 参数指定其他模板格式：
 
 ```python
 # Make sure jinja2 is installed before running this
@@ -14,5 +14,5 @@ prompt_template.format(adjective="funny", content="chickens")
 # -> Tell me a funny joke about chickens.
 ```
 
-目前，`PromptTemplate`仅支持`jinja2`和`f-string`模板格式。如果您希望使用其他模板格式，请随时在[Github](https://github.com/hwchase17/langchain/issues)页面上提交问题。
+目前，`PromptTemplate` 仅支持 `jinja2` 和 `f-string` 模板格式。如果您希望使用其他模板格式，请随时在 [Github](https://github.com/hwchase17/langchain/issues) 页面上提交问题。
 

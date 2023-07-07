@@ -1,5 +1,5 @@
-# SageMaker终端
->[Amazon SageMaker](https://aws.amazon.com/sagemaker/) 是一个可以使用完全托管的基础架构、工具和工作流程构建、训练和部署机器学习（ML）模型的系统。
+# SageMaker 终端
+> [Amazon SageMaker](https://aws.amazon.com/sagemaker/) 是一个可以使用完全托管的基础架构、工具和工作流程构建、训练和部署机器学习（ML）模型的系统。
 我们使用 `SageMaker` 来托管我们的模型并将其作为 `SageMaker终端` 进行暴露。
 
 ## 安装和设置
@@ -7,7 +7,7 @@
 pip install boto3
 ```
 
-有关如何将模型暴露为 `SageMaker终端` 的说明，请参阅[此处](https://www.philschmid.de/custom-inference-huggingface-sagemaker)。
+有关如何将模型暴露为 `SageMaker终端` 的说明，请参阅 [此处](https://www.philschmid.de/custom-inference-huggingface-sagemaker)。
 **注意**：为了处理批量请求，我们需要在自定义的 `inference.py` 脚本中调整 `predict_fn()` 函数的返回行：
 从
 ```
@@ -21,15 +21,15 @@ return {"vectors": sentence_embeddings.tolist()}
 
 
 
-我们必须设置 `SagemakerEndpoint` 调用的以下必填参数：- `endpoint_name`：已部署Sagemaker模型的终端名称。    在AWS区域内必须是唯一的。- `credentials_profile_name`：`~/.aws/credentials` 或 `~/.aws/config` 文件中的配置文件名称，    其中指定了访问密钥或角色信息。    如果未指定，将使用默认的凭证配置文件，或者如果在EC2实例上，将使用IMDS中的凭证。    请参阅[此指南](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html)。## LLM
-请参阅[使用示例](/docs/modules/model_io/models/llms/integrations/sagemaker.html)。
+我们必须设置 `SagemakerEndpoint` 调用的以下必填参数：- `endpoint_name`：已部署 Sagemaker 模型的终端名称。    在 AWS 区域内必须是唯一的。- `credentials_profile_name`：`~/.aws/credentials` 或 `~/.aws/config` 文件中的配置文件名称，    其中指定了访问密钥或角色信息。    如果未指定，将使用默认的凭证配置文件，或者如果在 EC2 实例上，将使用 IMDS 中的凭证。    请参阅 [此指南](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html)。## LLM
+请参阅 [使用示例](/docs/modules/model_io/models/llms/integrations/sagemaker.html)。
 ## 文本嵌入模型
 ```python
 from langchain import SagemakerEndpoint
 from langchain.llms.sagemaker_endpoint import LLMContentHandler
 ```
 
-请参阅[使用示例](/docs/modules/data_connection/text_embedding/integrations/sagemaker-endpoint.html)。
+请参阅 [使用示例](/docs/modules/data_connection/text_embedding/integrations/sagemaker-endpoint.html)。
 See a [usage example](/docs/modules/data_connection/text_embedding/integrations/sagemaker-endpoint.html).
 ```python
 from langchain.embeddings import SagemakerEndpointEmbeddings

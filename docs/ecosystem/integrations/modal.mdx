@@ -1,13 +1,13 @@
 # 模态框
 
-本页面介绍了如何在LangChain中使用模态框生态系统。
+本页面介绍了如何在 LangChain 中使用模态框生态系统。
 它分为两个部分：安装和设置，然后引用特定的模态框包装器。
 
 ## 安装和设置
-- 使用`pip install modal-client`进行安装
-- 运行`modal token new`
+- 使用 `pip install modal-client` 进行安装
+- 运行 `modal token new`
 
-## 定义你的模态框函数和Webhooks
+## 定义你的模态框函数和 Webhooks
 
 您必须包含提示。有一个严格的响应结构。
 
@@ -20,7 +20,7 @@ def my_webhook(item: Item):
     return {"prompt": my_function.call(item.prompt)}
 ```
 
-使用GPT2的一个示例：
+使用 GPT2 的一个示例：
 
 ```python
 from pydantic import BaseModel
@@ -60,7 +60,7 @@ def get_text(item: Item):
 
 ### LLM
 
-存在一个模态框LLM包装器，您可以通过以下方式访问
+存在一个模态框 LLM 包装器，您可以通过以下方式访问
 ```python
 from langchain.llms import Modal
 ```

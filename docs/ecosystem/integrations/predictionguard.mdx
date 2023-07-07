@@ -1,20 +1,20 @@
 # 预测保护（Prediction Guard）
 
-本页面介绍如何在LangChain中使用预测保护生态系统。
+本页面介绍如何在 LangChain 中使用预测保护生态系统。
 它分为两部分：安装和设置，以及对特定预测保护封装的引用。
 
 ## 安装和设置
-- 使用 `pip install predictionguard` 安装Python SDK
-- 获取一个预测保护访问令牌（如[此处](https://docs.predictionguard.com/)所述），并将其设置为环境变量（`PREDICTIONGUARD_TOKEN`）
+- 使用 `pip install predictionguard` 安装 Python SDK
+- 获取一个预测保护访问令牌（如 [此处](https://docs.predictionguard.com/) 所述），并将其设置为环境变量（`PREDICTIONGUARD_TOKEN`）
 
-## LLM封装器
+## LLM 封装器
 
-存在一个预测保护LLM封装器，您可以通过以下方式访问：
+存在一个预测保护 LLM 封装器，您可以通过以下方式访问：
 ```python
 from langchain.llms import PredictionGuard
 ```
 
-在初始化LLM时，可以通过参数提供预测保护模型的名称：
+在初始化 LLM 时，可以通过参数提供预测保护模型的名称：
 ```python
 pgllm = PredictionGuard(model="MPT-7B-Instruct")
 ```
@@ -24,14 +24,14 @@ pgllm = PredictionGuard(model="MPT-7B-Instruct")
 pgllm = PredictionGuard(model="MPT-7B-Instruct", token="<your access token>")
 ```
 
-最后，您可以提供一个“output”参数，用于结构化/控制LLM的输出：
+最后，您可以提供一个“output”参数，用于结构化/控制 LLM 的输出：
 ```python
 pgllm = PredictionGuard(model="MPT-7B-Instruct", output={"type": "boolean"})
 ```
 
 ## 示例用法
 
-使用受控或受保护的LLM封装器的基本用法：
+使用受控或受保护的 LLM 封装器的基本用法：
 ```python
 import os
 
@@ -72,7 +72,7 @@ pgllm = PredictionGuard(model="MPT-7B-Instruct",
 pgllm(prompt.format(query="What kind of post is this?"))
 ```
 
-使用预测保护封装器进行基本的LLM链式调用：
+使用预测保护封装器进行基本的 LLM 链式调用：
 ```python
 import os
 

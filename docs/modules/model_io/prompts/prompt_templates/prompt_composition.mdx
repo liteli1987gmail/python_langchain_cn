@@ -3,10 +3,10 @@
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 
-本笔记本介绍如何将多个提示组合在一起。当您想要重用提示的部分时，这将非常有用。这可以通过PipelinePrompt完成。PipelinePrompt由两个主要部分组成：
+本笔记本介绍如何将多个提示组合在一起。当您想要重用提示的部分时，这将非常有用。这可以通过 PipelinePrompt 完成。PipelinePrompt 由两个主要部分组成：
 
 - 最终提示：这是返回的最终提示
-- Pipeline提示：这是一个由字符串名称和提示模板组成的元组列表。每个提示模板将被格式化，然后作为具有相同名称的变量传递给未来的提示模板。
+- Pipeline 提示：这是一个由字符串名称和提示模板组成的元组列表。每个提示模板将被格式化，然后作为具有相同名称的变量传递给未来的提示模板。
 
 import Example from "@snippets/modules/model_io/prompts/prompt_templates/prompt_composition.mdx"
 

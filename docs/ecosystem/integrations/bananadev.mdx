@@ -1,6 +1,6 @@
 # 香蕉
 
-本页面介绍如何在LangChain中使用香蕉生态系统。
+本页面介绍如何在 LangChain 中使用香蕉生态系统。
 内容分为两部分：安装和设置，以及对特定香蕉包装器的参考。
 
 ## 安装和设置
@@ -10,13 +10,13 @@
 
 ## 定义你的香蕉模板
 
-如果您想使用现有的语言模型模板，可以在[这里](https://app.banana.dev/templates/conceptofmind/serverless-template-palmyra-base)找到一个。
-此模板使用了[Writer](https://writer.com/product/api/)的Palmyra-Base模型。
-您可以在[这里](https://github.com/conceptofmind/serverless-template-palmyra-base)查看一个香蕉存储库示例。
+如果您想使用现有的语言模型模板，可以在 [这里](https://app.banana.dev/templates/conceptofmind/serverless-template-palmyra-base) 找到一个。
+此模板使用了 [Writer](https://writer.com/product/api/) 的 Palmyra-Base 模型。
+您可以在 [这里](https://github.com/conceptofmind/serverless-template-palmyra-base) 查看一个香蕉存储库示例。
 
 ## 构建香蕉应用程序
 
-香蕉应用程序必须在返回的 JSON 中包含"output"键。
+香蕉应用程序必须在返回的 JSON 中包含 "output" 键。
 有一个严格的响应结构。
 
 ```python
@@ -60,7 +60,7 @@ def inference(model_inputs:dict) -> dict:
     return result
 ```
 
-您可以在[这里](https://github.com/conceptofmind/serverless-template-palmyra-base/blob/main/app.py)找到一个完整的香蕉应用程序示例。
+您可以在 [这里](https://github.com/conceptofmind/serverless-template-palmyra-base/blob/main/app.py) 找到一个完整的香蕉应用程序示例。
 
 ## 包装器
 

@@ -24,6 +24,6 @@ OpenSearch 提供向量搜索功能。在特定的场景下，尤其是测试题
 - `asimilarity_search_by_vector`
 - `similarity_search_with_relevance_scores`
 
-有关阿里巴巴云开放搜索包装器的更详细演示，请参见[此笔记本](../modules/indexes/vectorstores/examples/alibabacloud_opensearch.ipynb)
+有关阿里巴巴云开放搜索包装器的更详细演示，请参见 [此笔记本](../modules/indexes/vectorstores/examples/alibabacloud_opensearch.ipynb)
 
 如果您在使用过程中遇到任何问题，请随时联系 [xingshaomin.xsm@alibaba-inc.com](xingshaomin.xsm@alibaba-inc.com) 我们将尽最大努力为您提供帮助和支持。

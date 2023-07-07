@@ -1,14 +1,14 @@
-# 自定义LLM代理（带有ChatModel）custom_llm_chat_agent
+# 自定义 LLM 代理（带有 ChatModel）custom_llm_chat_agent
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 本笔记本介绍了如何基于聊天模型创建自定义代理的过程。
 
-LLM聊天代理由三个部分组成：
+LLM 聊天代理由三个部分组成：
 
 - PromptTemplate：这是可用于指导语言模型的提示模板
 - ChatModel：这是驱动代理的语言模型
-- `stop`序列：指示LLM在找到此字符串时停止生成
-- OutputParser：确定如何将LLMOutput解析为AgentAction或AgentFinish对象
+- `stop` 序列：指示 LLM 在找到此字符串时停止生成
+- OutputParser：确定如何将 LLMOutput 解析为 AgentAction 或 AgentFinish 对象
 
 import Example from "@snippets/modules/agents/how_to/custom_llm_chat_agent.mdx"
 

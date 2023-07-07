@@ -1,26 +1,26 @@
 # Redis
 
-本页面介绍如何在LangChain中使用[Redis](https://redis.com)生态系统。
-它分为两部分：安装和设置，然后是对特定Redis包装器的参考。
+本页面介绍如何在 LangChain 中使用 [Redis](https://redis.com) 生态系统。
+它分为两部分：安装和设置，然后是对特定 Redis 包装器的参考。
 
 ## 安装和设置
-- 使用 `pip install redis` 安装Redis Python SDK
+- 使用 `pip install redis` 安装 Redis Python SDK
 
 ## 包装器
 
 ### 缓存
 
-缓存包装器允许将[Redis](https://redis.io)用作远程、低延迟、内存中的LLM提示和响应缓存。
+缓存包装器允许将 [Redis](https://redis.io) 用作远程、低延迟、内存中的 LLM 提示和响应缓存。
 
 #### 标准缓存
-标准缓存是Redis在全球范围内用于生产的[开源](https://redis.io)和[企业](https://redis.com)用户的主要用例。
+标准缓存是 Redis 在全球范围内用于生产的 [开源](https://redis.io) 和 [企业](https://redis.com) 用户的主要用例。
 
 导入此缓存：
 ```python
 from langchain.cache import RedisCache
 ```
 
-使用此缓存与您的LLMs：
+使用此缓存与您的 LLMs：
 ```python
 import langchain
 import redis
@@ -30,14 +30,14 @@ langchain.llm_cache = RedisCache(redis_client)
 ```
 
 #### 语义缓存
-语义缓存允许用户基于用户输入和先前缓存结果之间的语义相似性检索缓存的提示。在底层，它将Redis作为缓存和向量存储器进行混合使用。
+语义缓存允许用户基于用户输入和先前缓存结果之间的语义相似性检索缓存的提示。在底层，它将 Redis 作为缓存和向量存储器进行混合使用。
 
 导入此缓存：
 ```python
 from langchain.cache import RedisSemanticCache
 ```
 
-使用此缓存与您的LLMs：
+使用此缓存与您的 LLMs：
 ```python
 import langchain
 import redis
@@ -55,25 +55,25 @@ langchain.llm_cache = RedisSemanticCache(
 
 ### 向量存储器
 
-向量存储器包装器将Redis转换为低延迟的[向量数据库](https://redis.com/solutions/use-cases/vector-database/)，用于语义搜索或LLM内容检索。
+向量存储器包装器将 Redis 转换为低延迟的 [向量数据库](https://redis.com/solutions/use-cases/vector-database/)，用于语义搜索或 LLM 内容检索。
 
 导入此向量存储器：
 ```python
 from langchain.vectorstores import Redis
 ```
 
-有关Redis向量存储器包装器的更详细演示，请参阅[此笔记本](/docs/modules/data_connection/vectorstores/integrations/redis.html)。
+有关 Redis 向量存储器包装器的更详细演示，请参阅 [此笔记本](/docs/modules/data_connection/vectorstores/integrations/redis.html)。
 
 ### 检索器
 
-Redis向量存储器检索器包装器将向量存储器类泛化为执行低延迟文档检索的类。只需在基本向量存储器类上调用`.as_retriever()`即可创建检索器。
+Redis 向量存储器检索器包装器将向量存储器类泛化为执行低延迟文档检索的类。只需在基本向量存储器类上调用 `.as_retriever()` 即可创建检索器。
 
 ### 存储器
-Redis可用于持久化LLM对话。
+Redis 可用于持久化 LLM 对话。
 
 #### 向量存储器检索器存储器
 
-有关`VectorStoreRetrieverMemory`包装器的更详细演示，请参阅[此笔记本](/docs/modules/memory/integrations/vectorstore_retriever_memory.html)。
+有关 `VectorStoreRetrieverMemory` 包装器的更详细演示，请参阅 [此笔记本](/docs/modules/memory/integrations/vectorstore_retriever_memory.html)。
 
 #### 聊天消息历史存储器
-有关使用Redis缓存对话消息历史的详细示例，请参阅[此笔记本](/docs/modules/memory/integrations/redis_chat_message_history.html)。
+有关使用 Redis 缓存对话消息历史的详细示例，请参阅 [此笔记本](/docs/modules/memory/integrations/redis_chat_message_history.html)。

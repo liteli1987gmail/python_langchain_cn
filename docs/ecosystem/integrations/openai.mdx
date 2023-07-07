@@ -1,9 +1,9 @@
 # OpenAI
 
->[OpenAI](https://zh.wikipedia.org/wiki/OpenAI) 是美国的人工智能（AI）研究实验室
+> [OpenAI](https://zh.wikipedia.org/wiki/OpenAI) 是美国的人工智能（AI）研究实验室
 > 由非盈利机构 `OpenAI Incorporated`
 > 和其盈利子公司 `OpenAI 有限合伙公司` 组成。
-> `OpenAI` 进行AI研究，旨在推动和发展友好的AI。
+> `OpenAI` 进行 AI 研究，旨在推动和发展友好的 AI。
 > `OpenAI` 的系统在来自 `Microsoft` 的基于 `Azure` 的超级计算平台上运行。
 
 > [OpenAI API](https://platform.openai.com/docs/models) 由一系列具有不同功能和价格的模型驱动。
@@ -11,12 +11,12 @@
 > [ChatGPT](https://chat.openai.com) 是 `OpenAI` 开发的人工智能（AI）聊天机器人。
 
 ## 安装和设置
-- 使用以下命令安装Python SDK
+- 使用以下命令安装 Python SDK
 ```bash
 pip install openai
 ```
-- 获取OpenAI API密钥，并将其设置为环境变量（`OPENAI_API_KEY`）
-- 如果您想使用OpenAI的标记器（仅适用于Python 3.9+），请安装它
+- 获取 OpenAI API 密钥，并将其设置为环境变量（`OPENAI_API_KEY`）
+- 如果您想使用 OpenAI 的标记器（仅适用于 Python 3.9+），请安装它
 ```bash
 pip install tiktoken
 ```
@@ -47,7 +47,7 @@ from langchain.embeddings import OpenAIEmbeddings
 ## 标记器
 
 您可以在几个地方使用 `tiktoken` 标记器。默认情况下，它用于计算令牌数
-用于OpenAI LLMs。
+用于 OpenAI LLMs。
 
 您还可以使用它来计算通过以下方式拆分文档的令牌数 
 ```python
@@ -58,7 +58,7 @@ CharacterTextSplitter.from_tiktoken_encoder(...)
 
 ## Chain
 
-查看一个[使用示例](/docs/modules/chains/additional/moderation.html)。
+查看一个 [使用示例](/docs/modules/chains/additional/moderation.html)。
 
 ```python
 from langchain.chains import OpenAIModerationChain
@@ -66,7 +66,7 @@ from langchain.chains import OpenAIModerationChain
 
 ## 文档加载器
 
-查看一个[使用示例](/docs/modules/data_connection/document_loaders/integrations/chatgpt_loader.html)。
+查看一个 [使用示例](/docs/modules/data_connection/document_loaders/integrations/chatgpt_loader.html)。
 
 ```python
 from langchain.document_loaders.chatgpt import ChatGPTLoader
@@ -74,7 +74,7 @@ from langchain.document_loaders.chatgpt import ChatGPTLoader
 
 ## 检索器
 
-查看一个[使用示例](/docs/modules/data_connection/retrievers/integrations/chatgpt-plugin.html)。
+查看一个 [使用示例](/docs/modules/data_connection/retrievers/integrations/chatgpt-plugin.html)。
 
 ```python
 from langchain.retrievers import ChatGPTPluginRetriever

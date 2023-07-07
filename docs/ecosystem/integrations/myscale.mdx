@@ -1,36 +1,36 @@
 # MyScale
 
-本页面介绍如何在LangChain中使用MyScale向量数据库。
-它分为两部分：安装和设置，以及特定MyScale包装器的参考。
+本页面介绍如何在 LangChain 中使用 MyScale 向量数据库。
+它分为两部分：安装和设置，以及特定 MyScale 包装器的参考。
 
-使用MyScale，您可以管理结构化和非结构化（向量化）数据，并使用SQL对两种类型的数据执行联合查询和分析。此外，MyScale的云原生OLAP架构基于ClickHouse构建，即使在大型数据集上也能实现闪电般快速的数据处理。
+使用 MyScale，您可以管理结构化和非结构化（向量化）数据，并使用 SQL 对两种类型的数据执行联合查询和分析。此外，MyScale 的云原生 OLAP 架构基于 ClickHouse 构建，即使在大型数据集上也能实现闪电般快速的数据处理。
 
 ## 介绍
 
-[MyScale和高性能向量搜索概述](https://docs.myscale.com/en/overview/)
+[MyScale 和高性能向量搜索概述](https://docs.myscale.com/en/overview/)
 
-您现在可以在我们的SaaS上注册并[立即启动集群！](https://docs.myscale.com/en/quickstart/)
+您现在可以在我们的 SaaS 上注册并 [立即启动集群！](https://docs.myscale.com/en/quickstart/)
 
-如果您还对我们如何将SQL和向量集成感兴趣，请参阅[此文档](https://docs.myscale.com/en/vector-reference/)以获取更多语法参考。
+如果您还对我们如何将 SQL 和向量集成感兴趣，请参阅 [此文档](https://docs.myscale.com/en/vector-reference/) 以获取更多语法参考。
 
-我们还提供了基于huggingface的实时演示！请查看我们的[huggingface空间](https://huggingface.co/myscale)！他们可以在瞬间内搜索数百万个向量！
+我们还提供了基于 huggingface 的实时演示！请查看我们的 [huggingface 空间](https://huggingface.co/myscale)！他们可以在瞬间内搜索数百万个向量！
 
 ## 安装和设置
-- 使用`pip install clickhouse-connect`安装Python SDK
+- 使用 `pip install clickhouse-connect` 安装 Python SDK
 
 ### 设置环境
 
-有两种方法可以设置myscale索引的参数。
+有两种方法可以设置 myscale 索引的参数。
 
 1. 环境变量
 
-    在运行应用程序之前，请使用`export`设置环境变量：
+    在运行应用程序之前，请使用 `export` 设置环境变量：
     `export MYSCALE_URL='<your-endpoints-url>' MYSCALE_PORT=<your-endpoints-port> MYSCALE_USERNAME=<your-username> MYSCALE_PASSWORD=<your-password> ...`
 
-    您可以在我们的SaaS上轻松找到您的帐户、密码和其他信息。有关详细信息，请参阅[此文档](https://docs.myscale.com/en/cluster-management/)
-    `MyScaleSettings`下的每个属性都可以使用前缀`MYSCALE_`进行设置，不区分大小写。
+    您可以在我们的 SaaS 上轻松找到您的帐户、密码和其他信息。有关详细信息，请参阅 [此文档](https://docs.myscale.com/en/cluster-management/)
+    `MyScaleSettings` 下的每个属性都可以使用前缀 `MYSCALE_` 进行设置，不区分大小写。
 
-2. 使用参数创建`MyScaleSettings`对象
+2. 使用参数创建 `MyScaleSettings` 对象
 
 
     ```python
@@ -54,7 +54,7 @@
 
 ### VectorStore
 
-存在一个围绕MyScale数据库的包装器，允许您将其用作向量存储，
+存在一个围绕 MyScale 数据库的包装器，允许您将其用作向量存储，
 无论是用于语义搜索还是类似示例检索。
 
 要导入此向量存储：
@@ -62,4 +62,4 @@
 from langchain.vectorstores import MyScale
 ```
 
-有关MyScale包装器的更详细演示，请参阅[此笔记本](/docs/modules/data_connection/vectorstores/integrations/myscale.html)
+有关 MyScale 包装器的更详细演示，请参阅 [此笔记本](/docs/modules/data_connection/vectorstores/integrations/myscale.html)

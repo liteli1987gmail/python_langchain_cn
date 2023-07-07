@@ -12,9 +12,9 @@
 
 Baseten 通过 LLM 模块与 LangChain 集成，为部署在 Baseten 工作区上的模型提供了标准化和互操作的接口。
 
-您可以从 [Baseten 模型库](https://app.baseten.co/explore/) 随时一键部署基础模型，如 WizardLM 和 Alpaca，或者如果您有自己的模型，可以按照[此教程](https://docs.baseten.co/deploying-models/deploy)部署它。
+您可以从 [Baseten 模型库](https://app.baseten.co/explore/) 随时一键部署基础模型，如 WizardLM 和 Alpaca，或者如果您有自己的模型，可以按照 [此教程](https://docs.baseten.co/deploying-models/deploy) 部署它。
 
-在这个示例中，我们将使用 WizardLM。[在这里部署 WizardLM](https://app.baseten.co/explore/wizardlm)，并按照部署的[模型版本 ID](https://docs.baseten.co/managing-models/manage)进行操作。
+在这个示例中，我们将使用 WizardLM。[在这里部署 WizardLM](https://app.baseten.co/explore/wizardlm)，并按照部署的 [模型版本 ID](https://docs.baseten.co/managing-models/manage) 进行操作。
 
 ```python
 from langchain.llms import Baseten

@@ -1,18 +1,18 @@
 # 评估
 
-本文档的这一部分涵盖了我们在LangChain中如何处理和考虑评估的内容。
-包括内部链路/代理的评估，以及我们建议在LangChain上进行构建的人如何处理评估。
+本文档的这一部分涵盖了我们在 LangChain 中如何处理和考虑评估的内容。
+包括内部链路/代理的评估，以及我们建议在 LangChain 上进行构建的人如何处理评估。
 
 ## 问题
 
-评估LangChain链路和代理可能非常困难。
+评估 LangChain 链路和代理可能非常困难。
 这主要有两个原因：
 
 **# 1：数据不足**
 
 在开始项目之前，通常不会有大量的数据可用于评估您的链路/代理。
 这通常是因为大型语言模型（大多数链路/代理的核心）是非常好的少样本和零样本学习器，
-这意味着您几乎总能在没有大量示例数据的情况下开始特定任务（文本到SQL，问答等）。
+这意味着您几乎总能在没有大量示例数据的情况下开始特定任务（文本到 SQL，问答等）。
 这与传统的机器学习形成了鲜明对比，在使用模型之前，您必须首先收集大量数据点。
 
 **# 2：缺乏度量标准**
@@ -24,7 +24,7 @@
 
 ## 解决方案
 
-LangChain试图解决这两个问题。
+LangChain 试图解决这两个问题。
 到目前为止，我们的解决方案只是初步版本 - 我们认为我们还没有完美的解决方案。
 因此，我们非常欢迎反馈意见，贡献，集成和对此的想法。
 
@@ -32,14 +32,14 @@ LangChain试图解决这两个问题。
 
 **# 1：数据不足**
 
-我们已经在Hugging Face上创建了[LangChainDatasets](https://huggingface.co/LangChainDatasets)社区空间。
+我们已经在 Hugging Face 上创建了 [LangChainDatasets](https://huggingface.co/LangChainDatasets) 社区空间。
 我们希望这是一个用于评估常见链路和代理的开源数据集的集合。
 我们已经贡献了五个我们自己的数据集来开始，但我们非常希望这是一个社区的努力。
 要贡献数据集，您只需加入社区，然后就可以上传数据集。
 
 我们还计划尽可能简化人们创建自己数据集的过程。
-作为第一步，我们添加了一个QAGenerationChain，它可以根据文档生成可用于以后评估问答任务的问题-答案对。
-请参阅[此笔记本](/docs/guides/evaluation/qa_generation.html)以获取如何使用此链的示例。
+作为第一步，我们添加了一个 QAGenerationChain，它可以根据文档生成可用于以后评估问答任务的问题-答案对。
+请参阅 [此笔记本](/docs/guides/evaluation/qa_generation.html) 以获取如何使用此链的示例。
 See [this notebook](/docs/guides/evaluation/qa_generation.html) for an example of how to use this chain.
 
 **# 2：缺乏度量标准**
@@ -47,7 +47,7 @@ See [this notebook](/docs/guides/evaluation/qa_generation.html) for an example o
 我们对缺乏度量标准有两个解决方案。
 
 第一个解决方案是不使用度量标准，而是仅仅依靠肉眼观察结果来了解链路/代理的性能如何。
-为了辅助这一点，我们开发了（并将继续开发）[tracing](/docs/guides/tracing/)，这是一个基于UI的链路和代理运行的可视化工具。
+为了辅助这一点，我们开发了（并将继续开发）[tracing](/docs/guides/tracing/)，这是一个基于 UI 的链路和代理运行的可视化工具。
 
 我们推荐的第二个解决方案是使用语言模型本身来评估输出结果。
 为此，我们有几个不同的链路和提示，旨在解决这个问题。
@@ -56,30 +56,30 @@ See [this notebook](/docs/guides/evaluation/qa_generation.html) for an example o
 
 我们已经创建了一系列示例，结合了上述两个解决方案，以展示我们在开发过程中如何评估链路和代理。
 除了我们精心挑选的示例之外，我们还非常欢迎贡献。
-为了方便这一点，我们提供了一个[模板笔记本](/docs/guides/evaluation/benchmarking_template.html)，供社区成员用于构建自己的示例。
+为了方便这一点，我们提供了一个 [模板笔记本](/docs/guides/evaluation/benchmarking_template.html)，供社区成员用于构建自己的示例。
 
 我们目前拥有的现有示例包括：
 
 [问答（国情咨文）](/docs/guides/evaluation/qa_benchmarking_sota.html)：展示了对国情咨文进行问答任务评估的笔记本。
 
-[问答（Paul Graham文章）](/docs/guides/evaluation/qa_benchmarking_pg.html)：展示了对Paul Graham文章进行问答任务评估的笔记本。
+[问答（Paul Graham 文章）](/docs/guides/evaluation/qa_benchmarking_pg.html)：展示了对 Paul Graham 文章进行问答任务评估的笔记本。
 
-[SQL问答（Chinook）](/docs/guides/evaluation/sql_qa_benchmarking_chinook.html)：展示了对SQL数据库（Chinook数据库）进行问答任务评估的笔记本。
+[SQL 问答（Chinook）](/docs/guides/evaluation/sql_qa_benchmarking_chinook.html)：展示了对 SQL 数据库（Chinook 数据库）进行问答任务评估的笔记本。
 
 [代理向量库](/docs/guides/evaluation/agent_vectordb_sota_pg.html)：展示了在两个不同的向量数据库之间进行路由的代理进行问答任务评估的笔记本。
 
 [代理搜索 + 计算器](/docs/guides/evaluation/agent_benchmarking.html)：展示了使用搜索引擎和计算器作为工具进行问答任务评估的代理的笔记本。
 
-[评估OpenAPI链](/docs/guides/evaluation/openapi_eval.html)：展示了对OpenAPI链进行评估的笔记本，包括如果没有测试数据如何生成测试数据。
+[评估 OpenAPI 链](/docs/guides/evaluation/openapi_eval.html)：展示了对 OpenAPI 链进行评估的笔记本，包括如果没有测试数据如何生成测试数据。
 
 
 ## 其他示例
 
 此外，我们还提供了一些用于评估的更通用资源。
 
-[问答](/docs/guides/evaluation/question_answering.html)：概述了用于评估问答系统的LLMs。
+[问答](/docs/guides/evaluation/question_answering.html)：概述了用于评估问答系统的 LLMs。
 
-[数据增强问答](/docs/guides/evaluation/data_augmented_question_answering.html)：一个端到端的示例，重点评估特定文档上的问答系统（精确到RetrievalQAChain）。此示例介绍了如何使用LLMs提供问题/答案示例进行评估，然后介绍了如何使用LLMs评估生成示例上的性能。
+[数据增强问答](/docs/guides/evaluation/data_augmented_question_answering.html)：一个端到端的示例，重点评估特定文档上的问答系统（精确到 RetrievalQAChain）。此示例介绍了如何使用 LLMs 提供问题/答案示例进行评估，然后介绍了如何使用 LLMs 评估生成示例上的性能。
 
-[Hugging Face数据集](/docs/guides/evaluation/huggingface_datasets.html)：介绍了从Hugging Face加载和使用数据集进行评估的示例。
+[Hugging Face 数据集](/docs/guides/evaluation/huggingface_datasets.html)：介绍了从 Hugging Face 加载和使用数据集进行评估的示例。
 

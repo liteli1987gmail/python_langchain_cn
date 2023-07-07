@@ -1,16 +1,16 @@
 # Hugging Face（Hugging Face）
 
-本页面介绍如何在LangChain中使用Hugging Face（包括[Hugging Face Hub](https://huggingface.co)）生态系统。
-它分为两个部分：安装和设置，以及特定Hugging Face封装的参考文档。
+本页面介绍如何在 LangChain 中使用 Hugging Face（包括 [Hugging Face Hub](https://huggingface.co)）生态系统。
+它分为两个部分：安装和设置，以及特定 Hugging Face 封装的参考文档。
 
 ## 安装和设置
 
-如果你想使用Hugging Face Hub：
-- 用 `pip install huggingface_hub` 安装Hub客户端库
-- 创建一个Hugging Face账户（免费！）
-- 创建一个[访问令牌](https://huggingface.co/docs/hub/security-tokens)并将其设置为环境变量（`HUGGINGFACEHUB_API_TOKEN`）
+如果你想使用 Hugging Face Hub：
+- 用 `pip install huggingface_hub` 安装 Hub 客户端库
+- 创建一个 Hugging Face 账户（免费！）
+- 创建一个 [访问令牌](https://huggingface.co/docs/hub/security-tokens) 并将其设置为环境变量（`HUGGINGFACEHUB_API_TOKEN`）
 
-如果你想使用Hugging Face Python库：
+如果你想使用 Hugging Face Python 库：
 - 用 `pip install transformers` 安装用于模型和标记器的库
 - 用 `pip install datasets` 安装用于数据集的库
 
@@ -18,7 +18,7 @@
 
 ### LLM
 
-存在两个Hugging Face LLM封装器，一个用于本地流水线，一个用于在Hugging Face Hub上托管的模型。
+存在两个 Hugging Face LLM 封装器，一个用于本地流水线，一个用于在 Hugging Face Hub 上托管的模型。
 请注意，这些封装器仅适用于支持以下任务的模型：[`text2text-generation`](https://huggingface.co/models?library=transformers&pipeline_tag=text2text-generation&sort=downloads)，[`text-generation`](https://huggingface.co/models?library=transformers&pipeline_tag=text-classification&sort=downloads)
 
 要使用本地流水线封装器：
@@ -26,44 +26,44 @@
 from langchain.llms import HuggingFacePipeline
 ```
 
-要使用在Hugging Face Hub上托管的模型的封装器：
+要使用在 Hugging Face Hub 上托管的模型的封装器：
 ```python
 from langchain.llms import HuggingFaceHub
 ```
-有关Hugging Face Hub封装器的更详细的演练，请参见[此笔记本](/docs/modules/model_io/models/llms/integrations/huggingface_hub.html)
+有关 Hugging Face Hub 封装器的更详细的演练，请参见 [此笔记本](/docs/modules/model_io/models/llms/integrations/huggingface_hub.html)
 
 
 ### 嵌入
 
-存在两个Hugging Face嵌入封装器，一个用于本地模型，一个用于在Hugging Face Hub上托管的模型。
-请注意，这些封装器仅适用于[`sentence-transformers`模型](https://huggingface.co/models?library=sentence-transformers&sort=downloads)。
+存在两个 Hugging Face 嵌入封装器，一个用于本地模型，一个用于在 Hugging Face Hub 上托管的模型。
+请注意，这些封装器仅适用于 [`sentence-transformers` 模型](https://huggingface.co/models?library=sentence-transformers&sort=downloads)。
 
 要使用本地流水线封装器：
 ```python
 from langchain.embeddings import HuggingFaceEmbeddings
 ```
 
-要使用在Hugging Face Hub上托管的模型的封装器：
+要使用在 Hugging Face Hub 上托管的模型的封装器：
 ```python
 from langchain.embeddings import HuggingFaceHubEmbeddings
 ```
-有关此的更详细的演练，请参见[此笔记本](/docs/modules/data_connection/text_embedding/integrations/huggingfacehub.html)
+有关此的更详细的演练，请参见 [此笔记本](/docs/modules/data_connection/text_embedding/integrations/huggingfacehub.html)
 
 ### 标记器
 
-通过`transformers`包，有几个地方可以使用标记器。
-默认情况下，它用于计算所有LLM的标记数。
+通过 `transformers` 包，有几个地方可以使用标记器。
+默认情况下，它用于计算所有 LLM 的标记数。
 
 您还可以在拆分文档时使用它来计算标记数 
 ```python
 from langchain.text_splitter import CharacterTextSplitter
 CharacterTextSplitter.from_huggingface_tokenizer(...)
 ```
-有关此的更详细的演练，请参见[此笔记本](/docs/modules/data_connection/document_transformers/text_splitters/huggingface_length_function.html)
+有关此的更详细的演练，请参见 [此笔记本](/docs/modules/data_connection/document_transformers/text_splitters/huggingface_length_function.html)
 
 
 ### 数据集
 
-Hugging Face Hub有很多优秀的[数据集](https://huggingface.co/datasets)，可以用来评估您的LLM链。
+Hugging Face Hub 有很多优秀的 [数据集](https://huggingface.co/datasets)，可以用来评估您的 LLM 链。
 
-有关如何使用它们进行评估的详细演练，请参见[此笔记本](../use_cases/evaluation/huggingface_datasets.html)
+有关如何使用它们进行评估的详细演练，请参见 [此笔记本](../use_cases/evaluation/huggingface_datasets.html)

@@ -13,12 +13,12 @@ LangChain 装饰器是 LangChain 之上的一层，为编写自定义的 langcha
 - 编写多行提示，不会干扰代码流程的缩进
 - 利用 IDE 内置的 **提示**、**类型检查** 和 **弹出框**，快速查看函数的提示、参数等信息
 - 充分利用 🦜🔗 LangChain 生态系统的全部功能
-- 添加对**可选参数**的支持
+- 添加对 **可选参数** 的支持
 - 通过将参数绑定到一个类，轻松共享提示之间的参数
 
 
 
-下面是使用**LangChain 装饰器 ✨**编写的简单代码示例
+下面是使用 **LangChain 装饰器 ✨** 编写的简单代码示例
 
 ``` python
 
@@ -56,7 +56,7 @@ pip install langchain_decorators
 标准的 LLMchain 比仅仅有 inputs_variables 和 prompt 多得多... 这个实现细节在装饰器中隐藏了起来。
 下面是它的工作原理：
 
-1. 使用**全局设置**：
+1. 使用 **全局设置**：
 
 ``` python
 # define global settings for all prompty (if not set - chatGPT is the current default)
@@ -68,7 +68,7 @@ GlobalSettings.define_settings(
 )
 ```
 
-2. 使用预定义的**提示类型**
+2. 使用预定义的 **提示类型**
 
 ``` python
 #You can change the default prompt types
@@ -182,7 +182,7 @@ def write_me_short_post(topic:str, platform:str="twitter", audience:str = "devel
     Here is a good way to write a prompt as part of a function docstring, with additional documentation for devs.
 
     It needs to be a code block, marked as a `<prompt>` language
-    ```<prompt>
+    ``` <prompt>
     为我的关于 {topic} 在 {platform} 平台上的帖子撰写一个简短的标题。
     它应该面向 {audience} 的观众。
     （最多 15 个词）
@@ -206,7 +206,7 @@ def simulate_conversation(human_input:str, agent_role:str="a pirate"):
      - note the `:system` sufix inside the <prompt:_role_> tag
      
 
-    ```<prompt:system>
+    ``` <prompt:system>
     你是一个 {agent_role} 黑客。你必须像一个黑客一样行动。
     你总是用代码回复，使用 Python 或 JavaScript 代码块...
     例如：
@@ -230,10 +230,10 @@ def simulate_conversation(human_input:str, agent_role:str="a pirate"):
     ```
     
     we can also add some history using placeholder
-    ```<prompt:placeholder>
+    ``` <prompt:placeholder>
     {history}
     ```
-    ```<prompt:user>
+    ``` <prompt:user>
     {human_input}
     ```
 
@@ -349,7 +349,7 @@ class AssistantPersonality(BaseModel):
         你是一个名为 {assistant_name} 的助手。
         你的角色是扮演 {assistant_role}
         ```
-        ```<prompt:user>
+        ``` <prompt:user>
         介绍一下你自己（不超过 20 个词）
         ```
         """
@@ -364,5 +364,5 @@ print(personality.introduce_your_self(personality))
 
 # 更多示例：
 
-- 这些以及更多示例也可以在[此处的 colab notebook](https://colab.research.google.com/drive/1no-8WfeP6JaLD9yUtkPgym6x0G9ZYZOG#scrollTo=N4cf__D0E2Yk)中找到
+- 这些以及更多示例也可以在 [此处的 colab notebook](https://colab.research.google.com/drive/1no-8WfeP6JaLD9yUtkPgym6x0G9ZYZOG#scrollTo=N4cf__D0E2Yk) 中找到
 - 包括使用纯 langchain 装饰器重新实现的 [ReAct Agent](https://colab.research.google.com/drive/1no-8WfeP6JaLD9yUtkPgym6x0G9ZYZOG#scrollTo=3bID5fryE2Yp)

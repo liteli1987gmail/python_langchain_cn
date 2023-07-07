@@ -7,10 +7,10 @@ sidebar_position: 2
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 
-在独立使用LLM进行简单应用时是可以的，
-但更复杂的应用需要将LLM进行链式调用 - 可以是与其他LLM进行链式调用，也可以是与其他组件进行链式调用。
+在独立使用 LLM 进行简单应用时是可以的，
+但更复杂的应用需要将 LLM 进行链式调用 - 可以是与其他 LLM 进行链式调用，也可以是与其他组件进行链式调用。
 
-LangChain为这种“链式”应用提供了**Chain**接口。我们将Chain定义得非常通用，作为一个调用组件的序列，其中可以包含其他链。基本接口很简单:
+LangChain 为这种“链式”应用提供了 **Chain** 接口。我们将 Chain 定义得非常通用，作为一个调用组件的序列，其中可以包含其他链。基本接口很简单:
 
 import BaseClass from "@snippets/modules/chains/base_class.mdx"
 
@@ -22,12 +22,12 @@ import BaseClass from "@snippets/modules/chains/base_class.mdx"
 - [如何使用](/docs/modules/chains/how_to/)，了解不同链特性的详细步骤
 - [基础](/docs/modules/chains/foundational/)，熟悉核心构建块链
 - [文档](/docs/modules/chains/document/)，了解如何将文档纳入链中
-- [常用](/docs/modules/chains/popular/)链，用于最常见的用例
+- [常用](/docs/modules/chains/popular/) 链，用于最常见的用例
 - [附加](/docs/modules/chains/additional/)，查看一些更高级的链和集成，可以直接使用
 
 ## 为什么我们需要链? (Why do we need chains?)
 
-链允许我们将多个组件组合在一起，创建一个单一而连贯的应用程序。例如，我们可以创建一个链，接受用户输入，使用PromptTemplate进行格式化，然后将格式化的响应传递给LLM。我们可以通过将多个链组合在一起或将链与其他组件组合来构建更复杂的链。
+链允许我们将多个组件组合在一起，创建一个单一而连贯的应用程序。例如，我们可以创建一个链，接受用户输入，使用 PromptTemplate 进行格式化，然后将格式化的响应传递给 LLM。我们可以通过将多个链组合在一起或将链与其他组件组合来构建更复杂的链。
 
 ## 快速入门 (Get started)
 

@@ -1,23 +1,23 @@
 # Google Serper（谷歌搜索引擎）
 
-本页面介绍了如何在LangChain中使用[Serper](https://serper.dev)谷歌搜索API。Serper是一个低成本的谷歌搜索API，可用于从谷歌搜索中添加答案框、知识图谱和有机搜索结果数据。
-它分为两个部分：设置和特定谷歌Serper包装的参考。
+本页面介绍了如何在 LangChain 中使用 [Serper](https://serper.dev) 谷歌搜索 API。Serper 是一个低成本的谷歌搜索 API，可用于从谷歌搜索中添加答案框、知识图谱和有机搜索结果数据。
+它分为两个部分：设置和特定谷歌 Serper 包装的参考。
 
 ## 设置
-- 前往[serper.dev](https://serper.dev)注册免费帐户
-- 获取API密钥并将其设置为环境变量（`SERPER_API_KEY`）
+- 前往 [serper.dev](https://serper.dev) 注册免费帐户
+- 获取 API 密钥并将其设置为环境变量（`SERPER_API_KEY`）
 
 ## 包装器
 
 ### 实用工具
 
-存在一个GoogleSerperAPIWrapper实用工具，用于封装此API。要导入此实用工具：
+存在一个 GoogleSerperAPIWrapper 实用工具，用于封装此 API。要导入此实用工具：
 
 ```python
 from langchain.utilities import GoogleSerperAPIWrapper
 ```
 
-您可以将其作为Self Ask链的一部分使用：
+您可以将其作为 Self Ask 链的一部分使用：
 
 ```python
 from langchain.utilities import GoogleSerperAPIWrapper
@@ -59,15 +59,15 @@ So the final answer is: El Palmar, Spain
 'El Palmar, Spain'
 ```
 
-有关此包装器的更详细演示，请参阅[此笔记本](/docs/modules/agents/tools/integrations/google_serper.html)。
+有关此包装器的更详细演示，请参阅 [此笔记本](/docs/modules/agents/tools/integrations/google_serper.html)。
 
 ### 工具
 
-您还可以将此包装器轻松加载为工具（用于与Agent一起使用）。
+您还可以将此包装器轻松加载为工具（用于与 Agent 一起使用）。
 您可以通过以下方式实现：
 ```python
 from langchain.agents import load_tools
 tools = load_tools(["google-serper"])
 ```
 
-有关更多信息，请参阅[此页面](/docs/modules/agents/tools/getting_started.md)
+有关更多信息，请参阅 [此页面](/docs/modules/agents/tools/getting_started.md)

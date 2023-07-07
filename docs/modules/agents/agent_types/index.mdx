@@ -9,13 +9,13 @@ sidebar_position: 0
 
 ## 行动代理
 
-代理使用LLM确定采取哪些行动以及顺序。
+代理使用 LLM 确定采取哪些行动以及顺序。
 行动可以是使用工具并观察其输出，或向用户返回响应。
-以下是LangChain中可用的代理。
+以下是 LangChain 中可用的代理。
 
 ### [零-shot ReAct](/docs/modules/agents/agent_types/react.html)
 
-此代理使用[ReAct](https://arxiv.org/pdf/2205.00445.pdf)框架确定使用哪个工具
+此代理使用 [ReAct](https://arxiv.org/pdf/2205.00445.pdf) 框架确定使用哪个工具
 仅基于工具的描述。可以提供任意数量的工具。
 此代理要求为每个工具提供描述。
 
@@ -30,31 +30,31 @@ sidebar_position: 0
 
 ### [OpenAI 函数](/docs/modules/agents/agent_types/openai_functions_agent.html)
 
-特定的OpenAI模型（如gpt-3.5-turbo-0613和gpt-4-0613）已被明确微调，以检测何时
+特定的 OpenAI 模型（如 gpt-3.5-turbo-0613 和 gpt-4-0613）已被明确微调，以检测何时
 应调用函数，并响应应该传递给函数的输入。
-OpenAI函数代理旨在与这些模型配合使用。
+OpenAI 函数代理旨在与这些模型配合使用。
 
 ### [对话型](/docs/modules/agents/agent_types/chat_conversation_agent.html)
 
 此代理旨在用于对话环境。
 提示旨在使代理有帮助性和对话性。
-它使用ReAct框架决定使用哪个工具，并使用内存记住先前的对话交互。
+它使用 ReAct 框架决定使用哪个工具，并使用内存记住先前的对话交互。
 
 ### [带搜索的自问自答](/docs/modules/agents/agent_types/self_ask_with_search.html)
 
-此代理利用一个名为`Intermediate Answer`的单个工具。
+此代理利用一个名为 `Intermediate Answer` 的单个工具。
 此工具应该能够查找问题的事实性答案。此代理
-等同于原始的[self ask with search paper](https://ofir.io/self-ask.pdf)，
-其中提供了一个Google搜索API作为工具。
+等同于原始的 [self ask with search paper](https://ofir.io/self-ask.pdf)，
+其中提供了一个 Google 搜索 API 作为工具。
 
-### [ReAct文档存储](/docs/modules/agents/agent_types/react_docstore.html)
+### [ReAct 文档存储](/docs/modules/agents/agent_types/react_docstore.html)
 
-此代理使用ReAct框架与文档存储进行交互。必须提供两个工具
-：一个`Search`工具和一个`Lookup`工具（必须准确命名）。
-`Search`工具应搜索文档，而`Lookup`工具应在最近找到的文档中查找
+此代理使用 ReAct 框架与文档存储进行交互。必须提供两个工具
+：一个 `Search` 工具和一个 `Lookup` 工具（必须准确命名）。
+`Search` 工具应搜索文档，而 `Lookup` 工具应在最近找到的文档中查找
 术语。
 此代理等同于
-原始的[ReAct论文](https://arxiv.org/pdf/2210.03629.pdf)，特别是维基百科示例。
+原始的 [ReAct 论文](https://arxiv.org/pdf/2210.03629.pdf)，特别是维基百科示例。
 
 ## [计划和执行代理](/docs/modules/agents/agent_types/plan_and_execute.html)
-计划和执行代理通过首先规划要做什么，然后执行子任务来实现目标。这个想法主要受到[BabyAGI](https://github.com/yoheinakajima/babyagi)的启发，然后是["计划与解决"论文](https://arxiv.org/abs/2305.04091)。
+计划和执行代理通过首先规划要做什么，然后执行子任务来实现目标。这个想法主要受到 [BabyAGI](https://github.com/yoheinakajima/babyagi) 的启发，然后是 ["计划与解决" 论文](https://arxiv.org/abs/2305.04091)。

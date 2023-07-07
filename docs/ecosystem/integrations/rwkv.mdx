@@ -19,11 +19,11 @@ from langchain.llms import RWKV
 
 # Test the model
 
-```python
+``` python
 
-def generate_prompt(instruction, input=None):
+def generate_prompt(instruction, input = None):
     if input:
-        return f"""以下是描述任务的指令，配对使用提供更多上下文的输入。编写一个适当完成请求的响应。
+        return f "" " 以下是描述任务的指令，配对使用提供更多上下文的输入。编写一个适当完成请求的响应。
 
 # 指令：
 {instruction}
@@ -32,18 +32,18 @@ def generate_prompt(instruction, input=None):
 {input}
 
 # 响应：
-"""
+"" "
     else:
-        return f"""以下是描述任务的指令。编写一个适当完成请求的响应。
+        return f "" " 以下是描述任务的指令。编写一个适当完成请求的响应。
 
 # 指令：
 {instruction}
 
 # 响应：
-"""
+"" "
 
 
-model = RWKV(model="./models/RWKV-4-Raven-3B-v7-Eng-20230404-ctx4096.pth", strategy="cpu fp32", tokens_path="./rwkv/20B_tokenizer.json")
+model = RWKV(model = "./models/RWKV-4-Raven-3B-v7-Eng-20230404-ctx4096.pth", strategy = "cpu fp32", tokens_path = "./rwkv/20B_tokenizer.json")
 response = model(generate_prompt("从前有一座山，"))
 ```
 ## Model File
@@ -55,8 +55,8 @@ You can find links to model file downloads at the [RWKV-4-Raven](https://hugging
 
 ```
 RWKV VRAM
-模型 | 8位 | bf16/fp16 | fp32
-14B   | 16GB | 28GB      | >50GB
+模型 | 8 位 | bf16/fp16 | fp32
+14B   | 16GB | 28GB      | > 50GB
 7B    | 8GB  | 14GB      | 28GB
 3B    | 2.8GB| 6GB       | 12GB
 1b5   | 1.3GB| 3GB       | 6GB

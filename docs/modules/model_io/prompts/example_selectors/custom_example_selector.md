@@ -5,15 +5,15 @@
 
 在本教程中，我们将创建一个自定义示例选择器，该选择器从给定的示例列表中选择每个交替示例。
 
-`ExampleSelector`必须实现两个方法：
+`ExampleSelector` 必须实现两个方法：
 
-1. `add_example` 方法，该方法接受一个示例并将其添加到ExampleSelector中
-2. `select_examples` 方法，该方法接受输入变量（用于用户输入）并返回要在few shot提示中使用的示例列表。
+1. `add_example` 方法，该方法接受一个示例并将其添加到 ExampleSelector 中
+2. `select_examples` 方法，该方法接受输入变量（用于用户输入）并返回要在 few shot 提示中使用的示例列表。
 
-让我们实现一个自定义的`ExampleSelector`，它只是随机选择两个示例。
+让我们实现一个自定义的 `ExampleSelector`，它只是随机选择两个示例。
 
 :::{note}
-请查看LangChain支持的当前示例选择器实现集合[此处](../../prompt_templates/getting_started.md)。
+请查看 LangChain 支持的当前示例选择器实现集合 [此处](../../prompt_templates/getting_started.md)。
 :::
 
 <!-- TODO（shreya）：添加正确的链接。 -->

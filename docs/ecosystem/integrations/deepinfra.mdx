@@ -1,25 +1,25 @@
 # DeepInfra
 
-本页面介绍如何在LangChain中使用DeepInfra生态系统。
-它分为两个部分：安装和设置，以及特定DeepInfra包装器的参考。
+本页面介绍如何在 LangChain 中使用 DeepInfra 生态系统。
+它分为两个部分：安装和设置，以及特定 DeepInfra 包装器的参考。
 
 ## 安装和设置
-- 从此链接获取您的DeepInfra API密钥[此处](https://deepinfra.com/)。
-- 获取一个DeepInfra API密钥，并将其设置为环境变量（`DEEPINFRA_API_TOKEN`）
+- 从此链接获取您的 DeepInfra API 密钥 [此处](https://deepinfra.com/)。
+- 获取一个 DeepInfra API 密钥，并将其设置为环境变量（`DEEPINFRA_API_TOKEN`）
 
 ## 可用模型
 
-DeepInfra提供了一系列可用于部署的开源LLM（语言模型）。
-您可以在[此处](https://deepinfra.com/models?type=text-generation)列出支持的模型。
-google/flan\*模型可以在[此处](https://deepinfra.com/models?type=text2text-generation)查看。
+DeepInfra 提供了一系列可用于部署的开源 LLM（语言模型）。
+您可以在 [此处](https://deepinfra.com/models?type=text-generation) 列出支持的模型。
+google/flan\*模型可以在 [此处](https://deepinfra.com/models?type=text2text-generation) 查看。
 
-您可以在[此处](https://deepinfra.com/databricks/dolly-v2-12b#API)查看请求和响应参数的列表。
+您可以在 [此处](https://deepinfra.com/databricks/dolly-v2-12b#API) 查看请求和响应参数的列表。
 
 ## 包装器
 
 ### LLM
 
-存在一个DeepInfra LLM包装器，您可以使用以下方式访问
+存在一个 DeepInfra LLM 包装器，您可以使用以下方式访问
 ```python
 from langchain.llms import DeepInfra
 ```
