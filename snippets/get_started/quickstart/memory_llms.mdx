@@ -7,7 +7,7 @@ conversation = ConversationChain(llm=llm, verbose=True)
 conversation.run("Hi there!")
 ```
 
-这是在引擎盖下面发生的事情
+here's what's going on under the hood
 
 ```pycon
 > Entering new chain...
@@ -24,13 +24,13 @@ AI:
 >> 'Hello! How are you today?'
 ```
 
-现在，如果我们再次运行这个链
+Now if we run the chain again
 
 ```python
 conversation.run("I'm doing well! Just having a conversation with an AI.")
 ```
 
-我们会看到传递给模型的完整提示包含了我们第一次交互的输入和输出，以及我们最新的输入
+we'll see that the full prompt that's passed to the model contains the input and output of our first interaction, along with our latest input
 
 ```pycon
 > Entering new chain...

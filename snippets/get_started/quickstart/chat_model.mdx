@@ -11,9 +11,9 @@ chat.predict_messages([HumanMessage(content="Translate this sentence from Englis
 # >> AIMessage(content="J'aime programmer.", additional_kwargs={})
 ```
 
-了解聊天模型与普通LLM的区别是有用的，但有时候能够将它们视为相同也很方便。
-LangChain通过还提供了一个接口，通过该接口您可以像操作普通LLM一样与聊天模型进行交互。
-您可以通过`predict`接口进行访问。
+It is useful to understand how chat models are different from a normal LLM, but it can often be handy to just be able to treat them the same.
+LangChain makes that easy by also exposing an interface through which you can interact with a chat model as you would a normal LLM.
+You can access this through the `predict` interface.
 
 ```python
 chat.predict("Translate this sentence from English to French. I love programming.")

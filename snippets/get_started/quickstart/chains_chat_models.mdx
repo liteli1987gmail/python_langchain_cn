@@ -1,26 +1,23 @@
-## 官方发布
+```python
 from langchain import LLMChain
-
-要安装LangChain，请运行：
-
+from langchain.chat_models import ChatOpenAI
 from langchain.prompts.chat import (
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import CodeBlock from "@theme/CodeBlock";
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
 )
 
-<Tabs>
-  <TabItem value="pip" label="Pip" default>
-    <CodeBlock language="bash">pip install langchain</CodeBlock>
-  </TabItem>
-  <TabItem value="conda" label="Conda">
-    <CodeBlock language="bash">conda install langchain -c conda-forge</CodeBlock>
-  </TabItem>
-</Tabs>
+chat = ChatOpenAI(temperature=0)
 
-这将安装LangChain的最低要求。
-LangChain的价值在于将其与各种模型提供商、数据存储等集成时体现出来。
-默认情况下，不会安装执行此操作所需的依赖项。
-但是，还有另外两种安装LangChain的方式，可以带来这些依赖项。
+template = "You are a helpful assistant that translates {input_language} to {output_language}."
+system_message_prompt = SystemMessagePromptTemplate.from_template(template)
+human_template = "{text}"
+human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
+chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
+
+chain = LLMChain(llm=chat, prompt=chat_prompt)
+chain.run(input_language="English", output_language="French", text="I love programming.")
+```
+```pycon
 J'aime programmer.
-要安装常见LLM提供商所需的模块，请运行：
+```

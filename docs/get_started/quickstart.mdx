@@ -28,6 +28,7 @@ import OpenAISetup from "@snippets/get_started/quickstart/openai_setup.mdx"
 现在我们可以开始构建我们的语言模型应用程序了。LangChain提供了许多可以用于构建语言模型应用程序的模块。这些模块可以作为简单应用程序中的独立模块使用，也可以组合在一起用于更复杂的用例。
 
 ## LLMs
+
 #### 从语言模型获取预测结果
 
 LangChain的基本构建模块是LLM，它接受文本并生成更多的文本。
@@ -68,10 +69,10 @@ import PromptTemplateChatModel from "@snippets/get_started/quickstart/prompt_tem
 
 与LLMs类似，您可以使用`MessagePromptTemplate`来使用模板。您可以从一个或多个`MessagePromptTemplate`构建一个`ChatPromptTemplate`。您可以使用`ChatPromptTemplate`的`format_messages`方法来生成格式化的消息。
 
-因为这是生成消息列表，所以它比普通的提示模板稍微复杂一些，普通的提示模板只生成一个字符串。请参阅有关提示的详细指南，了解此处可用的更多选项。
+因为这是生成消息列表，所以它比普通的提示模板稍微复杂一些，普通的提示模板只生成一个字符串。请参阅有关提示的详细指南。
 
 <PromptTemplateChatModel/>
-    </TabItem>
+</TabItem>
 </Tabs>
 
 ## 链
