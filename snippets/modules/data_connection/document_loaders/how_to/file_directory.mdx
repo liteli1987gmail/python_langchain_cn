@@ -29,10 +29,9 @@ len(docs)
 
 </CodeOutputBlock>
 
-## Show a progress bar
+## 显示进度条
 
-By default a progress bar will not be shown. To show a progress bar, install the `tqdm` library (e.g. `pip install tqdm`), and set the `show_progress` parameter to `True`.
-
+默认情况下，不会显示进度条。要显示进度条，请安装 `tqdm` 库（如 `pip install tqdm`），并将 `show_progress` 参数设置为 `True`。
 
 ```python
 loader = DirectoryLoader('../', glob="**/*.md", show_progress=True)
@@ -219,8 +218,7 @@ loader.load()
 
 ### B. 静默失败
 
-We can pass the parameter `silent_errors` to the `DirectoryLoader` to skip the files which could not be loaded and continue the load process.
-
+我们可以将参数 `silent_errors` 传递给 `DirectoryLoader`，以跳过无法加载的文件并继续加载过程。
 
 ```python
 loader = DirectoryLoader(path, glob="**/*.txt", loader_cls=TextLoader, silent_errors=True)
