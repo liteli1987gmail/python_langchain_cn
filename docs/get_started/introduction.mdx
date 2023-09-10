@@ -2,66 +2,64 @@
 sidebar_position: 0
 ---
 
-# 介绍 （Introduction）
+# 介绍
 
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
-**LangChain** 是一个基于语言模型开发应用程序的框架。它可以实现以下功能：
-- **数据感知**：将语言模型与其他数据源连接起来
-- **主动性**：允许语言模型与其环境进行交互
+**LangChain**是一个基于语言模型开发应用程序的框架。它可以实现以下功能:
+- **数据感知**: 将语言模型与其他数据源连接起来
+- **主体性**: 允许语言模型与其环境进行交互
 
-LangChain 的主要价值在于：
-1. **组件**：用于处理语言模型的抽象，以及每个抽象的一系列实现。无论您是否使用 LangChain 框架的其他部分，组件都是模块化且易于使用的
-2. **现成的链式组装**：用于完成特定高级任务的结构化组件组装
+LangChain的主要价值包括:
+1. **组件**: 用于处理语言模型的抽象，以及每个抽象的一系列实现。组件是模块化且易于使用的，无论您是否使用LangChain框架的其他部分，都可以轻松使用
+2. **现成的管道**: 用于完成特定高级任务的结构化组件组合
 
-现成的链式组装使得入门变得很容易。对于更复杂的应用程序和细致入微的用例，组件可以轻松自定义现有的链式组装或构建新的链式组装。
+现成的管道使得入门变得容易。对于更复杂的应用程序和细致入微的用例，组件使得自定义现有管道或构建新管道变得容易.
 
-## 入门 （Get started）
+## 开始使用
 
-[这里](/docs/get_started/installation.html) 是如何安装 LangChain、设置您的环境并开始构建的方法。
+[这里](/docs/get_started/installation.html)是如何安装LangChain，设置您的环境并开始构建的方法.
 
-我们建议您按照我们的 [快速入门](/docs/get_started/quickstart.html) 指南来熟悉该框架，通过构建您的第一个 LangChain 应用程序来了解它。
+我们建议按照我们的[快速入门](/docs/get_started/quickstart.html)指南，通过构建您的第一个LangChain应用程序来熟悉该框架.
 
-_**注意**：这些文档适用于 LangChain 的 [Python 包](https://github.com/hwchase17/langchain)。有关 [LangChain.js](https://github.com/hwchase17/langchainjs)，即 JS/TS 版本的文档，请参阅 [此处](https://js.langchain.com.cn/docs)。
+_**注意**: 这些文档适用于LangChain的[Python包](https://github.com/hwchase17/langchain)。有关[LangChain.js](https://github.com/hwchase17/langchainjs)（JS/TS版本）的文档，请[点击这里](https://js.langchain.com/docs)。_
 
-## 模块 （Modules）
+## 模块
 
-LangChain 为以下模块提供了标准、可扩展的接口和外部集成，按照复杂程度从低到高列出：
+LangChain为以下模块提供标准、可扩展的接口和外部集成，从最简单到最复杂的顺序列出:
 
-#### [模型输入/输出 (Model I/O)](/docs/modules/model_io/)
-与语言模型进行接口交互
-#### [数据连接 (Data connection)](/docs/modules/data_connection/)
-与特定于应用程序的数据进行接口交互
-#### [链式组装 (Chains)](/docs/modules/chains/)
-构造调用序列
-#### [代理 (Agents)](/docs/modules/agents/)
-根据高级指令让链式组装选择要使用的工具
-#### [内存 (Memory)](/docs/modules/memory/)
-在链式组装的多次运行之间持久化应用程序状态
-#### [回调 (Callbacks)](/docs/modules/callbacks/)
-记录和流式传输任何链式组装的中间步骤
+#### [模型 I/O](/docs/modules/model_io/)
+与语言模型进行接口
+#### [检索](/docs/modules/data_connection/)
+与特定于应用程序的数据进行接口
+#### [管道](/docs/modules/chains/)
+构建调用序列
+#### [代理](/docs/modules/agents/)
+让管道根据高级指令选择使用哪些工具
+#### [内存](/docs/modules/memory/)
+在管道运行期间保持应用程序状态
+#### [回调](/docs/modules/callbacks/)
+记录和流式传输任何管道的中间步骤
 
-## 示例、生态系统和资源 （Examples, ecosystem, and resources）
+## 示例、生态和资源
 ### [用例](/docs/use_cases/)
-演练和常见的端到端用例的最佳实践，例如：
-- [聊天机器人](/docs/use_cases/chatbots/)
-- [使用来源回答问题](/docs/use_cases/question_answering/)
-- [分析结构化数据](/docs/use_cases/tabular.html)
+步骤和最佳实践，涵盖常见的端到端用例，例如:
+- [聊天机器人](/docs/use_cases/chatbots)
+- [使用数据源回答问题](/docs/use_cases/question_answering/)
+- [分析结构化数据](/docs/use_cases/sql)
 - 等等...
 
 ### [指南](/docs/guides/)
-了解使用 LangChain 的最佳实践。
+学习使用LangChain进行开发的最佳实践.
 
 ### [生态系统](/docs/ecosystem/)
-LangChain 是一个丰富的工具生态系统的一部分，该生态系统与我们的框架集成并在其之上构建。请查看我们日益增长的 [集成](/docs/ecosystem/integrations/) 和 [依赖仓库](/docs/ecosystem/dependents.html) 列表。
+LangChain是一个丰富的工具生态系统的一部分，它与我们的框架集成并在其之上构建。查看我们的日益增长的[集成](/docs/integrations/)和[依赖仓库](/docs/additional_resources/dependents)列表。
 
 ### [其他资源](/docs/additional_resources/)
-我们的社区充满了多产的开发人员、有创造力的构建者和出色的教师。请查看 [YouTube 教程](/docs/ecosystem/youtube.html) 以获取来自社区成员的优秀教程，以及 [KyroLabs](https://kyrolabs.com) 整理的 [Gallery](https://github.com/kyrolabs/awesome-langchain) 中的一系列令人惊叹的 LangChain 项目。
+我们的社区充满了富有成效的开发人员、富有创造力的构建者和出色的教师。查看[YouTube教程](/docs/additional_resources/youtube.html)以获取来自社区成员的优秀教程，以及[Gallery](https://github.com/kyrolabs/awesome-langchain)以获取由[KyroLabs](https://kyrolabs.com)的人员编制的精彩LangChain项目列表。
 
-<h3> <span style={{color:"#2e8555"}}> 支持 </span> </h3>
+### [社区](/docs/community)
+前往[社区导航器](/docs/community)以寻找提问、分享反馈、结识其他开发人员以及憧憬LLM的未来的场所。
 
-加入我们的 [GitHub](https://github.com/hwchase17/langchain) 或 [Discord](https://discord.gg/6adMQxSpJS) ，提问、分享反馈、与其他使用 LangChain 的开发人员交流，畅想 LLM 的未来。
-
-## API 参考 （API reference）
-
-请访问 [参考](https://api.python.langchain.com) 部分，获取 LangChain Python 包中所有类和方法的完整文档。
+## API 参考
+前往[参考](https://api.python.langchain.com)部分，完整文档介绍了LangChain Python包中的所有类和方法。

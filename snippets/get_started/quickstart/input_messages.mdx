@@ -1,0 +1,12 @@
+```python
+from langchain.schema import HumanMessage
+
+text = "制造多彩袜子的公司的好名字是什么？"
+messages = [HumanMessage(content=text)]
+
+llm.predict_messages(messages)
+# >> Feetful of Fun
+
+chat_model.predict_messages(messages)
+# >> Socks O'Color
+```

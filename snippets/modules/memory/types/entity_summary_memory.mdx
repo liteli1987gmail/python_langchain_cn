@@ -1,0 +1,93 @@
+```python
+from langchain.llms import OpenAI
+from langchain.memory import ConversationEntityMemory
+llm = OpenAI(temperature=0)
+```
+
+
+```python
+memory = ConversationEntityMemory(llm=llm)
+_input = {"input": "Deven & Sam are working on a hackathon project"}
+memory.load_memory_variables(_input)
+memory.save_context(
+    _input,
+    {"output": " That sounds like a great project! What kind of project are they working on?"}
+)
+```
+
+
+```python
+memory.load_memory_variables({"input": 'who is Sam'})
+```
+
+
+```python
+memory = ConversationEntityMemory(llm=llm, return_messages=True)
+_input = {"input": "Deven & Sam are working on a hackathon project"}
+memory.load_memory_variables(_input)
+memory.save_context(
+    _input,
+    {"output": " That sounds like a great project! What kind of project are they working on?"}
+)
+```
+
+
+```python
+memory.load_memory_variables({"input": 'who is Sam'})
+```
+
+
+```python
+conversation = ConversationChain(
+    llm=llm, 
+    verbose=True,
+    prompt=ENTITY_MEMORY_CONVERSATION_TEMPLATE,
+    memory=ConversationEntityMemory(llm=llm)
+)
+```
+
+
+```python
+conversation.predict(input="Deven & Sam are working on a hackathon project")
+```
+
+
+```python
+conversation.memory.entity_store.store
+```
+
+
+```python
+conversation.predict(input="They are trying to add more complex memory structures to Langchain")
+```
+
+
+```python
+conversation.predict(input="They are adding in a key-value store for entities mentioned so far in the conversation.")
+```
+
+
+```python
+conversation.predict(input="What do you know about Deven & Sam?")
+```
+
+
+```python
+pprint(conversation.memory.entity_store.store)
+```
+
+
+```python
+conversation.predict(input="Sam is the founder of a company called Daimon.")
+```
+
+
+```python
+pprint(conversation.memory.entity_store.store)
+```
+
+
+```python
+conversation.predict(input="What do you know about Sam?")
+```
+

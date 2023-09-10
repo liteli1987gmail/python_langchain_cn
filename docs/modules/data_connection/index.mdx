@@ -2,15 +2,60 @@
 sidebar_position: 1
 ---
 
-# 数据连接 Data connection
+# 检索
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 
-许多 LLM 应用程序需要用户特定的数据，这些数据不属于模型的训练集。LangChain 为您提供了加载、转换和查询数据的基础构件:
-- [文档加载器 (Document loaders)](/docs/modules/data_connection/document_loaders/): 从许多不同的源加载文档
-- [文档转换器 (Document transformers)](/docs/modules/data_connection/document_transformers/): 分割文档、删除冗余文档等
-- [文本嵌入模型 (Text embedding models)](/docs/modules/data_connection/text_embedding/): 将非结构化文本转换为浮点数列表
-- [向量存储 (Vector stores)](/docs/modules/data_connection/vectorstores/): 存储和检索嵌入数据
-- [检索器 (Retrievers)](/docs/modules/data_connection/retrievers/): 查询您的数据
+许多LLM应用程序需要用户特定数据，这些数据不是模型的训练集的一部分.
+完成这一任务的主要方法是通过检索增强生成（RAG）.
+在此过程中，*检索*外部数据，然后在*生成*步骤中将其传递给LLM.
 
-![数据连接图示 (data_connection_diagram)](/img/data_connection.jpg)
+LangChain为RAG应用程序提供了所有的构建模块-从简单到复杂.
+本文档部分涵盖了与*检索*步骤相关的所有内容，例如数据的获取.
+虽然听起来很简单，但可能有微妙的复杂性.
+这涵盖了几个关键模块.
+
+![data_connection_diagram](/img/data_connection.jpg)
+
+**[文档加载器](/docs/modules/data_connection/document_loaders/)**
+
+从许多不同来源加载文档.
+LangChain提供了100多种不同的文档加载器，并与空间中的其他主要提供商（如AirByte和Unstructured）集成.
+我们提供了加载各种类型文档（HTML、PDF、代码）的集成，从各种位置（私人S3存储桶、公共网站）加载.
+
+**[文档转换器](/docs/modules/data_connection/document_transformers/)**
+
+检索的一个关键部分是仅获取文档的相关部分.
+为了最好地准备文档以进行检索，这涉及几个转换步骤.
+其中一个主要步骤是将大型文档分割（或分块）为较小的块.
+LangChain提供了几种不同的算法来完成此操作，以及针对特定文档类型（代码、markdown等）进行优化的逻辑.
+
+**[文本嵌入模型](/docs/modules/data_connection/text_embedding/)**
+
+检索的另一个关键部分是为文档创建嵌入.
+嵌入捕捉文本的语义含义，使您能够快速高效地查找其他相似的文本.
+LangChain与25多个不同的嵌入提供商和方法进行集成，
+从开源到专有API，
+使您能够选择最适合您需求的一种.
+LangChain提供了标准接口，使您可以轻松切换模型.
+
+**[向量存储](/docs/modules/data_connection/vectorstores/)**
+
+随着嵌入的兴起，出现了对支持这些嵌入的数据库的需求.
+LangChain与50多个不同的向量存储进行集成，从开源本地存储到云托管专有存储，
+使您能够选择最适合您需求的一种.
+LangChain公开了标准接口，使您可以轻松切换向量存储.
+
+**[检索器](/docs/modules/data_connection/retrievers/)**
+
+一旦数据在数据库中，您仍然需要检索它.
+LangChain支持许多不同的检索算法，并且是我们增加最多价值的地方之一.
+我们支持易于入门的基本方法-即简单的语义搜索.
+但是，我们还添加了一系列算法以提高性能.
+这些算法包括:
+
+- [父文档检索器](/docs/modules/data_connection/retrievers/parent_document_retriever): 允许您为每个父文档创建多个嵌入，允许您查找较小的块但返回较大的上下文.
+- [自查询检索器](/docs/modules/data_connection/retrievers/self_query): 用户的问题通常包含对不仅仅是语义的东西的引用，而是表达一些最好用元数据过滤器表示的逻辑.自查询允许您从查询中解析出*语义*部分和查询中存在的其他*元数据过滤器*.
+- [集合检索器](/docs/modules/data_connection/retrievers/ensemble): 有时您可能希望从多个不同的来源或使用多个不同的算法检索文档.集合检索器使您可以轻松实现此目的.
+- 等等!
+

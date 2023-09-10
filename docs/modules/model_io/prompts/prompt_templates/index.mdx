@@ -2,23 +2,18 @@
 sidebar_position: 0
 ---
 
-# 提示模板（Prompt templates）
+# 提示模板
 
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 
-语言模型以文本作为输入 - 该文本通常称为提示（prompt）。
-通常，这不仅仅是一个硬编码的字符串，而是一个模板、一些示例和用户输入的组合。
-LangChain 提供了几个类和函数，使得构建和使用提示变得容易。
+提示模板是生成语言模型提示的预定义配方。
 
-## 什么是提示模板？
+模板可能包括指令、少量示例以及适用于特定任务的特定上下文和问题。
 
-提示模板是指一种可复制的生成提示的方式。它包含一个文本字符串（"模板"），可以从最终用户那里接收一组参数并生成提示。
+LangChain提供了创建和使用提示模板的工具。
 
-提示模板可以包含：
-- 向语言模型提供指令，
-- 一组少样本示例，以帮助语言模型生成更好的回复，
-- 向语言模型提出问题。
+LangChain致力于创建与模型无关的模板，以便在不同的语言模型之间轻松重用现有模板。
 
 import GetStarted from "@snippets/modules/model_io/prompts/prompt_templates/get_started.mdx"
 

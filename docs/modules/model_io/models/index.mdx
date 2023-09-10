@@ -6,20 +6,15 @@ sidebar_position: 1
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 
-LangChain 提供了两种类型模型的接口和集成：
+LangChain提供了两种类型模型的接口和集成:
 
-- [LLMs](/docs/modules/model_io/models/llms/): 输入为文本字符串，输出为文本字符串的模型
-- [Chat models](/docs/modules/model_io/models/chat/): 由语言模型支持，输入为聊天消息列表，输出为聊天消息的模型
+- [LLMs](/docs/modules/model_io/models/llms/): 输入一个文本字符串并返回一个文本字符串的模型
+- [聊天模型](/docs/modules/model_io/models/chat/): 由语言模型支持的模型，接受一个聊天消息列表作为输入并返回一个聊天消息
 
-## LLMs vs Chat Models
+## LLMs vs 聊天模型
 
-LLMs 和 Chat Models 有微妙但重要的区别。LangChain 中的 LLMs 是指纯文本补全模型。
-它们包装的 API 接受字符串提示作为输入，并输出字符串补全。OpenAI 的 GPT-3 就是 LLM 的实现。
-Chat models 通常由 LLMs 支持，但专门用于进行对话。
-关键是，它们的提供者 API 公开了与纯文本补全模型不同的接口。它们的输入不是单个字符串，而是聊天消息的列表。通常，这些消息带有发言者（通常为 "System"、"AI" 和 "Human" 之一）。
-它们返回一个（"AI"）聊天消息作为输出。GPT-4 和 Anthropic 的 Claude 都是作为 Chat Models 实现的。
+LLMs和聊天模型在细微但重要的方面有所不同。LangChain中的LLMs是指纯文本完成模型。它们包装的API接受一个字符串提示作为输入，并输出一个字符串完成。OpenAI的GPT-3是作为LLM实现的。
+聊天模型通常由LLMs支持，但专门调整用于进行对话。关键是，它们的提供者API使用与纯文本完成模型不同的接口。它们不是接受单个字符串作为输入，而是接受一个聊天消息列表作为输入。通常，这些消息带有发言者标签（通常是“系统”，“AI”和“人类”之一）。它们返回一个AI聊天消息作为输出。GPT-4和Anthropic的Claude都是作为聊天模型实现的。
 
-
-为了能够交换 LLMs 和 Chat Models，两者都实现了 Base Language Model 接口。这暴露了公共方法 "predict"（输入字符串，返回字符串）和 "predict messages"（输入消息，返回消息）。
-如果您使用特定模型，建议使用该模型类别的特定方法（即 LLMs 的 "predict" 和 Chat Models 的 "predict messages"），
-但如果您正在创建一个应该适用于不同类型模型的应用程序，共享接口可能会很有帮助。
+为了使LLMs和聊天模型可以互换，两者都实现了基本语言模型接口。这包括常见的方法“predict”，它接受一个字符串并返回一个字符串，以及“predict messages”，它接受消息并返回一个消息。
+如果您正在使用特定模型，建议使用该模型类的特定方法（例如LLMs的“predict”和聊天模型的“predict messages”），但如果您创建的应用程序需要与不同类型的模型一起工作，则共享接口可能会有所帮助。

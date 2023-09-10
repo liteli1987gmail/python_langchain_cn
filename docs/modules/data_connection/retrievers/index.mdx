@@ -1,12 +1,19 @@
 ---
 sidebar_position: 4
 ---
-# Retrievers（检索器）
+# Retrievers
+
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
-一个检索器（Retriever）是一个接口，它可以返回一个非结构化查询(Unstructured Query)对应的文档。它比向量存储(Vector Store)更加通用。一个检索器（Retriever）不需要存储文档，只需要能够返回（或检索）文档。向量存储(Vector Store)可以作为检索器（Retriever）的主体，但是也有其他类型的检索器（Retriever）。
 
-## Get started（开始）
+:::info
+前往[集成](/docs/integrations/retrievers/)，了解内置检索器与第三方工具的文档。
+:::
+
+检索器是一个接口，根据非结构化查询返回文档。它比向量存储更通用。
+检索器不需要能够存储文档，只需要返回（或检索）它们。向量存储可以用作检索器的支撑，但也有其他类型的检索器。
+
+## 入门
 
 import GetStarted from "@snippets/modules/data_connection/retrievers/get_started.mdx"
 

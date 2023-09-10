@@ -1,16 +1,16 @@
-# 自定义 LLM 代理 custom_llm_agent
+# 自定义LLM代理
 
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 
-本笔记本介绍如何创建您自己的自定义 LLM 代理。
+这个笔记本介绍了如何创建自己的自定义LLM代理。
 
-一个 LLM 代理由三个部分组成：
+一个LLM代理由三个部分组成:
 
-- PromptTemplate：这是可以用来指导语言模型做什么的提示模板
-- LLM：这是驱动代理的语言模型
-- `stop` 序列：指示 LLM 在找到此字符串时停止生成
-- OutputParser：确定如何将 LLMOutput 解析为 AgentAction 或 AgentFinish 对象
+- `PromptTemplate`: 这是用于指导语言模型做什么的提示模板
+- LLM: 这是为代理提供动力的语言模型
+- `stop` sequence: 指示LLM在找到此字符串时停止生成
+- `OutputParser`: 这确定如何将LLM输出解析为`AgentAction`或`AgentFinish`对象
 
 import Example from "@snippets/modules/agents/how_to/custom_llm_agent.mdx"
 

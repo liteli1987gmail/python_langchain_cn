@@ -1,0 +1,11 @@
+# 支持向量存储
+
+`VectorStoreRetrieverMemory`将记忆存储在向量存储中，并在每次调用时查询前K个最"显著"的文档。
+
+与大多数其他记忆类不同的是，它不明确跟踪交互的顺序。
+
+在这种情况下，"文档"是先前对话片段。这对于提及AI在对话中早些时候被告知的相关信息可能是有用的。
+
+import Example from "@snippets/modules/memory/types/vectorstore_retriever_memory.mdx"
+
+<Example/>

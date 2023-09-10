@@ -1,17 +1,21 @@
 ---
 sidebar_position: 2
 ---
-# 文本嵌入模型（Text embedding models）
+# 文本嵌入模型
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 
-Embeddings 类是一个用于与文本嵌入模型进行交互的类。有很多嵌入模型提供者（OpenAI、Cohere、Hugging Face 等）-这个类旨在为所有这些模型提供一个标准接口。
+:::info
+转到[集成](/docs/integrations/text_embedding/)以获取有关内置文本嵌入模型提供商的文档。
+:::
 
-Embeddings 创建了一个文本的向量表示。这很有用，因为它意味着我们可以在向量空间中思考文本，并做一些类似语义搜索的事情，我们在向量空间中寻找最相似的文本片段。
+嵌入类是一个用于与文本嵌入模型进行交互的类。有很多嵌入模型提供商（OpenAI、Cohere、Hugging Face等）-该类旨在为所有这些提供一个标准接口。
 
-LangChain 中的基本 Embeddings 类公开了两个方法：一个用于嵌入文档，一个用于嵌入查询。前者输入多个文本，而后者输入单个文本。之所以将它们作为两个单独的方法，是因为某些嵌入提供者对于文档（用于搜索）和查询（搜索查询本身）具有不同的嵌入方法。
+嵌入可以创建文本的向量表示。这很有用，因为这意味着我们可以在向量空间中思考文本，并进行语义搜索，其中我们寻找在向量空间中最相似的文本片段。
 
-## 入门
+LangChain中的基本嵌入类提供两种方法：一种用于嵌入文档，一种用于嵌入查询。前者以多个文本作为输入，而后者以单个文本作为输入。之所以将它们作为两种不同的方法，是因为某些嵌入提供商对于文档（要搜索的文档）和查询（搜索查询本身）有不同的嵌入方法。
+
+## 入门指南
 
 import GetStarted from "@snippets/modules/data_connection/text_embedding/get_started.mdx"
 

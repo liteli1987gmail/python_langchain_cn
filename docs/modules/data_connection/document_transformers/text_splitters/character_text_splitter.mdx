@@ -1,12 +1,9 @@
-# 按字符拆分 text_splitters
+# 按字符进行拆分
 
-![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
+这是最简单的方法。它基于字符进行拆分（默认为"\n\n"），并通过字符数量来测量块的长度。
 
-
-这是最简单的方法。它根据字符（默认为 "\n\n"）进行拆分，并通过字符数来衡量块的长度。
-
-1. 文本如何拆分：按单个字符
-2. 块大小如何衡量：按字符数
+1. 文本如何被拆分: 按单个字符拆分。
+2. 块大小如何被测量: 通过字符数量来测量。
 
 import Example from "@snippets/modules/data_connection/document_transformers/text_splitters/character_text_splitter.mdx"
 

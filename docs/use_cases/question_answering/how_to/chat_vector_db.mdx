@@ -1,0 +1,14 @@
+---
+sidebar_position: 2
+---
+
+# 存储和引用聊天历史
+ConversationalRetrievalQA 链在 RetrievalQAChain 的基础上提供了一个聊天历史组件。
+
+首先将聊天历史（可以是显式传入的或从提供的内存中检索到的）和问题合并成一个独立的问题，然后从检索器中查找相关文档，最后将这些文档和问题传递给问答链以返回一个响应。
+
+要创建一个，您将需要一个检索器。在下面的示例中，我们将从一个向量存储中创建一个检索器，该向量存储可以从嵌入中创建。
+
+import Example from "@snippets/modules/chains/popular/chat_vector_db.mdx"
+
+<Example/>

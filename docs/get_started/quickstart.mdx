@@ -1,11 +1,9 @@
 # 快速入门
-
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
-
 
 ## 安装
 
-要安装 LangChain，请运行以下命令：
+要安装LangChain，请运行:
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -13,11 +11,11 @@ import Install from "@snippets/get_started/quickstart/installation.mdx"
 
 <Install/>
 
-有关更多详细信息，请参阅我们的 [安装指南](/docs/get_started/installation.html)。
+有关更多详细信息，请参阅我们的[安装指南](/docs/get_started/installation.html)。
 
 ## 环境设置
 
-使用 LangChain 通常需要与一个或多个模型提供者、数据存储、API 等集成。在此示例中，我们将使用 OpenAI 的模型 API。
+使用LangChain通常需要与一个或多个模型提供者、数据存储、API等进行集成。在本示例中，我们将使用OpenAI的模型API。
 
 import OpenAISetup from "@snippets/get_started/quickstart/openai_setup.mdx"
 
@@ -25,138 +23,115 @@ import OpenAISetup from "@snippets/get_started/quickstart/openai_setup.mdx"
 
 ## 构建应用程序
 
-现在我们可以开始构建我们的语言模型应用程序了。LangChain 提供了许多可以用于构建语言模型应用程序的模块。这些模块可以作为简单应用程序中的独立模块使用，也可以组合在一起用于更复杂的用例。
+现在我们可以开始构建语言模型应用程序了。LangChain提供了许多可以用来构建语言模型应用程序的模块。这些模块可以作为简单应用程序中的独立模块使用，也可以组合在一起用于更复杂的用例。
+
+LangChain应用程序的核心构建模块是LLMChain。它结合了三个方面:
+- LLM: 语言模型是核心推理引擎。要使用LangChain，您需要了解不同类型的语言模型以及如何使用它们。
+- Prompt Templates: 提供语言模型的指令。这控制了语言模型的输出，因此了解如何构建提示和不同的提示策略至关重要。
+- Output Parsers: 将LLM的原始响应转换为更易处理的格式，使得在下游使用输出变得容易。
+
+在本入门指南中，我们将逐个介绍这三个组件，然后介绍将它们组合在一起的LLMChain。了解这些概念将使您能够很好地使用和定制LangChain应用程序。大多数LangChain应用程序允许您配置LLM和/或使用的提示，因此了解如何利用这一点将是一个很好的帮助。
 
 ## LLMs
 
-#### 从语言模型获取预测结果
+LangChain中有两种类型的语言模型，称为:
 
-LangChain 的基本构建模块是 LLM，它接受文本并生成更多的文本。
+- LLMs: 这是一个以字符串作为输入并返回字符串的语言模型
+- ChatModels: 这是一个以消息列表作为输入并返回消息的语言模型
 
-例如，假设我们正在构建一个根据公司描述生成公司名称的应用程序。为了做到这一点，我们需要初始化一个 OpenAI 模型封装器。在这种情况下，由于我们希望输出更随机，我们将使用较高的温度来初始化我们的模型。
+LLMs的输入/输出简单易懂 - 字符串。但是ChatModels呢？那里的输入是一个`ChatMessage`列表，输出是一个单独的`ChatMessage`。
+一个`ChatMessage`具有两个必需的组件:
 
-import LLM from "@snippets/get_started/quickstart/llm.mdx"
+- `content`: 这是消息的内容。
+- `role`: 这是`ChatMessage`来自的实体的角色。
 
-<LLM/>
+LangChain提供了几个对象，用于方便地区分不同的角色:
 
-## 聊天模型
+- `HumanMessage`: 来自人类/用户的`ChatMessage`。
+- `AIMessage`: 来自AI/助手的`ChatMessage`。
+- `SystemMessage`: 来自系统的`ChatMessage`。
+- `FunctionMessage`: 来自函数调用的`ChatMessage`。
 
-聊天模型是语言模型的一种变体。虽然聊天模型在内部使用语言模型，但其公开的接口略有不同：它们不是提供“文本输入，文本输出”的 API，而是提供了一个“聊天消息”作为输入和输出的接口。
+如果这些角色都不合适，还可以使用`ChatMessage`类手动指定角色。有关如何最有效地使用这些不同的消息的更多信息，请参阅我们的提示指南。
 
-您可以通过将一个或多个消息传递给聊天模型来获取聊天补全。响应将是一条消息。LangChain 当前支持的消息类型有 `AIMessage`、`HumanMessage`、`SystemMessage` 和 `ChatMessage` -- `ChatMessage` 接受一个任意的角色参数。大多数情况下，您只需要处理 `HumanMessage`、`AIMessage` 和 `SystemMessage`。
+LangChain为两者提供了一个标准接口，但了解这种差异以便为给定的语言模型构建提示非常有用。LangChain提供的标准接口有两种方法:
+- `predict`: 接受一个字符串，返回一个字符串
+- `predict_messages`: 接受一个消息列表，返回一个消息。
 
-import ChatModel from "@snippets/get_started/quickstart/chat_model.mdx"
+让我们看看如何使用这些不同类型的模型和不同类型的输入。首先，让我们导入LLM和ChatModel。
 
-<ChatModel/>
+import ImportLLMs from "@snippets/get_started/quickstart/import_llms.mdx"
+
+<ImportLLMs/>
+
+`OpenAI`和`ChatOpenAI`对象基本上只是配置对象。您可以使用诸如`temperature`等参数对其进行初始化，并将其传递给其他对象。
+
+接下来，让我们使用`predict`方法对字符串输入进行处理。
+
+import InputString from "@snippets/get_started/quickstart/input_string.mdx"
+
+<InputString/>
+
+最后，让我们使用`predict_messages`方法对消息列表进行处理。
+
+import InputMessages from "@snippets/get_started/quickstart/input_messages.mdx"
+
+<InputMessages/>
+
+对于这两种方法，您还可以将参数作为关键字参数传递。例如，您可以传入`temperature=0`来调整使用的温度，该温度将覆盖对象的配置。在运行时传入的任何值都将始终覆盖对象的配置。
+
 
 ## 提示模板
 
-大多数 LLM 应用程序不会直接将用户输入传递给 LLM。通常，它们会将用户输入添加到一个更大的文本片段中，称为提示模板，在特定任务上提供额外的上下文。
+大多数LLM应用程序不会直接将用户输入传递到LLM中。通常，它们会将用户输入添加到一个更大的文本片段中，称为提示模板，该模板提供了有关特定任务的附加上下文。
 
-在前面的示例中，我们传递给模型的文本包含了生成公司名称的指令。对于我们的应用程序来说，如果用户只需要提供公司/产品的描述，而不必担心给模型提供指令，那就太好了。
+在前面的示例中，我们传递给模型的文本包含了生成公司名称的指令。对于我们的应用程序，如果用户只需提供公司/产品的描述而无需担心给出模型指令，那将非常好。
+
+PromptTemplates正是为此而设计的！它们将用户输入转化为完全格式化的提示的所有逻辑绑定在一起。这可以从非常简单的开始 - 例如，产生上述字符串的提示只需是
 
 import PromptTemplateLLM from "@snippets/get_started/quickstart/prompt_templates_llms.mdx"
 import PromptTemplateChatModel from "@snippets/get_started/quickstart/prompt_templates_chat_models.mdx"
 
-<Tabs>
-    <TabItem value="llms" label="LLMs" default>
-
-使用 PromptTemplates 非常简单！在这种情况下，我们的模板将非常简单：
-
 <PromptTemplateLLM/>
-</TabItem>
-<TabItem value="chat_models" label="Chat models">
 
-与 LLMs 类似，您可以使用 `MessagePromptTemplate` 来使用模板。您可以从一个或多个 `MessagePromptTemplate` 构建一个 `ChatPromptTemplate`。您可以使用 `ChatPromptTemplate` 的 `format_messages` 方法来生成格式化的消息。
+然而，使用这些而不是原始字符串格式化的优势有几个。您可以“部分”出变量 - 例如，您可以一次只格式化某些变量。您可以将它们组合在一起，轻松地将不同的模板组合成一个单独的提示。有关这些功能的说明，请参阅[提示部分](/docs/modules/model_io/prompts)以获取更多详细信息。
 
-因为这是生成消息列表，所以它比普通的提示模板稍微复杂一些，普通的提示模板只生成一个字符串。请参阅有关提示的详细指南。
+PromptTemplates还可以用于生成消息列表。在这种情况下，提示不仅包含有关内容的信息，还包含每个消息（其角色、其在列表中的位置等）
+在这里，最常见的是ChatPromptTemplate是ChatMessageTemplate的列表。每个ChatMessageTemplate包含了格式化该ChatMessage的指令 - 其角色，以及其内容。让我们在下面看一下这个:
 
 <PromptTemplateChatModel/>
-</TabItem>
-</Tabs>
 
-## 链
+除了ChatMessageTemplate之外，ChatPromptTemplates还可以包括其他内容 - 有关更多详细信息，请参阅[提示部分](/docs/modules/model_io/prompts)。
 
-现在，我们已经有了一个模型和一个提示模板，我们将希望将两者结合起来。链提供了一种将多个原语（如模型、提示和其他链）链接（或链）在一起的方法。
+## 输出解析器
 
-import ChainLLM from "@snippets/get_started/quickstart/chains_llms.mdx"
-import ChainChatModel from "@snippets/get_started/quickstart/chains_chat_models.mdx"
+OutputParsers将LLM的原始输出转换为可以在下游使用的格式。输出解析器有几种主要类型，包括:
 
-<Tabs>
-<TabItem value="llms" label="LLMs" default>
+- 将LLM的文本转换为结构化信息（例如JSON）
+- 将ChatMessage转换为字符串
+- 将除消息之外的其他信息（如OpenAI函数调用）转换为字符串。
 
-最简单、最常见的链类型是 LLMChain，它首先将输入传递给 PromptTemplate，然后再传递给 LLM。我们可以从现有的模型和提示模板构建一个 LLM 链。
+有关此方面的详细信息，请参阅[输出解析器部分](/docs/modules/model_io/output_parsers)
 
-<ChainLLM/>
+在本入门指南中，我们将编写自己的输出解析器 - 将逗号分隔的列表转换为列表。
 
-这就是我们的第一个链！理解这个简单链的工作原理将为您处理更复杂的链提供良好的基础。
+import OutputParser from "@snippets/get_started/quickstart/output_parser.mdx"
 
-</TabItem>
-<TabItem value="chat_models" label="Chat models">
+<OutputParser/>
 
-`LLMChain` 也可以与聊天模型一起使用：
+## LLMChain
 
-<ChainChatModel/>
-</TabItem>
-</Tabs>
+现在，我们可以将所有这些组合成一个链组件。这个链组件将接收输入变量，将其传递给提示模板以创建提示，将提示传递给LLM，然后通过一个（可选的）输出解析器将输出传递出去。这是一种方便地将模块化逻辑捆绑在一起的方式。让我们看看它的作用！
 
-## 代理
+import LLMChain from "@snippets/get_started/quickstart/llm_chain.mdx"
 
-import AgentLLM from "@snippets/get_started/quickstart/agents_llms.mdx"
-import AgentChatModel from "@snippets/get_started/quickstart/agents_chat_models.mdx"
+<LLMChain/>
 
-我们的第一个链运行了一个预定的步骤序列。为了处理复杂的工作流程，我们需要能够根据输入动态选择操作。
+## 下一步
 
-代理正是这样做的：它们使用语言模型来确定要采取的动作及其顺序。代理可以访问工具，并反复选择工具、运行工具并观察输出，直到得出最终答案。
+就是这样了！我们已经介绍了如何创建LangChain应用程序的核心构建块 - LLMChains。在所有这些组件（LLMs、prompts、输出解析器）中，还有很多微妙之处，还有很多其他不同的组件需要了解。要继续您的学习之旅:
 
-要加载一个代理，您需要选择一个：
-- LLM/Chat 模型：为代理提供动力的语言模型。
-- 工具：执行特定任务的函数。这可以是诸如：Google 搜索、数据库查找、Python REPL、其他链等。有关预定义工具及其规范的列表，请参阅 [工具文档](/docs/modules/agents/tools/)。
-- 代理名称：一个字符串，用于引用支持的代理类。代理类主要由语言模型用于确定要采取的动作的提示参数化。因为本笔记本专注于最简单、最高级别的 API，所以这只涵盖了使用标准支持的代理的情况。如果您想实现自定义代理，请参阅 [这里](/docs/modules/agents/how_to/custom_agent.html)。有关支持的代理及其规范的列表，请参阅 [这里](/docs/modules/agents/agent_types/)。
-
-在本示例中，我们将使用 SerpAPI 来查询搜索引擎。
-
-您需要安装 SerpAPI Python 包：
-
-```bash
-pip install google-search-results
-```
-
-并设置 `SERPAPI_API_KEY` 环境变量。
-
-<Tabs>
-<TabItem value="llms" label="LLMs" default>
-<AgentLLM/>
-</TabItem>
-<TabItem value="chat_models" label="Chat models">
-
-代理也可以与聊天模型一起使用，您可以使用 `AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION` 作为代理类型进行初始化。
-
-<AgentChatModel/>
-</TabItem>
-</Tabs>
-
-## 内存
-
-到目前为止，我们所看到的链和代理都是无状态的，但对于许多应用程序来说，引用过去的交互是必要的。一个明显的例子是聊天机器人，你希望它能够在过去的消息上下文中理解新的消息。
-
-内存模块提供了一种维护应用程序状态的方法。基本的内存接口很简单：它允许您根据最新的运行输入和输出更新状态，并使用存储的状态修改（或上下文化）下一个输入。
-
-有许多内置的内存系统。其中最简单的是缓冲内存，它只是将最近的几个输入/输出添加到当前输入的前面 - 我们将在下面的示例中使用它。
-
-import MemoryLLM from "@snippets/get_started/quickstart/memory_llms.mdx"
-import MemoryChatModel from "@snippets/get_started/quickstart/memory_chat_models.mdx"
-
-<Tabs>
-<TabItem value="llms" label="LLMs" default>
-
-<MemoryLLM/>
-</TabItem>
-<TabItem value="chat_models" label="Chat models">
-
-您可以将内存与使用聊天模型初始化的链和代理一起使用。与用于 LLM 的内存不同之处在于，我们可以将它们保留为自己独特的内存对象，而不是尝试将所有先前的消息压缩成一个字符串。
-
-<MemoryChatModel/>
-
-</TabItem>
-</Tabs>
+- [深入](/docs/modules/model_io)LLMs、prompts和输出解析器
+- 了解其他[关键组件](/docs/modules)
+- 查看我们的[有用指南](/docs/guides)，详细介绍特定主题的步骤
+- 探索[端到端用例](/docs/use_cases)

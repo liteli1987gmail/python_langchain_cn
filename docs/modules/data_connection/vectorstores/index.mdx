@@ -1,19 +1,32 @@
 ---
 sidebar_position: 3
 ---
-# 向量存储（Vector stores）
+# 向量存储
+
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 
-存储和搜索非结构化数据最常见的方法之一是对其进行嵌入并存储生成的嵌入向量
-，然后在查询时对非结构化查询进行嵌入并检索与嵌入查询“最相似”的嵌入向量。向量存储负责存储嵌入数据并执行向量搜索
-。
-为您处理。
+:::info
+请参阅[集成](/docs/integrations/vectorstores/)，了解与第三方向量存储的内置集成的文档。
+:::
+
+存储和搜索非结构化数据的最常见方法之一是将其嵌入并存储生成的嵌入向量，然后在查询时嵌入非结构化查询并检索与嵌入查询“最相似”的嵌入向量。向量存储负责存储嵌入数据并为您执行向量搜索。
+
+
 
 ## 入门
 
-本演示演示了与 VectorStores 相关的基本功能。使用向量存储的关键部分是创建要放入其中的向量，通常通过嵌入来创建。因此，建议您在深入研究此功能之前先熟悉 [text embedding model](/docs/modules/model_io/models/embeddings.html) 接口。
+本演示介绍与向量存储相关的基本功能。使用向量存储的关键部分是创建要放入其中的向量，通常通过嵌入来创建。因此，建议在深入研究之前先熟悉[文本嵌入模型](/docs/modules/data_connection/text_embedding/)接口。
 
 import GetStarted from "@snippets/modules/data_connection/vectorstores/get_started.mdx"
 
 <GetStarted/>
+
+## 异步操作
+
+向量存储通常作为一个独立的服务运行，需要进行一些IO操作，因此可能会被异步调用。这样可以提高性能，因为您不必浪费时间等待外部服务的响应。如果您使用的是异步框架，如[FastAPI](https://fastapi.tiangolo.com/)，这可能也很重要。
+
+import AsyncVectorStore from "@snippets/modules/data_connection/vectorstores/async.mdx"
+
+<AsyncVectorStore/>
+

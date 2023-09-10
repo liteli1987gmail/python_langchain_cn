@@ -1,0 +1,15 @@
+# 时间加权向量存储检索器
+
+此检索器结合了语义相似度和时间衰减进行检索。
+
+评分算法为：
+
+```
+语义相似度 + (1.0 - 衰减率) ^ 经过的小时数
+```
+
+值得注意的是，`经过的小时数` 是指自从检索器中的对象**上次访问**以来经过的小时数，而不是自从它被创建以来的小时数。这意味着经常访问的对象保持“新鲜”。
+
+import Example from "@snippets/modules/data_connection/retrievers/how_to/time_weighted_vectorstore.mdx"
+
+<Example/>

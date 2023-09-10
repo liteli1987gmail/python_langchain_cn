@@ -1,23 +1,22 @@
 ---
 sidebar_position: 1
 ---
+# 聊天模型
 
-# 聊天模型 Chat models
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 
-尽管聊天模型在内部使用语言模型，但它们所提供的接口有些不同。
-它们不是提供 "输入文本，输出文本" 的 API，而是提供一个以 "聊天消息" 作为输入和输出的接口。
+:::info
+转到[集成](/docs/integrations/chat/)，查看与聊天模型提供商的内置集成的文档。
+:::
 
-聊天模型的 API 相对较新，因此我们仍在确定正确的抽象层次。
+聊天模型是语言模型的一种变体。
+虽然聊天模型在底层使用语言模型，但它们使用的接口有点不同。
+它们不是使用“输入文本，输出文本”的API，而是使用“聊天消息”作为输入和输出的接口。
 
-提供以下文档部分：
+聊天模型的API还比较新，因此我们仍在摸索正确的抽象层。
 
-- **操作指南**：核心功能的实例介绍，例如流式传输、创建聊天提示等。
-
-- **集成**：如何使用不同的聊天模型提供者（OpenAI、Anthropic 等）。
-
-## 入门
+## 开始
 
 import GetStarted from "@snippets/modules/model_io/models/chat/get_started.mdx"
 

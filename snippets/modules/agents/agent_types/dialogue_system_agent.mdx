@@ -1,0 +1,10 @@
+`dialogue_system_agent`是一个使用对话系统组件和动作选择器组件与用户进行交互的代理。它专为多轮对话设计，能够处理有状态的对话并在多个用户输入之间保持上下文。
+
+```python
+from langchain.pipelines import DialogueSystemAgent
+
+agent = DialogueSystemAgent(dialogue_system_component, action_selector_component)
+```
+
+`dialogue_system_agent`使用两个组件来实现对话系统的功能：`dialogue_system_component`用于处理对话的生成和理解，而`action_selector_component`则负责根据对话状态选择下一步的动作。这样的架构使得我们可以更好地控制对话过程，并实现更加智能和灵活的对话体验。
+

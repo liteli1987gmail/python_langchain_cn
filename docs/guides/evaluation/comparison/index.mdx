@@ -1,0 +1,23 @@
+---
+sidebar_position: 3
+---
+# 比较评估器
+
+在LangChain中，比较评估器有助于衡量两个不同的链或LLM输出。这些评估器对于比较分析非常有用，比如在两个语言模型之间进行A/B测试，或者比较同一模型的不同版本。它们还可以用于生成ai辅助强化学习的偏好分数。
+
+这些评估器继承自`PairwiseStringEvaluator`类，为两个字符串提供比较接口 - 通常是来自两个不同提示或模型的输出，或者是同一模型的两个版本。实质上，比较评估器对一对字符串进行评估，并返回包含评估分数和其他相关详细信息的字典。
+
+要创建自定义的比较评估器，请继承`PairwiseStringEvaluator`类，并覆盖`_evaluate_string_pairs`方法。如果需要异步评估，还需覆盖`_aevaluate_string_pairs`方法。
+
+下面是比较评估器的关键方法和属性的摘要：
+
+- `evaluate_string_pairs`：评估输出字符串对。创建自定义评估器时，应覆盖此函数。
+- `aevaluate_string_pairs`：异步评估输出字符串对。需要进行异步评估时，应覆盖此函数。
+- `requires_input`：此属性指示评估器是否需要输入字符串。
+- `requires_reference`：此属性指定评估器是否需要参考标签。
+
+有关创建自定义评估器和可用的内置比较评估器的详细信息，请参阅以下各节。
+
+import DocCardList from "@theme/DocCardList";
+
+<DocCardList />
