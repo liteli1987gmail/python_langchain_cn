@@ -1,7 +1,6 @@
-# Select by maximal marginal relevance (MMR)
+## MMR（最大边际相关性）选择法
 
-The `MaxMarginalRelevanceExampleSelector` selects examples based on a combination of which examples are most similar to the inputs, while also optimizing for diversity. It does this by finding the examples with the embeddings that have the greatest cosine similarity with the inputs, and then iteratively adding them while penalizing them for closeness to already selected examples.
-
+`MaxMarginalRelevanceExampleSelector`根据示例与输入之间的相似度以及多样性来选择示例。它通过寻找与输入具有最大余弦相似度的嵌入的示例，并在迭代中添加它们，同时对它们与已选择示例的相似度进行惩罚，实现这一目标。
 
 
 ```python

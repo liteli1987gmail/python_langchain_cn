@@ -1,7 +1,6 @@
 # How to add memory to a Multi-Input Chain
 
-Most memory objects assume a single input. In this notebook, we go over how to add memory to a chain that has multiple inputs. As an example of such a chain, we will add memory to a question/answering chain. This chain takes as inputs both related documents and a user question.
-
+大多数记忆对象都适用于单个输入。 在本笔记本中，我们将介绍如何向具有多个输入的链条添加记忆。 作为此类链条的示例，我们将为一个问答链条添加记忆。 该链条的输入包括相关文档和用户提出的问题。
 
 ```python
 from langchain.embeddings.openai import OpenAIEmbeddings

@@ -1,14 +1,14 @@
-# PlayWright Browser Toolkit
+# PlayWright 浏览器工具包
 
-This toolkit is used to interact with the browser. While other tools (like the Requests tools) are fine for static sites, Browser toolkits let your agent navigate the web and interact with dynamically rendered sites. Some tools bundled within the Browser toolkit include:
+该工具包用于与浏览器进行交互。虽然其他工具（如 Requests 工具）适用于静态网站，但浏览器工具包允许代理浏览网页并与动态渲染的网站进行交互。浏览器工具包中的一些工具包括：
 
-- NavigateTool (navigate_browser) - navigate to a URL
-- NavigateBackTool (previous_page) - wait for an element to appear
-- ClickTool (click_element) - click on an element (specified by selector)
-- ExtractTextTool (extract_text) - use beautiful soup to extract text from the current web page
-- ExtractHyperlinksTool (extract_hyperlinks) - use beautiful soup to extract hyperlinks from the current web page
-- GetElementsTool (get_elements) - select elements by CSS selector
-- CurrentPageTool (current_page) - get the current page URL
+- NavigateTool（navigate_browser）- 导航到指定的 URL
+- NavigateBackTool（previous_page）- 等待元素出现
+- ClickTool（click_element）- 单击指定选择器的元素
+- ExtractTextTool（extract_text）- 使用 BeautifulSoup 从当前网页中提取文本
+- ExtractHyperlinksTool（extract_hyperlinks）- 使用 BeautifulSoup 从当前网页中提取超链接
+- GetElementsTool（get_elements）- 使用 CSS 选择器选择元素
+- CurrentPageTool（current_page）- 获取当前页面的 URL
 
 
 

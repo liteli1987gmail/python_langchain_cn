@@ -1,8 +1,13 @@
+
+
 # Conversation Knowledge Graph Memory
 
-This type of memory uses a knowledge graph to recreate memory.
+这种类型的记忆使用知识图谱来重建记忆。
 
-Let's first walk through how to use the utilities
+首先，让我们详细介绍如何使用这些工具。
+
+
+
 
 
 ```python

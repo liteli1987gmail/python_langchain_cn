@@ -1,10 +1,10 @@
-# Human-in-the-loop Tool Validation
+# 人机协作的工具验证
 
-This walkthrough demonstrates how to add Human validation to any Tool. We'll do this using the `HumanApprovalCallbackhandler`.
+本示例演示如何为任何工具添加人工验证，我们将使用 `HumanApprovalCallbackhandler` 来实现这一点。
 
-Let's suppose we need to make use of the ShellTool. Adding this tool to an automated flow poses obvious risks. Let's see how we could enforce manual human approval of inputs going into this tool.
+假设我们需要使用 ShellTool，在自动化流程中添加此工具会带来明显的风险。让我们看看如何强制手动人工批准进入此工具的输入。
 
-**Note**: We generally recommend against using the ShellTool. There's a lot of ways to misuse it, and it's not required for most use cases. We employ it here only for demonstration purposes.
+**注意**：我们通常不建议使用 ShellTool。使用它的方式很多，而且大多数情况下并不需要它。我们在这里仅作演示用途。
 
 
 ```python

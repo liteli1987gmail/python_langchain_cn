@@ -1,12 +1,9 @@
-# Motörhead Memory
-[Motörhead](https://github.com/getmetal/motorhead) is a memory server implemented in Rust. It automatically handles incremental summarization in the background and allows for stateless applications.
+# Motörhead 记忆服务器
+[Motörhead](https://github.com/getmetal/motorhead) 是一个用 Rust 实现的记忆服务器。它会在后台自动处理增量摘要，并允许无状态的应用程序。
 
-## Setup
+## 设置
 
-See instructions at [Motörhead](https://github.com/getmetal/motorhead) for running the server locally.
-
-
-
+请参考 [Motörhead](https://github.com/getmetal/motorhead) 的说明来在本地运行服务器。
 
 ```python
 from langchain.memory.motorhead_memory import MotorheadMemory

@@ -1,8 +1,8 @@
-# Handle parsing errors
+# 处理解析错误
 
-Occasionally the LLM cannot determine what step to take because it outputs format in incorrect form to be handled by the output parser. In this case, by default the agent errors. But you can easily control this functionality with `handle_parsing_errors`! Let's explore how.
+偶尔 LLM 无法确定要采取的步骤，因为其输出的格式不正确，无法被输出解析器处理。在这种情况下，默认情况下代理会报错。但是您可以使用 `handle_parsing_errors` 轻松控制此功能！让我们来看看如何操作。
 
-## Setup
+## 设置
 
 
 ```python

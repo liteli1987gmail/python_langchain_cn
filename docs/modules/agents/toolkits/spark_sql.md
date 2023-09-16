@@ -1,11 +1,10 @@
-# Spark SQL Agent
+# Spark SQL 代理
 
-This notebook shows how to use agents to interact with a Spark SQL. Similar to [SQL Database Agent](https://python.langchain.com/en/latest/modules/agents/toolkits/examples/sql_database.html), it is designed to address general inquiries about Spark SQL and facilitate error recovery.
+本笔记本展示了如何使用代理与 Spark SQL 进行交互。与 [SQL 数据库代理](https://python.langchain.com/en/latest/modules/agents/toolkits/examples/sql_database.html) 类似，它旨在解答关于 Spark SQL 的通用问题并促进错误恢复。
 
-**NOTE: Note that, as this agent is in active development, all answers might not be correct. Additionally, it is not guaranteed that the agent won't perform DML statements on your Spark cluster given certain questions. Be careful running it on sensitive data!**
+**注意：请注意，由于该代理正在积极开发中，所有答案可能不一定正确。此外，不保证代理不会在某些问题上对您的 Spark 集群执行 DML 语句。在敏感数据上运行时要小心！**
 
-## Initialization
-
+## 初始化
 
 ```python
 from langchain.agents import create_spark_sql_agent

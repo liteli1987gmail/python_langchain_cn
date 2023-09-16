@@ -1,8 +1,8 @@
-# Vectorstore Agent
+# Vectorstore 代理
 
-This notebook showcases an agent designed to retrieve information from one or more vectorstores, either with or without sources.
+本笔记本展示了一个代理，用于从一个或多个向量仓库中检索信息，可以带有或不带有源信息。
 
-## Create the Vectorstores
+## 创建向量仓库
 
 
 ```python

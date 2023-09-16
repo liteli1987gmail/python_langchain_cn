@@ -1,10 +1,9 @@
 # PromptLayer ChatOpenAI
 
-This example showcases how to connect to [PromptLayer](https://www.promptlayer.com) to start recording your ChatOpenAI requests.
+该示例演示如何连接到[PromptLayer](https://www.promptlayer.com)以开始记录您的ChatOpenAI请求。
 
-## Install PromptLayer
-The `promptlayer` package is required to use PromptLayer with OpenAI. Install `promptlayer` using pip.
-
+## 安装 PromptLayer
+使用pip安装`promptlayer`，以便将其与OpenAI一起使用。
 
 ```python
 pip install promptlayer
@@ -45,13 +44,10 @@ chat([HumanMessage(content="I am a cat and I want")])
 
 
 
-**The above request should now appear on your [PromptLayer dashboard](https://www.promptlayer.com).**
+**现在，您应该在[PromptLayer仪表板](https://www.promptlayer.com)上看到上述请求。**
 
-
-
-## Using PromptLayer Track
-If you would like to use any of the [PromptLayer tracking features](https://magniv.notion.site/Track-4deee1b1f7a34c1680d085f82567dab9), you need to pass the argument `return_pl_id` when instantializing the PromptLayer LLM to get the request id.  
-
+## 使用 PromptLayer Track
+如果您想使用任何[PromptLayer跟踪功能](https://magniv.notion.site/Track-4deee1b1f7a34c1680d085f82567dab9)，在实例化PromptLayer LLM时，您需要传递参数`return_pl_id`以获取请求ID。
 
 ```python
 chat = PromptLayerChatOpenAI(return_pl_id=True)
@@ -62,5 +58,4 @@ for res in chat_results.generations:
     promptlayer.track.score(request_id=pl_request_id, score=100)
 ```
 
-Using this allows you to track the performance of your model in the PromptLayer dashboard. If you are using a prompt template, you can attach a template to a request as well.
-Overall, this gives you the opportunity to track the performance of different templates and models in the PromptLayer dashboard.
+使用PromptLayer可以在PromptLayer仪表板上跟踪模型的性能。如果您正在使用提示模板，还可以将模板附加到请求中。总体而言，这使您有机会在PromptLayer仪表板上跟踪不同模板和模型的性能。

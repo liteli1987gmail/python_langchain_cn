@@ -1,6 +1,6 @@
-# Datetime parser
+## 日期时间解析器
 
-This OutputParser shows out to parse LLM output into datetime format.
+该输出解析器演示如何将LLM输出解析为日期时间格式。
 
 
 ```python

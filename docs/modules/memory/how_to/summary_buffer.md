@@ -1,8 +1,8 @@
 # ConversationSummaryBufferMemory
 
-`ConversationSummaryBufferMemory` combines the last two ideas. It keeps a buffer of recent interactions in memory, but rather than just completely flushing old interactions it compiles them into a summary and uses both. Unlike the previous implementation though, it uses token length rather than number of interactions to determine when to flush interactions.
+`ConversationSummaryBufferMemory`结合了前两个想法。它在内存中保留了最近的交互缓冲区，但不仅仅是完全清除旧的交互，而是将它们编译为摘要并同时使用它们。然而，与以前的实现不同，它使用token长度而不是交互次数来确定何时清除交互。
 
-Let's first walk through how to use the utilities
+让我们首先了解如何使用这些工具。
 
 
 ```python

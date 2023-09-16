@@ -1,8 +1,8 @@
 # ConversationTokenBufferMemory
 
-`ConversationTokenBufferMemory` keeps a buffer of recent interactions in memory, and uses token length rather than number of interactions to determine when to flush interactions.
+`ConversationTokenBufferMemory`在内存中保留了最近的交互缓冲区，使用的是token长度而不是交互次数来确定何时清除交互。
 
-Let's first walk through how to use the utilities
+让我们首先了解如何使用这些工具。
 
 
 ```python

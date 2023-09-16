@@ -1,29 +1,29 @@
 # Zep Memory
 
-## REACT Agent Chat Message History with Zep - A long-term memory store for LLM applications.
+## 使用 Zep 的 REACT Agent 聊天消息记录 - 一种用于 LLM 应用程序的长期记忆存储。
 
-This notebook demonstrates how to use the [Zep Long-term Memory Store](https://docs.getzep.com/) as memory for your chatbot.
+本笔记本演示如何将 [Zep 长期记忆存储](https://docs.getzep.com/) 用作您的聊天机器人的记忆。
 
-We'll demonstrate:
+我们将演示以下内容：
 
-1. Adding conversation history to the Zep memory store.
-2. Running an agent and having message automatically added to the store.
-3. Viewing the enriched messages.
-4. Vector search over the conversation history.
+1. 将对话历史添加到 Zep 记忆存储中。
+2. 运行一个 Agent 并自动将消息添加到存储中。
+3. 查看丰富的消息。
+4. 在对话历史中进行矢量搜索。
 
-### More on Zep:
+### 关于 Zep 更多信息：
 
-Zep stores, summarizes, embeds, indexes, and enriches conversational AI chat histories, and exposes them via simple, low-latency APIs.
+Zep 存储、摘要、嵌入、索引和丰富化对话式 AI 聊天历史，通过简单、低延迟的 API 进行访问。
 
-Key Features:
+主要功能：
 
-- **Fast!** Zep’s async extractors operate independently of the your chat loop, ensuring a snappy user experience.
-- **Long-term memory persistence**, with access to historical messages irrespective of your summarization strategy.
-- **Auto-summarization** of memory messages based on a configurable message window. A series of summaries are stored, providing flexibility for future summarization strategies.
-- **Hybrid search** over memories and metadata, with messages automatically embedded on creation.
-- **Entity Extractor** that automatically extracts named entities from messages and stores them in the message metadata.
-- **Auto-token counting** of memories and summaries, allowing finer-grained control over prompt assembly.
-- Python and JavaScript SDKs.
+- **快速！** Zep 的异步提取程序独立于聊天循环，确保用户体验流畅。
+- **长期记忆持久性**，可以访问与摘要策略无关的历史消息。
+- 基于可配置的消息窗口自动汇总存储消息。一系列摘要被存储，为将来的摘要策略提供灵活性。
+- 对记忆和元数据的**混合搜索**，消息在创建时自动嵌入。
+- **实体提取器**，自动从消息中提取命名实体，并将它们存储在消息的元数据中。
+- 记忆和摘要的**自动令牌计数**，允许对提示组合进行更精细的控制。
+- 提供 Python 和 JavaScript SDK。
 
 Zep project: [https://github.com/getzep/zep](https://github.com/getzep/zep)
 Docs: [https://docs.getzep.com/](https://docs.getzep.com/)

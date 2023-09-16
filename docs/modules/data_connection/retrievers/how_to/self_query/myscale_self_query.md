@@ -1,17 +1,17 @@
-# Self-querying with MyScale
+# 使用 MyScale 进行自查询
 
->[MyScale](https://docs.myscale.com/en/) is an integrated vector database. You can access your database in SQL and also from here, LangChain. MyScale can make a use of [various data types and functions for filters](https://blog.myscale.com/2023/06/06/why-integrated-database-solution-can-boost-your-llm-apps/#filter-on-anything-without-constraints). It will boost up your LLM app no matter if you are scaling up your data or expand your system to broader application.
+> [MyScale](https://docs.myscale.com/en/) 是一个集成的向量数据库。您可以通过 SQL 访问您的数据库，并且还可以通过 LangChain 来访问。MyScale 可以利用[各种数据类型和过滤器函数](https://blog.myscale.com/2023/06/06/why-integrated-database-solution-can-boost-your-llm-apps/#filter-on-anything-without-constraints)。无论是扩展数据还是将系统扩展到更广泛的应用程序，都可以提升您的 LLM 应用程序的性能。
 
-In the notebook we'll demo the `SelfQueryRetriever` wrapped around a MyScale vector store with some extra piece we contributed to LangChain. In short, it can be concluded into 4 points:
-1. Add `contain` comparator to match list of any if there is more than one element matched
-2. Add `timestamp` data type for datetime match (ISO-format, or YYYY-MM-DD)
-3. Add `like` comparator for string pattern search
-4. Add arbitrary function capability
+在笔记本中，我们将演示 `SelfQueryRetriever` 在包装了一个 MyScale 向量存储库的 LangChain 上的使用，其中包含了我们为 LangChain 提供的一些额外功能。简而言之，这可以总结为以下四点：
+1. 添加了 `contain` 比较器，以匹配列表中的任何一个元素
+2. 添加了 `timestamp` 数据类型，用于日期时间匹配（ISO 格式或 YYYY-MM-DD）
+3. 添加了 `like` 比较器，用于字符串模式搜索
+4. 添加了任意函数的能力
 
-## Creating a MyScale vectorstore
-MyScale has already been integrated to LangChain for a while. So you can follow [this notebook](../../vectorstores/examples/myscale.ipynb) to create your own vectorstore for a self-query retriever.
+## 创建 MyScale 向量存储库
+MyScale 已经在 LangChain 中进行了集成一段时间。因此，您可以按照[此笔记本](../../vectorstores/examples/myscale.ipynb)创建自己的向量存储库供自查询检索器使用。
 
-NOTE: All self-query retrievers requires you to have `lark` installed (`pip install lark`). We use `lark` for grammar definition. Before you proceed to the next step, we also want to remind you that `clickhouse-connect` is also needed to interact with your MyScale backend.
+注意：所有自查询检索器都需要您已经安装了 `lark`（`pip install lark`）。我们使用 `lark` 进行语法定义。在继续下一步之前，我们还想提醒您，与 MyScale 后端进行交互还需要安装 `clickhouse-connect`。
 
 
 ```python

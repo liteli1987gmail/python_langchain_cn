@@ -1,11 +1,11 @@
-# Few shot examples for chat models
+# Chat模型的少样本示例
 
-This notebook covers how to use few shot examples in chat models.
+这个笔记本介绍了如何在Chat模型中使用少样本示例。
 
-There does not appear to be solid consensus on how best to do few shot prompting. As a result, we are not solidifying any abstractions around this yet but rather using existing abstractions.
+关于如何最好地使用少样本提示，似乎没有确定的共识。因此，我们还没有对此进行任何抽象的确定，而是使用现有的抽象。
 
-## Alternating Human/AI messages
-The first way of doing few shot prompting relies on using alternating human/ai messages. See an example of this below.
+## 人工智能/人类消息交替
+第一种少样本提示的方式是使用人工智能/人类消息进行交替。下面是一个示例：
 
 
 ```python
@@ -52,10 +52,9 @@ chain.run("I love programming.")
 
 
 
-## System Messages
+## 系统消息
 
-OpenAI provides an optional `name` parameter that they also recommend using in conjunction with system messages to do few shot prompting. Here is an example of how to do that below.
-
+OpenAI提供了一个可选的`name`参数，他们还建议与系统消息一起使用来进行少样本提示。下面是一个示例：
 
 ```python
 template = "You are a helpful assistant that translates english to pirate."

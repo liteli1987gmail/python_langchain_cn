@@ -1,10 +1,10 @@
-# Natural Language APIs
+# 自然语言 API
 
-Natural Language API Toolkits (NLAToolkits) permit LangChain Agents to efficiently plan and combine calls across endpoints. This notebook demonstrates a sample composition of the Speak, Klarna, and Spoonacluar APIs.
+自然语言 API 工具包（NLAToolkits）允许 LangChain 代理有效地计划和组合跨端点的调用。本笔记本演示了 Speak、Klarna 和 Spoonacluar API 的示例组合。
 
-For a detailed walkthrough of the OpenAPI chains wrapped within the NLAToolkit, see the [OpenAPI Operation Chain](openapi.html) notebook.
+有关包含在 NLAToolkit 中的 OpenAPI 链的详细介绍，请参阅 [OpenAPI 操作链](openapi.html) 笔记本。
 
-### First, import dependencies and load the LLM
+### 首先，导入依赖项并加载 LLM
 
 
 ```python

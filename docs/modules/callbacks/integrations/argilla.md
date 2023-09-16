@@ -1,21 +1,18 @@
 # Argilla
 
-![Argilla - Open-source data platform for LLMs](https://argilla.io/og.png)
+![Argilla - 用于 LLM 的开源数据平台](https://argilla.io/og.png)
 
->[Argilla](https://argilla.io/) is an open-source data curation platform for LLMs.
-> Using Argilla, everyone can build robust language models through faster data curation 
-> using both human and machine feedback. We provide support for each step in the MLOps cycle, 
-> from data labeling to model monitoring.
+>[Argilla](https://argilla.io/) 是一个用于 LLM 的开源数据整理平台。使用 Argilla，每个人都可以通过更快的数据整理，利用人工和机器反馈，构建强大的语言模型。我们为 MLOps 周期中的每个步骤提供支持，从数据标注到模型监控。
 
 <a target="_blank" href="https://colab.research.google.com/github/hwchase17/langchain/blob/master/docs/modules/callbacks/integrations/argilla.html">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="在 Colab 中打开"/>
 </a>
 
-In this guide we will demonstrate how to track the inputs and reponses of your LLM to generate a dataset in Argilla, using the `ArgillaCallbackHandler`.
+在本指南中，我们将演示如何使用 `ArgillaCallbackHandler` 跟踪您的 LLM 的输入和输出，并在 Argilla 中生成数据集。
 
-It's useful to keep track of the inputs and outputs of your LLMs to generate datasets for future fine-tuning. This is especially useful when you're using a LLM to generate data for a specific task, such as question answering, summarization, or translation.
+跟踪您的 LLM 的输入和输出是很有用的，可以为将来的微调生成数据集。当您使用 LLM 为特定任务生成数据时，例如问答、摘要或翻译时，这尤其有用。
 
-## Installation and Setup
+## 安装和设置
 
 
 ```python
@@ -23,17 +20,9 @@ It's useful to keep track of the inputs and outputs of your LLMs to generate dat
 !pip install openai
 ```
 
-### Getting API Credentials
+### 获取 API 凭据
 
-To get the Argilla API credentials, follow the next steps:
-
-1. Go to your Argilla UI.
-2. Click on your profile picture and go to "My settings".
-3. Then copy the API Key.
-
-In Argilla the API URL will be the same as the URL of your Argilla UI.
-
-To get the OpenAI API credentials, please visit https://platform.openai.com/account/api-keys
+要获取 Argilla 的 API 凭据，请按照以下步骤操作
 
 
 ```python

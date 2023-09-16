@@ -1,18 +1,18 @@
-# OpenAPI agents
+# OpenAPI 代理
 
-We can construct agents to consume arbitrary APIs, here APIs conformant to the OpenAPI/Swagger specification.
+我们可以构建代理来使用任意的 API，包括符合 OpenAPI/Swagger 规范的 API。
 
-## 1st example: hierarchical planning agent
+## 第一个示例：分层规划代理
 
-In this example, we'll consider an approach called hierarchical planning, common in robotics and appearing in recent works for LLMs X robotics. We'll see it's a viable approach to start working with a massive API spec AND to assist with user queries that require multiple steps against the API.
+在这个示例中，我们将考虑一种称为分层规划的方法，这种方法在机器人技术中很常见，并在最近的 LLMs X 机器人方面的研究中出现。我们将看到这是一种可行的方法，可以开始使用庞大的 API 规范，并帮助处理需要对 API 执行多个步骤的用户查询。
 
-The idea is simple: to get coherent agent behavior over long sequences behavior & to save on tokens, we'll separate concerns: a "planner" will be responsible for what endpoints to call and a "controller" will be responsible for how to call them.
+这个想法很简单：为了在长序列行为中获得一致的代理行为，并节省标记，我们将分离关注点：一个“规划器”将负责调用哪些端点，一个“控制器”将负责如何调用它们。
 
-In the initial implementation, the planner is an LLM chain that has the name and a short description for each endpoint in context. The controller is an LLM agent that is instantiated with documentation for only the endpoints for a particular plan. There's a lot left to get this working very robustly :)
+在初始实现中，规划器是一个 LLM 链，它在上下文中具有每个端点的名称和简短描述。控制器是一个 LLM 代理，它仅使用特定计划的端点文档进行实例化。还有很多工作要做，以使其非常稳健 :)
 
 ---
 
-### To start, let's collect some OpenAPI specs.
+### 首先，让我们收集一些 OpenAPI 规范。
 
 
 ```python

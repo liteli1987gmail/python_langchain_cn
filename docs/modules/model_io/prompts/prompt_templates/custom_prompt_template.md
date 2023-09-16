@@ -1,24 +1,24 @@
-# Custom prompt template
+# 自定义提示模板
 
-Let's suppose we want the LLM to generate English language explanations of a function given its name. To achieve this task, we will create a custom prompt template that takes in the function name as input, and formats the prompt template to provide the source code of the function.
+假设我们希望LLM根据函数名生成英语语言的函数解释。为了实现这个任务，我们将创建一个自定义的提示模板，它以函数名作为输入，并格式化提示模板以提供函数的源代码。
 
-## Why are custom prompt templates needed?
+## 为什么需要自定义提示模板？
 
-LangChain provides a set of default prompt templates that can be used to generate prompts for a variety of tasks. However, there may be cases where the default prompt templates do not meet your needs. For example, you may want to create a prompt template with specific dynamic instructions for your language model. In such cases, you can create a custom prompt template.
+LangChain提供了一组默认的提示模板，可以用于生成各种任务的提示。然而，可能会有一些情况，其中默认的提示模板无法满足您的需求。例如，您可能希望创建一个具有特定动态指令的提示模板，以适应您的语言模型。在这种情况下，您可以创建一个自定义提示模板。
 
-Take a look at the current set of default prompt templates [here](../getting_started.md).
+在[这里](../getting_started.md)查看当前的默认提示模板集合。
 
-## Creating a Custom Prompt Template
+## 创建自定义提示模板
 
-There are essentially two distinct prompt templates available - string prompt templates and chat prompt templates. String prompt templates provides a simple prompt in string format, while chat prompt templates produces a more structured prompt to be used with a chat API.
+基本上有两种不同的提示模板可用-字符串提示模板和聊天提示模板。字符串提示模板提供一个简单的字符串格式提示，而聊天提示模板生成一个更结构化的提示，可用于与聊天API一起使用。
 
-In this guide, we will create a custom prompt using a string prompt template. 
+在本指南中，我们将使用字符串提示模板创建自定义提示。
 
-To create a custom string prompt template, there are two requirements:
-1. It has an input_variables attribute that exposes what input variables the prompt template expects.
-2. It exposes a format method that takes in keyword arguments corresponding to the expected input_variables and returns the formatted prompt.
+要创建一个自定义的字符串提示模板，需要满足两个要求：
+1. 它具有input_variables属性，公开了提示模板预期的输入变量。
+2. 它公开了一个format方法，该方法接受与预期的input_variables相对应的关键字参数，并返回格式化后的提示。
 
-We will create a custom prompt template that takes in the function name as input and formats the prompt to provide the source code of the function. To achieve this, let's first create a function that will return the source code of a function given its name.
+我们将创建一个自定义的提示模板，它以函数名作为输入，并格式化提示以提供函数的源代码。为了实现这一点，让我们首先创建一个根据函数名返回函数源代码的函数。
 
 
 ```python
@@ -66,29 +66,27 @@ class FunctionExplainerPromptTemplate(StringPromptTemplate, BaseModel):
     def _prompt_type(self):
         return "function-explainer"
 ```
+## 使用自定义提示模板
 
-## Use the custom prompt template
-
-Now that we have created a custom prompt template, we can use it to generate prompts for our task.
-
+现在我们已经创建了一个自定义提示模板，我们可以使用它来为我们的任务生成提示。
 
 ```python
 fn_explainer = FunctionExplainerPromptTemplate(input_variables=["function_name"])
 
-# Generate a prompt for the function "get_source_code"
+# 为函数"get_source_code"生成一个提示
 prompt = fn_explainer.format(function_name=get_source_code)
 print(prompt)
 ```
 
     
-            Given the function name and source code, generate an English language explanation of the function.
-            Function Name: get_source_code
-            Source Code:
+            给定函数名和源代码，生成该函数的英语语言解释。
+            函数名：get_source_code
+            源代码：
             def get_source_code(function_name):
-        # Get the source code of the function
+        # 获取函数的源代码
         return inspect.getsource(function_name)
     
-            Explanation:
+            解释：
             
     
 

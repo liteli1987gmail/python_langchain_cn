@@ -1,44 +1,44 @@
 # MarkdownHeaderTextSplitter
 
-### Motivation
+### 动机
 
-Many chat or Q+A applications involve chunking input documents prior to embedding and vector storage.
+许多聊天或问答应用程序在嵌入和向量存储之前，会先对输入文档进行分割成块。
 
-[These notes](https://www.pinecone.io/learn/chunking-strategies/) from Pinecone provide some useful tips:
+[Pinecone 的这些笔记](https://www.pinecone.io/learn/chunking-strategies/)提供了一些有用的提示：
 
 ```
-When a full paragraph or document is embedded, the embedding process considers both the overall context and the relationships between the sentences and phrases within the text. This can result in a more comprehensive vector representation that captures the broader meaning and themes of the text.
+当嵌入整个段落或文档时，嵌入过程会同时考虑整体上下文和文本中句子和短语之间的关系。这可能会得到更全面的向量表示，捕捉文本的更广泛的含义和主题。
 ```
- 
-As mentioned, chunking often aims to keep text with common context together.
 
-With this in mind, we might want to specifically honor the structure of the document itself.
+正如上面所述，分块通常旨在将具有共同上下文的文本保持在一起。
 
-For example, a markdown file is organized by headers.
+在这种情况下，我们可能想要特别尊重文档本身的结构。
 
-Creating chunks within specific header groups is an intuitive idea.
+例如，一个 Markdown 文件的组织方式是通过标题。
 
-To address this challenge, we can use `MarkdownHeaderTextSplitter`.
+在特定的标题组内创建分块是一个直观的想法。
 
-This will split a markdown file by a specified set of headers. 
+为了解决这个挑战，我们可以使用 `MarkdownHeaderTextSplitter`。
 
-For example, if we want to split this markdown:
+它将按照指定的一组标题来分割一个 Markdown 文件。
+
+例如，如果我们想要分割这个 Markdown：
 ```
 md = '# Foo\n\n ## Bar\n\nHi this is Jim  \nHi this is Joe\n\n ## Baz\n\n Hi this is Molly' 
 ```
- 
-We can specify the headers to split on:
+
+我们可以指定要分割的标题：
 ```
 [("#", "Header 1"),("##", "Header 2")]
 ```
 
-And content is grouped or split by common headers:
+然后根据公共标题进行内容的分组或分割：
 ```
 {'content': 'Hi this is Jim  \nHi this is Joe', 'metadata': {'Header 1': 'Foo', 'Header 2': 'Bar'}}
 {'content': 'Hi this is Molly', 'metadata': {'Header 1': 'Foo', 'Header 2': 'Baz'}}
 ```
 
-Let's have a look at some examples below.
+让我们来看一些下面的示例。
 
 
 ```python

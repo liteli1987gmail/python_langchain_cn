@@ -1,10 +1,10 @@
 # Human input LLM
 
-Similar to the fake LLM, LangChain provides a pseudo LLM class that can be used for testing, debugging, or educational purposes. This allows you to mock out calls to the LLM and simulate how a human would respond if they received the prompts.
+类似于虚假的LLM，LangChain还提供了一个伪LLM类，可用于测试、调试或教育目的。这使您可以模拟对LLM的调用，并模拟人类在接收到提示后如何回应。
 
-In this notebook, we go over how to use this.
+在本笔记本中，我们将介绍如何使用这个伪LLM。
 
-We start this with using the HumanInputLLM in an agent.
+我们首先将使用HumanInputLLM在一个代理中。
 
 
 ```python

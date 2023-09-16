@@ -1,8 +1,8 @@
-# How to create a custom Memory class
-Although there are a few predefined types of memory in LangChain, it is highly possible you will want to add your own type of memory that is optimal for your application. This notebook covers how to do that.
+# 如何创建自定义的记忆类
 
-For this notebook, we will add a custom memory type to `ConversationChain`. In order to add a custom memory class, we need to import the base memory class and subclass it.
+尽管在LangChain中提供了几种预定义的记忆类型，但您很可能会想要添加自己的记忆类型，以便优化您的应用。本笔记本将介绍如何实现这一点。
 
+对于本笔记本，我们将向`ConversationChain`添加一个自定义的记忆类型。为了添加一个自定义的记忆类，我们需要导入基本的记忆类并派生它。
 
 ```python
 from langchain import OpenAI, ConversationChain
@@ -11,11 +11,11 @@ from pydantic import BaseModel
 from typing import List, Dict, Any
 ```
 
-In this example, we will write a custom memory class that uses spacy to extract entities and save information about them in a simple hash table. Then, during the conversation, we will look at the input text, extract any entities, and put any information about them into the context.
+在这个例子中，我们将编写一个自定义的记忆类，它使用spacy来提取实体，并将有关这些实体的信息保存在一个简单的哈希表中。然后，在对话期间，我们将查看输入文本，提取任何实体，并将实体的任何信息放入上下文中。
 
-* Please note that this implementation is pretty simple and brittle and probably not useful in a production setting. Its purpose is to showcase that you can add custom memory implementations.
+* 请注意，这个实现非常简单且容易出错，可能在实际生产场景中没有用处。它的目的是展示您可以添加自定义的记忆实现。
 
-For this, we will need spacy.
+为此，我们需要安装spacy。
 
 
 ```python

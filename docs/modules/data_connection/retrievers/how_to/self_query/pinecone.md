@@ -1,13 +1,13 @@
-# Self-querying with Pinecone
+# 使用 Pinecone 进行自查询
 
-In the walkthrough we'll demo the `SelfQueryRetriever` with a `Pinecone` vector store.
+在演示中，我们将使用 `Pinecone` 向量存储库演示自查询检索器。
 
-## Creating a Pinecone index
-First we'll want to create a `Pinecone` VectorStore and seed it with some data. We've created a small demo set of documents that contain summaries of movies.
+## 创建 Pinecone 索引
+首先，我们需要创建一个 `Pinecone` 向量存储库，并使用一些数据进行填充。我们创建了一个小型的演示文档集，其中包含电影的摘要信息。
 
-To use Pinecone, you to have `pinecone` package installed and you must have an API key and an Environment. Here are the [installation instructions](https://docs.pinecone.io/docs/quickstart).
+要使用 Pinecone，您需要安装 `pinecone` 包，并且必须拥有 API 密钥和环境。这里是[安装说明](https://docs.pinecone.io/docs/quickstart)。
 
-NOTE: The self-query retriever requires you to have `lark` package installed.
+注意：自查询检索器要求您已安装 `lark` 包。
 
 
 ```python

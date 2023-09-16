@@ -1,6 +1,6 @@
-# Loading from LangChainHub
+# 从 LangChainHub 加载
 
-This notebook covers how to load chains from [LangChainHub](https://github.com/hwchase17/langchain-hub).
+本笔记本介绍了如何从 [LangChainHub](https://github.com/hwchase17/langchain-hub) 加载链条。
 
 
 ```python

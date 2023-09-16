@@ -1,17 +1,16 @@
-# How to add Memory to an Agent
+# 如何向代理添加记忆
 
-This notebook goes over adding memory to an Agent. Before going through this notebook, please walkthrough the following notebooks, as this will build on top of both of them:
+本笔记本将介绍如何向代理添加记忆。在阅读本笔记本之前，请先阅读以下笔记本，因为本笔记本将基于它们进行构建：
 
-- [Adding memory to an LLM Chain](adding_memory.html)
-- [Custom Agents](../../agents/agents/custom_agent.html)
+- [将记忆添加到LLM Chain](adding_memory.html)
+- [自定义代理](../../agents/agents/custom_agent.html)
 
-In order to add a memory to an agent we are going to the the following steps:
+为了将记忆添加到代理中，我们将执行以下步骤：
 
-1. We are going to create an LLMChain with memory.
-2. We are going to use that LLMChain to create a custom Agent.
+1. 我们将创建一个带有记忆的LLMChain。
+2. 我们将使用该LLMChain来创建一个自定义代理。
 
-For the purposes of this exercise, we are going to create a simple custom Agent that has access to a search tool and utilizes the `ConversationBufferMemory` class.
-
+为了完成这个练习，我们将创建一个简单的自定义代理，该代理可以访问搜索工具并使用`ConversationBufferMemory`类。
 
 ```python
 from langchain.agents import ZeroShotAgent, Tool, AgentExecutor

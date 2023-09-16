@@ -1,8 +1,8 @@
-# Spark Dataframe Agent
+# Spark Dataframe 代理
 
-This notebook shows how to use agents to interact with a Spark dataframe and Spark Connect. It is mostly optimized for question answering.
+本笔记本展示了如何使用代理与 Spark dataframe 和 Spark Connect 进行交互。它主要针对问题回答进行了优化。
 
-**NOTE: this agent calls the Python agent under the hood, which executes LLM generated Python code - this can be bad if the LLM generated Python code is harmful. Use cautiously.**
+**注意：此代理在底层调用了 Python 代理，该代理执行由 LLM 生成的 Python 代码 - 如果 LLM 生成的 Python 代码有害的话，这可能是不好的。请谨慎使用。**
 
 
 ```python

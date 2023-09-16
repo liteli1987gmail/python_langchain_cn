@@ -1,13 +1,13 @@
-# Qdrant self-querying 
+# Qdrant 自查询
 
->[Qdrant](https://qdrant.tech/documentation/) (read: quadrant ) is a vector similarity search engine. It provides a production-ready service with a convenient API to store, search, and manage points - vectors with an additional payload. `Qdrant` is tailored to extended filtering support. It makes it useful 
+> [Qdrant](https://qdrant.tech/documentation/)（读作 quadrant）是一个向量相似性搜索引擎。它提供一个方便的 API，用于存储、搜索和管理带有附加有效负载的点（向量）。`Qdrant` 旨在提供扩展的过滤器支持，使其非常有用。
 
-In the notebook we'll demo the `SelfQueryRetriever` wrapped around a Qdrant vector store. 
+在笔记本中，我们将演示 `SelfQueryRetriever` 如何在 Qdrant 向量存储库上进行包装。
 
-## Creating a Qdrant vectorstore
-First we'll want to create a Qdrant VectorStore and seed it with some data. We've created a small demo set of documents that contain summaries of movies.
+## 创建 Qdrant 向量存储库
+首先，我们需要创建一个 Qdrant 向量存储库，并使用一些数据进行填充。我们创建了一个小型的演示文档集，其中包含电影的摘要信息。
 
-NOTE: The self-query retriever requires you to have `lark` installed (`pip install lark`). We also need the `qdrant-client` package.
+注意：自查询检索器要求您已经安装了 `lark`（`pip install lark`）。我们还需要 `qdrant-client` 包。
 
 
 ```python

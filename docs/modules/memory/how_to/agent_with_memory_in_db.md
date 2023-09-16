@@ -1,18 +1,18 @@
-# Adding Message Memory backed by a database to an Agent
+# 向代理添加由数据库支持的消息记忆
 
-This notebook goes over adding memory to an Agent where the memory uses an external message store. Before going through this notebook, please walkthrough the following notebooks, as this will build on top of both of them:
+本笔记本将介绍如何为使用外部消息存储的代理添加记忆。在阅读本笔记本之前，请先阅读以下笔记本，因为本笔记本将基于它们进行构建：
 
-- [Adding memory to an LLM Chain](adding_memory.html)
-- [Custom Agents](../../agents/agents/custom_agent.html)
-- [Agent with Memory](agent_with_memory.html)
+- [将记忆添加到LLM Chain](adding_memory.html)
+- [自定义代理](../../agents/agents/custom_agent.html)
+- [带有记忆的代理](agent_with_memory.html)
 
-In order to add a memory with an external message store to an agent we are going to do the following steps:
+为了将带有外部消息存储的记忆添加到代理中，我们将执行以下步骤：
 
-1. We are going to create a `RedisChatMessageHistory` to connect to an external database to store the messages in.
-2. We are going to create an `LLMChain` using that chat history as memory.
-3. We are going to use that `LLMChain` to create a custom Agent.
+1. 我们将创建一个`RedisChatMessageHistory`，用于连接到外部数据库以存储消息。
+2. 我们将使用该聊天记录作为记忆创建一个`LLMChain`。
+3. 我们将使用该`LLMChain`来创建一个自定义代理。
 
-For the purposes of this exercise, we are going to create a simple custom Agent that has access to a search tool and utilizes the `ConversationBufferMemory` class.
+针对本练习，我们将创建一个简单的自定义代理，该代理可以访问搜索工具并使用`ConversationBufferMemory`类。
 
 
 ```python

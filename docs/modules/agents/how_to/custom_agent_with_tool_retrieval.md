@@ -1,14 +1,14 @@
-# Custom agent with tool retrieval
+# 使用工具检索的自定义代理
 
-This notebook builds off of [this notebook](custom_llm_agent.html) and assumes familiarity with how agents work.
+本笔记基于 [此笔记本](custom_llm_agent.html) 进行开发，并假定您已熟悉代理的工作原理。
 
-The novel idea introduced in this notebook is the idea of using retrieval to select the set of tools to use to answer an agent query. This is useful when you have many many tools to select from. You cannot put the description of all the tools in the prompt (because of context length issues) so instead you dynamically select the N tools you do want to consider using at run time.
+本笔记引入的新概念是使用检索来选择要用于回答代理查询的工具集。当您有很多工具可供选择时，这非常有用。您无法将所有工具的描述放在提示中（由于上下文长度的问题），因此您可以在运行时动态选择要考虑使用的 N 个工具。
 
-In this notebook we will create a somewhat contrieved example. We will have one legitimate tool (search) and then 99 fake tools which are just nonsense. We will then add a step in the prompt template that takes the user input and retrieves tool relevant to the query.
+在本笔记中，我们将创建一个有些牵强的示例。我们将有一个合法的工具（搜索）和 99 个假工具，这些假工具只是一些无意义的工具。然后，我们将在提示模板中添加一个步骤，该步骤接收用户输入并检索与查询相关的工具。
 
-## Set up environment
+## 设置环境
 
-Do necessary imports, etc.
+进行必要的导入等操作。
 
 
 ```python

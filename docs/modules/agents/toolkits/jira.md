@@ -1,9 +1,9 @@
 # Jira
 
-This notebook goes over how to use the Jira tool.
-The Jira tool allows agents to interact with a given Jira instance, performing actions such as searching for issues and creating issues, the tool wraps the atlassian-python-api library, for more see: https://atlassian-python-api.readthedocs.io/jira.html
+本笔记本说明如何使用 Jira 工具。
+Jira 工具允许代理与给定的 Jira 实例进行交互，执行搜索问题和创建问题等操作，该工具封装了 atlassian-python-api 库，更多信息请参阅：https://atlassian-python-api.readthedocs.io/jira.html
 
-To use this tool, you must first set as environment variables:
+要使用此工具，您首先必须将以下内容设置为环境变量：
     JIRA_API_TOKEN
     JIRA_USERNAME
     JIRA_INSTANCE_URL

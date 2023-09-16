@@ -1,10 +1,10 @@
-# Multiple callback handlers
+# 多个回调处理程序
 
-In the previous examples, we passed in callback handlers upon creation of an object by using `callbacks=`. In this case, the callbacks will be scoped to that particular object. 
+在前面的示例中，我们通过在创建对象时使用 `callbacks=` 来传递回调处理程序。在这种情况下，回调处理程序将仅适用于该特定对象。
 
-However, in many cases, it is advantageous to pass in handlers instead when running the object. When we pass through `CallbackHandlers` using the `callbacks` keyword arg when executing an run, those callbacks will be issued by all nested objects involved in the execution. For example, when a handler is passed through to an `Agent`, it will be used for all callbacks related to the agent and all the objects involved in the agent's execution, in this case, the `Tools`, `LLMChain`, and `LLM`.
+然而，在许多情况下，当运行对象时传递处理程序会更有优势。当使用 `callbacks` 关键字参数通过 `CallbackHandlers` 传递时，这些回调处理程序将被所有参与执行的嵌套对象使用。例如，当将处理程序传递给 `Agent` 时，它将用于与代理相关的所有回调以及代理执行中涉及的所有对象，例如 `Tools`、`LLMChain` 和 `LLM`。
 
-This prevents us from having to manually attach the handlers to each individual nested object.
+这样，我们就不必手动将处理程序附加到每个嵌套对象上。
 
 
 ```python

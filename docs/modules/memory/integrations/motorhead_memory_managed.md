@@ -1,9 +1,10 @@
 # Motörhead Memory (Managed)
-[Motörhead](https://github.com/getmetal/motorhead) is a memory server implemented in Rust. It automatically handles incremental summarization in the background and allows for stateless applications.
 
-## Setup
+[Motörhead](https://github.com/getmetal/motorhead) 是一个用 Rust 实现的内存服务器。它在后台自动处理增量摘要，并允许无状态的应用程序。
 
-See instructions at [Motörhead](https://docs.getmetal.io/motorhead/introduction) for running the managed version of Motorhead. You can retrieve your `api_key` and `client_id` by creating an account on [Metal](https://getmetal.io).
+## 设置
+
+请参考 [Motörhead](https://docs.getmetal.io/motorhead/introduction) 的说明来运行托管版本的 Motorhead。您可以在 [Metal](https://getmetal.io) 注册账户并获取您的 `api_key` 和 `client_id`。
 
 
 

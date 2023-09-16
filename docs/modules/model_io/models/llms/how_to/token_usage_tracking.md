@@ -1,9 +1,8 @@
 # Tracking token usage
 
-This notebook goes over how to track your token usage for specific calls. It is currently only implemented for the OpenAI API.
+本笔记本将介绍如何跟踪特定调用的令牌使用情况。目前，仅支持OpenAI API。
 
-Let's first look at an extremely simple example of tracking token usage for a single LLM call.
-
+让我们首先看一个非常简单的示例，用于跟踪单个LLM调用的令牌使用情况。
 
 ```python
 from langchain.llms import OpenAI
@@ -29,7 +28,7 @@ with get_openai_callback() as cb:
     Total Cost (USD): $0.00084
     
 
-Anything inside the context manager will get tracked. Here's an example of using it to track multiple calls in sequence.
+在上下文管理器内的所有代码都将被跟踪。下面是一个示例，演示如何使用上下文管理器来跟踪连续的多个调用。
 
 
 ```python

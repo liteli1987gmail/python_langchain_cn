@@ -1,9 +1,8 @@
-# Serialization
-This notebook covers how to serialize chains to and from disk. The serialization format we use is json or yaml. Currently, only some chains support this type of serialization. We will grow the number of supported chains over time.
+# 序列化
+本笔记本介绍了如何将链条序列化到磁盘并从磁盘中反序列化。我们使用的序列化格式是 JSON 或 YAML。目前，只有一些链条支持这种类型的序列化。随着时间的推移，我们将增加支持的链条数量。
 
-
-## Saving a chain to disk
-First, let's go over how to save a chain to disk. This can be done with the `.save` method, and specifying a file path with a json or yaml extension.
+## 将链条保存到磁盘
+首先，让我们了解如何将链条保存到磁盘。可以使用 `.save` 方法来实现，需要指定一个具有 JSON 或 YAML 扩展名的文件路径。
 
 
 ```python
@@ -28,32 +27,58 @@ Let's now take a look at what's inside this saved file
 !cat llm_chain.json
 ```
 
-    {
-        "memory": null,
-        "verbose": true,
-        "prompt": {
-            "input_variables": [
-                "question"
-            ],
-            "output_parser": null,
-            "template": "Question: {question}\n\nAnswer: Let's think step by step.",
-            "template_format": "f-string"
-        },
-        "llm": {
-            "model_name": "text-davinci-003",
-            "temperature": 0.0,
-            "max_tokens": 256,
-            "top_p": 1,
-            "frequency_penalty": 0,
-            "presence_penalty": 0,
-            "n": 1,
-            "best_of": 1,
-            "request_timeout": null,
-            "logit_bias": {},
-            "_type": "openai"
-        },
-        "output_key": "text",
-        "_type": "llm_chain"
+    {
+
+        "memory": null,
+
+        "verbose": true,
+
+        "prompt": {
+
+            "input_variables": [
+
+                "question"
+
+            ],
+
+            "output_parser": null,
+
+            "template": "Question: {question}\n\nAnswer: Let's think step by step.",
+
+            "template_format": "f-string"
+
+        },
+
+        "llm": {
+
+            "model_name": "text-davinci-003",
+
+            "temperature": 0.0,
+
+            "max_tokens": 256,
+
+            "top_p": 1,
+
+            "frequency_penalty": 0,
+
+            "presence_penalty": 0,
+
+            "n": 1,
+
+            "best_of": 1,
+
+            "request_timeout": null,
+
+            "logit_bias": {},
+
+            "_type": "openai"
+
+        },
+
+        "output_key": "text",
+
+        "_type": "llm_chain"
+
     }
 
 ## Loading a chain from disk
@@ -105,13 +130,20 @@ llm_chain.prompt.save("prompt.json")
 !cat prompt.json
 ```
 
-    {
-        "input_variables": [
-            "question"
-        ],
-        "output_parser": null,
-        "template": "Question: {question}\n\nAnswer: Let's think step by step.",
-        "template_format": "f-string"
+    {
+
+        "input_variables": [
+
+            "question"
+
+        ],
+
+        "output_parser": null,
+
+        "template": "Question: {question}\n\nAnswer: Let's think step by step.",
+
+        "template_format": "f-string"
+
     }
 
 
@@ -124,18 +156,30 @@ llm_chain.llm.save("llm.json")
 !cat llm.json
 ```
 
-    {
-        "model_name": "text-davinci-003",
-        "temperature": 0.0,
-        "max_tokens": 256,
-        "top_p": 1,
-        "frequency_penalty": 0,
-        "presence_penalty": 0,
-        "n": 1,
-        "best_of": 1,
-        "request_timeout": null,
-        "logit_bias": {},
-        "_type": "openai"
+    {
+
+        "model_name": "text-davinci-003",
+
+        "temperature": 0.0,
+
+        "max_tokens": 256,
+
+        "top_p": 1,
+
+        "frequency_penalty": 0,
+
+        "presence_penalty": 0,
+
+        "n": 1,
+
+        "best_of": 1,
+
+        "request_timeout": null,
+
+        "logit_bias": {},
+
+        "_type": "openai"
+
     }
 
 
@@ -159,13 +203,20 @@ with open("llm_chain_separate.json", "w") as f:
 !cat llm_chain_separate.json
 ```
 
-    {
-      "memory": null,
-      "verbose": true,
-      "prompt_path": "prompt.json",
-      "llm_path": "llm.json",
-      "output_key": "text",
-      "_type": "llm_chain"
+    {
+
+      "memory": null,
+
+      "verbose": true,
+
+      "prompt_path": "prompt.json",
+
+      "llm_path": "llm.json",
+
+      "output_key": "text",
+
+      "_type": "llm_chain"
+
     }
 
 We can then load it in the same way

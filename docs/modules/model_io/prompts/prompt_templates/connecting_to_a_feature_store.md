@@ -1,35 +1,34 @@
-# Connecting to a Feature Store
+# 连接特征存储
 
-Feature stores are a concept from traditional machine learning that make sure data fed into models is up-to-date and relevant. For more on this, see [here](https://www.tecton.ai/blog/what-is-a-feature-store/).
+特征存储是传统机器学习中的一个概念，确保输入模型的数据是最新的且相关的。有关更多信息，请参见[此处](https://www.tecton.ai/blog/what-is-a-feature-store/)。
 
-This concept is extremely relevant when considering putting LLM applications in production. In order to personalize LLM applications, you may want to combine LLMs with up-to-date information about particular users. Feature stores can be a great way to keep that data fresh, and LangChain provides an easy way to combine that data with LLMs.
+在考虑将LLM应用程序投入生产时，这个概念非常重要。为了个性化LLM应用程序，您可能希望将LLMs与有关特定用户的最新信息相结合。特征存储可以是保持数据新鲜的好方法，并且LangChain提供了一种将这些数据与LLMs结合的简单方法。
 
-In this notebook we will show how to connect prompt templates to feature stores. The basic idea is to call a feature store from inside a prompt template to retrieve values that are then formatted into the prompt.
+在本笔记本中，我们将展示如何将提示模板与特征存储连接起来。基本思想是在提示模板内部调用特征存储以检索值，然后将其格式化为提示。
 
 ## Feast
 
-To start, we will use the popular open source feature store framework [Feast](https://github.com/feast-dev/feast).
+首先，我们将使用流行的开源特征存储框架[Feast](https://github.com/feast-dev/feast)。
 
-This assumes you have already run the steps in the README around getting started. We will build of off that example in getting started, and create and LLMChain to write a note to a specific driver regarding their up-to-date statistics.
+这假设您已经按照入门指南中的步骤运行过了。我们将基于该入门示例，并创建一个LLMChain，用于向特定驱动程序写入关于其最新统计数据的备注。
 
-### Load Feast Store
+### 加载 Feast 存储
 
-Again, this should be set up according to the instructions in the Feast README
-
+同样，这应该按照 Feast 自述文件中的说明进行设置。
 
 ```python
 from feast import FeatureStore
 
-# You may need to update the path depending on where you stored it
+# 根据存储位置更新路径
 feast_repo_path = "../../../../../my_feature_repo/feature_repo/"
 store = FeatureStore(repo_path=feast_repo_path)
 ```
 
-### Prompts
+### Prompt
 
-Here we will set up a custom FeastPromptTemplate. This prompt template will take in a driver id, look up their stats, and format those stats into a prompt.
+在这里，我们将设置一个自定义的 FeastPromptTemplate。这个提示模板将接受一个驱动程序 ID，查找他们的统计数据，并将这些统计数据格式化为提示。
 
-Note that the input to this prompt template is just `driver_id`, since that is the only user defined piece (all other variables are looked up inside the prompt template).
+请注意，此提示模板的输入只是`driver_id`，因为那是用户定义的唯一部分（其他所有变量都在提示模板内部查找）。
 
 
 ```python
@@ -90,9 +89,9 @@ print(prompt_template.format(driver_id=1001))
     Your response:
     
 
-### Use in a chain
+### 在链中使用
 
-We can now use this in a chain, successfully creating a chain that achieves personalization backed by a feature store
+现在我们可以将其用于链中，成功创建一个由特征存储支持的个性化链。
 
 
 ```python
@@ -124,16 +123,16 @@ chain.run(1001)
 
 ## Tecton
 
-Above, we showed how you could use Feast, a popular open source and self-managed feature store, with LangChain. Our examples below will show a similar integration using Tecton. Tecton is a fully managed feature platform built to orchestrate the complete ML feature lifecycle, from transformation to online serving, with enterprise-grade SLAs.
+在上面，我们展示了如何将 Feast（一种流行的开源自托管特征存储）与 LangChain 配合使用。下面的示例将展示如何使用 Tecton 进行类似的集成。Tecton 是一个完全托管的特征平台，专为协调完整的 ML 特征生命周期而构建，包括从转换到在线服务的全过程，并提供企业级的 SLA。
 
-### Prerequisites
+### 先决条件
 
-* Tecton Deployment (sign up at [https://tecton.ai](https://tecton.ai))
-* `TECTON_API_KEY` environment variable set to a valid Service Account key
+* Tecton 部署（在[https://tecton.ai](https://tecton.ai)上注册）
+* `TECTON_API_KEY` 环境变量设置为有效的服务帐户密钥
 
-### Define and Load Features
+### 定义和加载特征
 
-We will use the user_transaction_counts Feature View from the [Tecton tutorial](https://docs.tecton.ai/docs/tutorials/tecton-fundamentals) as part of a Feature Service. For simplicity, we are only using a single Feature View; however, more sophisticated applications may require more feature views to retrieve the features needed for its prompt.
+我们将使用[Tecton 教程](https://docs.tecton.ai/docs/tutorials/tecton-fundamentals)中的 user_transaction_counts 特征视图作为特征服务的一部分。为简单起见，我们只使用一个特征视图；然而，更复杂的应用程序可能需要更多的特征视图来检索其提示所需的特征。
 
 ```python
 user_transaction_metrics = FeatureService(
@@ -142,8 +141,7 @@ user_transaction_metrics = FeatureService(
 )
 ```
 
-The above Feature Service is expected to be [applied to a live workspace](https://docs.tecton.ai/docs/applying-feature-repository-changes-to-a-workspace). For this example, we will be using the "prod" workspace.
-
+上述特征服务预计将被[应用于实时工作空间](https://docs.tecton.ai/docs/applying-feature-repository-changes-to-a-workspace)。在本示例中，我们将使用"prod"工作空间。
 
 ```python
 import tecton
@@ -154,10 +152,9 @@ feature_service = workspace.get_feature_service("user_transaction_metrics")
 
 ### Prompts
 
-Here we will set up a custom TectonPromptTemplate. This prompt template will take in a user_id , look up their stats, and format those stats into a prompt.
+在这里，我们将设置一个自定义的 TectonPromptTemplate。该提示模板将接受一个 user_id，并查找他们的统计数据，然后将这些统计数据格式化为提示。
 
-Note that the input to this prompt template is just `user_id`, since that is the only user defined piece (all other variables are looked up inside the prompt template).
-
+请注意，此提示模板的输入只是 `user_id`，因为这是用户定义的唯一部分（所有其他变量都在提示模板内部查找）。
 
 ```python
 from langchain.prompts import PromptTemplate, StringPromptTemplate
@@ -219,9 +216,9 @@ print(prompt_template.format(user_id="user_469998441571"))
     Your response:
     
 
-### Use in a chain
+### 在链中使用
 
-We can now use this in a chain, successfully creating a chain that achieves personalization backed by the Tecton Feature Platform
+现在我们可以将其用于链中，成功创建一个基于Tecton特征平台支持的个性化链。
 
 
 ```python
@@ -250,15 +247,13 @@ chain.run("user_469998441571")
 ```python
 
 ```
-
 ## Featureform
 
-Finally, we will use [Featureform](https://github.com/featureform/featureform) an open-source and enterprise-grade feature store to run the same example. Featureform allows you to work with your infrastructure like Spark or locally to define your feature transformations.
+最后，我们将使用[Featureform](https://github.com/featureform/featureform)，一个开源的、企业级的特征存储，来运行相同的示例。Featureform允许您使用像Spark或本地环境这样的基础架构来定义特征转换。
 
-### Initialize Featureform
+### 初始化 Featureform
 
-You can follow in the instructions in the README to initialize your transformations and features in Featureform.
-
+您可以按照自述文件中的说明，在Featureform中初始化您的转换和特征。
 
 ```python
 import featureform as ff
@@ -268,10 +263,9 @@ client = ff.Client(host="demo.featureform.com")
 
 ### Prompts
 
-Here we will set up a custom FeatureformPromptTemplate. This prompt template will take in the average amount a user pays per transactions.
+在这里，我们将设置一个自定义的FeatureformPromptTemplate。该提示模板将接受用户每次交易的平均支付金额。
 
-Note that the input to this prompt template is just avg_transaction, since that is the only user defined piece (all other variables are looked up inside the prompt template).
-
+请注意，此提示模板的输入只是 `avg_transaction`，因为这是用户定义的唯一部分（所有其他变量都在提示模板内部查找）。
 
 ```python
 from langchain.prompts import PromptTemplate, StringPromptTemplate
@@ -306,10 +300,9 @@ prompt_template = FeatureformPrompTemplate(input_variables=["user_id"])
 ```python
 print(prompt_template.format(user_id="C1410926"))
 ```
+### 在链中使用
 
-### Use in a chain
-
-We can now use this in a chain, successfully creating a chain that achieves personalization backed by the Featureform Feature Platform
+现在我们可以将其用于链中，成功创建一个基于Featureform特征平台支持的个性化链。
 
 
 ```python

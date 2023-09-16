@@ -1,10 +1,10 @@
-# Combine agents and vector stores
+# 组合代理和向量存储库
 
-This notebook covers how to combine agents and vectorstores. The use case for this is that you've ingested your data into a vectorstore and want to interact with it in an agentic manner.
+本笔记本介绍了如何组合代理和向量存储库。这种情况的使用案例是，您已经将数据导入了向量存储库，并希望以代理的方式与其进行交互。
 
-The recommended method for doing so is to create a RetrievalQA and then use that as a tool in the overall agent. Let's take a look at doing this below. You can do this with multiple different vectordbs, and use the agent as a way to route between them. There are two different ways of doing this - you can either let the agent use the vectorstores as normal tools, or you can set `return_direct=True` to really just use the agent as a router.
+推荐的方法是创建一个 RetrievalQA 对象，然后将其作为整体代理中的一个工具。让我们在下面来看看如何实现。您可以使用多个不同的向量存储库，并使用代理作为它们之间的路由器。有两种不同的方法可以实现这一点 - 您可以让代理像正常工具一样使用向量存储库，或者可以设置 `return_direct=True` 以真正将代理作为路由器使用。
 
-## Create the Vectorstore
+## 创建向量存储库
 
 
 ```python

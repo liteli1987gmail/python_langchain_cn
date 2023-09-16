@@ -1,6 +1,6 @@
 # Azure
 
-This notebook goes over how to connect to an Azure hosted OpenAI endpoint
+本笔记本将介绍如何连接到托管在Azure上的OpenAI端点。
 
 
 ```python

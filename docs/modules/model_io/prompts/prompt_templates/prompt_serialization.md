@@ -1,38 +1,42 @@
-# Serialization
+# 序列化 （Serialization）
 
-It is often preferrable to store prompts not as python code but as files. This can make it easy to share, store, and version prompts. This notebook covers how to do that in LangChain, walking through all the different types of prompts and the different serialization options.
+通常最好将提示存储为文件而不是Python代码。这样可以方便地共享、存储和版本化提示。本笔记本将介绍如何在LangChain中进行序列化，同时介绍了不同类型的提示和不同的序列化选项。
 
-At a high level, the following design principles are applied to serialization:
+在高层次上，序列化遵循以下设计原则：
 
-1. Both JSON and YAML are supported. We want to support serialization methods that are human readable on disk, and YAML and JSON are two of the most popular methods for that. Note that this rule applies to prompts. For other assets, like Examples, different serialization methods may be supported.
+1. 支持JSON和YAML。我们希望支持人类在磁盘上可读的序列化方法，而YAML和JSON是其中最流行的方法之一。请注意，此规则适用于提示。对于其他资产，如示例，可能支持不同的序列化方法。
 
-2. We support specifying everything in one file, or storing different components (templates, examples, etc) in different files and referencing them. For some cases, storing everything in file makes the most sense, but for others it is preferrable to split up some of the assets (long templates, large examples, reusable components). LangChain supports both.
+2. 我们支持将所有内容都存储在一个文件中，或者将不同的组件（模板、示例等）存储在不同的文件中并进行引用。对于某些情况，将所有内容存储在一个文件中是最合理的，但对于其他情况，最好拆分一些资产（长模板、大型示例、可复用组件）。LangChain同时支持两种方式。
 
-There is also a single entry point to load prompts from disk, making it easy to load any type of prompt.
-
+还有一个单一入口点可以从磁盘加载提示，这样可以轻松加载任何类型的提示。
 
 ```python
-# All prompts are loaded through the `load_prompt` function.
+# 所有的提示都通过`load_prompt`函数加载。
 from langchain.prompts import load_prompt
 ```
 
 ## PromptTemplate
 
-This section covers examples for loading a PromptTemplate.
+本部分涵盖了加载PromptTemplate的示例。
 
-### Loading from YAML
-This shows an example of loading a PromptTemplate from YAML.
+### 从YAML加载
+下面是从YAML加载PromptTemplate的示例。
 
 
 ```python
 !cat simple_prompt.yaml
 ```
 
-    _type: prompt
-    input_variables:
-        ["adjective", "content"]
-    template: 
-        Tell me a {adjective} joke about {content}.
+    _type: prompt
+
+    input_variables:
+
+        ["adjective", "content"]
+
+    template: 
+
+        Tell me a {adjective} joke about {content}.
+
 
 
 
@@ -52,11 +56,16 @@ This shows an example of loading a PromptTemplate from JSON.
 !cat simple_prompt.json
 ```
 
-    {
-        "_type": "prompt",
-        "input_variables": ["adjective", "content"],
-        "template": "Tell me a {adjective} joke about {content}."
-    }
+    {
+
+        "_type": "prompt",
+
+        "input_variables": ["adjective", "content"],
+
+        "template": "Tell me a {adjective} joke about {content}."
+
+    }
+
 
 
 
@@ -82,11 +91,16 @@ This shows an example of storing the template in a separate file and then refere
 !cat simple_prompt_with_template_file.json
 ```
 
-    {
-        "_type": "prompt",
-        "input_variables": ["adjective", "content"],
-        "template_path": "simple_template.txt"
-    }
+    {
+
+        "_type": "prompt",
+
+        "input_variables": ["adjective", "content"],
+
+        "template_path": "simple_template.txt"
+
+    }
+
 
 
 
@@ -110,10 +124,14 @@ This shows an example of what examples stored as json might look like.
 !cat examples.json
 ```
 
-    [
-        {"input": "happy", "output": "sad"},
-        {"input": "tall", "output": "short"}
-    ]
+    [
+
+        {"input": "happy", "output": "sad"},
+
+        {"input": "tall", "output": "short"}
+
+    ]
+
 
 
 And here is what the same examples stored as yaml might look like.
@@ -123,10 +141,14 @@ And here is what the same examples stored as yaml might look like.
 !cat examples.yaml
 ```
 
-    - input: happy
-      output: sad
-    - input: tall
-      output: short
+    - input: happy
+
+      output: sad
+
+    - input: tall
+
+      output: short
+
 
 
 ### Loading from YAML
@@ -137,21 +159,36 @@ This shows an example of loading a few shot example from YAML.
 !cat few_shot_prompt.yaml
 ```
 
-    _type: few_shot
-    input_variables:
-        ["adjective"]
-    prefix: 
-        Write antonyms for the following words.
-    example_prompt:
-        _type: prompt
-        input_variables:
-            ["input", "output"]
-        template:
-            "Input: {input}\nOutput: {output}"
-    examples:
-        examples.json
-    suffix:
-        "Input: {adjective}\nOutput:"
+    _type: few_shot
+
+    input_variables:
+
+        ["adjective"]
+
+    prefix: 
+
+        Write antonyms for the following words.
+
+    example_prompt:
+
+        _type: prompt
+
+        input_variables:
+
+            ["input", "output"]
+
+        template:
+
+            "Input: {input}\nOutput: {output}"
+
+    examples:
+
+        examples.json
+
+    suffix:
+
+        "Input: {adjective}\nOutput:"
+
 
 
 
@@ -179,21 +216,36 @@ The same would work if you loaded examples from the yaml file.
 !cat few_shot_prompt_yaml_examples.yaml
 ```
 
-    _type: few_shot
-    input_variables:
-        ["adjective"]
-    prefix: 
-        Write antonyms for the following words.
-    example_prompt:
-        _type: prompt
-        input_variables:
-            ["input", "output"]
-        template:
-            "Input: {input}\nOutput: {output}"
-    examples:
-        examples.yaml
-    suffix:
-        "Input: {adjective}\nOutput:"
+    _type: few_shot
+
+    input_variables:
+
+        ["adjective"]
+
+    prefix: 
+
+        Write antonyms for the following words.
+
+    example_prompt:
+
+        _type: prompt
+
+        input_variables:
+
+            ["input", "output"]
+
+        template:
+
+            "Input: {input}\nOutput: {output}"
+
+    examples:
+
+        examples.yaml
+
+    suffix:
+
+        "Input: {adjective}\nOutput:"
+
 
 
 
@@ -222,18 +274,30 @@ This shows an example of loading a few shot example from JSON.
 !cat few_shot_prompt.json
 ```
 
-    {
-        "_type": "few_shot",
-        "input_variables": ["adjective"],
-        "prefix": "Write antonyms for the following words.",
-        "example_prompt": {
-            "_type": "prompt",
-            "input_variables": ["input", "output"],
-            "template": "Input: {input}\nOutput: {output}"
-        },
-        "examples": "examples.json",
-        "suffix": "Input: {adjective}\nOutput:"
-    }   
+    {
+
+        "_type": "few_shot",
+
+        "input_variables": ["adjective"],
+
+        "prefix": "Write antonyms for the following words.",
+
+        "example_prompt": {
+
+            "_type": "prompt",
+
+            "input_variables": ["input", "output"],
+
+            "template": "Input: {input}\nOutput: {output}"
+
+        },
+
+        "examples": "examples.json",
+
+        "suffix": "Input: {adjective}\nOutput:"
+
+    }   
+
 
 
 
@@ -262,21 +326,36 @@ This shows an example of referencing the examples directly in the config.
 !cat few_shot_prompt_examples_in.json
 ```
 
-    {
-        "_type": "few_shot",
-        "input_variables": ["adjective"],
-        "prefix": "Write antonyms for the following words.",
-        "example_prompt": {
-            "_type": "prompt",
-            "input_variables": ["input", "output"],
-            "template": "Input: {input}\nOutput: {output}"
-        },
-        "examples": [
-            {"input": "happy", "output": "sad"},
-            {"input": "tall", "output": "short"}
-        ],
-        "suffix": "Input: {adjective}\nOutput:"
-    }   
+    {
+
+        "_type": "few_shot",
+
+        "input_variables": ["adjective"],
+
+        "prefix": "Write antonyms for the following words.",
+
+        "example_prompt": {
+
+            "_type": "prompt",
+
+            "input_variables": ["input", "output"],
+
+            "template": "Input: {input}\nOutput: {output}"
+
+        },
+
+        "examples": [
+
+            {"input": "happy", "output": "sad"},
+
+            {"input": "tall", "output": "short"}
+
+        ],
+
+        "suffix": "Input: {adjective}\nOutput:"
+
+    }   
+
 
 
 
@@ -305,11 +384,16 @@ This shows an example of loading the PromptTemplate that is used to format the e
 !cat example_prompt.json
 ```
 
-    {
-        "_type": "prompt",
-        "input_variables": ["input", "output"],
-        "template": "Input: {input}\nOutput: {output}" 
-    }
+    {
+
+        "_type": "prompt",
+
+        "input_variables": ["input", "output"],
+
+        "template": "Input: {input}\nOutput: {output}" 
+
+    }
+
 
 
 
@@ -317,14 +401,22 @@ This shows an example of loading the PromptTemplate that is used to format the e
 !cat few_shot_prompt_example_prompt.json
 ```
 
-    {
-        "_type": "few_shot",
-        "input_variables": ["adjective"],
-        "prefix": "Write antonyms for the following words.",
-        "example_prompt_path": "example_prompt.json",
-        "examples": "examples.json",
-        "suffix": "Input: {adjective}\nOutput:"
-    }   
+    {
+
+        "_type": "few_shot",
+
+        "input_variables": ["adjective"],
+
+        "prefix": "Write antonyms for the following words.",
+
+        "example_prompt_path": "example_prompt.json",
+
+        "examples": "examples.json",
+
+        "suffix": "Input: {adjective}\nOutput:"
+
+    }   
+
 
 
 
@@ -353,25 +445,44 @@ This shows an example of loading a prompt along with an OutputParser from a file
 ! cat prompt_with_output_parser.json
 ```
 
-    {
-        "input_variables": [
-            "question",
-            "student_answer"
-        ],
-        "output_parser": {
-            "regex": "(.*?)\\nScore: (.*)",
-            "output_keys": [
-                "answer",
-                "score"
-            ],
-            "default_output_key": null,
-            "_type": "regex_parser"
-        },
-        "partial_variables": {},
-        "template": "Given the following question and student answer, provide a correct answer and score the student answer.\nQuestion: {question}\nStudent Answer: {student_answer}\nCorrect Answer:",
-        "template_format": "f-string",
-        "validate_template": true,
-        "_type": "prompt"
+    {
+
+        "input_variables": [
+
+            "question",
+
+            "student_answer"
+
+        ],
+
+        "output_parser": {
+
+            "regex": "(.*?)\\nScore: (.*)",
+
+            "output_keys": [
+
+                "answer",
+
+                "score"
+
+            ],
+
+            "default_output_key": null,
+
+            "_type": "regex_parser"
+
+        },
+
+        "partial_variables": {},
+
+        "template": "Given the following question and student answer, provide a correct answer and score the student answer.\nQuestion: {question}\nStudent Answer: {student_answer}\nCorrect Answer:",
+
+        "template_format": "f-string",
+
+        "validate_template": true,
+
+        "_type": "prompt"
+
     }
 
 

@@ -1,17 +1,16 @@
 # Custom LLM
 
-This notebook goes over how to create a custom LLM wrapper, in case you want to use your own LLM or a different wrapper than one that is supported in LangChain.
+本笔记本将介绍如何创建自定义的LLM封装器，以便在LangChain中使用自己的LLM或不同于LangChain所支持的封装器。
 
-There is only one required thing that a custom LLM needs to implement:
+只需要自定义LLM实现以下一个必需的方法：
 
-1. A `_call` method that takes in a string, some optional stop words, and returns a string
+1. `_call` 方法，该方法接受一个字符串、一些可选的停用词，然后返回一个字符串。
 
-There is a second optional thing it can implement:
+还可以选择实现以下一个可选的方法：
 
-1. An `_identifying_params` property that is used to help with printing of this class. Should return a dictionary.
+1. `_identifying_params` 属性，用于帮助打印此类的信息。应返回一个字典。
 
-Let's implement a very simple custom LLM that just returns the first N characters of the input.
-
+让我们实现一个非常简单的自定义LLM，它只返回输入的前N个字符。
 
 ```python
 from typing import Any, List, Mapping, Optional

@@ -1,16 +1,15 @@
-# Split by tokens 
+# 按标记进行分割
 
-Language models have a token limit. You should not exceed the token limit. When you split your text into chunks it is therefore a good idea to count the number of tokens. There are many tokenizers. When you count tokens in your text you should use the same tokenizer as used in the language model. 
+语言模型有一个标记限制。您不应超过标记限制。因此，当您将文本分割成块时，将标记的数量进行计数是一个好主意。有许多分词器可供使用。在计数文本中的标记时，应使用与语言模型中使用的相同的分词器。
 
 ## tiktoken
 
->[tiktoken](https://github.com/openai/tiktoken) is a fast `BPE` tokenizer created by `OpenAI`.
+> [tiktoken](https://github.com/openai/tiktoken) 是由 `OpenAI` 创建的高速`BPE`分词器。
 
+我们可以使用它来估计已使用的标记。对于 OpenAI 模型，它可能更准确。
 
-We can use it to estimate tokens used. It will probably be more accurate for the OpenAI models.
-
-1. How the text is split: by character passed in
-2. How the chunk size is measured: by `tiktoken` tokenizer
+1. 文本的分割方式：通过传入的字符进行分割
+2. 分块大小的衡量标准：使用 `tiktoken` 分词器计数
 
 
 ```python

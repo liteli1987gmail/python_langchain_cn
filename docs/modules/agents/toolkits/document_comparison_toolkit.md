@@ -1,9 +1,8 @@
-# Document Comparison
+# 文档比较
 
-This notebook shows how to use an agent to compare two documents.
+本笔记本展示了如何使用代理来比较两个文档。
 
-The high level idea is we will create a question-answering chain for each document, and then use that 
-
+高级思路是我们将为每个文档创建一个问答链，并使用该链来回答一系列问题。然后，我们可以使用这些问题的回答来比较这两个文档。
 
 ```python
 from pydantic import BaseModel, Field

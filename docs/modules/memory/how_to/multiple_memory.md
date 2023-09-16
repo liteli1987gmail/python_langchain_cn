@@ -1,5 +1,6 @@
-# How to use multiple memory classes in the same chain
-It is also possible to use multiple memory classes in the same chain. To combine multiple memory classes, we can initialize the `CombinedMemory` class, and then use that.
+# 如何在同一链条中使用多个记忆类
+
+可以在同一链条中使用多个记忆类。为了组合多个记忆类，我们可以初始化`CombinedMemory`类，然后使用它。
 
 
 ```python

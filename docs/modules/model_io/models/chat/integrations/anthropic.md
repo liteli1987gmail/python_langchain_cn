@@ -1,6 +1,7 @@
-# Anthropic
 
-This notebook covers how to get started with Anthropic chat models.
+# 使用Anthropic Chat模型入门
+
+本笔记本介绍了如何开始使用Anthropic Chat模型。
 
 
 ```python

@@ -1,6 +1,6 @@
-# Timeouts for agents
+# 为代理设置超时时间
 
-This notebook walks through how to cap an agent executor after a certain amount of time. This can be useful for safeguarding against long running agent runs.
+本笔记本介绍了如何在一定时间后终止代理执行器。这对于防止长时间运行的代理执行非常有用。
 
 
 ```python

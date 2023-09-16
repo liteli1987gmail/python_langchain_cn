@@ -1,6 +1,6 @@
-# Entity Memory with SQLite storage
+# 使用SQLite存储的实体记忆
 
-In this walkthrough we'll create a simple conversation chain which uses ConversationEntityMemory backed by a SqliteEntityStore.
+在这个演示中，我们将创建一个简单的对话链，它使用基于SqliteEntityStore的ConversationEntityMemory。
 
 
 ```python

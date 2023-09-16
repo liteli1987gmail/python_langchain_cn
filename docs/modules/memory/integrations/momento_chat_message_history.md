@@ -1,10 +1,10 @@
-# Momento Chat Message History
+# Momento聊天消息记录
 
-This notebook goes over how to use [Momento Cache](https://gomomento.com) to store chat message history using the `MomentoChatMessageHistory` class. See the Momento [docs](https://docs.momentohq.com/getting-started) for more detail on how to get set up with Momento.
+本笔记本将介绍如何使用[Momento Cache](https://gomomento.com)来使用`MomentoChatMessageHistory`类存储聊天消息记录。有关如何设置Momento的详细信息，请参阅Momento的[文档](https://docs.momentohq.com/getting-started)。
 
-Note that, by default we will create a cache if one with the given name doesn't already exist.
+请注意，如果给定名称的缓存不存在，我们将默认创建一个缓存。
 
-You'll need to get a Momento auth token to use this class. This can either be passed in to a momento.CacheClient if you'd like to instantiate that directly, as a named parameter `auth_token` to `MomentoChatMessageHistory.from_client_params`, or can just be set as an environment variable `MOMENTO_AUTH_TOKEN`.
+您需要获取Momento的身份验证令牌才能使用该类。这可以直接传递给 momento.CacheClient，如果您想要直接实例化它，可以作为 named parameter `MomentoChatMessageHistory.from_client_params`的命名参数`auth_token`，也可以将其设置为环境变量`MOMENTO_AUTH_TOKEN`。
 
 
 ```python

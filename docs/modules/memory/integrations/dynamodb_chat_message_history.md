@@ -1,10 +1,10 @@
 # Dynamodb Chat Message History
 
-This notebook goes over how to use Dynamodb to store chat message history.
+本笔记本将介绍如何使用Dynamodb来存储聊天消息记录。
 
-First make sure you have correctly configured the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html). Then make sure you have installed boto3.
+首先，请确保您已正确配置了[AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)。然后，请确保您已安装boto3。
 
-Next, create the DynamoDB Table where we will be storing messages:
+接下来，创建我们将存储消息的DynamoDB表：
 
 
 ```python

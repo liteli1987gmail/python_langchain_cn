@@ -1,7 +1,6 @@
-# Access intermediate steps
+# 访问中间步骤
 
-In order to get more visibility into what an agent is doing, we can also return intermediate steps. This comes in the form of an extra key in the return value, which is a list of (action, observation) tuples.
-
+为了更好地了解代理的工作过程，我们还可以返回中间步骤。这以返回值中的额外键的形式呈现，该键是一个由 (action, observation) 元组组成的列表。
 
 ```python
 from langchain.agents import load_tools

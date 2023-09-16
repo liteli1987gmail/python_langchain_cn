@@ -1,6 +1,6 @@
-# Postgres Chat Message History
+# Postgres 聊天消息记录
 
-This notebook goes over how to use Postgres to store chat message history.
+本笔记本将介绍如何使用 Postgres 存储聊天消息记录。
 
 
 ```python

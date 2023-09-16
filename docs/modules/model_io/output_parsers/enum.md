@@ -1,6 +1,6 @@
-# Enum parser
+# 枚举解析器
 
-This notebook shows how to use an Enum output parser
+本笔记本演示如何使用枚举输出解析器。
 
 
 ```python

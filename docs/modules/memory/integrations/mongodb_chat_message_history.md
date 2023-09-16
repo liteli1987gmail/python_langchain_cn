@@ -1,10 +1,10 @@
-# Mongodb Chat Message History
+# Mongodb 聊天消息记录
 
-This notebook goes over how to use Mongodb to store chat message history.
+本文档介绍如何使用Mongodb存储聊天消息记录。
 
-MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
+MongoDB是一种开源的跨平台文档导向数据库程序。被归类为NoSQL数据库程序，MongoDB使用类似JSON的文档，并具有可选的模式。
 
-MongoDB is developed by MongoDB Inc. and licensed under the Server Side Public License (SSPL). - [Wikipedia](https://en.wikipedia.org/wiki/MongoDB)
+MongoDB由MongoDB Inc.开发，并在服务器端公共许可证（SSPL）下获得许可。- [维基百科](https://en.wikipedia.org/wiki/MongoDB)
 
 
 ```python

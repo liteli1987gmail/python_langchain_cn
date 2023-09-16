@@ -1,10 +1,9 @@
-# Weaviate self-querying 
+# Weaviate 自查询
 
-## Creating a Weaviate vectorstore
-First we'll want to create a Weaviate VectorStore and seed it with some data. We've created a small demo set of documents that contain summaries of movies.
+## 创建 Weaviate 向量存储库
+首先，我们需要创建一个 Weaviate 向量存储库，并使用一些数据进行填充。我们创建了一些包含电影摘要的小型演示文档集。
 
-NOTE: The self-query retriever requires you to have `lark` installed (`pip install lark`). We also need the `weaviate-client` package.
-
+注意：自查询检索器要求您已经安装了 `lark`（`pip install lark`）。我们还需要 `weaviate-client` 包。
 
 ```python
 #!pip install lark weaviate-client

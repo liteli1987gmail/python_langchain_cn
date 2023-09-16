@@ -1,12 +1,12 @@
-# JSON Agent
+# JSON 代理
 
-This notebook showcases an agent designed to interact with large JSON/dict objects. This is useful when you want to answer questions about a JSON blob that's too large to fit in the context window of an LLM. The agent is able to iteratively explore the blob to find what it needs to answer the user's question.
+本笔记本展示了一个与大型 JSON/dict 对象进行交互的代理。当您想要回答关于一个超出 LLM 上下文窗口大小的 JSON 数据块的问题时，这将非常有用。该代理能够迭代地探索数据块，找到回答用户问题所需的信息。
 
-In the below example, we are using the OpenAPI spec for the OpenAI API, which you can find [here](https://github.com/openai/openai-openapi/blob/master/openapi.yaml).
+在下面的示例中，我们使用的是 OpenAI API 的 OpenAPI 规范，您可以在 [这里](https://github.com/openai/openai-openapi/blob/master/openapi.yaml) 找到它。
 
-We will use the JSON agent to answer some questions about the API spec.
+我们将使用 JSON 代理来回答一些关于 API 规范的问题。
 
-## Initialization
+## 初始化
 
 
 ```python

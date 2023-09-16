@@ -1,6 +1,6 @@
-# Custom chain
+# 自定义链条
 
-To implement your own custom chain you can subclass `Chain` and implement the following methods:
+要实现自己的自定义链条，您可以继承 `Chain` 并实现以下方法：
 
 
 ```python

@@ -1,10 +1,10 @@
 # Cassandra Chat Message History
 
-This notebook goes over how to use Cassandra to store chat message history.
+本笔记本将介绍如何使用Cassandra来存储聊天消息记录。
 
-Cassandra is a distributed database that is well suited for storing large amounts of data. 
+Cassandra是一个适合存储大量数据的分布式数据库。
 
-It is a good choice for storing chat message history because it is easy to scale and can handle a large number of writes.
+它是存储聊天消息记录的好选择，因为它易于扩展，可以处理大量的写入操作。
 
 
 

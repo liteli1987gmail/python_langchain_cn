@@ -1,6 +1,6 @@
 # OpenAI
 
-This notebook covers how to get started with OpenAI chat models.
+本笔记本介绍了如何开始使用OpenAI聊天模型。
 
 
 ```python
@@ -39,9 +39,9 @@ chat(messages)
 
 
 
-You can make use of templating by using a `MessagePromptTemplate`. You can build a `ChatPromptTemplate` from one or more `MessagePromptTemplates`. You can use `ChatPromptTemplate`'s `format_prompt` -- this returns a `PromptValue`, which you can convert to a string or Message object, depending on whether you want to use the formatted value as input to an llm or chat model.
+您可以使用`MessagePromptTemplate`来使用模板。您可以从一个或多个`MessagePromptTemplate`构建一个`ChatPromptTemplate`。您可以使用`ChatPromptTemplate`的`format_prompt`方法，它返回一个`PromptValue`，您可以将其转换为字符串或消息对象，具体取决于您是否希望将格式化后的值用作LLM或Chat模型的输入。
 
-For convenience, there is a `from_template` method exposed on the template. If you were to use this template, this is what it would look like:
+为了方便起见，模板提供了一个`from_template`方法。如果您要使用这个模板，示例如下所示：
 
 
 ```python

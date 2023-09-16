@@ -1,13 +1,13 @@
-# Chroma self-querying 
+# Chroma 自查询
 
->[Chroma](https://docs.trychroma.com/getting-started) is a database for building AI applications with embeddings.
+> [Chroma](https://docs.trychroma.com/getting-started) 是一个用于构建具有嵌入的 AI 应用程序的数据库。
 
-In the notebook we'll demo the `SelfQueryRetriever` wrapped around a Chroma vector store. 
+在笔记本中，我们将演示 `SelfQueryRetriever` 在 Chroma 向量存储库上的使用。
 
-## Creating a Chroma vectorstore
-First we'll want to create a Chroma VectorStore and seed it with some data. We've created a small demo set of documents that contain summaries of movies.
+## 创建一个 Chroma 向量存储库
+首先，我们需要创建一个 Chroma 向量存储库，并使用一些数据填充它。我们创建了一个小型的演示文档集，其中包含电影的摘要信息。
 
-NOTE: The self-query retriever requires you to have `lark` installed (`pip install lark`). We also need the `chromadb` package.
+注意：自查询检索器要求您已经安装了 `lark`（`pip install lark`）。我们还需要 `chromadb` 包。
 
 
 ```python

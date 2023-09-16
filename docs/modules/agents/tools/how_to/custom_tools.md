@@ -1,15 +1,13 @@
-# Defining Custom Tools
+# 定义自定义工具
 
-When constructing your own agent, you will need to provide it with a list of Tools that it can use. Besides the actual function that is called, the Tool consists of several components:
+当构建自己的代理时，您需要为其提供一组工具列表，代理可以使用这些工具。除了调用的实际函数之外，工具由几个组件组成：
 
-- name (str), is required and must be unique within a set of tools provided to an agent
-- description (str), is optional but recommended, as it is used by an agent to determine tool use
-- return_direct (bool), defaults to False
-- args_schema (Pydantic BaseModel), is optional but recommended, can be used to provide more information (e.g., few-shot examples) or validation for expected parameters.
+- name（str），是必需的，并且在提供给代理的工具集中必须是唯一的
+- description（str），是可选的但建议的，因为代理使用它来确定工具的使用方式
+- return_direct（bool），默认为 False
+- args_schema（Pydantic BaseModel），是可选的但建议的，可以用于提供更多信息（例如，few-shot 示例）或用于验证预期参数。
 
-
-There are two main ways to define a tool, we will cover both in the example below.
-
+有两种主要的定义工具的方式，下面的示例中将介绍这两种方式。
 
 ```python
 # Import things that are needed generically

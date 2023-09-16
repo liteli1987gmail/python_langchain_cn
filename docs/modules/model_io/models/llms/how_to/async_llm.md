@@ -1,10 +1,10 @@
-# Async API
+# 异步 API
 
-LangChain provides async support for LLMs by leveraging the [asyncio](https://docs.python.org/3/library/asyncio.html) library.
+LangChain通过利用[asyncio](https://docs.python.org/3/library/asyncio.html)库为LLM提供了异步支持。
 
-Async support is particularly useful for calling multiple LLMs concurrently, as these calls are network-bound. Currently, `OpenAI`, `PromptLayerOpenAI`, `ChatOpenAI` and `Anthropic` are supported, but async support for other LLMs is on the roadmap.
+异步支持对于同时调用多个LLM特别有用，因为这些调用是网络绑定的。目前，支持`OpenAI`、`PromptLayerOpenAI`、`ChatOpenAI`和`Anthropic`，但其他LLM的异步支持正在路线图上。
 
-You can use the `agenerate` method to call an OpenAI LLM asynchronously.
+您可以使用`agenerate`方法异步调用OpenAI LLM。
 
 
 ```python

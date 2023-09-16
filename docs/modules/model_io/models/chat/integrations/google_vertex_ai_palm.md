@@ -1,20 +1,20 @@
-# Google Cloud Platform Vertex AI PaLM 
+# Google Cloud Platform Vertex AI PaLM
 
-Note: This is seperate from the Google PaLM integration. Google has chosen to offer an enterprise version of PaLM through GCP, and this supports the models made available through there. 
+注意：这是与Google PaLM集成不同的版本。Google选择通过GCP提供PaLM的企业版本，并支持在其中提供的模型。
 
-PaLM API on Vertex AI is a Preview offering, subject to the Pre-GA Offerings Terms of the [GCP Service Specific Terms](https://cloud.google.com/terms/service-terms). 
+在Vertex AI上的PaLM API是一项预览功能，受[Google云服务特定条款](https://cloud.google.com/terms/service-terms)中的预GA功能条款的约束。
 
-Pre-GA products and features may have limited support, and changes to pre-GA products and features may not be compatible with other pre-GA versions. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages). Further, by using PaLM API on Vertex AI, you agree to the Generative AI Preview [terms and conditions](https://cloud.google.com/trustedtester/aitos) (Preview Terms).
+预GA产品和功能可能具有有限的支持，并且对预GA版本的产品和功能的更改可能与其他预GA版本不兼容。有关更多信息，请参阅[发布阶段描述](https://cloud.google.com/products#product-launch-stages)。此外，通过使用Vertex AI上的PaLM API，您同意生成式AI预览[条款和条件](https://cloud.google.com/trustedtester/aitos)（预览条款）。
 
-For PaLM API on Vertex AI, you can process personal data as outlined in the Cloud Data Processing Addendum, subject to applicable restrictions and obligations in the Agreement (as defined in the Preview Terms).
+对于Vertex AI上的PaLM API，您可以根据《云数据处理补充协议》中的规定处理个人数据，但须遵守协议（如预览条款中所定义）中的适用限制和义务。
 
-To use Vertex AI PaLM you must have the `google-cloud-aiplatform` Python package installed and either:
-- Have credentials configured for your environment (gcloud, workload identity, etc...)
-- Store the path to a service account JSON file as the GOOGLE_APPLICATION_CREDENTIALS environment variable
+要使用Vertex AI PaLM，您必须安装`google-cloud-aiplatform` Python包，并满足以下条件之一：
+- 配置了您的环境的凭据（gcloud，工作负载标识等）
+- 将服务帐号JSON文件的路径存储为GOOGLE_APPLICATION_CREDENTIALS环境变量
 
-This codebase uses the `google.auth` library which first looks for the application credentials variable mentioned above, and then looks for system-level auth.
+此代码库使用`google.auth`库，该库首先查找上述应用凭据变量，然后查找系统级别的身份验证。
 
-For more information, see: 
+更多信息请参阅：
 - https://cloud.google.com/docs/authentication/application-default-credentials#GAC
 - https://googleapis.dev/python/google-auth/latest/reference/google.auth.html#module-google.auth
 
@@ -61,9 +61,9 @@ chat(messages)
 
 
 
-You can make use of templating by using a `MessagePromptTemplate`. You can build a `ChatPromptTemplate` from one or more `MessagePromptTemplates`. You can use `ChatPromptTemplate`'s `format_prompt` -- this returns a `PromptValue`, which you can convert to a string or Message object, depending on whether you want to use the formatted value as input to an llm or chat model.
+您可以使用`MessagePromptTemplate`来使用模板。您可以从一个或多个`MessagePromptTemplate`构建一个`ChatPromptTemplate`。您可以使用`ChatPromptTemplate`的`format_prompt`方法，它返回一个`PromptValue`，您可以将其转换为字符串或消息对象，具体取决于您是否想将格式化后的值用作LLM或Chat模型的输入。
 
-For convenience, there is a `from_template` method exposed on the template. If you were to use this template, this is what it would look like:
+为了方便起见，模板上公开了一个名为`from_template`的方法。如果您要使用此模板，示例如下：
 
 
 ```python

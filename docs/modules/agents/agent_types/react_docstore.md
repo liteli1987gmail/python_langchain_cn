@@ -1,6 +1,6 @@
-# ReAct document store
+# ReAct 文档存储库
 
-This walkthrough showcases using an agent to implement the [ReAct](https://react-lm.github.io/) logic for working with document store specifically.
+本演示展示了如何使用代理来实现与文档存储库特定的 [ReAct](https://react-lm.github.io/) 逻辑。
 
 
 ```python

@@ -1,8 +1,8 @@
-# Transformation
+# 转换
 
-This notebook showcases using a generic transformation chain.
+本笔记本展示了如何使用通用的转换链。
 
-As an example, we will create a dummy transformation that takes in a super long text, filters the text to only the first 3 paragraphs, and then passes that into an LLMChain to summarize those.
+作为示例，我们将创建一个虚拟转换，它接收一个超长的文本，将文本过滤为仅保留前三个段落，然后将其传递给 LLMChain 进行摘要生成。
 
 
 ```python

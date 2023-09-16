@@ -1,9 +1,9 @@
 # Fake LLM
-We expose a fake LLM class that can be used for testing. This allows you to mock out calls to the LLM and simulate what would happen if the LLM responded in a certain way.
+我们提供了一个虚假的LLM类，可用于测试。这样可以模拟对LLM的调用，并模拟LLM以特定方式响应的情况。
 
-In this notebook we go over how to use this.
+在本笔记本中，我们将介绍如何使用这个虚假的LLM。
 
-We start this with using the FakeLLM in an agent.
+我们首先将使用FakeLLM在一个代理中。
 
 
 ```python

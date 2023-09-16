@@ -1,7 +1,6 @@
-# How to customize conversational memory
+# 如何自定义对话记忆
 
-This notebook walks through a few ways to customize conversational memory.
-
+本笔记本将介绍几种自定义对话记忆的方法。
 
 ```python
 from langchain.llms import OpenAI
@@ -12,9 +11,9 @@ from langchain.memory import ConversationBufferMemory
 llm = OpenAI(temperature=0)
 ```
 
-## AI Prefix
+## AI 前缀
 
-The first way to do so is by changing the AI prefix in the conversation summary. By default, this is set to "AI", but you can set this to be anything you want. Note that if you change this, you should also change the prompt used in the chain to reflect this naming change. Let's walk through an example of that in the example below.
+第一种方法是通过更改对话摘要中的 AI 前缀来实现。默认情况下，这个前缀被设置为 "AI"，但您可以将其设置为任何您想要的值。请注意，如果您更改了这个前缀，您应该同时更改链条中使用的提示，以反映这个命名的变化。让我们通过下面的示例来演示。
 
 
 ```python

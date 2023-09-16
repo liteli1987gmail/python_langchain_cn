@@ -1,8 +1,8 @@
-# Select by n-gram overlap
+## n-gram重叠选择法
 
-The `NGramOverlapExampleSelector` selects and orders examples based on which examples are most similar to the input, according to an ngram overlap score. The ngram overlap score is a float between 0.0 and 1.0, inclusive. 
+`NGramOverlapExampleSelector`根据示例与输入之间的n-gram重叠程度选择和排序示例。n-gram重叠得分是一个在0.0到1.0之间（包括边界）的浮点数。
 
-The selector allows for a threshold score to be set. Examples with an ngram overlap score less than or equal to the threshold are excluded. The threshold is set to -1.0, by default, so will not exclude any examples, only reorder them. Setting the threshold to 0.0 will exclude examples that have no ngram overlaps with the input.
+选择器允许设置阈值分数。n-gram重叠得分小于或等于阈值的示例将被排除在外。默认情况下，阈值设置为-1.0，因此不会排除任何示例，只会重新排序它们。将阈值设置为0.0将排除与输入没有n-gram重叠的示例。
 
 
 

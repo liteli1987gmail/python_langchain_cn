@@ -1,6 +1,6 @@
-# Retry parser
+# 重试解析器
 
-While in some cases it is possible to fix any parsing mistakes by only looking at the output, in other cases it can't. An example of this is when the output is not just in the incorrect format, but is partially complete. Consider the below example.
+在某些情况下，通过仅查看输出就可以修复任何解析错误，但在其他情况下，则不太可能。一个例子是当输出不仅格式不正确，而且部分不完整时。请考虑下面的例子。
 
 
 ```python

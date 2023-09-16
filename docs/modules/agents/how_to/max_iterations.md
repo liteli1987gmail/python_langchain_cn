@@ -1,6 +1,6 @@
-# Cap the max number of iterations
+# 限制最大迭代次数
 
-This notebook walks through how to cap an agent at taking a certain number of steps. This can be useful to ensure that they do not go haywire and take too many steps.
+本笔记本介绍了如何限制代理在进行一定数量的步骤后停止。这对于确保代理不会失控并执行太多步骤非常有用。
 
 
 ```python

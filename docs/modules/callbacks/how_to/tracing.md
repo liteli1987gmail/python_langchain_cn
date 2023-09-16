@@ -1,11 +1,11 @@
-# Tracing
+# 跟踪
 
-There are two recommended ways to trace your LangChains:
+有两种推荐的方法来跟踪您的 LangChains：
 
-1. Setting the `LANGCHAIN_TRACING` environment variable to `"true"`. 
-2. Using a context manager `with tracing_enabled()` to trace a particular block of code.
+1. 将 `LANGCHAIN_TRACING` 环境变量设置为 `"true"`。
+2. 使用上下文管理器 `with tracing_enabled()` 来跟踪特定的代码块。
 
-**Note** if the environment variable is set, all code will be traced, regardless of whether or not it's within the context manager.
+**注意**：如果设置了环境变量，无论代码是否在上下文管理器中，所有代码都将被跟踪。
 
 
 ```python

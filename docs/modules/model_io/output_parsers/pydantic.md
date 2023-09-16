@@ -1,9 +1,9 @@
-# Pydantic (JSON) parser
-This output parser allows users to specify an arbitrary JSON schema and query LLMs for JSON outputs that conform to that schema.
+# Pydantic（JSON）解析器
+该输出解析器允许用户指定任意的JSON模式，并查询符合该模式的JSON输出。
 
-Keep in mind that large language models are leaky abstractions! You'll have to use an LLM with sufficient capacity to generate well-formed JSON. In the OpenAI family, DaVinci can do reliably but Curie's ability already drops off dramatically. 
+请记住，大型语言模型是有漏洞的抽象！您必须使用具有足够容量的LLM来生成格式正确的JSON。在OpenAI家族中，DaVinci的能力可靠，但Curie的能力已经大幅下降。
 
-Use Pydantic to declare your data model. Pydantic's BaseModel like a Python dataclass, but with actual type checking + coercion.
+使用Pydantic来声明您的数据模型。Pydantic的BaseModel类似于Python的数据类，但具有真正的类型检查和强制转换功能。
 
 
 ```python
