@@ -24,7 +24,7 @@ df.head()
 
 
 
-
+```
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -82,7 +82,7 @@ df.head()
   </tbody>
 </table>
 </div>
-
+```
 
 
 

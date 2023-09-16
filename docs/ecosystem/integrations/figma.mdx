@@ -1,20 +1,19 @@
 # Figma
+>[Figma](https://www.figma.com/) 是一款用于界面设计的协作式Web应用。
 
->[Figma](https://www.figma.com/) is a collaborative web application for interface design.
+## 安装和设置
 
-## Installation and Setup
+Figma API 需要一个“访问令牌”（access token）、“节点ID”（node_ids）和一个“文件密钥”（file key）。
 
-The Figma API requires an `access token`, `node_ids`, and a `file key`.
+“文件密钥”可以从URL中获取。https://www.figma.com/file/{filekey}/sampleFilename
 
-The `file key` can be pulled from the URL.  https://www.figma.com/file/{filekey}/sampleFilename
+“节点ID”也可以在URL中找到。点击任何内容，寻找“?node-id={node_id}”参数。
 
-`Node IDs` are also available in the URL. Click on anything and look for the '?node-id={node_id}' param.
+“访问令牌” [说明](https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens)。
 
-`Access token` [instructions](https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens).
+## 文档加载器
 
-## Document Loader
-
-See a [usage example](/docs/modules/data_connection/document_loaders/integrations/figma.html).
+查看[使用示例](/docs/modules/data_connection/document_loaders/integrations/figma.html)。
 
 ```python
 from langchain.document_loaders import FigmaFileLoader

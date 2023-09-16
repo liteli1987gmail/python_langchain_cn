@@ -1,8 +1,8 @@
-# Model Comparison
+# 模型比较
 
-Constructing your language model application will likely involved choosing between many different options of prompts, models, and even chains to use. When doing so, you will want to compare these different options on different inputs in an easy, flexible, and intuitive way. 
+构建语言模型应用程序很可能涉及选择许多不同的提示、模型甚至链条。在这样做时，您将希望以一种简单、灵活和直观的方式比较这些不同的选项在不同的输入上。
 
-LangChain provides the concept of a ModelLaboratory to test out and try different models.
+LangChain提供了一个ModelLaboratory的概念，用于测试和尝试不同的模型。
 
 
 ```python
@@ -26,41 +26,40 @@ model_lab = ModelLaboratory.from_llms(llms)
 
 
 ```python
-model_lab.compare("What color is a flamingo?")
+model_lab.compare("火烈鸟是什么颜色？")
 ```
-
-    [1mInput:[0m
-    What color is a flamingo?
+    [1m输入:[0m
+    火烈鸟是什么颜色？
     
     [1mOpenAI[0m
-    Params: {'model': 'text-davinci-002', 'temperature': 0.0, 'max_tokens': 256, 'top_p': 1, 'frequency_penalty': 0, 'presence_penalty': 0, 'n': 1, 'best_of': 1}
+    参数: {'model': 'text-davinci-002', 'temperature': 0.0, 'max_tokens': 256, 'top_p': 1, 'frequency_penalty': 0, 'presence_penalty': 0, 'n': 1, 'best_of': 1}
     [36;1m[1;3m
     
-    Flamingos are pink.[0m
+    火烈鸟是粉色的。[0m
     
     [1mCohere[0m
-    Params: {'model': 'command-xlarge-20221108', 'max_tokens': 20, 'temperature': 0.0, 'k': 0, 'p': 1, 'frequency_penalty': 0, 'presence_penalty': 0}
+    参数: {'model': 'command-xlarge-20221108', 'max_tokens': 20, 'temperature': 0.0, 'k': 0, 'p': 1, 'frequency_penalty': 0, 'presence_penalty': 0}
     [33;1m[1;3m
     
-    Pink[0m
+    粉色[0m
     
     [1mHuggingFaceHub[0m
-    Params: {'repo_id': 'google/flan-t5-xl', 'temperature': 1}
-    [38;5;200m[1;3mpink[0m
+    参数: {'repo_id': 'google/flan-t5-xl', 'temperature': 1}
+    [38;5;200m[1;3m粉色[0m
     
     
 
 
 ```python
 prompt = PromptTemplate(
-    template="What is the capital of {state}?", input_variables=["state"]
+    template="{state}的首都是什么？", input_variables=["state"]
 )
 model_lab_with_prompt = ModelLaboratory.from_llms(llms, prompt=prompt)
 ```
 
 
 ```python
-model_lab_with_prompt.compare("New York")
+model_lab_with_prompt.compare("纽约")
 ```
 
     [1mInput:[0m
@@ -70,17 +69,17 @@ model_lab_with_prompt.compare("New York")
     Params: {'model': 'text-davinci-002', 'temperature': 0.0, 'max_tokens': 256, 'top_p': 1, 'frequency_penalty': 0, 'presence_penalty': 0, 'n': 1, 'best_of': 1}
     [36;1m[1;3m
     
-    The capital of New York is Albany.[0m
+    纽约的首都是奥尔巴尼。[0m
     
     [1mCohere[0m
     Params: {'model': 'command-xlarge-20221108', 'max_tokens': 20, 'temperature': 0.0, 'k': 0, 'p': 1, 'frequency_penalty': 0, 'presence_penalty': 0}
     [33;1m[1;3m
     
-    The capital of New York is Albany.[0m
+    纽约的首都是奥尔巴尼。[0m
     
     [1mHuggingFaceHub[0m
-    Params: {'repo_id': 'google/flan-t5-xl', 'temperature': 1}
-    [38;5;200m[1;3mst john s[0m
+    参数: {'repo_id': 'google/flan-t5-xl', 'temperature': 1}
+    [38;5;200m[1;3m圣约翰斯[0m
     
     
 
@@ -114,7 +113,7 @@ model_lab = ModelLaboratory(chains, names=names)
 
 
 ```python
-model_lab.compare("What is the hometown of the reigning men's U.S. Open champion?")
+model_lab.compare("现任男子美国公开赛冠军的家乡在哪里？")
 ```
 
     [1mInput:[0m
@@ -140,19 +139,19 @@ model_lab.compare("What is the hometown of the reigning men's U.S. Open champion
     Params: {'model': 'command-xlarge-20221108', 'max_tokens': 256, 'temperature': 0.0, 'k': 0, 'p': 1, 'frequency_penalty': 0, 'presence_penalty': 0}
     
     
-    [1m> Entering new chain...[0m
-    What is the hometown of the reigning men's U.S. Open champion?
-    Are follow up questions needed here:[32;1m[1;3m Yes.
-    Follow up: Who is the reigning men's U.S. Open champion?[0m
-    Intermediate answer: [33;1m[1;3mCarlos Alcaraz.[0m[32;1m[1;3m
-    So the final answer is:
+    [1m> 进入新的链条...[0m
+    现任男子美国公开赛冠军的家乡在哪里？
+    这里是否需要后续问题:[32;1m[1;3m 是的。
+    后续问题: 现任男子美国公开赛冠军是谁？[0m
+    中间答案: [33;1m[1;3m卡洛斯·阿尔卡拉斯。[0m[32;1m[1;3m
+    所以最终答案是:
     
-    Carlos Alcaraz[0m
-    [1m> Finished chain.[0m
+    卡洛斯·阿尔卡拉斯[0m
+    [1m> 完成链条。[0m
     [33;1m[1;3m
-    So the final answer is:
+    所以最终答案是:
     
-    Carlos Alcaraz[0m
+    卡洛斯·阿尔卡拉斯[0m
     
     
 

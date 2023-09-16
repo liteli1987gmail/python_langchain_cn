@@ -1,22 +1,17 @@
 # Brave Search
-
-This notebook goes over how to use the Brave Search tool.
-
+这个笔记本介绍了如何使用Brave Search工具。
 
 ```python
 from langchain.tools import BraveSearch
 ```
 
-
 ```python
 api_key = "..."
 ```
 
-
 ```python
 tool = BraveSearch.from_api_key(api_key=api_key, search_kwargs={"count": 3})
 ```
-
 
 ```python
 tool.run("obama middle name")

@@ -1,5 +1,6 @@
-# Logging to file
-This example shows how to print logs to file. It shows how to use the `FileCallbackHandler`, which does the same thing as [`StdOutCallbackHandler`](https://python.langchain.com/en/latest/modules/callbacks/getting_started.html#using-an-existing-handler), but instead writes the output to file. It also uses the `loguru` library to log other outputs that are not captured by the handler.
+# 将日志记录到文件
+此示例显示了如何将日志记录到文件。它展示了如何使用 `FileCallbackHandler`，它与 [`StdOutCallbackHandler`](https://python.langchain.com/en/latest/modules/callbacks/getting_started.html#using-an-existing-handler) 做的事情相同，但是将输出写入文件。它还使用 `loguru` 库来记录处理程序未捕获的其他输出。
+
 
 
 ```python
@@ -62,7 +63,7 @@ html = conv.convert(content, full=True)
 display(HTML(html))
 ```
 
-
+```
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -98,4 +99,4 @@ Prompt after formatting:
 
 </html>
 
-
+```

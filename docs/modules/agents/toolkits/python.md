@@ -1,7 +1,6 @@
 # Python Agent
 
-This notebook showcases an agent designed to write and execute python code to answer a question.
-
+这个笔记本展示了一个设计用来编写和执行Python代码以回答问题的代理。
 
 ```python
 from langchain.agents.agent_toolkits import create_python_agent
@@ -12,10 +11,9 @@ from langchain.agents.agent_types import AgentType
 from langchain.chat_models import ChatOpenAI
 ```
 
-## Using ZERO_SHOT_REACT_DESCRIPTION
+## 使用ZERO_SHOT_REACT_DESCRIPTION
 
-This shows how to initialize the agent using the ZERO_SHOT_REACT_DESCRIPTION agent type. Note that this is an alternative to the above.
-
+这显示了如何使用ZERO_SHOT_REACT_DESCRIPTION代理类型初始化代理。请注意，这是上述方法的替代方法。
 
 ```python
 agent_executor = create_python_agent(
@@ -26,10 +24,9 @@ agent_executor = create_python_agent(
 )
 ```
 
-## Using OpenAI Functions
+## 使用OpenAI函数
 
-This shows how to initialize the agent using the OPENAI_FUNCTIONS agent type. Note that this is an alternative to the above.
-
+这显示了如何使用OPENAI_FUNCTIONS代理类型初始化代理。请注意，这是上述方法的替代方法。
 
 ```python
 agent_executor = create_python_agent(
@@ -41,19 +38,17 @@ agent_executor = create_python_agent(
 )
 ```
 
-## Fibonacci Example
-This example was created by [John Wiseman](https://twitter.com/lemonodor/status/1628270074074398720?s=20).
+## 斐波那契示例
 
+这个示例是由[John Wiseman](https://twitter.com/lemonodor/status/1628270074074398720?s=20)创建的。
 
 ```python
 agent_executor.run("What is the 10th fibonacci number?")
 ```
 
-    
-    
-    [1m> Entering new  chain...[0m
+    [1m> 进入新链...[0m
     [32;1m[1;3m
-    Invoking: `Python_REPL` with `def fibonacci(n):
+    调用：`Python_REPL` 使用 `def fibonacci(n):`:
         if n <= 0:
             return 0
         elif n == 1:
@@ -76,8 +71,8 @@ agent_executor.run("What is the 10th fibonacci number?")
 
 
 
-## Training neural net
-This example was created by [Samee Ur Rehman](https://twitter.com/sameeurehman/status/1630130518133207046?s=20).
+## 训练神经网络
+这个例子是由[Samee Ur Rehman](https://twitter.com/sameeurehman/status/1630130518133207046?s=20)创建的。
 
 
 ```python

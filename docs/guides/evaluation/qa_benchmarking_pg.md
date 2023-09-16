@@ -1,20 +1,18 @@
-# Question Answering Benchmarking: Paul Graham Essay
+# 问题回答基准测试：Paul Graham Essay
 
-Here we go over how to benchmark performance on a question answering task over a Paul Graham essay.
+在这里，我们将介绍如何在Paul Graham的文章上对问题回答任务的性能进行基准测试。
 
-It is highly reccomended that you do any evaluation/benchmarking with tracing enabled. See [here](https://langchain.readthedocs.io/en/latest/tracing.html) for an explanation of what tracing is and how to set it up.
-
+强烈建议您在启用跟踪的情况下进行任何评估/基准测试。有关跟踪是什么以及如何设置的解释，请参见[这里](https$：//langchain.readthedocs.io/en/latest/tracing.html)。
 
 ```python
-# Comment this out if you are NOT using tracing
+# 如果您不使用跟踪，请将其注释
 import os
 
 os.environ["LANGCHAIN_HANDLER"] = "langchain"
 ```
 
-## Loading the data
-First, let's load the data.
-
+## 加载数据
+首先，让我们加载数据。
 
 ```python
 from langchain.evaluation.loading import load_dataset
@@ -22,15 +20,15 @@ from langchain.evaluation.loading import load_dataset
 dataset = load_dataset("question-answering-paul-graham")
 ```
 
-    Found cached dataset json (/Users/harrisonchase/.cache/huggingface/datasets/LangChainDatasets___json/LangChainDatasets--question-answering-paul-graham-76e8f711e038d742/0.0.0/0f7e3662623656454fcd2b650f34e886a7db4b9104504885bd462096cc7a9f51)
+    找到缓存的数据集json（/Users/harrisonchase/.cache/huggingface/datasets/LangChainDatasets___json/LangChainDatasets--question-answering-paul-graham-76e8f711e038d742/0.0.0/0f7e3662623656454fcd2b650f34e886a7db4b9104504885bd462096cc7a9f51）
     
 
 
       0%|          | 0/1 [00:00<?, ?it/s]
 
 
-## Setting up a chain
-Now we need to create some pipelines for doing question answering. Step one in that is creating an index over the data in question.
+## 设置管道
+现在我们需要创建一些用于问题回答的管道。其中第一步是在相关数据上创建索引。
 
 
 ```python
@@ -49,11 +47,10 @@ from langchain.indexes import VectorstoreIndexCreator
 vectorstore = VectorstoreIndexCreator().from_loaders([loader]).vectorstore
 ```
 
-    Running Chroma using direct local API.
-    Using DuckDB in-memory for database. Data will be transient.
+    使用直接的本地API运行Chroma。 使用DuckDB内存中的数据库。 数据将是短暂的。
     
 
-Now we can create a question answering chain.
+现在我们可以创建一个问题回答的管道。
 
 
 ```python
@@ -71,9 +68,8 @@ chain = RetrievalQA.from_chain_type(
 )
 ```
 
-## Make a prediction
-
-First, we can make predictions one datapoint at a time. Doing it at this level of granularity allows use to explore the outputs in detail, and also is a lot cheaper than running over multiple datapoints
+## 进行预测
+首先，我们可以逐个数据点进行预测。以这种粒度进行预测可以让我们详细了解输出结果，而且比运行多个数据点要便宜得多。
 
 
 ```python
@@ -83,22 +79,22 @@ chain(dataset[0])
 
 
 
-    {'question': 'What were the two main things the author worked on before college?',
-     'answer': 'The two main things the author worked on before college were writing and programming.',
-     'result': ' Writing and programming.'}
+    {'question': '作者在上大学之前主要从事哪两个方面的工作？',
+     'answer': '作者在上大学之前主要从事写作和编程。',
+     'result': '写作和编程。'}
 
 
 
-## Make many predictions
-Now we can make predictions
+## 进行多次预测
+现在我们可以进行多次预测。
 
 
 ```python
 predictions = chain.apply(dataset)
 ```
 
-## Evaluate performance
-Now we can evaluate the predictions. The first thing we can do is look at them by eye.
+## 评估性能
+现在我们可以评估预测结果。首先，我们可以直接查看预测结果。
 
 
 ```python
@@ -108,13 +104,13 @@ predictions[0]
 
 
 
-    {'question': 'What were the two main things the author worked on before college?',
-     'answer': 'The two main things the author worked on before college were writing and programming.',
-     'result': ' Writing and programming.'}
+    {'question': '作者在上大学之前主要从事哪两个方面的工作？',
+     'answer': '作者在上大学之前主要从事写作和编程。',
+     'result': '写作和编程。'}
 
 
 
-Next, we can use a language model to score them programatically
+接下来，我们可以使用语言模型对它们进行程序化评分。
 
 
 ```python
@@ -130,7 +126,7 @@ graded_outputs = eval_chain.evaluate(
 )
 ```
 
-We can add in the graded output to the `predictions` dict and then get a count of the grades.
+我们可以将评分输出添加到`predictions`字典中，然后计算各个等级的数量。
 
 
 ```python
@@ -148,15 +144,15 @@ Counter([pred["grade"] for pred in predictions])
 
 
 
-    Counter({' CORRECT': 12, ' INCORRECT': 10})
+    Counter({'CORRECT': 12, 'INCORRECT': 10})
 
 
 
-We can also filter the datapoints to the incorrect examples and look at them.
+我们还可以将数据点过滤为错误示例并查看它们。
 
 
 ```python
-incorrect = [pred for pred in predictions if pred["grade"] == " INCORRECT"]
+incorrect = [pred for pred in predictions if pred["grade"] == "INCORRECT"]
 ```
 
 
@@ -167,10 +163,10 @@ incorrect[0]
 
 
 
-    {'question': 'What did the author write their dissertation on?',
-     'answer': 'The author wrote their dissertation on applications of continuations.',
-     'result': ' The author does not mention what their dissertation was on, so it is not known.',
-     'grade': ' INCORRECT'}
+    {'question': '作者写的论文是关于什么的？',
+     'answer': '作者的论文是关于continuations的应用。',
+     'result': '作者没有提到他们的论文是关于什么，所以不得而知。',
+     'grade': 'INCORRECT'}
 
 
 

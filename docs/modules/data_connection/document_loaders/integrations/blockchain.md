@@ -1,39 +1,35 @@
 # Blockchain
 
-## Overview
+## 概述
 
-The intention of this notebook is to provide a means of testing functionality in the Langchain Document Loader for Blockchain.
+这个笔记本的目的是为Langchain区块链文档加载器的功能进行测试提供一种方式。
 
-Initially this Loader supports:
+最初，此加载器支持以下功能：
 
-*   Loading NFTs as Documents from NFT Smart Contracts (ERC721 and ERC1155)
-*   Ethereum Mainnnet, Ethereum Testnet, Polygon Mainnet, Polygon Testnet (default is eth-mainnet)
-*   Alchemy's getNFTsForCollection API
+* 从NFT智能合约（ERC721和ERC1155）加载NFT作为文档
+* 以太坊主网、以太坊测试网、Polygon主网、Polygon测试网（默认值为eth-mainnet）
+* Alchemy的getNFTsForCollection API
 
-It can be extended if the community finds value in this loader.  Specifically:
+如果社区发现此加载器有价值，可以进行扩展。具体来说，可以添加其他API（例如与交易相关的API）。
 
-*   Additional APIs can be added (e.g. Tranction-related APIs)
+此文档加载器需要：
 
-This Document Loader Requires:
+* 免费的[Alchemy API Key](https://www.alchemy.com/)
 
-*   A free [Alchemy API Key](https://www.alchemy.com/)
-
-The output takes the following format:
+输出采用以下格式：
 
 - pageContent= Individual NFT
 - metadata={'source': '0x1a92f7381b9f03921564a437210bb9396471050c', 'blockchain': 'eth-mainnet', 'tokenId': '0x15'})
 
-## Load NFTs into Document Loader
-
+## 将NFT加载到文档加载器
 
 ```python
-# get ALCHEMY_API_KEY from https://www.alchemy.com/
+# 从 https://www.alchemy.com/ 获取 ALCHEMY_API_KEY
 
 alchemyApiKey = "..."
 ```
 
-### Option 1: Ethereum Mainnet (default BlockchainType)
-
+### 选项1：以太坊主网（默认BlockchainType）
 
 ```python
 from langchain.document_loaders.blockchain import (
@@ -41,9 +37,9 @@ from langchain.document_loaders.blockchain import (
     BlockchainType,
 )
 
-contractAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"  # Bored Ape Yacht Club contract address
+contractAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"  # Bored Ape Yacht Club 合约地址
 
-blockchainType = BlockchainType.ETH_MAINNET  # default value, optional parameter
+blockchainType = BlockchainType.ETH_MAINNET  # 默认值，可选参数
 
 blockchainLoader = BlockchainDocumentLoader(
     contract_address=contractAddress, api_key=alchemyApiKey
@@ -54,12 +50,11 @@ nfts = blockchainLoader.load()
 nfts[:2]
 ```
 
-### Option 2: Polygon Mainnet
-
+### 选项2：Polygon主网
 
 ```python
 contractAddress = (
-    "0x448676ffCd0aDf2D85C1f0565e8dde6924A9A7D9"  # Polygon Mainnet contract address
+    "0x448676ffCd0aDf2D85C1f0565e8dde6924A9A7D9"  # Polygon主网合约地址
 )
 
 blockchainType = BlockchainType.POLYGON_MAINNET

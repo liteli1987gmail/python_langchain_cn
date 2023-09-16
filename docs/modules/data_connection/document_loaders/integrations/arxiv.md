@@ -1,48 +1,42 @@
 # Arxiv
 
->[arXiv](https://arxiv.org/) is an open-access archive for 2 million scholarly articles in the fields of physics, mathematics, computer science, quantitative biology, quantitative finance, statistics, electrical engineering and systems science, and economics.
+[arXiv](https://arxiv.org/)是一个开放获取的存档，存储了200万篇物理学、数学、计算机科学、定量生物学、定量金融、统计学、电气工程与系统科学以及经济学方面的学术文章。
 
-This notebook shows how to load scientific articles from `Arxiv.org` into a document format that we can use downstream.
+本笔记本展示了如何从`Arxiv.org`中加载科学文章，并将其转换为我们可以在下游使用的文档格式。
 
-## Installation
+## 安装
 
-First, you need to install `arxiv` python package.
-
-
-```python
-#!pip install arxiv
-```
-
-Second, you need to install `PyMuPDF` python package which transforms PDF files downloaded from the `arxiv.org` site into the text format.
-
+首先，您需要安装`arxiv` Python包。
 
 ```python
-#!pip install pymupdf
+!pip install arxiv
 ```
 
-## Examples
+其次，您需要安装`PyMuPDF` Python包，将从`arxiv.org`网站下载的PDF文件转换为文本格式。
 
-`ArxivLoader` has these arguments:
-- `query`: free text which used to find documents in the Arxiv
-- optional `load_max_docs`: default=100. Use it to limit number of downloaded documents. It takes time to download all 100 documents, so use a small number for experiments.
-- optional `load_all_available_meta`: default=False. By default only the most important fields downloaded: `Published` (date when document was published/last updated), `Title`, `Authors`, `Summary`. If True, other fields also downloaded.
+```python
+!pip install pymupdf
+```
 
+## 示例
+
+`ArxivLoader`具有以下参数：
+- `query`：用于在Arxiv中查找文档的自由文本
+- 可选的`load_max_docs`：默认值为100。使用它来限制下载文档的数量。下载所有100个文档需要时间，因此对于实验，请使用较小的数字。
+- 可选的`load_all_available_meta`：默认值为False。默认情况下，仅下载最重要的字段：`Published`（文档发布/最后更新日期），`Title`，`Authors`，`Summary`。如果为True，则还会下载其他字段。
 
 ```python
 from langchain.document_loaders import ArxivLoader
 ```
-
 
 ```python
 docs = ArxivLoader(query="1605.08386", load_max_docs=2).load()
 len(docs)
 ```
 
-
 ```python
-docs[0].metadata  # meta-information of the Document
+docs[0].metadata  # Document的元数据
 ```
-
 
 
 
@@ -53,14 +47,14 @@ docs[0].metadata  # meta-information of the Document
 
 
 
-
 ```python
-docs[0].page_content[:400]  # all pages of the Document content
+docs[0].page_content[:400]  # Document内容的所有页面
 ```
 
 
 
+    'arXiv:1605.08386v1  [math.CO]  26 May 2016\nHEAT-BATH RANDOM WALKS WITH MARKOV BASES\nCAPRICE STANLEY AND TOBIAS WINDISCH\nAbstract. Graphs on lattice points are studied whose edges come from a finite set of\nallowed moves of arbitrary length. We show that the diameter of these graphs on fibers of a\nfixed integer matrix can be bounded from above by a constant. We then study the mixing\nbehaviour of heat-b'
 
-    'arXiv:1605.08386v1  [math.CO]  26 May 2016\nHEAT-BATH RANDOM WALKS WITH MARKOV BASES\nCAPRICE STANLEY AND TOBIAS WINDISCH\nAbstract. Graphs on lattice points are studied whose edges come from a ﬁnite set of\nallowed moves of arbitrary length. We show that the diameter of these graphs on ﬁbers of a\nﬁxed integer matrix can be bounded from above by a constant. We then study the mixing\nbehaviour of heat-b'
+   
 
 

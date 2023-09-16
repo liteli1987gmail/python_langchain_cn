@@ -1,38 +1,30 @@
 # Python REPL
+有时候，对于复杂的计算，与其让LLM直接生成答案，不如让LLM生成计算答案的代码，然后运行该代码来获得答案。为了方便这样做，我们提供了一个简单的Python REPL来执行命令。
 
-Sometimes, for complex calculations, rather than have an LLM generate the answer directly, it can be better to have the LLM generate code to calculate the answer, and then run that code to get the answer. In order to easily do that, we provide a simple Python REPL to execute commands in.
-
-This interface will only return things that are printed - therefore, if you want to use it to calculate an answer, make sure to have it print out the answer.
-
+这个接口只会返回打印出来的内容 - 因此，如果您想使用它来计算答案，请确保它打印出答案。
 
 ```python
 from langchain.agents import Tool
 from langchain.utilities import PythonREPL
 ```
 
-
 ```python
 python_repl = PythonREPL()
 ```
-
 
 ```python
 python_repl.run("print(1+1)")
 ```
 
 
-
-
     '2\n'
 
 
-
-
 ```python
-# You can create the tool to pass to an agent
+# 您可以创建一个工具来传递给一个代理
 repl_tool = Tool(
     name="python_repl",
-    description="A Python shell. Use this to execute python commands. Input should be a valid python command. If you want to see the output of a value, you should print it out with `print(...)`.",
+    description="一个Python shell。使用它来执行python命令。输入应该是一个有效的python命令。如果你想看到一个值的输出，你应该用`print(...)`打印出来。",
     func=python_repl.run,
 )
 ```

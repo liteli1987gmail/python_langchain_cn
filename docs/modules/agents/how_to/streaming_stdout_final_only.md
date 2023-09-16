@@ -1,7 +1,7 @@
-# Streaming final agent output
+# 只流式传输最终的代理输出
 
-If you only want the final output of an agent to be streamed, you can use the callback ``FinalStreamingStdOutCallbackHandler``.
-For this, the underlying LLM has to support streaming as well.
+如果您只想要流式传输代理的最终输出，可以使用回调``FinalStreamingStdOutCallbackHandler``。
+对此，底层LLM也必须支持流式传输。
 
 
 ```python
@@ -14,7 +14,7 @@ from langchain.callbacks.streaming_stdout_final_only import (
 from langchain.llms import OpenAI
 ```
 
-Let's create the underlying LLM with ``streaming = True`` and pass a new instance of ``FinalStreamingStdOutCallbackHandler``.
+让我们使用``streaming = True``创建底层LLM，并传递一个新的``FinalStreamingStdOutCallbackHandler``实例。
 
 
 ```python
@@ -30,22 +30,20 @@ agent = initialize_agent(
     tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=False
 )
 agent.run(
-    "It's 2023 now. How many years ago did Konrad Adenauer become Chancellor of Germany."
+    "现在是2023年。康拉德·阿登纳尔在多少年前成为德国总理。"
 )
 ```
-
-     Konrad Adenauer became Chancellor of Germany in 1949, 74 years ago in 2023.
-
+     康拉德·阿登纳尔在1949年成为德国总理，距2023年已经过去了74年。
 
 
 
-    'Konrad Adenauer became Chancellor of Germany in 1949, 74 years ago in 2023.'
+    '康拉德·阿登纳尔在1949年成为德国总理，距2023年已经过去了74年。'
 
 
 
-### Handling custom answer prefixes
+### 处理自定义答案前缀
 
-By default, we assume that the token sequence ``"Final", "Answer", ":"`` indicates that the agent has reached an answers. We can, however, also pass a custom sequence to use as answer prefix.
+默认情况下，我们认为令牌序列``"Final", "Answer", ":"``表示代理已经达到了答案。但是，我们也可以传递自定义序列作为答案前缀。
 
 
 ```python
@@ -58,9 +56,9 @@ llm = OpenAI(
 )
 ```
 
-For convenience, the callback automatically strips whitespaces and new line characters when comparing to `answer_prefix_tokens`. I.e., if `answer_prefix_tokens = ["The", " answer", ":"]` then both `["\nThe", " answer", ":"]` and `["The", " answer", ":"]` would be recognized a the answer prefix.
+为了方便起见，回调会自动删除与`answer_prefix_tokens`进行比较时的空格和换行符。即，如果`answer_prefix_tokens = ["The", " answer", ":"]`，则`["\nThe", " answer", ":"]`和`["The", " answer", ":"]`都会被识别为答案前缀。
 
-If you don't know the tokenized version of your answer prefix, you can determine it with the following code:
+如果您不知道答案前缀的分词版本，可以使用以下代码确定:
 
 
 ```python
@@ -69,7 +67,7 @@ from langchain.callbacks.base import BaseCallbackHandler
 
 class MyCallbackHandler(BaseCallbackHandler):
     def on_llm_new_token(self, token, **kwargs) -> None:
-        # print every token on a new line
+        # 每个令牌都会打印在新行上
         print(f"#{token}#")
 
 
@@ -79,19 +77,19 @@ agent = initialize_agent(
     tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=False
 )
 agent.run(
-    "It's 2023 now. How many years ago did Konrad Adenauer become Chancellor of Germany."
+    "现在是2023年。康拉德·阿登纳尔在多少年前成为德国总理。"
 )
 ```
 
-### Also streaming the answer prefixes
+### 同时流式传输答案前缀
 
-When the parameter `stream_prefix = True` is set, the answer prefix itself will also be streamed. This can be useful when the answer prefix itself is part of the answer. For example, when your answer is a JSON like
+当参数`stream_prefix = True`设置时，答案前缀本身也将被流式传输。当答案前缀本身是答案的一部分时，这可能很有用。例如，当您的答案是一个类似JSON的
 
 `
 {
     "action": "Final answer",
-    "action_input": "Konrad Adenauer became Chancellor 74 years ago."
+    "action_input": "康拉德·阿登纳尔在74年前成为德国总理。"
 }
 `
 
-and you don't only want the action_input to be streamed, but the entire JSON.
+您不仅希望流式传输action_input，还希望流式传输整个JSON。

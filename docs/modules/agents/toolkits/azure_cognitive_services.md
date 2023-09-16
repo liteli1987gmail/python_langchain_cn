@@ -1,17 +1,20 @@
 # Azure Cognitive Services Toolkit
 
-This toolkit is used to interact with the Azure Cognitive Services API to achieve some multimodal capabilities.
+这个工具包用来与Azure Cognitive Services API交互，实现一些多模态能力。
 
-Currently There are four tools bundled in this toolkit:
-- AzureCogsImageAnalysisTool: used to extract caption, objects, tags, and text from images. (Note: this tool is not available on Mac OS yet, due to the dependency on `azure-ai-vision` package, which is only supported on Windows and Linux currently.)
-- AzureCogsFormRecognizerTool: used to extract text, tables, and key-value pairs from documents.
-- AzureCogsSpeech2TextTool: used to transcribe speech to text.
-- AzureCogsText2SpeechTool: used to synthesize text to speech.
+目前这个工具包中包含四个工具：
 
-First, you need to set up an Azure account and create a Cognitive Services resource. You can follow the instructions [here](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-apis-create-account?tabs=multiservice%2Cwindows) to create a resource. 
+- AzureCogsImageAnalysisTool：用于从图像中提取标题、对象、标签和文本。（注意：由于依赖于`azure-ai-vision`包，此工具目前尚不支持Mac OS，该包只支持Windows和Linux。）
 
-Then, you need to get the endpoint, key and region of your resource, and set them as environment variables. You can find them in the "Keys and Endpoint" page of your resource.
+- AzureCogsFormRecognizerTool：用于从文档中提取文本、表格和键值对。
 
+- AzureCogsSpeech2TextTool：用于将语音转录为文本。
+
+- AzureCogsText2SpeechTool：用于将文本合成为语音。
+
+首先，您需要设置一个Azure账户并创建一个Cognitive Services资源。您可以按照[这里](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-apis-create-account?tabs=multiservice%2Cwindows)的说明来创建一个资源。
+
+然后，您需要获取资源的终结点、密钥和区域，并将它们设置为环境变量。您可以在资源的"Keys and Endpoint"页面中找到它们。
 
 ```python
 # !pip install --upgrade azure-ai-formrecognizer > /dev/null
@@ -20,7 +23,6 @@ Then, you need to get the endpoint, key and region of your resource, and set the
 # For Windows/Linux
 # !pip install --upgrade azure-ai-vision > /dev/null
 ```
-
 
 ```python
 import os
@@ -31,15 +33,13 @@ os.environ["AZURE_COGS_ENDPOINT"] = ""
 os.environ["AZURE_COGS_REGION"] = ""
 ```
 
-## Create the Toolkit
-
+## 创建工具包
 
 ```python
 from langchain.agents.agent_toolkits import AzureCognitiveServicesToolkit
 
 toolkit = AzureCognitiveServicesToolkit()
 ```
-
 
 ```python
 [tool.name for tool in toolkit.get_tools()]
@@ -55,7 +55,7 @@ toolkit = AzureCognitiveServicesToolkit()
 
 
 
-## Use within an Agent
+## 在Agent中使用
 
 
 ```python
@@ -73,6 +73,7 @@ agent = initialize_agent(
     verbose=True,
 )
 ```
+
 
 
 ```python
@@ -118,6 +119,7 @@ agent.run(
 
 
 
+
 ```python
 audio_file = agent.run("Tell me a joke and read it out for me.")
 ```
@@ -151,6 +153,7 @@ audio_file = agent.run("Tell me a joke and read it out for me.")
 
 
     '/tmp/tmpa3uu_j6b.wav'
+
 
 
 

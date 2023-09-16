@@ -1,26 +1,21 @@
-# Create ChatGPT clone
+# 创建 ChatGPT 克隆
 
-This chain replicates ChatGPT by combining (1) a specific prompt, and (2) the concept of memory.
+此链通过结合 (1) 特定提示和 (2) 内存的概念来复制 ChatGPT。
 
-Shows off the example as in https://www.engraved.blog/building-a-virtual-machine-inside/
-
+展示了示例，如 https://www.engraved.blog/building-a-virtual-machine-inside/。
 
 ```python
 from langchain import OpenAI, ConversationChain, LLMChain, PromptTemplate
 from langchain.memory import ConversationBufferWindowMemory
 
+template = """
+Assistant 是由 OpenAI 训练的大型语言模型。
 
-template = """Assistant is a large language model trained by OpenAI.
+Assistant 的设计目标是能够帮助完成各种任务，从回答简单问题到提供深入的解释和讨论，涵盖了广泛的话题。作为一个语言模型，Assistant 能够根据接收到的输入生成类似人类的文本，使其能够进行听起来自然的对话，并提供连贯和相关的响应。
 
-Assistant is designed to be able to assist with a wide range of tasks, from answering simple questions to providing in-depth explanations and discussions on a wide range of topics. As a language model, Assistant is able to generate human-like text based on the input it receives, allowing it to engage in natural-sounding conversations and provide responses that are coherent and relevant to the topic at hand.
+Assistant 不断学习和改进，其功能也在不断发展。它能够处理和理解大量的文本，并可以利用这些知识对广泛的问题提供准确和有用的回答。此外，Assistant 还能够根据接收到的输入生成自己的文本，从而能够进行讨论，并对广泛的话题提供解释和描述。
 
-Assistant is constantly learning and improving, and its capabilities are constantly evolving. It is able to process and understand large amounts of text, and can use this knowledge to provide accurate and informative responses to a wide range of questions. Additionally, Assistant is able to generate its own text based on the input it receives, allowing it to engage in discussions and provide explanations and descriptions on a wide range of topics.
-
-Overall, Assistant is a powerful tool that can help with a wide range of tasks and provide valuable insights and information on a wide range of topics. Whether you need help with a specific question or just want to have a conversation about a particular topic, Assistant is here to assist.
-
-{history}
-Human: {human_input}
-Assistant:"""
+总体而言，Assistant 是一个强大的工具，可以帮助完成各种任务，并提供有关各种话题的有价值的见解和信息。无论您需要帮助解答特定问题，还是只是想就特定话题进行对话，Assistant 都会帮助您。"""
 
 prompt = PromptTemplate(input_variables=["history", "human_input"], template=template)
 
@@ -35,6 +30,7 @@ chatgpt_chain = LLMChain(
 output = chatgpt_chain.predict(
     human_input="I want you to act as a Linux terminal. I will type commands and you will reply with what the terminal should show. I want you to only reply with the terminal output inside one unique code block, and nothing else. Do not write explanations. Do not type commands unless I instruct you to do so. When I need to tell you something in English I will do so by putting text inside curly brackets {like this}. My first command is pwd."
 )
+
 print(output)
 ```
 

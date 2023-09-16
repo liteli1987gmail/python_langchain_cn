@@ -1,6 +1,6 @@
-# QA Generation
-This notebook shows how to use the `QAGenerationChain` to come up with question-answer pairs over a specific document.
-This is important because often times you may not have data to evaluate your question-answer system over, so this is a cheap and lightweight way to generate it!
+# QA生成
+本笔记本展示了如何使用`QAGenerationChain`来生成特定文档的问题-答案对。
+这很重要，因为通常情况下，您可能没有数据来评估您的问答系统，所以这是一种廉价且轻量级的生成方法！
 
 
 ```python
@@ -38,8 +38,8 @@ qa[1]
 
 
 
-    {'question': 'What is the U.S. Department of Justice doing to combat the crimes of Russian oligarchs?',
-     'answer': 'The U.S. Department of Justice is assembling a dedicated task force to go after the crimes of Russian oligarchs.'}
+    {'question': '美国司法部正在采取什么行动来打击俄罗斯寡头的犯罪行为？',
+     'answer': '美国司法部正在组建一个专门的工作组来打击俄罗斯寡头的犯罪行为。'}
 
 
 

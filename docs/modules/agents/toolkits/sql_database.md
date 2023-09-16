@@ -1,13 +1,12 @@
-# SQL Database Agent
+# SQL数据库代理
 
-This notebook showcases an agent designed to interact with a sql databases. The agent builds off of [SQLDatabaseChain](https://langchain.readthedocs.io/en/latest/modules/chains/examples/sqlite.html) and is designed to answer more general questions about a database, as well as recover from errors.
+本笔记本展示了一个与sql数据库交互的代理。该代理基于[SQLDatabaseChain](https://langchain.readthedocs.io/en/latest/modules/chains/examples/sqlite.html)构建，并旨在回答有关数据库的更一般的问题，并从错误中恢复。
 
-Note that, as this agent is in active development, all answers might not be correct. Additionally, it is not guaranteed that the agent won't perform DML statements on your database given certain questions. Be careful running it on sensitive data!
+请注意，由于该代理正在积极开发中，所有答案可能不正确。此外，并不能保证代理在某些问题下不会对您的数据库执行DML语句。在处理敏感数据时要小心！
 
-This uses the example Chinook database. To set it up follow the instructions on https://database.guide/2-sample-databases-sqlite/, placing the .db file in a notebooks folder at the root of this repository.
+这里使用的是示例Chinook数据库。要设置它，请按照https://database.guide/2-sample-databases-sqlite/上的说明进行操作，并将.db文件放在此存储库根目录下的notebooks文件夹中。
 
-## Initialization
-
+## 初始化
 
 ```python
 from langchain.agents import create_sql_agent
@@ -19,16 +18,23 @@ from langchain.agents.agent_types import AgentType
 from langchain.chat_models import ChatOpenAI
 ```
 
-
 ```python
+# 从URI创建SQLDatabase实例
+# 这里的"../../../../../notebooks/Chinook.db"是数据库文件的相对路径
+from langchain.sql_database import SQLDatabase
+from langchain.agents.agent_toolkits import SQLDatabaseToolkit
+from langchain.llms.openai import OpenAI
+
+# 创建数据库实例
 db = SQLDatabase.from_uri("sqlite:///../../../../../notebooks/Chinook.db")
+
+# 创建SQL工具包实例
 toolkit = SQLDatabaseToolkit(db=db, llm=OpenAI(temperature=0))
 ```
 
-## Using ZERO_SHOT_REACT_DESCRIPTION
+## 使用ZERO_SHOT_REACT_DESCRIPTION
 
-This shows how to initialize the agent using the ZERO_SHOT_REACT_DESCRIPTION agent type. Note that this is an alternative to the above.
-
+这里演示了如何使用ZERO_SHOT_REACT_DESCRIPTION代理类型初始化代理。请注意，这是上面方法的另一种选择。
 
 ```python
 agent_executor = create_sql_agent(
@@ -39,10 +45,9 @@ agent_executor = create_sql_agent(
 )
 ```
 
-## Using OpenAI Functions
+## 使用OpenAI函数
 
-This shows how to initialize the agent using the OPENAI_FUNCTIONS agent type. Note that this is an alternative to the above.
-
+这里演示了如何使用OPENAI_FUNCTIONS代理类型初始化代理。请注意，这是上面方法的另一种选择。
 
 ```python
 # agent_executor = create_sql_agent(
@@ -53,11 +58,10 @@ This shows how to initialize the agent using the OPENAI_FUNCTIONS agent type. No
 # )
 ```
 
-## Example: describing a table
-
+## 示例：描述表
 
 ```python
-agent_executor.run("Describe the playlisttrack table")
+agent_executor.run("描述playlisttrack表")
 ```
 
     
@@ -86,9 +90,10 @@ agent_executor.run("Describe the playlisttrack table")
     1	3402
     1	3389
     1	3390
-    */[0m[32;1m[1;3mThe `PlaylistTrack` table has two columns: `PlaylistId` and `TrackId`. It is a junction table that represents the relationship between playlists and tracks. 
+    */[0m[32;1m[1;3m
+    `PlaylistTrack`表有两列：`PlaylistId`和`TrackId`。它是一个表示播放列表和曲目之间关系的交集表。 
     
-    Here is the schema of the `PlaylistTrack` table:
+    这是`PlaylistTrack`表的模式:
     
     ```
     CREATE TABLE "PlaylistTrack" (
@@ -100,7 +105,7 @@ agent_executor.run("Describe the playlisttrack table")
     )
     ```
     
-    Here are three sample rows from the `PlaylistTrack` table:
+    这是`PlaylistTrack`表的三个示例行:
     
     ```
     PlaylistId   TrackId
@@ -109,9 +114,9 @@ agent_executor.run("Describe the playlisttrack table")
     1            3390
     ```
     
-    Please let me know if there is anything else I can help you with.[0m
+    如果有其他问题需要帮助，请告诉我。[0m
     
-    [1m> Finished chain.[0m
+    [1m> 链结束。[0m
     
 
 
@@ -121,9 +126,9 @@ agent_executor.run("Describe the playlisttrack table")
 
 
 
-## Example: describing a table, recovering from an error
+## 示例：描述表格，从错误中恢复
 
-In this example, the agent tries to search for a table that doesn't exist, but finds the next best result
+在这个示例中，代理程序尝试搜索一个不存在的表格，但找到了下一个最佳结果。
 
 
 ```python

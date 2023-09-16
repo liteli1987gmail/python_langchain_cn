@@ -1,8 +1,8 @@
-# Retrieval QA using OpenAI functions
+# 使用OpenAI函数进行检索问答
 
-OpenAI functions allows for structuring of response output. This is often useful in question answering when you want to not only get the final answer but also supporting evidence, citations, etc.
+OpenAI函数允许对响应输出进行结构化。在问答问题时，除了获取最终答案外，还可以获取支持证据、引用等，这通常很有用。
 
-In this notebook we show how to use an LLM chain which uses OpenAI functions as part of an overall retrieval pipeline.
+在这个笔记本中，我们展示了如何使用一个使用OpenAI函数作为整个检索流程的一部分的LLM链。
 
 
 ```python
@@ -77,7 +77,7 @@ retrieval_qa = RetrievalQA(
 
 
 ```python
-query = "What did the president say about russia"
+query = "总统对俄罗斯说了什么"
 ```
 
 
@@ -88,13 +88,13 @@ retrieval_qa.run(query)
 
 
 
-    '{\n  "answer": "The President expressed strong condemnation of Russia\'s actions in Ukraine and announced measures to isolate Russia and provide support to Ukraine. He stated that Russia\'s invasion of Ukraine will have long-term consequences for Russia and emphasized the commitment of the United States and its allies to defend NATO countries. The President also mentioned the imposition of sanctions on Russia and the release of oil reserves to help mitigate gas prices. Overall, the President\'s remarks conveyed a firm stance against Russia\'s aggression and a commitment to supporting Ukraine and protecting American interests.",\n  "sources": ["0-pl", "4-pl", "5-pl", "6-pl"]\n}'
+    '{\n  "answer": "总统对俄罗斯的行动表示强烈谴责，并宣布采取措施孤立俄罗斯并支持乌克兰。他指出俄罗斯对乌克兰的入侵将对俄罗斯产生长期影响，并强调美国及其盟友捍卫北约国家的承诺。总统还提到对俄罗斯实施制裁，并释放石油储备以帮助缓解天然气价格。总体而言，总统的讲话传达了坚定反对俄罗斯侵略行为、支持乌克兰并保护美国利益的立场。",\n  "sources": ["0-pl", "4-pl", "5-pl", "6-pl"]\n}'
 
 
 
-## Using Pydantic
+## 使用Pydantic
 
-If we want to, we can set the chain to return in Pydantic. Note that if downstream chains consume the output of this chain - including memory - they will generally expect it to be in string format, so you should only use this chain when it is the final chain.
+如果需要，我们可以将链设置为返回Pydantic格式。请注意，如果下游链消耗此链的输出（包括内存），它们通常会希望输出为字符串格式，因此只有在它是最终链时才应使用此链。
 
 
 ```python
@@ -130,9 +130,9 @@ retrieval_qa_pydantic.run(query)
 
 
 
-## Using in ConversationalRetrievalChain
+## 在ConversationalRetrievalChain中使用
 
-We can also show what it's like to use this in the ConversationalRetrievalChain. Note that because this chain involves memory, we will NOT use the Pydantic return type.
+我们还可以展示在ConversationalRetrievalChain中使用该功能。请注意，因为此链涉及内存，我们将不使用Pydantic返回类型。
 
 
 ```python
@@ -187,7 +187,7 @@ result
 
 
 ```python
-query = "what did he say about her predecessor?"
+query = "关于她的前任，他说了什么"
 result = qa({"question": query})
 ```
 

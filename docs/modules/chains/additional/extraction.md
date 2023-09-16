@@ -1,8 +1,8 @@
-# Extraction
+# 抽取
 
-The extraction chain uses the OpenAI `functions` parameter to specify a schema to extract entities from a document. This helps us make sure that the model outputs exactly the schema of entities and properties that we want, with their appropriate types.
+抽取链使用OpenAI的"functions"参数来指定从文档中抽取实体的模式。这样可以确保模型输出我们想要的实体和属性模式，并具有适当的类型。
 
-The extraction chain is to be used when we want to extract several entities with their properties from the same passage (i.e. what people were mentioned in this passage?)
+当我们希望从同一段落中抽取多个实体及其属性时（例如：在这段文字中提到了哪些人？），可以使用抽取链。
 
 
 ```python
@@ -11,7 +11,7 @@ from langchain.chains import create_extraction_chain, create_extraction_chain_py
 from langchain.prompts import ChatPromptTemplate
 ```
 
-    /Users/harrisonchase/.pyenv/versions/3.9.1/envs/langchain/lib/python3.9/site-packages/deeplake/util/check_latest_version.py:32: UserWarning: A newer version of deeplake (3.6.4) is available. It's recommended that you update to the latest version using `pip install -U deeplake`.
+    /Users/harrisonchase/.pyenv/versions/3.9.1/envs/langchain/lib/python3.9/site-packages/deeplake/util/check_latest_version.py:32: UserWarning: deeplake有一个更新版本(3.6.4)可用。建议使用`pip install -U deeplake`来更新到最新版本。
       warnings.warn(
     
 
@@ -20,9 +20,9 @@ from langchain.prompts import ChatPromptTemplate
 llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613")
 ```
 
-## Extracting entities
+## 抽取实体
 
-To extract entities, we need to create a schema like the following, were we specify all the properties we want to find and the type we expect them to have. We can also specify which of these properties are required and which are optional.
+要抽取实体，我们需要创建一个如下所示的模式，其中指定了我们要查找的所有属性及其期望的类型。我们还可以指定这些属性中哪些是必需的，哪些是可选的。
 
 
 ```python
@@ -51,7 +51,7 @@ Alex's dog Frosty is a labrador and likes to play hide and seek.
 chain = create_extraction_chain(schema, llm)
 ```
 
-As we can see, we extracted the required entities and their properties in the required format:
+如我们所见，我们以所需的格式提取了必需的实体及其属性:
 
 
 ```python
@@ -72,13 +72,13 @@ chain.run(inp)
 
 
 
-## Pydantic example
+## Pydantic示例
 
-We can also use a Pydantic schema to choose the required properties and types and we will set as 'Optional' those that are not strictly required.
+我们还可以使用Pydantic模式选择所需的属性和类型，并将那些不是严格要求的属性设置为“可选”。
 
-By using the `create_extraction_chain_pydantic` function, we can send a Pydantic schema as input and the output will be an instantiated object that respects our desired schema. 
+通过使用`create_extraction_chain_pydantic`函数，我们可以将Pydantic模式作为输入发送，并且输出将是一个符合我们所需模式的实例化对象。
 
-In this way, we can specify our schema in the same manner that we would a new class or function in Python - with purely Pythonic types.
+这样，我们可以以与在Python中创建新类或函数相同的方式指定模式-纯粹使用Python类型。
 
 
 ```python
@@ -109,7 +109,7 @@ Alex's dog Frosty is a labrador and likes to play hide and seek.
         """
 ```
 
-As we can see, we extracted the required entities and their properties in the required format:
+如我们所见，我们以所需的格式提取了必需的实体及其属性:
 
 
 ```python

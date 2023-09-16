@@ -1,10 +1,10 @@
-# LLM Math
+# LLM数学
 
-Evaluating chains that know how to do math.
+评估会做数学的链。
 
 
 ```python
-# Comment this out if you are NOT using tracing
+# 如果您没有使用跟踪，请注释掉此行
 import os
 
 os.environ["LANGCHAIN_HANDLER"] = "langchain"
@@ -18,37 +18,37 @@ dataset = load_dataset("llm-math")
 ```
 
 
-    Downloading readme:   0%|          | 0.00/21.0 [00:00<?, ?B/s]
+    正在下载readme:   0%|          | 0.00/21.0 [00:00<?, ?B/s]
 
 
-    Downloading and preparing dataset json/LangChainDatasets--llm-math to /Users/harrisonchase/.cache/huggingface/datasets/LangChainDatasets___json/LangChainDatasets--llm-math-509b11d101165afa/0.0.0/0f7e3662623656454fcd2b650f34e886a7db4b9104504885bd462096cc7a9f51...
+    正在下载并准备数据集 json/LangChainDatasets--llm-math 到 /Users/harrisonchase/.cache/huggingface/datasets/LangChainDatasets___json/LangChainDatasets--llm-math-509b11d101165afa/0.0.0/0f7e3662623656454fcd2b650f34e886a7db4b9104504885bd462096cc7a9f51...
     
 
 
-    Downloading data files:   0%|          | 0/1 [00:00<?, ?it/s]
+    正在下载数据文件:   0%|          | 0/1 [00:00<?, ?it/s]
 
 
 
-    Downloading data:   0%|          | 0.00/631 [00:00<?, ?B/s]
+    正在下载数据:   0%|          | 0.00/631 [00:00<?, ?B/s]
 
 
 
-    Extracting data files:   0%|          | 0/1 [00:00<?, ?it/s]
+    正在提取数据文件:   0%|          | 0/1 [00:00<?, ?it/s]
 
 
 
-    Generating train split: 0 examples [00:00, ? examples/s]
+    正在生成训练集: 0 个样本 [00:00, ? 个样本/s]
 
 
-    Dataset json downloaded and prepared to /Users/harrisonchase/.cache/huggingface/datasets/LangChainDatasets___json/LangChainDatasets--llm-math-509b11d101165afa/0.0.0/0f7e3662623656454fcd2b650f34e886a7db4b9104504885bd462096cc7a9f51. Subsequent calls will reuse this data.
+    数据集 json 下载并准备完成，保存在 /Users/harrisonchase/.cache/huggingface/datasets/LangChainDatasets___json/LangChainDatasets--llm-math-509b11d101165afa/0.0.0/0f7e3662623656454fcd2b650f34e886a7db4b9104504885bd462096cc7a9f51。以后的调用将重用这些数据。
     
 
 
       0%|          | 0/1 [00:00<?, ?it/s]
 
 
-## Setting up a chain
-Now we need to create some pipelines for doing math.
+## 设置链
+现在我们需要创建一些用于做数学运算的管道。
 
 
 ```python
@@ -113,22 +113,22 @@ for i, example in enumerate(dataset):
     input:    2 ^3.171 
     expected output : 9.006708689094099
     prediction:  9.006708689094099
-    input:  two to the power of three point one hundred seventy one
+    input:  2的3.171次方
     expected output : 9.006708689094099
     prediction:  9.006708689094099
-    input:  five + three squared minus 1
+    input:  五加三的平方减一
     expected output : 13.0
     prediction:  13.0
-    input:  2097 times 27.31
+    input:  2097乘以27.31
     expected output : 57269.07
     prediction:  57269.07
-    input:  two thousand ninety seven times twenty seven point thirty one
+    input:  两千零九十七乘以二十七点三一
     expected output : 57269.07
     prediction:  57269.07
-    input:  209758 / 2714
+    input:  209758除以2714
     expected output : 77.28739867354459
     prediction:  77.28739867354459
-    input:  209758.857 divided by 2714.31
+    input:  209758.857除以2714.31
     expected output : 77.27888745205964
     prediction:  77.27888745205964
     

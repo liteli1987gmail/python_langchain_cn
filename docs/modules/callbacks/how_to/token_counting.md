@@ -1,6 +1,5 @@
 # Token counting
-LangChain offers a context manager that allows you to count tokens.
-
+LangChain提供了一个上下文管理器，允许您计算标记数量。
 
 ```python
 import asyncio

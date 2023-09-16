@@ -1,15 +1,12 @@
 # Router
 
-This notebook demonstrates how to use the `RouterChain` paradigm to create a chain that dynamically selects the next chain to use for a given input. 
+本笔记本演示了如何使用 `RouterChain` 范例来创建一个根据给定输入动态选择下一个链条的链条。 
 
-Router chains are made up of two components:
+路由器链条由两个组件组成:
+- RouterChain (负责选择下一个要调用的链条)
+- destination_chains: 路由器链条可以路由到的链条
 
-- The RouterChain itself (responsible for selecting the next chain to call)
-- destination_chains: chains that the router chain can route to
-
-
-In this notebook we will focus on the different types of routing chains. We will show these routing chains used in a `MultiPromptChain` to create a question-answering chain that selects the prompt which is most relevant for a given question, and then answers the question using that prompt.
-
+在本笔记本中，我们将重点讨论不同类型的路由链条。我们将展示这些路由链条在 `MultiPromptChain` 中的使用方式，以创建一个问答链条，该链条根据给定的问题选择最相关的提示，并使用该提示回答问题。
 
 ```python
 from langchain.chains.router import MultiPromptChain
@@ -19,24 +16,21 @@ from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
 ```
 
-
 ```python
-physics_template = """You are a very smart physics professor. \
-You are great at answering questions about physics in a concise and easy to understand manner. \
+physics_template = """You are a very smart physics professor. 
+You are great at answering questions about physics in a concise and easy to understand manner. 
 When you don't know the answer to a question you admit that you don't know.
 
 Here is a question:
 {input}"""
 
-
-math_template = """You are a very good mathematician. You are great at answering math questions. \
-You are so good because you are able to break down hard problems into their component parts, \
+math_template = """You are a very good mathematician. You are great at answering math questions. 
+You are so good because you are able to break down hard problems into their component parts, 
 answer the component parts, and then put them together to answer the broader question.
 
 Here is a question:
 {input}"""
 ```
-
 
 ```python
 prompt_infos = [
@@ -53,11 +47,9 @@ prompt_infos = [
 ]
 ```
 
-
 ```python
 llm = OpenAI()
 ```
-
 
 ```python
 destination_chains = {}
@@ -72,14 +64,12 @@ default_chain = ConversationChain(llm=llm, output_key="text")
 
 ## LLMRouterChain
 
-This chain uses an LLM to determine how to route things.
-
+此链条使用LLM来确定如何路由事物。
 
 ```python
 from langchain.chains.router.llm_router import LLMRouterChain, RouterOutputParser
 from langchain.chains.router.multi_prompt_prompt import MULTI_PROMPT_ROUTER_TEMPLATE
 ```
-
 
 ```python
 destinations = [f"{p['name']}: {p['description']}" for p in prompt_infos]
@@ -93,7 +83,6 @@ router_prompt = PromptTemplate(
 router_chain = LLMRouterChain.from_llm(llm, router_prompt)
 ```
 
-
 ```python
 chain = MultiPromptChain(
     router_chain=router_chain,
@@ -102,7 +91,6 @@ chain = MultiPromptChain(
     verbose=True,
 )
 ```
-
 
 ```python
 print(chain.run("What is black body radiation?"))
@@ -135,25 +123,19 @@ print(
     ?
     
     The answer is 43. One plus 43 is 44 which is divisible by 3.
-    
-
 
 ```python
 print(chain.run("What is the name of the type of cloud that rins"))
 ```
 
-    
-    
     [1m> Entering new MultiPromptChain chain...[0m
     None: {'input': 'What is the name of the type of cloud that rains?'}
     [1m> Finished chain.[0m
      The type of cloud that rains is called a cumulonimbus cloud. It is a tall and dense cloud that is often accompanied by thunder and lightning.
-    
 
 ## EmbeddingRouterChain
 
-The EmbeddingRouterChain uses embeddings and similarity to route between destination chains.
-
+EmbeddingRouterChain 使用嵌入和相似性在目标链条之间进行路由。
 
 ```python
 from langchain.chains.router.embedding_router import EmbeddingRouterChain
@@ -161,14 +143,12 @@ from langchain.embeddings import CohereEmbeddings
 from langchain.vectorstores import Chroma
 ```
 
-
 ```python
 names_and_descriptions = [
     ("physics", ["for questions about physics"]),
     ("math", ["for questions about math"]),
 ]
 ```
-
 
 ```python
 router_chain = EmbeddingRouterChain.from_names_and_descriptions(
@@ -179,7 +159,6 @@ router_chain = EmbeddingRouterChain.from_names_and_descriptions(
     Using embedded DuckDB without persistence: data will be transient
     
 
-
 ```python
 chain = MultiPromptChain(
     router_chain=router_chain,
@@ -189,21 +168,15 @@ chain = MultiPromptChain(
 )
 ```
 
-
 ```python
 print(chain.run("What is black body radiation?"))
 ```
 
-    
-    
     [1m> Entering new MultiPromptChain chain...[0m
     physics: {'input': 'What is black body radiation?'}
     [1m> Finished chain.[0m
-    
-    
-    Black body radiation is the emission of energy from an idealized physical body (known as a black body) that is in thermal equilibrium with its environment. It is emitted in a characteristic pattern of frequencies known as a black-body spectrum, which depends only on the temperature of the body. The study of black body radiation is an important part of astrophysics and atmospheric physics, as the thermal radiation emitted by stars and planets can often be approximated as black body radiation.
-    
 
+    Black body radiation is the emission of energy from an idealized physical body (known as a black body) that is in thermal equilibrium with its environment. It is emitted in a characteristic pattern of frequencies known as a black-body spectrum, which depends only on the temperature of the body. The study of black body radiation is an important part of astrophysics and atmospheric physics, as the thermal radiation emitted by stars and planets can often be approximated as black body radiation.
 
 ```python
 print(
@@ -221,7 +194,7 @@ print(
     ?
     
     Answer: The first prime number greater than 40 such that one plus the prime number is divisible by 3 is 43.
-    
+
 
 
 ```python

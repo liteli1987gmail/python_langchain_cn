@@ -92,7 +92,7 @@ show_output(output)
 
 
     
-![png](multi_modal_output_agent_files/multi_modal_output_agent_10_1.png)
+<!-- ![png](multi_modal_output_agent_files/multi_modal_output_agent_10_1.png) -->
     
 
 
@@ -139,7 +139,7 @@ show_output(output)
 
 
     
-![png](multi_modal_output_agent_files/multi_modal_output_agent_15_1.png)
+<!-- ![png](multi_modal_output_agent_files/multi_modal_output_agent_15_1.png) -->
     
 
 

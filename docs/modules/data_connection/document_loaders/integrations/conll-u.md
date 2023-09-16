@@ -1,27 +1,24 @@
 # CoNLL-U
 
->[CoNLL-U](https://universaldependencies.org/format.html) is revised version of the CoNLL-X format. Annotations are encoded in plain text files (UTF-8, normalized to NFC, using only the LF character as line break, including an LF character at the end of file) with three types of lines:
->- Word lines containing the annotation of a word/token in 10 fields separated by single tab characters; see below.
->- Blank lines marking sentence boundaries.
->- Comment lines starting with hash (#).
+>[CoNLL-U](https://universaldependencies.org/format.html) 是 CoNLL-X 格式的修订版本。注释以纯文本文件的形式进行编码（UTF-8 编码，规范化为 NFC 格式，仅使用 LF 字符作为换行符，并在文件末尾包含一个 LF 字符），包含三种类型的行：
 
-This is an example of how to load a file in [CoNLL-U](https://universaldependencies.org/format.html) format. The whole file is treated as one document. The example data (`conllu.conllu`) is based on one of the standard UD/CoNLL-U examples.
+- 单词行，包含用单个制表符分隔的 10 个字段的单词/标记的注释；请参阅下文。
+- 空行，标记句子边界。
+- 以井号（#）开头的注释行。
 
+这是如何加载 [CoNLL-U](https://universaldependencies.org/format.html) 格式文件的示例。整个文件被视为一个文档。示例数据（`conllu.conllu`）基于标准的 UD/CoNLL-U 示例之一。
 
 ```python
 from langchain.document_loaders import CoNLLULoader
 ```
 
-
 ```python
 loader = CoNLLULoader("example_data/conllu.conllu")
 ```
 
-
 ```python
 document = loader.load()
 ```
-
 
 ```python
 document
@@ -29,7 +26,4 @@ document
 
 
 
-
-    [Document(page_content='They buy and sell books.', metadata={'source': 'example_data/conllu.conllu'})]
-
-
+[Document(page_content='They buy and sell books.', metadata={'source': 'example_data/conllu.conllu'})]

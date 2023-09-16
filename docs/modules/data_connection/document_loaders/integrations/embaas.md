@@ -1,28 +1,25 @@
 # Embaas
-[embaas](https://embaas.io) is a fully managed NLP API service that offers features like embedding generation, document text extraction, document to embeddings and more. You can choose a [variety of pre-trained models](https://embaas.io/docs/models/embeddings).
+[embaas](https://embaas.io)是一个全面管理的NLP API服务，提供嵌入生成、文档文本提取、文档到嵌入等功能。您可以选择[各种预训练模型](https://embaas.io/docs/models/embeddings)。
 
-### Prerequisites
-Create a free embaas account at [https://embaas.io/register](https://embaas.io/register) and generate an [API key](https://embaas.io/dashboard/api-keys)
+### 先决条件
+在[https://embaas.io/register](https://embaas.io/register)上创建一个免费的embaas帐户并生成一个[API密钥](https://embaas.io/dashboard/api-keys)。
 
-### Document Text Extraction API
-The document text extraction API allows you to extract the text from a given document. The API supports a variety of document formats, including PDF, mp3, mp4 and more. For a full list of supported formats, check out the API docs (link below).
-
+### 文档文本提取API
+文档文本提取API允许您从给定的文档中提取文本。该API支持各种文档格式，包括PDF、mp3、mp4等。有关支持的格式的完整列表，请查看API文档（下方链接）。
 
 ```python
-# Set API key
+# 设置API密钥
 embaas_api_key = "YOUR_API_KEY"
-# or set environment variable
+# 或者设置环境变量
 os.environ["EMBAAS_API_KEY"] = "YOUR_API_KEY"
 ```
 
-#### Using a blob (bytes)
-
+#### 使用blob（字节）
 
 ```python
 from langchain.document_loaders.embaas import EmbaasBlobLoader
 from langchain.document_loaders.blob_loaders import Blob
 ```
-
 
 ```python
 blob_loader = EmbaasBlobLoader()
@@ -30,9 +27,8 @@ blob = Blob.from_path("example.pdf")
 documents = blob_loader.load(blob)
 ```
 
-
 ```python
-# You can also directly create embeddings with your preferred embeddings model
+# 您还可以使用您喜欢的嵌入模型直接创建嵌入
 blob_loader = EmbaasBlobLoader(params={"model": "e5-large-v2", "should_embed": True})
 blob = Blob.from_path("example.pdf")
 documents = blob_loader.load(blob)
@@ -40,24 +36,21 @@ documents = blob_loader.load(blob)
 print(documents[0]["metadata"]["embedding"])
 ```
 
-#### Using a file
-
+#### 使用文件
 
 ```python
 from langchain.document_loaders.embaas import EmbaasLoader
 ```
-
 
 ```python
 file_loader = EmbaasLoader(file_path="example.pdf")
 documents = file_loader.load()
 ```
 
-
 ```python
-# Disable automatic text splitting
+# 禁用自动文本拆分
 file_loader = EmbaasLoader(file_path="example.mp3", params={"should_chunk": False})
 documents = file_loader.load()
 ```
 
-For more detailed information about the embaas document text extraction API, please refer to [the official embaas API documentation](https://embaas.io/api-reference).
+有关embaas文档文本提取API的更详细信息，请参阅[官方embaas API文档](https://embaas.io/api-reference)。

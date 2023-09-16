@@ -1,61 +1,55 @@
 # Ray Serve
 
-[Ray Serve](https://docs.ray.io/en/latest/serve/index.html) is a scalable model serving library for building online inference APIs. Serve is particularly well suited for system composition, enabling you to build a complex inference service consisting of multiple chains and business logic all in Python code. 
+[Ray Serve](https://docs.ray.io/en/latest/serve/index.html)是一个可扩展的模型服务库，用于构建在线推断API。Serve特别适用于系统组合，使您能够在Python代码中构建由多个链和业务逻辑组成的复杂推断服务。
 
-## Goal of this notebook
-This notebook shows a simple example of how to deploy an OpenAI chain into production. You can extend it to deploy your own self-hosted models where you can easily define amount of hardware resources (GPUs and CPUs) needed to run your model in production efficiently. Read more about available options including autoscaling in the Ray Serve [documentation](https://docs.ray.io/en/latest/serve/getting_started.html).
+## 本笔记本的目标
 
+本笔记本展示了如何将OpenAI链部署到生产环境的简单示例。您可以扩展它，以部署自己的自托管模型，您可以轻松定义在生产环境中运行模型所需的硬件资源（GPU和CPU）数量。了解更多可用选项，包括Ray Serve [文档](https://docs.ray.io/en/latest/serve/getting_started.html)中的自动缩放。
 
-## Setup Ray Serve
-Install ray with `pip install ray[serve]`. 
+## 设置Ray Serve
 
-## General Skeleton
+使用`pip install ray[serve]`安装ray。
 
-The general skeleton for deploying a service is the following:
+## 通用框架
 
+部署服务的通用框架如下：
 
 ```python
-# 0: Import ray serve and request from starlette
+# 0: 导入ray serve和starlette的请求
 from ray import serve
 from starlette.requests import Request
 
-
-# 1: Define a Ray Serve deployment.
+# 1: 定义一个Ray Serve部署
 @serve.deployment
 class LLMServe:
     def __init__(self) -> None:
-        # All the initialization code goes here
+        # 所有的初始化代码都在这里
         pass
-
     async def __call__(self, request: Request) -> str:
-        # You can parse the request here
-        # and return a response
+        # 您可以在这里解析请求
+        # 并返回响应
         return "Hello World"
 
-
-# 2: Bind the model to deployment
+# 2: 将模型绑定到部署
 deployment = LLMServe.bind()
 
-# 3: Run the deployment
+# 3: 运行部署
 serve.api.run(deployment)
 ```
 
-
 ```python
-# Shutdown the deployment
+# 关闭部署
 serve.api.shutdown()
 ```
 
-## Example of deploying and OpenAI chain with custom prompts
+## 使用自定义提示部署和OpenAI链的示例
 
-Get an OpenAI API key from [here](https://platform.openai.com/account/api-keys). By running the following code, you will be asked to provide your API key.
-
+从[此处](https://platform.openai.com/account/api-keys)获取OpenAI API密钥。通过运行以下代码，您将被要求提供API密钥。
 
 ```python
 from langchain.llms import OpenAI
 from langchain import PromptTemplate, LLMChain
 ```
-
 
 ```python
 from getpass import getpass
@@ -63,12 +57,11 @@ from getpass import getpass
 OPENAI_API_KEY = getpass()
 ```
 
-
 ```python
 @serve.deployment
 class DeployLLM:
     def __init__(self):
-        # We initialize the LLM, template and the chain here
+        # 在这里初始化LLM、模板和链
         llm = OpenAI(openai_api_key=OPENAI_API_KEY)
         template = "Question: {question}\n\nAnswer: Let's think step by step."
         prompt = PromptTemplate(template=template, input_variables=["question"])
@@ -78,34 +71,31 @@ class DeployLLM:
         return self.chain(text)
 
     async def __call__(self, request: Request):
-        # 1. Parse the request
+        # 1. 解析请求
         text = request.query_params["text"]
-        # 2. Run the chain
+        # 2. 运行链
         resp = self._run_chain(text)
-        # 3. Return the response
+        # 3. 返回响应
         return resp["text"]
 ```
 
-Now we can bind the deployment.
-
+现在我们可以绑定部署。
 
 ```python
-# Bind the model to deployment
+# 将模型绑定到部署
 deployment = DeployLLM.bind()
 ```
 
-We can assign the port number and host when we want to run the deployment. 
-
+当我们要运行部署时，可以分配端口号和主机。
 
 ```python
-# Example port number
+# 示例端口号
 PORT_NUMBER = 8282
-# Run the deployment
+# 运行部署
 serve.api.run(deployment, port=PORT_NUMBER)
 ```
 
-Now that service is deployed on port `localhost:8282` we can send a post request to get the results back.
-
+现在服务部署在`localhost:8282`端口上，我们可以发送一个POST请求来获取结果。
 
 ```python
 import requests

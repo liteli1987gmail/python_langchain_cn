@@ -68,7 +68,7 @@ Image.open(requests.get(list_image_urls[0], stream=True).raw).convert("RGB")
 
 
     
-![png](image_captions_files/image_captions_7_0.png)
+<!-- ![png](image_captions_files/image_captions_7_0.png) -->
     
 
 

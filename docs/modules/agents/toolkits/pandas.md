@@ -1,16 +1,14 @@
 # Pandas Dataframe Agent
 
-This notebook shows how to use agents to interact with a pandas dataframe. It is mostly optimized for question answering.
+这个笔记本展示了如何使用代理与pandas dataframe交互。它主要针对问题回答进行了优化。
 
-**NOTE: this agent calls the Python agent under the hood, which executes LLM generated Python code - this can be bad if the LLM generated Python code is harmful. Use cautiously.**
-
+**注意**: 这个代理在底层调用了Python代理，执行LLM生成的Python代码 - 如果LLM生成的Python代码有害，这可能是不好的。请谨慎使用。
 
 ```python
 from langchain.agents import create_pandas_dataframe_agent
 from langchain.chat_models import ChatOpenAI
 from langchain.agents.agent_types import AgentType
 ```
-
 
 ```python
 from langchain.llms import OpenAI
@@ -19,19 +17,17 @@ import pandas as pd
 df = pd.read_csv("titanic.csv")
 ```
 
-## Using ZERO_SHOT_REACT_DESCRIPTION
+## 使用 ZERO_SHOT_REACT_DESCRIPTION
 
-This shows how to initialize the agent using the ZERO_SHOT_REACT_DESCRIPTION agent type. Note that this is an alternative to the above.
-
+这展示了如何使用 ZERO_SHOT_REACT_DESCRIPTION 代理类型进行初始化。请注意，这是上述方法的另一种选择。
 
 ```python
 agent = create_pandas_dataframe_agent(OpenAI(temperature=0), df, verbose=True)
 ```
 
-## Using OpenAI Functions
+## 使用 OpenAI 函数
 
-This shows how to initialize the agent using the OPENAI_FUNCTIONS agent type. Note that this is an alternative to the above.
-
+这展示了如何使用 OPENAI_FUNCTIONS 代理类型进行初始化。请注意，这是上述方法的另一种选择。
 
 ```python
 agent = create_pandas_dataframe_agent(
@@ -42,129 +38,86 @@ agent = create_pandas_dataframe_agent(
 )
 ```
 
-
 ```python
-agent.run("how many rows are there?")
+agent.run("有多少行？")
 ```
 
-    
-    
-    [1m> Entering new  chain...[0m
-    [32;1m[1;3m
-    Invoking: `python_repl_ast` with `df.shape[0]`
-    
-    
-    [0m[36;1m[1;3m891[0m[32;1m[1;3mThere are 891 rows in the dataframe.[0m
-    
-    [1m> Finished chain.[0m
-    
+```
+> 进入新的链...
+> 调用: `python_repl_ast` with `df.shape[0]`
+891
+> 链结束。
 
-
-
-
-    'There are 891 rows in the dataframe.'
-
-
-
+'There are 891 rows in the dataframe.'
 
 ```python
-agent.run("how many people have more than 3 siblings")
+agent.run("有多少人有超过3个兄弟姐妹？")
 ```
 
-    
-    
-    [1m> Entering new AgentExecutor chain...[0m
-    [32;1m[1;3mThought: I need to count the number of people with more than 3 siblings
-    Action: python_repl_ast
-    Action Input: df[df['SibSp'] > 3].shape[0][0m
-    Observation: [36;1m[1;3m30[0m
-    Thought:[32;1m[1;3m I now know the final answer
-    Final Answer: 30 people have more than 3 siblings.[0m
-    
-    [1m> Finished chain.[0m
-    
+```
+> 进入新的 AgentExecutor 链...
+Thought: 我需要计算有超过3个兄弟姐妹的人的数量
+Action: python_repl_ast
+Action Input: df[df['SibSp'] > 3].shape[0]
+Observation: 30
+Thought: 我现在知道最终答案
+Final Answer: 有30个人有超过3个兄弟姐妹。
+> 链结束。
 
-
-
-
-    '30 people have more than 3 siblings.'
-
-
-
+'30 people have more than 3 siblings.'
 
 ```python
-agent.run("whats the square root of the average age?")
+agent.run("平均年龄的平方根是多少？")
 ```
 
-    
-    
-    [1m> Entering new AgentExecutor chain...[0m
-    [32;1m[1;3mThought: I need to calculate the average age first
-    Action: python_repl_ast
-    Action Input: df['Age'].mean()[0m
-    Observation: [36;1m[1;3m29.69911764705882[0m
-    Thought:[32;1m[1;3m I now need to calculate the square root of the average age
-    Action: python_repl_ast
-    Action Input: math.sqrt(df['Age'].mean())[0m
-    Observation: [36;1m[1;3mNameError("name 'math' is not defined")[0m
-    Thought:[32;1m[1;3m I need to import the math library
-    Action: python_repl_ast
-    Action Input: import math[0m
-    Observation: [36;1m[1;3m[0m
-    Thought:[32;1m[1;3m I now need to calculate the square root of the average age
-    Action: python_repl_ast
-    Action Input: math.sqrt(df['Age'].mean())[0m
-    Observation: [36;1m[1;3m5.449689683556195[0m
-    Thought:[32;1m[1;3m I now know the final answer
-    Final Answer: The square root of the average age is 5.449689683556195.[0m
-    
-    [1m> Finished chain.[0m
-    
+> 进入新的 AgentExecutor 链...
+Thought: 首先我需要计算平均年龄
+Action: python_repl_ast
+Action Input: df['Age'].mean()
+Observation: 29.69911764705882
+Thought: 现在我需要计算平均年龄的平方根
+Action: python_repl_ast
+Action Input: math.sqrt(df['Age'].mean())
+Observation: NameError("name 'math' is not defined")
+Thought: 我需要导入math库
+Action: python_repl_ast
+Action Input: import math
+Observation: 
+Thought: 现在我需要计算平均年龄的平方根
+Action: python_repl_ast
+Action Input: math.sqrt(df['Age'].mean())
+Observation: 5.449689683556195
+Thought: 现在我知道最终答案
+Final Answer: 平均年龄的平方根是5.449689683556195。
+> 链结束。
 
+'The square root of the average age is 5.449689683556195.'
 
+### 多个DataFrame的示例
 
-
-    'The square root of the average age is 5.449689683556195.'
-
-
-
-### Multi DataFrame Example
-
-This next part shows how the agent can interact with multiple dataframes passed in as a list.
-
+下面的示例展示了代理如何与作为列表传递的多个数据帧进行交互。
 
 ```python
 df1 = df.copy()
 df1["Age"] = df1["Age"].fillna(df1["Age"].mean())
 ```
 
-
 ```python
 agent = create_pandas_dataframe_agent(OpenAI(temperature=0), [df, df1], verbose=True)
-agent.run("how many rows in the age column are different?")
+agent.run("年龄列有多少行不同？")
 ```
 
-    
-    
-    [1m> Entering new AgentExecutor chain...[0m
-    [32;1m[1;3mThought: I need to compare the age columns in both dataframes
-    Action: python_repl_ast
-    Action Input: len(df1[df1['Age'] != df2['Age']])[0m
-    Observation: [36;1m[1;3m177[0m
-    Thought:[32;1m[1;3m I now know the final answer
-    Final Answer: 177 rows in the age column are different.[0m
-    
-    [1m> Finished chain.[0m
-    
 
+> 进入新的 AgentExecutor 链...
+Thought: 我需要比较两个数据帧中的年龄列
+Action: python_repl_ast
+Action Input: len(df1[df1['Age'] != df2['Age']])
+Observation: 177
+Thought: 我现在知道最终答案
+Final Answer: 年龄列有177行不同。
+> 链结束。
 
-
-
-    '177 rows in the age column are different.'
-
-
-
-
+'177 rows in the age column are different.'
 ```python
 
 ```

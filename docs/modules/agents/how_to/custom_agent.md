@@ -1,21 +1,18 @@
-# Custom agent
+# 自定义代理
 
-This notebook goes through how to create your own custom agent.
+这个笔记本介绍了如何创建自己的自定义代理。
 
-An agent consists of two parts:
-    
-    - Tools: The tools the agent has available to use.
-    - The agent class itself: this decides which action to take.
-        
-        
-In this notebook we walk through how to create a custom agent.
+代理由两部分组成：
 
+- 工具：代理可用的工具。
+- 代理类本身：决定采取什么行动。
+
+在这个笔记本中，我们将介绍如何创建自定义代理。
 
 ```python
 from langchain.agents import Tool, AgentExecutor, BaseSingleActionAgent
 from langchain import OpenAI, SerpAPIWrapper
 ```
-
 
 ```python
 search = SerpAPIWrapper()
@@ -23,20 +20,18 @@ tools = [
     Tool(
         name="Search",
         func=search.run,
-        description="useful for when you need to answer questions about current events",
+        description="有助于回答有关当前事件的问题",
         return_direct=True,
     )
 ]
 ```
 
-
 ```python
 from typing import List, Tuple, Any, Union
 from langchain.schema import AgentAction, AgentFinish
 
-
 class FakeAgent(BaseSingleActionAgent):
-    """Fake Custom Agent."""
+    """虚拟自定义代理。"""
 
     @property
     def input_keys(self):
@@ -45,39 +40,34 @@ class FakeAgent(BaseSingleActionAgent):
     def plan(
         self, intermediate_steps: List[Tuple[AgentAction, str]], **kwargs: Any
     ) -> Union[AgentAction, AgentFinish]:
-        """Given input, decided what to do.
+        """根据输入决定要做什么。
 
         Args:
-            intermediate_steps: Steps the LLM has taken to date,
-                along with observations
-            **kwargs: User inputs.
+            intermediate_steps: LLM到目前为止采取的步骤以及观察结果
+            **kwargs: 用户输入
 
         Returns:
-            Action specifying what tool to use.
+            指定要使用的工具的行动。
         """
         return AgentAction(tool="Search", tool_input=kwargs["input"], log="")
 
     async def aplan(
         self, intermediate_steps: List[Tuple[AgentAction, str]], **kwargs: Any
     ) -> Union[AgentAction, AgentFinish]:
-        """Given input, decided what to do.
+        """根据输入决定要做什么。
 
         Args:
-            intermediate_steps: Steps the LLM has taken to date,
-                along with observations
-            **kwargs: User inputs.
+            intermediate_steps: LLM到目前为止采取的步骤以及观察结果
+            **kwargs: 用户输入
 
         Returns:
-            Action specifying what tool to use.
+            指定要使用的工具的行动。
         """
         return AgentAction(tool="Search", tool_input=kwargs["input"], log="")
-```
 
 
-```python
 agent = FakeAgent()
 ```
-
 
 ```python
 agent_executor = AgentExecutor.from_agent_and_tools(
@@ -85,9 +75,8 @@ agent_executor = AgentExecutor.from_agent_and_tools(
 )
 ```
 
-
 ```python
-agent_executor.run("How many people live in canada as of 2023?")
+agent_executor.run("2023年加拿大有多少人口？")
 ```
 
     

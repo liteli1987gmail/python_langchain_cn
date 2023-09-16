@@ -1,9 +1,9 @@
 # SceneXplain
 
 
-[SceneXplain](https://scenex.jina.ai/) is an ImageCaptioning service accessible through the SceneXplain Tool.
+[SceneXplain](https://scenex.jina.ai/) 是通过 SceneXplain 工具访问的 ImageCaptioning 服务。
 
-To use this tool, you'll need to make an account and fetch your API Token [from the website](https://scenex.jina.ai/api). Then you can instantiate the tool.
+要使用此工具，您需要创建一个帐户并获取 API 令牌 [from the website](https://scenex.jina.ai/api)。然后您可以实例化该工具。
 
 
 ```python
@@ -19,7 +19,7 @@ from langchain.agents import load_tools
 tools = load_tools(["sceneXplain"])
 ```
 
-Or directly instantiate the tool.
+或者直接实例化该工具。
 
 
 ```python
@@ -29,9 +29,9 @@ from langchain.tools import SceneXplainTool
 tool = SceneXplainTool()
 ```
 
-## Usage in an Agent
+## 在 Agent 中使用
 
-The tool can be used in any LangChain agent as follows:
+该工具可以在任何 LangChain agent 中按以下方式使用:
 
 
 ```python
@@ -61,14 +61,14 @@ print(output)
     Thought: Do I need to use a tool? Yes
     Action: Image Explainer
     Action Input: https://storage.googleapis.com/causal-diffusion.appspot.com/imagePrompts%2F0rw369i5h9t%2Foriginal.png[0m
-    Observation: [36;1m[1;3mIn a charmingly whimsical scene, a young girl is seen braving the rain alongside her furry companion, the lovable Totoro. The two are depicted standing on a bustling street corner, where they are sheltered from the rain by a bright yellow umbrella. The girl, dressed in a cheerful yellow frock, holds onto the umbrella with both hands while gazing up at Totoro with an expression of wonder and delight.
+    Observation: [36;1m[1;3m在一个迷人而奇妙的场景中，一个小女孩与她可爱的龙猫一起勇敢地冒着雨。两个人站在繁忙的街角上，明亮的黄色雨伞为他们遮挡了雨水。女孩穿着一件充满欢乐的黄色连衣裙，用双手紧紧握住雨伞，满怀惊奇和喜悦地仰望着龙猫。
     
-    Totoro, meanwhile, stands tall and proud beside his young friend, holding his own umbrella aloft to protect them both from the downpour. His furry body is rendered in rich shades of grey and white, while his large ears and wide eyes lend him an endearing charm.
+    与此同时，龙猫骄傲地站在他年轻的朋友旁边，高举着自己的雨伞，保护他们免受倾盆大雨。他的毛茸茸的身体呈丰富的灰色和白色，他大大的耳朵和宽大的眼睛给他增添了一种可爱的魅力。
     
-    In the background of the scene, a street sign can be seen jutting out from the pavement amidst a flurry of raindrops. A sign with Chinese characters adorns its surface, adding to the sense of cultural diversity and intrigue. Despite the dreary weather, there is an undeniable sense of joy and camaraderie in this heartwarming image.[0m
+    在场景的背景中，我们可以看到一块标有中文字的街道牌匾，在雨滴的纷飞中突出。这增添了文化多样性和神秘感。尽管天气阴沉，但这张令人温暖的图片中充满了欢乐和友情。[0m
     Thought:[32;1m[1;3m Do I need to use a tool? No
-    AI: This image appears to be a still from the 1988 Japanese animated fantasy film My Neighbor Totoro. The film follows two young girls, Satsuki and Mei, as they explore the countryside and befriend the magical forest spirits, including the titular character Totoro.[0m
+    AI: 这张图片似乎是1988年的日本动画奇幻电影《龙猫》的场景。电影讲述了两个年轻的女孩，小月和小梅，在探索乡村并与包括龙猫在内的神奇森林精灵交朋友的故事。[0m
     
-    [1m> Finished chain.[0m
-    This image appears to be a still from the 1988 Japanese animated fantasy film My Neighbor Totoro. The film follows two young girls, Satsuki and Mei, as they explore the countryside and befriend the magical forest spirits, including the titular character Totoro.
+    [1m> 链结束。[0m
+    这张图片似乎是1988年的日本动画奇幻电影《龙猫》的场景。电影讲述了两个年轻的女孩，小月和小梅，在探索乡村并与包括龙猫在内的神奇森林精灵交朋友的故事。
     

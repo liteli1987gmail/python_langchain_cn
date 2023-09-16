@@ -1,66 +1,67 @@
-# Benchmarking Template
+# 基准模板
 
-This is an example notebook that can be used to create a benchmarking notebook for a task of your choice. Evaluation is really hard, and so we greatly welcome any contributions that can make it easier for people to experiment
+这是一个示例笔记本，可用于为您选择的任务创建基准笔记本。评估非常困难，因此我们非常欢迎任何可以使人们更容易进行实验的贡献
 
-It is highly reccomended that you do any evaluation/benchmarking with tracing enabled. See [here](https://langchain.readthedocs.io/en/latest/tracing.html) for an explanation of what tracing is and how to set it up.
+强烈建议您在启用跟踪的情况下进行任何评估/基准测试。有关跟踪是什么以及如何设置它的解释，请参见[这里](https://langchain.readthedocs.io/en/latest/tracing.html)
 
 
 ```python
-# Comment this out if you are NOT using tracing
+# 如果您不使用跟踪，请注释掉此行
 import os
 
 os.environ["LANGCHAIN_HANDLER"] = "langchain"
 ```
 
-## Loading the data
+## 加载数据
 
-First, let's load the data.
+首先，让我们加载数据。
 
 
 ```python
-# This notebook should so how to load the dataset from LangChainDatasets on Hugging Face
+# 此笔记本应该展示如何从Hugging Face的LangChainDatasets加载数据集
 
-# Please upload your dataset to https://huggingface.co/LangChainDatasets
+# 请将您的数据集上传到https://huggingface.co/LangChainDatasets
 
-# The value passed into `load_dataset` should NOT have the `LangChainDatasets/` prefix
+# `load_dataset` 中传递的值不应具有`LangChainDatasets/`前缀
 from langchain.evaluation.loading import load_dataset
 
 dataset = load_dataset("TODO")
 ```
 
-## Setting up a chain
+## 设置链
 
-This next section should have an example of setting up a chain that can be run on this dataset.
+接下来的部分应该有一个设置可以在该数据集上运行的链的示例。
 
 
 ```python
 
 ```
 
-## Make a prediction
+## 进行预测
 
-First, we can make predictions one datapoint at a time. Doing it at this level of granularity allows use to explore the outputs in detail, and also is a lot cheaper than running over multiple datapoints
-
-
-```python
-# Example of running the chain on a single datapoint (`dataset[0]`) goes here
-```
-
-## Make many predictions
-Now we can make predictions.
+首先，我们可以逐个数据点进行预测。以这种粒度进行预测允许我们详细探索输出，而且比运行多个数据点要便宜得多
 
 
 ```python
-# Example of running the chain on many predictions goes here
-
-# Sometimes its as simple as `chain.apply(dataset)`
-
-# Othertimes you may want to write a for loop to catch errors
+# 在这里放置在单个数据点上运行链的示例（`dataset[0]`）
 ```
 
-## Evaluate performance
+## 进行多次预测
 
-Any guide to evaluating performance in a more systematic manner goes here.
+现在我们可以进行预测。
+
+
+```python
+# 在这里放置在多个预测上运行链的示例
+
+# 有时只需简单地使用 `chain.apply(dataset)`
+
+# 其他情况下，您可能需要编写一个for循环来捕获错误
+```
+
+## 评估性能
+
+任何关于以更系统的方式评估性能的指南都在这里。
 
 
 ```python

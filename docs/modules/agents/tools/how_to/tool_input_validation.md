@@ -1,22 +1,18 @@
 # Tool Input Schema
 
-By default, tools infer the argument schema by inspecting the function signature. For more strict requirements, custom input schema can be specified, along with custom validation logic.
-
+默认情况下，工具会通过检查函数签名来推断参数模式。如果需要更严格的要求，可以指定自定义的输入模式，并附带自定义的验证逻辑。
 
 ```python
 from typing import Any, Dict
-
 from langchain.agents import AgentType, initialize_agent
 from langchain.llms import OpenAI
 from langchain.tools.requests.tool import RequestsGetTool, TextRequestsWrapper
 from pydantic import BaseModel, Field, root_validator
 ```
 
-
 ```python
 llm = OpenAI(temperature=0)
 ```
-
 
 ```python
 !pip install tldextract > /dev/null
@@ -36,7 +32,6 @@ _APPROVED_DOMAINS = {
     "wikipedia",
 }
 
-
 class ToolInputSchema(BaseModel):
     url: str = Field(...)
 
@@ -51,19 +46,16 @@ class ToolInputSchema(BaseModel):
             )
         return values
 
-
 tool = RequestsGetTool(
     args_schema=ToolInputSchema, requests_wrapper=TextRequestsWrapper()
 )
 ```
-
 
 ```python
 agent = initialize_agent(
     [tool], llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=False
 )
 ```
-
 
 ```python
 # This will succeed, since there aren't any arguments that will be triggered during validation
@@ -78,7 +70,6 @@ print(answer)
 ```python
 agent.run("What's the main title on google.com?")
 ```
-
 
     ---------------------------------------------------------------------------
 
@@ -129,7 +120,7 @@ agent.run("What's the main title on google.com?")
     File ~/code/lc/lckg/langchain/agents/agent.py:695, in AgentExecutor._take_next_step(self, name_to_tool_map, color_mapping, inputs, intermediate_steps)
         693         tool_run_kwargs["llm_prefix"] = ""
         694     # We then call the tool on the tool input to get an observation
-    --> 695     observation = tool.run(
+--> 695     observation = tool.run(
         696         agent_action.tool_input,
         697         verbose=self.verbose,
         698         color=color,
@@ -150,28 +141,6 @@ agent.run("What's the main title on google.com?")
     --> 110     run_input = self._parse_input(tool_input)
         111     if not self.verbose and verbose is not None:
         112         verbose_ = verbose
-    
-
-    File ~/code/lc/lckg/langchain/tools/base.py:71, in BaseTool._parse_input(self, tool_input)
-         69 if issubclass(input_args, BaseModel):
-         70     key_ = next(iter(input_args.__fields__.keys()))
-    ---> 71     input_args.parse_obj({key_: tool_input})
-         72 # Passing as a positional argument is more straightforward for
-         73 # backwards compatability
-         74 return tool_input
-    
-
-    File ~/code/lc/lckg/.venv/lib/python3.11/site-packages/pydantic/main.py:526, in pydantic.main.BaseModel.parse_obj()
-    
-
-    File ~/code/lc/lckg/.venv/lib/python3.11/site-packages/pydantic/main.py:341, in pydantic.main.BaseModel.__init__()
-    
-
-    ValidationError: 1 validation error for ToolInputSchema
-    __root__
-      Domain google is not on the approved list: ['langchain', 'wikipedia'] (type=value_error)
-
-
 
 ```python
 

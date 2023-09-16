@@ -1,10 +1,10 @@
 # Git
 
->[Git](https://en.wikipedia.org/wiki/Git) is a distributed version control system that tracks changes in any set of computer files, usually used for coordinating work among programmers collaboratively developing source code during software development.
+>[Git](https://en.wikipedia.org/wiki/Git) 是一种分布式版本控制系统，用于跟踪计算机文件集的更改，通常用于协调开发人员在软件开发过程中共同开发源代码。
 
-This notebook shows how to load text files from `Git` repository.
+这个笔记本演示了如何从 `Git` 仓库加载文本文件。
 
-## Load existing repository from disk
+## 从磁盘加载现有仓库
 
 
 ```python
@@ -33,7 +33,7 @@ loader = GitLoader(repo_path="./example_data/test_repo1/", branch=branch)
 
 
 ```python
-data = loader.load()
+ndata = loader.load()
 ```
 
 
@@ -46,10 +46,11 @@ len(data)
 print(data[0])
 ```
 
-    page_content='.venv\n.github\n.git\n.mypy_cache\n.pytest_cache\nDockerfile' metadata={'file_path': '.dockerignore', 'file_name': '.dockerignore', 'file_type': ''}
-    
 
-## Clone repository from url
+    page_content='.venv\n.github\n.git\n.mypy_cache\n.pytest_cache\nDockerfile' metadata={'file_path': '.dockerignore', 'file_name': '.dockerignore', 'file_type': ''}
+
+
+## 从 URL 克隆仓库
 
 
 ```python
@@ -67,7 +68,7 @@ loader = GitLoader(
 
 
 ```python
-data = loader.load()
+ndata = loader.load()
 ```
 
 
@@ -81,14 +82,13 @@ len(data)
     1074
 
 
-
-## Filtering files to load
+## 过滤要加载的文件
 
 
 ```python
 from langchain.document_loaders import GitLoader
 
-# eg. loading only python files
+# 例如，仅加载 Python 文件
 loader = GitLoader(
     repo_path="./example_data/test_repo1/",
     file_filter=lambda file_path: file_path.endswith(".py"),

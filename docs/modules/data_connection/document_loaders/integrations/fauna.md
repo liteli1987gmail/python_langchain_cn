@@ -1,23 +1,21 @@
 # Fauna
+>[Fauna](https://fauna.com/) 是一种文档数据库。
 
->[Fauna](https://fauna.com/) is a Document Database.
-
-Query `Fauna` documents
+查询 `Fauna` 文档
 
 
 ```python
 #!pip install fauna
 ```
 
-## Query data example
-
+## 查询数据示例
 
 ```python
 from langchain.document_loaders.fauna import FaunaLoader
 
 secret = "<enter-valid-fauna-secret>"
-query = "Item.all()"  # Fauna query. Assumes that the collection is called "Item"
-field = "text"  # The field that contains the page content. Assumes that the field is called "text"
+query = "Item.all()"  # Fauna 查询。假设集合名为 "Item"
+field = "text"  # 包含页面内容的字段。假设字段名为 "text"
 
 loader = FaunaLoader(query, field, secret)
 docs = loader.lazy_load()
@@ -26,10 +24,10 @@ for value in docs:
     print(value)
 ```
 
-### Query with Pagination
-You get a `after` value if there are more data. You can get values after the curcor by passing in the `after` string in query. 
+### 带分页的查询
+如果有更多数据，您将获得一个 `after` 值。您可以通过在查询中传入 `after` 字符串来获取光标之后的值。
 
-To learn more following [this link](https://fqlx-beta--fauna-docs.netlify.app/fqlx/beta/reference/schema_entities/set/static-paginate)
+要了解更多，请参阅 [此链接](https://fqlx-beta--fauna-docs.netlify.app/fqlx/beta/reference/schema_entities/set/static-paginate)
 
 
 ```python

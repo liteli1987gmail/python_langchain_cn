@@ -1,48 +1,40 @@
-# EPub 
+# EPub
 
->[EPUB](https://en.wikipedia.org/wiki/EPUB) is an e-book file format that uses the ".epub" file extension. The term is short for electronic publication and is sometimes styled ePub. `EPUB` is supported by many e-readers, and compatible software is available for most smartphones, tablets, and computers.
+>[EPUB](https://en.wikipedia.org/wiki/EPUB)是一种使用".epub"文件扩展名的电子书文件格式。该术语是电子出版的缩写，有时被称为ePub。`EPUB`受到许多电子阅读器的支持，大多数智能手机、平板电脑和计算机都有兼容软件。
 
-This covers how to load `.epub` documents into the Document format that we can use downstream. You'll need to install the [`pandoc`](https://pandoc.org/installing.html) package for this loader to work.
-
+本文介绍了如何将`.epub`文档加载到我们可以在下游使用的文档格式中。您需要安装[`pandoc`](https://pandoc.org/installing.html)软件包才能使用此加载器。
 
 ```python
 #!pip install pandoc
 ```
 
-
 ```python
 from langchain.document_loaders import UnstructuredEPubLoader
 ```
-
 
 ```python
 loader = UnstructuredEPubLoader("winter-sports.epub")
 ```
 
-
 ```python
-data = loader.load()
+ndata = loader.load()
 ```
 
-## Retain Elements
+## 保留元素
 
-Under the hood, Unstructured creates different "elements" for different chunks of text. By default we combine those together, but you can easily keep that separation by specifying `mode="elements"`.
-
+在底层，Unstructured为不同的文本块创建不同的"元素"。默认情况下，我们将它们合并在一起，但您可以通过指定`mode="elements"`来轻松保留该分隔。
 
 ```python
 loader = UnstructuredEPubLoader("winter-sports.epub", mode="elements")
 ```
 
-
 ```python
-data = loader.load()
+ndata = loader.load()
 ```
 
-
 ```python
-data[0]
+ndata[0]
 ```
-
 
 
 

@@ -1,8 +1,8 @@
-# Async callbacks
+# 异步回调
 
-If you are planning to use the async API, it is recommended to use `AsyncCallbackHandler` to avoid blocking the runloop. 
+如果您计划使用异步API，则建议使用`AsyncCallbackHandler`以避免阻塞运行循环。
 
-**Advanced** if you use a sync `CallbackHandler` while using an async method to run your llm/chain/tool/agent, it will still work. However, under the hood, it will be called with [`run_in_executor`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor) which can cause issues if your `CallbackHandler` is not thread-safe.
+**高级**如果您在运行llm/chain/tool/agent时使用同步`CallbackHandler`同时使用异步方法，它仍然可以工作。但是，在底层，它将使用[`run_in_executor`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor)调用，如果您的`CallbackHandler`不是线程安全的，则可能会引发问题。
 
 
 ```python
@@ -20,63 +20,60 @@ class MyCustomSyncHandler(BaseCallbackHandler):
 
 
 class MyCustomAsyncHandler(AsyncCallbackHandler):
-    """Async callback handler that can be used to handle callbacks from langchain."""
+    """用于处理来自langchain的回调的异步回调处理程序。"""
 
     async def on_llm_start(
         self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any
     ) -> None:
-        """Run when chain starts running."""
+        """当链条开始运行时运行。"""
         print("zzzz....")
         await asyncio.sleep(0.3)
         class_name = serialized["name"]
-        print("Hi! I just woke up. Your llm is starting")
+        print("嗨！我刚醒来。您的llm正在启动")
 
     async def on_llm_end(self, response: LLMResult, **kwargs: Any) -> None:
-        """Run when chain ends running."""
+        """当链条结束运行时运行。"""
         print("zzzz....")
         await asyncio.sleep(0.3)
-        print("Hi! I just woke up. Your llm is ending")
+        print("嗨！我刚醒来。您的llm正在结束")
 
 
-# To enable streaming, we pass in `streaming=True` to the ChatModel constructor
-# Additionally, we pass in a list with our custom handler
+# 为了启用流式传输，我们在ChatModel构造函数中传入`streaming=True`$# 此外，我们还传入一个包含自定义处理程序的列表
 chat = ChatOpenAI(
     max_tokens=25,
     streaming=True,
     callbacks=[MyCustomSyncHandler(), MyCustomAsyncHandler()],
 )
 
-await chat.agenerate([[HumanMessage(content="Tell me a joke")]])
+await chat.agenerate([[HumanMessage(content="给我讲个笑话")]])
 ```
 
     zzzz....
-    Hi! I just woke up. Your llm is starting
+    嗨！我刚醒来。您的llm正在启动
     Sync handler being called in a `thread_pool_executor`: token: 
-    Sync handler being called in a `thread_pool_executor`: token: Why
-    Sync handler being called in a `thread_pool_executor`: token:  don
-    Sync handler being called in a `thread_pool_executor`: token: 't
-    Sync handler being called in a `thread_pool_executor`: token:  scientists
-    Sync handler being called in a `thread_pool_executor`: token:  trust
-    Sync handler being called in a `thread_pool_executor`: token:  atoms
-    Sync handler being called in a `thread_pool_executor`: token: ?
-    Sync handler being called in a `thread_pool_executor`: token:  
+    Sync handler being called in a `thread_pool_executor`: token: 为什么
+    Sync handler being called in a `thread_pool_executor`: token: 不
+    Sync handler being called in a `thread_pool_executor`: token: 相信
+    Sync handler being called in a `thread_pool_executor`: token: 科学家
+    Sync handler being called in a `thread_pool_executor`: token: 原子
+    Sync handler being called in a `thread_pool_executor`: token: ？
+    Sync handler being called in a `thread_pool_executor`: token: 
     
     
-    Sync handler being called in a `thread_pool_executor`: token: Because
-    Sync handler being called in a `thread_pool_executor`: token:  they
-    Sync handler being called in a `thread_pool_executor`: token:  make
-    Sync handler being called in a `thread_pool_executor`: token:  up
-    Sync handler being called in a `thread_pool_executor`: token:  everything
-    Sync handler being called in a `thread_pool_executor`: token: .
+    Sync handler being called in a `thread_pool_executor`: token: 因为
+    Sync handler being called in a `thread_pool_executor`: token: 他们
+    Sync handler being called in a `thread_pool_executor`: token: 构成
+    Sync handler being called in a `thread_pool_executor`: token: 一切
+    Sync handler being called in a `thread_pool_executor`: token: 。
     Sync handler being called in a `thread_pool_executor`: token: 
     zzzz....
-    Hi! I just woke up. Your llm is ending
+    嗨！我刚醒来。您的llm正在结束
     
 
 
 
 
-    LLMResult(generations=[[ChatGeneration(text="Why don't scientists trust atoms? \n\nBecause they make up everything.", generation_info=None, message=AIMessage(content="Why don't scientists trust atoms? \n\nBecause they make up everything.", additional_kwargs={}, example=False))]], llm_output={'token_usage': {}, 'model_name': 'gpt-3.5-turbo'})
+    LLMResult(generations=[[ChatGeneration(text="为什么科学家不相信原子？\n\n因为他们构成一切。", generation_info=None, message=AIMessage(content="为什么科学家不相信原子？\n\n因为他们构成一切。", additional_kwargs={}, example=False))]], llm_output={'token_usage': {}, 'model_name': 'gpt-3.5-turbo'})
 
 
 
