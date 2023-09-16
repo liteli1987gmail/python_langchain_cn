@@ -1,8 +1,8 @@
 # SearxNG Search API
 
-This notebook goes over how to use a self hosted SearxNG search API to search the web.
+这个笔记本介绍了如何使用自托管的SearxNG搜索API来搜索网络。
 
-You can [check this link](https://docs.searxng.org/dev/search_api.html) for more informations about Searx API parameters.
+您可以[查看此链接](https://docs.searxng.org/dev/search_api.html)以获取有关Searx API参数的更多信息。
 
 
 ```python
@@ -10,38 +10,31 @@ import pprint
 from langchain.utilities import SearxSearchWrapper
 ```
 
-
 ```python
 search = SearxSearchWrapper(searx_host="http://127.0.0.1:8888")
 ```
 
-For some engines, if a direct `answer` is available the warpper will print the answer instead of the full list of search results. You can use the `results` method of the wrapper if you want to obtain all the results.
-
+对于某些引擎，如果直接提供了`answer`，则包装器将打印答案而不是完整的搜索结果列表。如果您想获取所有结果，可以使用包装器的`results`方法。
 
 ```python
 search.run("What is the capital of France")
 ```
 
 
+    '巴黎是法国的首都，是欧洲最大的国家，面积为550,000平方公里（6500万居民）。巴黎的2011年底人口为2,234万。她是法兰西岛地区（1200万人）的核心。'
 
 
-    'Paris is the capital of France, the largest country of Europe with 550 000 km2 (65 millions inhabitants). Paris has 2.234 million inhabitants end 2011. She is the core of Ile de France region (12 million people).'
+## 自定义参数
 
+SearxNG支持[135个搜索引擎](https://docs.searxng.org/user/configured_engines.html)。您还可以使用任意命名参数自定义Searx包装器，这些参数将传递给Searx搜索API。在下面的示例中，我们将更有趣地使用来自searx搜索api的自定义搜索参数中的`engines`参数。
 
-
-## Custom Parameters
-
-SearxNG supports [135 search engines](https://docs.searxng.org/user/configured_engines.html). You can also customize the Searx wrapper with arbitrary named parameters that will be passed to the Searx search API . In the below example we will making a more interesting use of custom search parameters from searx search api.
-
-In this example we will be using the `engines` parameters to query wikipedia
-
+在这个例子中，我们将使用`engines`参数查询维基百科。
 
 ```python
 search = SearxSearchWrapper(
     searx_host="http://127.0.0.1:8888", k=5
-)  # k is for max number of items
+)  # k用于最大项目数
 ```
-
 
 ```python
 search.run("large language model ", engines=["wiki"])
@@ -80,7 +73,6 @@ We also would like to obtain the results in a structured way including metadata.
 search = SearxSearchWrapper(searx_host="http://127.0.0.1:8888")
 ```
 
-
 ```python
 results = search.results(
     "Large Language Model prompt",
@@ -90,6 +82,7 @@ results = search.results(
 )
 pprint.pp(results)
 ```
+
 
     [{'snippet': '… on natural language instructions, large language models (… the '
                  'prompt used to steer the model, and most effective prompts … to '

@@ -1,12 +1,12 @@
 # Mastodon
 
->[Mastodon](https://joinmastodon.org/) is a federated social media and social networking service.
+>[Mastodon](https://joinmastodon.org/) 是一个联邦式社交媒体和社交网络服务。
 
-This loader fetches the text from the "toots" of a list of `Mastodon` accounts, using the `Mastodon.py` Python package.
+该加载器使用 `Mastodon.py` Python 包从一组 `Mastodon` 账户的"toots"中获取文本。
 
-Public accounts can the queried by default without any authentication. If non-public accounts or instances are queried, you have to register an application for your account which gets you an access token, and set that token and your account's API base URL.
+默认情况下，可以查询公共账户而无需进行任何身份验证。如果查询非公共账户或实例，则必须为您的账户注册一个应用程序以获取访问令牌，并设置该令牌和您的账户的 API 基本 URL。
 
-Then you need to pass in the Mastodon account names you want to extract, in the `@account@instance` format.
+然后，您需要以 `@account@instance` 的格式传入要提取的 Mastodon 账户名称。
 
 
 ```python
@@ -22,17 +22,22 @@ from langchain.document_loaders import MastodonTootsLoader
 ```python
 loader = MastodonTootsLoader(
     mastodon_accounts=["@Gargron@mastodon.social"],
-    number_toots=50,  # Default value is 100
+    number_toots=50,  # 默认值为 100
 )
+```
 
-# Or set up access information to use a Mastodon app.
-# Note that the access token can either be passed into
-# constructor or you can set the envirovnment "MASTODON_ACCESS_TOKEN".
+
+或者设置访问信息来使用 Mastodon 应用程序。
+
+请注意，访问令牌可以传递给构造函数，或者您可以设置环境变量 "MASTODON_ACCESS_TOKEN"。
+
+
+```python
 # loader = MastodonTootsLoader(
-#     access_token="<ACCESS TOKEN OF MASTODON APP>",
-#     api_base_url="<API BASE URL OF MASTODON APP INSTANCE>",
+#     access_token="<MASTODON APP 的访问令牌>",
+#     api_base_url="<MASTODON APP 实例的 API 基本 URL>",
 #     mastodon_accounts=["@Gargron@mastodon.social"],
-#     number_toots=50,  # Default value is 100
+#     number_toots=50,  # 默认值为 100
 # )
 ```
 
@@ -44,12 +49,14 @@ for doc in documents[:3]:
     print("=" * 80)
 ```
 
+```
+
     <p>It is tough to leave this behind and go back to reality. And some people live here! I’m sure there are downsides but it sounds pretty good to me right now.</p>
     ================================================================================
     <p>I wish we could stay here a little longer, but it is time to go home 🥲</p>
     ================================================================================
     <p>Last day of the honeymoon. And it’s <a href="https://mastodon.social/tags/caturday" class="mention hashtag" rel="tag">#<span>caturday</span></a>! This cute tabby came to the restaurant to beg for food and got some chicken.</p>
     ================================================================================
-    
+```  
 
-The toot texts (the documents' `page_content`) is by default HTML as returned by the Mastodon API.
+toot 文本（即文档的 `page_content`）默认为 Mastodon API 返回的 HTML 格式。

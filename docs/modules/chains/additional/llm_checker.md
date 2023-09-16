@@ -1,17 +1,14 @@
-# Self-checking chain
-This notebook showcases how to use LLMCheckerChain.
-
+# 自检链
+这个笔记本展示了如何使用LLMCheckerChain。
 
 ```python
 from langchain.chains import LLMCheckerChain
 from langchain.llms import OpenAI
 
 llm = OpenAI(temperature=0.7)
-
 text = "What type of mammal lays the biggest eggs?"
 
 checker_chain = LLMCheckerChain.from_llm(llm, verbose=True)
-
 checker_chain.run(text)
 ```
 
@@ -30,11 +27,10 @@ checker_chain.run(text)
 
 
 
-    ' No mammal lays the biggest eggs. The Elephant Bird, which was a species of giant bird, laid the largest eggs of any bird.'
+    '没有哺乳动物能够产下最大的蛋。大象鸟是一种巨鸟，它的蛋是所有鸟类中最大的。'
 
 
 
 
 ```python
-
 ```

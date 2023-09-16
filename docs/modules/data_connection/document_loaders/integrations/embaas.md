@@ -6,7 +6,6 @@
 
 ### 文档文本提取API
 文档文本提取API允许您从给定的文档中提取文本。该API支持各种文档格式，包括PDF、mp3、mp4等。有关支持的格式的完整列表，请查看API文档（下方链接）。
-
 ```python
 # 设置API密钥
 embaas_api_key = "YOUR_API_KEY"
@@ -15,7 +14,6 @@ os.environ["EMBAAS_API_KEY"] = "YOUR_API_KEY"
 ```
 
 #### 使用blob（字节）
-
 ```python
 from langchain.document_loaders.embaas import EmbaasBlobLoader
 from langchain.document_loaders.blob_loaders import Blob
@@ -28,7 +26,7 @@ documents = blob_loader.load(blob)
 ```
 
 ```python
-# 您还可以使用您喜欢的嵌入模型直接创建嵌入
+# 您还可以直接创建嵌入
 blob_loader = EmbaasBlobLoader(params={"model": "e5-large-v2", "should_embed": True})
 blob = Blob.from_path("example.pdf")
 documents = blob_loader.load(blob)
@@ -37,7 +35,6 @@ print(documents[0]["metadata"]["embedding"])
 ```
 
 #### 使用文件
-
 ```python
 from langchain.document_loaders.embaas import EmbaasLoader
 ```

@@ -70,7 +70,7 @@ docs = db.similarity_search_with_score(query)
 ```
 
 ```python
-docs[0]
+print(docs[0])
 ```
 
 

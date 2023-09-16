@@ -1,11 +1,10 @@
 # Bing Search
 
-This notebook goes over how to use the bing search component.
+这个笔记本介绍了如何使用bing搜索组件。
 
-First, you need to set up the proper API keys and environment variables. To set it up, follow the instructions found [here](https://levelup.gitconnected.com/api-tutorial-how-to-use-bing-web-search-api-in-python-4165d5592a7e).
+首先，您需要设置正确的API密钥和环境变量。要设置它，请按照[这里](https://levelup.gitconnected.com/api-tutorial-how-to-use-bing-web-search-api-in-python-4165d5592a7e)中的说明进行操作。
 
-Then we will need to set some environment variables.
-
+然后，我们需要设置一些环境变量。
 
 ```python
 import os
@@ -14,16 +13,13 @@ os.environ["BING_SUBSCRIPTION_KEY"] = ""
 os.environ["BING_SEARCH_URL"] = ""
 ```
 
-
 ```python
 from langchain.utilities import BingSearchAPIWrapper
 ```
 
-
 ```python
 search = BingSearchAPIWrapper()
 ```
-
 
 ```python
 search.run("python")
@@ -43,7 +39,6 @@ You can use the `k` parameter to set the number of results
 ```python
 search = BingSearchAPIWrapper(k=1)
 ```
-
 
 ```python
 search.run("python")
@@ -69,12 +64,9 @@ Run query through BingSearch and return snippet, title, and link metadata.
 search = BingSearchAPIWrapper()
 ```
 
-
 ```python
 search.results("apples", 5)
 ```
-
-
 
 
     [{'snippet': 'Lady Alice. Pink Lady <b>apples</b> aren’t the only lady in the apple family. Lady Alice <b>apples</b> were discovered growing, thanks to bees pollinating, in Washington. They are smaller and slightly more stout in appearance than other varieties. Their skin color appears to have red and yellow stripes running from stem to butt.',
@@ -89,5 +81,4 @@ search.results("apples", 5)
      {'snippet': 'Weight management. The fibers in <b>apples</b> can slow digestion, helping one to feel greater satisfaction after eating. After following three large prospective cohorts of 133,468 men and women for 24 years, researchers found that higher intakes of fiber-rich fruits with a low glycemic load, particularly <b>apples</b> and pears, were associated with the least amount of weight gain over time.',
       'title': 'Apples | The Nutrition Source | Harvard T.H. Chan School of Public Health',
       'link': 'https://www.hsph.harvard.edu/nutritionsource/food-features/apples/'}]
-
 

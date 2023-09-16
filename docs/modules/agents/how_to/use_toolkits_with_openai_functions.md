@@ -54,36 +54,36 @@ agent.run("有多少不同的艺术家？")
 
     
     
-    [1m> 进入新的链...[0m
+    [1m> Entering new  chain...[0m
     [32;1m[1;3m
-    调用: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT artist_name) AS num_artists FROM artists'}`
+    Invoking: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT artist_name) AS num_artists FROM artists'}`
     
     
-    [0m[36;1m[1;3m错误: (sqlite3.OperationalError) no such table: artists
+    [0m[36;1m[1;3mError: (sqlite3.OperationalError) no such table: artists
     [SQL: SELECT COUNT(DISTINCT artist_name) AS num_artists FROM artists]
-    (此错误的背景信息：https://sqlalche.me/e/20/e3q8)[0m[32;1m[1;3m
-    调用: `sql_db_list_tables` with `{}`
+    (Background on this error at: https://sqlalche.me/e/20/e3q8)[0m[32;1m[1;3m
+    Invoking: `sql_db_list_tables` with `{}`
     
     
     [0m[38;5;200m[1;3mMediaType, Track, Playlist, sales_table, Customer, Genre, PlaylistTrack, Artist, Invoice, Album, InvoiceLine, Employee[0m[32;1m[1;3m
-    调用: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT artist_id) AS num_artists FROM Artist'}`
+    Invoking: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT artist_id) AS num_artists FROM Artist'}`
     
     
-    [0m[36;1m[1;3m错误: (sqlite3.OperationalError) no such column: artist_id
+    [0m[36;1m[1;3mError: (sqlite3.OperationalError) no such column: artist_id
     [SQL: SELECT COUNT(DISTINCT artist_id) AS num_artists FROM Artist]
-    (此错误的背景信息：https://sqlalche.me/e/20/e3q8)[0m[32;1m[1;3m
-    调用: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT Name) AS num_artists FROM Artist'}`
+    (Background on this error at: https://sqlalche.me/e/20/e3q8)[0m[32;1m[1;3m
+    Invoking: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT Name) AS num_artists FROM Artist'}`
     
     
-    [0m[36;1m[1;3m[(275,)][0m[32;1m[1;3m数据库中有275位不同的艺术家。[0m
+    [0m[36;1m[1;3m[(275,)][0m[32;1m[1;3mThere are 275 different artists in the database.[0m
     
-    [1m> 完成链。[0m
+    [1m> Finished chain.[0m
     
 
 
 
 
-    '数据库中有275位不同的艺术家。'
+    'There are 275 different artists in the database.'
 
 
 

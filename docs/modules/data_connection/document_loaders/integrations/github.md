@@ -1,38 +1,35 @@
 # GitHub
 
-This notebooks shows how you can load issues and pull requests (PRs) for a given repository on [GitHub](https://github.com/). We will use the LangChain Python repository as an example.
+这个笔记本展示了如何在[GitHub](https//github.com/)上为给定的存储库加载问题和拉取请求（PR）。我们将使用LangChain Python存储库作为示例。
 
-## Setup access token
+## 设置访问令牌
 
-To access the GitHub API, you need a personal access token - you can set up yours here: https://github.com/settings/tokens?type=beta. You can either set this token as the environment variable ``GITHUB_PERSONAL_ACCESS_TOKEN`` and it will be automatically pulled in, or you can pass it in directly at initializaiton as the ``access_token`` named parameter.
-
+要访问GitHub API，您需要一个个人访问令牌-您可以在这里设置您的：https//github.com/settings/tokens?type=beta。您可以将此令牌设置为环境变量“GITHUB_PERSONAL_ACCESS_TOKEN”，它将自动被拉入，或者您可以直接在初始化时将其传递为“access_token”的命名参数。
 
 ```python
-# If you haven't set your access token as an environment variable, pass it in here.
+# 如果您还没有将访问令牌设置为环境变量，请在此处传入它。
 from getpass import getpass
 
 ACCESS_TOKEN = getpass()
 ```
 
-## Load Issues and PRs
-
+## 加载问题和PR
 
 ```python
 from langchain.document_loaders import GitHubIssuesLoader
 ```
 
-
 ```python
 loader = GitHubIssuesLoader(
     repo="hwchase17/langchain",
-    access_token=ACCESS_TOKEN,  # delete/comment out this argument if you've set the access token as an env var.
+    access_token=ACCESS_TOKEN,  # 如果您已将访问令牌设置为环境变量，请删除/注释此参数。
     creator="UmerHA",
 )
 ```
 
-Let's load all issues and PRs created by "UmerHA".
+让我们加载“UmerHA”创建的所有问题和PR。
 
-Here's a list of all filters you can use:
+这是您可以使用的所有筛选器的列表：
 - include_prs
 - milestone
 - state
@@ -44,113 +41,134 @@ Here's a list of all filters you can use:
 - direction
 - since
 
-For more info, see https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#list-repository-issues.
-
+有关更多信息，请参阅https//docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#list-repository-issues。
 
 ```python
 docs = loader.load()
 ```
-
 
 ```python
 print(docs[0].page_content)
 print(docs[0].metadata)
 ```
 
-    # Creates GitHubLoader (#5257)
-    
-    GitHubLoader is a DocumentLoader that loads issues and PRs from GitHub.
-    
-    Fixes #5257
-    
-    Community members can review the PR once tests pass. Tag maintainers/contributors who might be interested:
-    DataLoaders
-    - @eyurtsev
-    
-    {'url': 'https://github.com/hwchase17/langchain/pull/5408', 'title': 'DocumentLoader for GitHub', 'creator': 'UmerHA', 'created_at': '2023-05-29T14:50:53Z', 'comments': 0, 'state': 'open', 'labels': ['enhancement', 'lgtm', 'doc loader'], 'assignee': None, 'milestone': None, 'locked': False, 'number': 5408, 'is_pull_request': True}
-    
+GitHubLoader (#5257)创建于
 
-## Only load issues
+GitHubLoader是一个从GitHub加载问题和PR的DocumentLoader。
 
-By default, the GitHub API returns considers pull requests to also be issues. To only get 'pure' issues (i.e., no pull requests), use `include_prs=False`
+修复：#5257
 
+社区成员可以在测试通过后查看PR。标记可能感兴趣的维护人员/贡献者：
+
+DataLoaders
+- @eyurtsev
+
+
+
+## 仅加载问题
+
+默认情况下，GitHub API返回的数据中包括拉取请求。要仅获取“纯粹”的问题（即没有拉取请求），请使用`include_prs=False`。
 
 ```python
 loader = GitHubIssuesLoader(
     repo="hwchase17/langchain",
-    access_token=ACCESS_TOKEN,  # delete/comment out this argument if you've set the access token as an env var.
+    access_token=ACCESS_TOKEN,  # 如果您已将访问令牌设置为环境变量，请删除/注释此参数。
     creator="UmerHA",
     include_prs=False,
 )
 docs = loader.load()
 ```
 
-
 ```python
 print(docs[0].page_content)
 print(docs[0].metadata)
 ```
 
-    ### System Info
-    
-    LangChain version = 0.0.167
-    Python version = 3.11.0
-    System = Windows 11 (using Jupyter)
-    
-    ### Who can help?
-    
-    - @hwchase17
-    - @agola11
-    - @UmerHA (I have a fix ready, will submit a PR)
-    
-    ### Information
-    
-    - [ ] The official example notebooks/scripts
-    - [X] My own modified scripts
-    
-    ### Related Components
-    
-    - [X] LLMs/Chat Models
-    - [ ] Embedding Models
-    - [X] Prompts / Prompt Templates / Prompt Selectors
-    - [ ] Output Parsers
-    - [ ] Document Loaders
-    - [ ] Vector Stores / Retrievers
-    - [ ] Memory
-    - [ ] Agents / Agent Executors
-    - [ ] Tools / Toolkits
-    - [ ] Chains
-    - [ ] Callbacks/Tracing
-    - [ ] Async
-    
-    ### Reproduction
-    
-    ```
-    import os
-    os.environ["OPENAI_API_KEY"] = "..."
-    
-    from langchain.chains import LLMChain
-    from langchain.chat_models import ChatOpenAI
-    from langchain.prompts import PromptTemplate
-    from langchain.prompts.chat import ChatPromptTemplate
-    from langchain.schema import messages_from_dict
-    
-    role_strings = [
-        ("system", "you are a bird expert"), 
-        ("human", "which bird has a point beak?")
-    ]
-    prompt = ChatPromptTemplate.from_role_strings(role_strings)
-    chain = LLMChain(llm=ChatOpenAI(), prompt=prompt)
-    chain.run({})
-    ```
-    
-    ### Expected behavior
-    
-    Chain should run
-    {'url': 'https://github.com/hwchase17/langchain/issues/5027', 'title': "ChatOpenAI models don't work with prompts created via ChatPromptTemplate.from_role_strings", 'creator': 'UmerHA', 'created_at': '2023-05-20T10:39:18Z', 'comments': 1, 'state': 'open', 'labels': [], 'assignee': None, 'milestone': None, 'locked': False, 'number': 5027, 'is_pull_request': False}
-    
+### 系统信息
 
+LangChain版本 = 0.0.167
+
+Python版本 = 3.11.0
+
+系统 = Windows 11（使用Jupyter）
+
+### 谁可以帮助？
+
+- @hwchase17
+
+- @agola11
+
+- @UmerHA（我已经准备好修复，将提交PR）
+
+### 信息
+
+- [ ] 官方示例笔记本/脚本
+
+- [X] 我自己修改的脚本
+
+### 相关组件
+
+- [X] LLMs/聊天模型
+
+- [ ] 嵌入模型
+
+- [X] 提示/提示模板/提示选择器
+
+- [ ] 输出解析器
+
+- [ ] 文档加载器
+
+- [ ] 向量存储/检索器
+
+- [ ] 内存
+
+- [ ] 代理/代理执行器
+
+- [ ] 工具/工具包
+
+- [ ] 链
+
+- [ ] 回调/跟踪
+
+- [ ] 异步
+
+### 复现
 
 ```python
+import os
 
+os.environ["OPENAI_API_KEY"] = "..."
+
+
+from langchain.chains import LLMChain
+
+from langchain.chat_models import ChatOpenAI
+
+from langchain.prompts import PromptTemplate
+
+from langchain.prompts.chat import ChatPromptTemplate
+
+from langchain.schema import messages_from_dict
+
+
+role_strings = [
+    ("system", "你是个鸟类专家"),
+    ("human", "哪种鸟嘴巴是尖的？")
+]
+
+prompt = ChatPromptTemplate.from_role_strings(role_strings)
+
+chain = LLMChain(llm=ChatOpenAI(), prompt=prompt)
+
+chain.run({})
 ```
+
+### 预期行为
+
+链应该运行
+
+{'url': 'https//github.com/hwchase17/langchain/issues/5027', 'title': "ChatOpenAI models don't work with prompts created via ChatPromptTemplate.from_role_strings", 'creator': 'UmerHA', 'created_at': '2023-05-20T10:39:18Z', 'comments': 1, 'state': 'open', 'labels': [], 'assignee': None, 'milestone': None, 'locked': False, 'number': 5027, 'is_pull_request': False}
+
+
+
+

@@ -1,10 +1,9 @@
-# Hypothetical Document Embeddings
-This notebook goes over how to use Hypothetical Document Embeddings (HyDE), as described in [this paper](https://arxiv.org/abs/2212.10496). 
+# 虚拟文档嵌入
+这个笔记本介绍了如何使用虚拟文档嵌入（HyDE），如[这篇论文](https$：//arxiv.org/abs/2212.10496)所述。
 
-At a high level, HyDE is an embedding technique that takes queries, generates a hypothetical answer, and then embeds that generated document and uses that as the final example. 
+在高层次上，HyDE是一种嵌入技术，它接受查询，生成一个虚拟答案，然后嵌入该生成的文档并将其用作最终示例。
 
-In order to use HyDE, we therefore need to provide a base embedding model, as well as an LLMChain that can be used to generate those documents. By default, the HyDE class comes with some default prompts to use (see the paper for more details on them), but we can also create our own.
-
+为了使用HyDE，我们需要提供一个基本的嵌入模型，以及一个用于生成这些文档的LLMChain。默认情况下，HyDE类带有一些默认的提示（有关详细信息，请参阅论文），但我们也可以创建自己的提示。
 
 ```python
 from langchain.llms import OpenAI
@@ -12,7 +11,6 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.chains import LLMChain, HypotheticalDocumentEmbedder
 from langchain.prompts import PromptTemplate
 ```
-
 
 ```python
 base_embeddings = OpenAIEmbeddings()
@@ -23,24 +21,21 @@ llm = OpenAI()
 
 
 ```python
-# Load with `web_search` prompt
+# 使用“web_search”提示进行加载
 embeddings = HypotheticalDocumentEmbedder.from_llm(llm, base_embeddings, "web_search")
 ```
 
-
 ```python
-# Now we can use it as any embedding class!
-result = embeddings.embed_query("Where is the Taj Mahal?")
+# 现在我们可以像使用任何嵌入类一样使用它！
+result = embeddings.embed_query("泰姬陵在哪里？")
 ```
 
-## Multiple generations
-We can also generate multiple documents and then combine the embeddings for those. By default, we combine those by taking the average. We can do this by changing the LLM we use to generate documents to return multiple things.
-
+## 多次生成
+我们还可以生成多个文档，然后将这些文档的嵌入组合起来。默认情况下，我们通过取平均值来组合这些文档的嵌入。我们可以通过改变用于生成文档的LLM来实现这一点。
 
 ```python
 multi_llm = OpenAI(n=4, best_of=4)
 ```
-
 
 ```python
 embeddings = HypotheticalDocumentEmbedder.from_llm(
@@ -48,25 +43,22 @@ embeddings = HypotheticalDocumentEmbedder.from_llm(
 )
 ```
 
-
 ```python
-result = embeddings.embed_query("Where is the Taj Mahal?")
+result = embeddings.embed_query("泰姬陵在哪里？")
 ```
 
-## Using our own prompts
-Besides using preconfigured prompts, we can also easily construct our own prompts and use those in the LLMChain that is generating the documents. This can be useful if we know the domain our queries will be in, as we can condition the prompt to generate text more similar to that.
+## 使用我们自己的提示
+除了使用预配置的提示外，我们还可以轻松构建自己的提示并在生成文档的LLMChain中使用它们。如果我们知道查询所在的领域，这可能非常有用，因为我们可以将提示调整为生成更类似于该领域的文本。
 
-In the example below, let's condition it to generate text about a state of the union address (because we will use that in the next example).
-
+在下面的示例中，让我们将其调整为生成关于国情咨文的文本（因为我们将在下一个示例中使用它）。
 
 ```python
-prompt_template = """Please answer the user's question about the most recent state of the union address
-Question: {question}
-Answer:"""
+prompt_template = """请回答关于最近一次国情咨文的用户问题
+问题$：{question}
+回答$："""
 prompt = PromptTemplate(input_variables=["question"], template=prompt_template)
 llm_chain = LLMChain(llm=llm, prompt=prompt)
 ```
-
 
 ```python
 embeddings = HypotheticalDocumentEmbedder(
@@ -74,15 +66,14 @@ embeddings = HypotheticalDocumentEmbedder(
 )
 ```
 
-
 ```python
 result = embeddings.embed_query(
-    "What did the president say about Ketanji Brown Jackson"
+    "总统在关于Ketanji Brown Jackson的发言中说了什么"
 )
 ```
 
-## Using HyDE
-Now that we have HyDE, we can use it as we would any other embedding class! Here is using it to find similar passages in the state of the union example.
+## 使用HyDE
+现在我们有了HyDE，我们可以像使用任何其他嵌入类一样使用它！在这里，我们使用它在国情咨文示例中查找相似的段落。
 
 
 ```python
@@ -99,14 +90,13 @@ texts = text_splitter.split_text(state_of_the_union)
 ```python
 docsearch = Chroma.from_texts(texts, embeddings)
 
-query = "What did the president say about Ketanji Brown Jackson"
+query = "总统在关于Ketanji Brown Jackson的发言中说了什么"
 docs = docsearch.similarity_search(query)
 ```
 
-    Running Chroma using direct local API.
-    Using DuckDB in-memory for database. Data will be transient.
+    使用直接本地API运行Chroma。
+    使用DuckDB内存中的数据库。数据将是临时的。
     
-
 
 ```python
 print(docs[0].page_content)

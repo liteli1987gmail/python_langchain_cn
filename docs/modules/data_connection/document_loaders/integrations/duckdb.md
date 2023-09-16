@@ -9,7 +9,6 @@
 ```python
 from langchain.document_loaders import DuckDBLoader
 ```
-
 ```python
 %%file example.csv
 Team,Payroll
@@ -17,7 +16,7 @@ Nationals,81.34
 Reds,82.20
 ```
 
-    编写 example.csv
+    写 example.csv
     
 
 
@@ -25,11 +24,9 @@ Reds,82.20
 loader = DuckDBLoader("SELECT * FROM read_csv_auto('example.csv')")
 data = loader.load()
 ```
-
 ```python
 print(data)
 ```
-
     [Document(page_content='Team: Nationals\nPayroll: 81.34', metadata={}), Document(page_content='Team: Reds\nPayroll: 82.2', metadata={})]
     
 
@@ -44,15 +41,13 @@ loader = DuckDBLoader(
 )
 data = loader.load()
 ```
-
 ```python
 print(data)
 ```
-
     [Document(page_content='Team: Nationals', metadata={'Payroll': 81.34}), Document(page_content='Team: Reds', metadata={'Payroll': 82.2})]
     
 
-## 将源添加到元数据
+## 将源添加到数据
 
 
 ```python
@@ -62,11 +57,9 @@ loader = DuckDBLoader(
 )
 data = loader.load()
 ```
-
 ```python
 print(data)
 ```
-
     [Document(page_content='Team: Nationals\nPayroll: 81.34\nsource: Nationals', metadata={'source': 'Nationals'}), Document(page_content='Team: Reds\nPayroll: 82.2\nsource: Reds', metadata={'source': 'Reds'})]
 
 

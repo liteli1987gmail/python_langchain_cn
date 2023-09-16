@@ -35,3 +35,4 @@ iugu_loader = IuguLoader("charges")
 index = VectorstoreIndexCreator().from_loaders([iugu_loader])
 iugu_doc_retriever = index.vectorstore.as_retriever()
 ```
+

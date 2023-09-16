@@ -1,58 +1,62 @@
 # Notion DB 2/2
 
->[Notion](https://www.notion.so/) is a collaboration platform with modified Markdown support that integrates kanban boards, tasks, wikis and databases. It is an all-in-one workspace for notetaking, knowledge and data management, and project and task management.
+[Notion](https://www.notion.so/)是一个协作平台，支持修改过的Markdown，集成看板，任务，维基和数据库。它是一个集成了笔记、知识和数据管理以及项目和任务管理的全能工作空间。
 
-`NotionDBLoader` is a Python class for loading content from a `Notion` database. It retrieves pages from the database, reads their content, and returns a list of Document objects.
+`NotionDBLoader`是一个用于从`Notion`数据库加载内容的Python类。它从数据库中检索页面，读取其内容，并返回文档对象的列表。
 
-## Requirements
+## 要求
 
-- A `Notion` Database
-- Notion Integration Token
+- 一个`Notion`数据库
+- Notion集成令牌
 
-## Setup
+## 设置
 
-### 1. Create a Notion Table Database
-Create a new table database in Notion. You can add any column to the database and they will be treated as metadata. For example you can add the following columns:
+### 1. 创建Notion表数据库
 
-- Title: set Title as the default property.
-- Categories: A Multi-select property to store categories associated with the page.
-- Keywords: A Multi-select property to store keywords associated with the page.
+在Notion中创建一个新的表数据库。您可以向数据库添加任何列，并将其视为元数据。例如，您可以添加以下列：
 
-Add your content to the body of each page in the database. The NotionDBLoader will extract the content and metadata from these pages.
+- Title：将Title设置为默认属性。
+- Categories：一个多选属性，用于存储与页面关联的类别。
+- Keywords：一个多选属性，用于存储与页面关联的关键字。
 
-## 2. Create a Notion Integration
-To create a Notion Integration, follow these steps:
+将内容添加到数据库中每个页面的正文中。NotionDBLoader将从这些页面提取内容和元数据。
 
-1. Visit the [Notion Developers](https://www.notion.com/my-integrations) page and log in with your Notion account.
-2. Click on the "+ New integration" button.
-3. Give your integration a name and choose the workspace where your database is located.
-4. Select the require capabilities, this extension only need the Read content capability
-5. Click the "Submit" button to create the integration.
-Once the integration is created, you'll be provided with an `Integration Token (API key)`. Copy this token and keep it safe, as you'll need it to use the NotionDBLoader.
+## 2. 创建Notion集成
 
-### 3. Connect the Integration to the Database
-To connect your integration to the database, follow these steps:
+要创建Notion集成，按照以下步骤操作：
 
-1. Open your database in Notion.
-2. Click on the three-dot menu icon in the top right corner of the database view.
-3. Click on the "+ New integration" button.
-4. Find your integration, you may need to start typing its name in the search box.
-5. Click on the "Connect" button to connect the integration to the database.
+1. 访问[Notion Developers](https://www.notion.com/my-integrations)页面，并使用您的Notion账户登录。
+2. 点击"+ New integration"按钮。
+3. 为集成命名，并选择数据库所在的工作区。
+4. 选择所需的功能，此扩展仅需要读取内容的功能。
+5. 单击"Submit"按钮以创建集成。
 
+创建集成后，将提供一个`集成令牌（API密钥）`。请复制此令牌并将其保存在安全的地方，因为您需要使用NotionDBLoader时会用到它。
 
-### 4. Get the Database ID
-To get the database ID, follow these steps:
+### 3. 将集成连接到数据库
 
-1. Open your database in Notion.
-2. Click on the three-dot menu icon in the top right corner of the database view.
-3. Select "Copy link" from the menu to copy the database URL to your clipboard.
-4. The database ID is the long string of alphanumeric characters found in the URL. It typically looks like this: https://www.notion.so/username/8935f9d140a04f95a872520c4f123456?v=.... In this example, the database ID is 8935f9d140a04f95a872520c4f123456.
+要将集成连接到数据库，请按照以下步骤操作：
 
-With the database properly set up and the integration token and database ID in hand, you can now use the NotionDBLoader code to load content and metadata from your Notion database.
+1. 在Notion中打开数据库。
+2. 点击数据库视图右上角的三点菜单图标。
+3. 点击"+ New integration"按钮。
+4. 找到您的集成，您可能需要在搜索框中开始输入其名称。
+5. 点击"Connect"按钮以将集成连接到数据库。
 
-## Usage
-NotionDBLoader is part of the langchain package's document loaders. You can use it as follows:
+### 4. 获取数据库ID
 
+要获取数据库ID，请按照以下步骤操作：
+
+1. 在Notion中打开数据库。
+2. 点击数据库视图右上角的三点菜单图标。
+3. 在菜单中选择"Copy link"以将数据库URL复制到剪贴板。
+4. 数据库ID是在URL中找到的一长串字母数字字符。通常它看起来像这样：https://www.notion.so/username/8935f9d140a04f95a872520c4f123456?v=.... 在此示例中，数据库ID是8935f9d140a04f95a872520c4f123456。
+
+设置数据库并获取整合令牌和数据库ID后，现在可以使用NotionDBLoader代码从Notion数据库中加载内容和元数据。
+
+## 用法
+
+NotionDBLoader是langchain包的文档加载程序的一部分。您可以按照以下方式使用它：
 
 ```python
 from getpass import getpass
@@ -61,14 +65,12 @@ NOTION_TOKEN = getpass()
 DATABASE_ID = getpass()
 ```
 
-    ········
-    ········
-    
 
 
 ```python
 from langchain.document_loaders import NotionDBLoader
 ```
+
 
 
 ```python
@@ -80,14 +82,19 @@ loader = NotionDBLoader(
 ```
 
 
+
 ```python
+
+
+
 docs = loader.load()
 ```
+
 
 
 ```python
 print(docs)
 ```
 
-    
-    
+
+

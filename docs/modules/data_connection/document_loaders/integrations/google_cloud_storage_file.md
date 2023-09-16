@@ -1,8 +1,8 @@
-# Google Cloud Storage File
+# Google Cloud Storage文件
 
->[Google Cloud Storage](https://en.wikipedia.org/wiki/Google_Cloud_Storage) is a managed service for storing unstructured data.
+>[Google Cloud Storage](https://en.wikipedia.org/wiki/Google_Cloud_Storage)是用于存储非结构化数据的托管服务。
 
-This covers how to load document objects from an `Google Cloud Storage (GCS) file object (blob)`.
+这涵盖了如何从`Google Cloud Storage（GCS）文件对象（blob）`加载文档对象的内容。
 
 
 ```python
@@ -24,7 +24,7 @@ loader = GCSFileLoader(project_name="aist", bucket="testing-hwc", blob="fake.doc
 loader.load()
 ```
 
-    /Users/harrisonchase/workplace/langchain/.venv/lib/python3.10/site-packages/google/auth/_default.py:83: UserWarning: Your application has authenticated using end user credentials from Google Cloud SDK without a quota project. You might receive a "quota exceeded" or "API not enabled" error. We recommend you rerun `gcloud auth application-default login` and make sure a quota project is added. Or you can use service accounts instead. For more information about service accounts, see https://cloud.google.com/docs/authentication/
+    /Users/harrisonchase/workplace/langchain/.venv/lib/python3.10/site-packages/google/auth/_default.py:83: UserWarning: 您的应用程序使用了来自Google Cloud SDK的最终用户凭据进行身份验证，而没有配额项目。您可能会收到"配额超过限制"或"API未启用"的错误。我们建议您重新运行`gcloud auth application-default login`并确保添加了配额项目。或者您可以改用服务帐号。有关服务帐号的更多信息，请参阅https://cloud.google.com/docs/authentication/
       warnings.warn(_CLOUD_SDK_CREDENTIALS_WARNING)
     
 

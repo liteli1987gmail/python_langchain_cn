@@ -1,8 +1,8 @@
-# Images
+# 图片
 
-This covers how to load images such as `JPG` or `PNG` into a document format that we can use downstream.
+本文介绍了如何将`JPG`或`PNG`等图片加载到我们可以在下游使用的文档格式中。
 
-## Using Unstructured
+## 使用非结构化图片
 
 
 ```python
@@ -36,9 +36,9 @@ data[0]
 
 
 
-### Retain Elements
+### 保留元素
 
-Under the hood, Unstructured creates different "elements" for different chunks of text. By default we combine those together, but you can easily keep that separation by specifying `mode="elements"`.
+在幕后，Unstructured为不同的文本块创建不同的"元素"。默认情况下，我们将它们组合在一起，但您可以通过指定`mode="elements"`来保留该分隔。
 
 
 ```python

@@ -1,35 +1,33 @@
 # Microsoft OneDrive
+>[Microsoft OneDrive](https://en.wikipedia.org/wiki/OneDrive)（以前是`SkyDrive`）是由Microsoft运营的文件托管服务。
 
->[Microsoft OneDrive](https://en.wikipedia.org/wiki/OneDrive) (formerly `SkyDrive`) is a file hosting service operated by Microsoft.
+本笔记本介绍了如何从`OneDrive`加载文档。目前，仅支持docx、doc和pdf文件。
 
-This notebook covers how to load documents from `OneDrive`. Currently, only docx, doc, and pdf files are supported.
-
-## Prerequisites
-1. Register an application with the [Microsoft identity platform](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app) instructions.
-2. When registration finishes, the Azure portal displays the app registration's Overview pane. You see the Application (client) ID. Also called the `client ID`, this value uniquely identifies your application in the Microsoft identity platform.
-3. During the steps you will be following at **item 1**, you can set the redirect URI as `http://localhost:8000/callback`
-4. During the steps you will be following at **item 1**, generate a new password (`client_secret`) under Application Secrets section.
-5. Follow the instructions at this [document](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-expose-web-apis#add-a-scope) to add the following `SCOPES` (`offline_access` and `Files.Read.All`) to your application.
-6. Visit the [Graph Explorer Playground](https://developer.microsoft.com/en-us/graph/graph-explorer) to obtain your `OneDrive ID`. The first step is to ensure you are logged in with the account associated your OneDrive account. Then you need to make a request to `https://graph.microsoft.com/v1.0/me/drive` and the response will return a payload with a field `id` that holds the ID of your OneDrive account.
-7. You need to install the o365 package using the command `pip install o365`.
-8. At the end of the steps you must have the following values: 
+## 先决条件
+1. 根据[Microsoft身份平台](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)的说明，注册一个应用程序。
+2. 注册完成后，Azure门户显示应用程序注册的概述窗格。您将看到应用程序（客户端）ID。也称为`客户端ID`，此值唯一地标识Microsoft身份平台中的应用程序。
+3. 在您遵循**项目1**的步骤时，您可以将重定向URI设置为`http://localhost:8000/callback`
+4. 在您遵循**项目1**的步骤时，在Application Secrets部分生成一个新密码（`client_secret`）。
+5. 按照此[文档](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-expose-web-apis#add-a-scope)的说明，将以下`SCOPES`（`offline_access`和`Files.Read.All`）添加到您的应用程序中。
+6. 访问[Graph Explorer Playground](https://developer.microsoft.com/en-us/graph/graph-explorer)以获取您的`OneDrive ID`。第一步是确保您已登录与您的OneDrive帐户关联的帐户。然后，您需要向`https://graph.microsoft.com/v1.0/me/drive`发出请求，响应将返回一个包含一个字段`id`的有效负载，该字段保存了您的OneDrive帐户的ID。
+7. 您需要使用命令`pip install o365`安装o365包。
+8. 在步骤结束时，您必须拥有以下值：
 - `CLIENT_ID`
 - `CLIENT_SECRET`
 - `DRIVE_ID`
 
-## 🧑 Instructions for ingesting your documents from OneDrive
+## 🟡 从OneDrive摄取您的文档的说明
 
-### 🔑 Authentication
+### 🍑 身份验证
 
-By default, the `OneDriveLoader` expects that the values of `CLIENT_ID` and `CLIENT_SECRET` must be stored as environment variables named `O365_CLIENT_ID` and `O365_CLIENT_SECRET` respectively. You could pass those environment variables through a `.env` file at the root of your application or using the following command in your script.
+默认情况下，`OneDriveLoader`希望将`CLIENT_ID`和`CLIENT_SECRET`的值存储为名为`O365_CLIENT_ID`和`O365_CLIENT_SECRET`的环境变量。您可以通过在应用程序的根目录下使用`.env`文件或使用以下命令在脚本中传递这些环境变量。
 
 ```python
 os.environ['O365_CLIENT_ID'] = "YOUR CLIENT ID"
 os.environ['O365_CLIENT_SECRET'] = "YOUR CLIENT SECRET"
 ```
 
-This loader uses an authentication called [*on behalf of a user*](https://learn.microsoft.com/en-us/graph/auth-v2-user?context=graph%2Fapi%2F1.0&view=graph-rest-1.0). It is a 2 step authentication with user consent. When you instantiate the loader, it will call will print a url that the user must visit to give consent to the app on the required permissions. The user must then visit this url and give consent to the application. Then the user must copy the resulting page url and paste it back on the console. The method will then return True if the login attempt was succesful.
-
+此加载程序使用称为[*代表用户*](https://learn.microsoft.com/en-us/graph/auth-v2-user?context=graph%2Fapi%2F1.0&view=graph-rest-1.0)的身份验证。这是一个需要用户同意的2步骤身份验证。当您实例化加载器时，它将调用一个URL，用户必须访问该URL以在所需权限上为应用程序授予同意。然后，用户必须访问此URL并为应用程序授予同意。然后，用户必须复制生成的页面URL并将其粘贴回控制台。然后，如果登录尝试成功，该方法将返回True。
 
 ```python
 from langchain.document_loaders.onedrive import OneDriveLoader
@@ -37,7 +35,7 @@ from langchain.document_loaders.onedrive import OneDriveLoader
 loader = OneDriveLoader(drive_id="YOUR DRIVE ID")
 ```
 
-Once the authentication has been done, the loader will store a token (`o365_token.txt`) at `~/.credentials/` folder. This token could be used later to authenticate without the copy/paste steps explained earlier. To use this token for authentication, you need to change the `auth_with_token` parameter to True in the instantiation of the loader.
+身份验证完成后，加载器将在`~/.credentials/`文件夹中存储一个令牌（`o365_token.txt`）。稍后可以使用此令牌进行身份验证，而无需再次执行复制/粘贴步骤。要使用此令牌进行身份验证，请在加载器实例化时将`auth_with_token`参数更改为True。
 
 ```python
 from langchain.document_loaders.onedrive import OneDriveLoader
@@ -45,12 +43,11 @@ from langchain.document_loaders.onedrive import OneDriveLoader
 loader = OneDriveLoader(drive_id="YOUR DRIVE ID", auth_with_token=True)
 ```
 
-### 🗂️ Documents loader
+### 🗂 文档加载器
 
-#### 📑 Loading documents from a OneDrive Directory
+#### 📑 从OneDrive目录加载文档
 
-`OneDriveLoader` can load documents from a specific folder within your OneDrive. For instance, you want to load all documents that are stored at `Documents/clients` folder within your OneDrive.
-
+`OneDriveLoader`可以从OneDrive的特定文件夹加载文档。例如，您要加载存储在`Documents/clients`文件夹中的所有文档。
 
 ```python
 from langchain.document_loaders.onedrive import OneDriveLoader
@@ -59,22 +56,15 @@ loader = OneDriveLoader(drive_id="YOUR DRIVE ID", folder_path="Documents/clients
 documents = loader.load()
 ```
 
-#### 📑 Loading documents from a list of Documents IDs
+#### 📑 从文档ID列表加载文档
 
-Another possibility is to provide a list of `object_id` for each document you want to load. For that, you will need to query the [Microsoft Graph API](https://developer.microsoft.com/en-us/graph/graph-explorer) to find all the documents ID that you are interested in. This [link](https://learn.microsoft.com/en-us/graph/api/resources/onedrive?view=graph-rest-1.0#commonly-accessed-resources) provides a list of endpoints that will be helpful to retrieve the documents ID.
+另一种可能性是为您想要加载的每个文档提供一个`object_id`列表。为此，您需要查询[Microsoft Graph API](https://developer.microsoft.com/en-us/graph/graph-explorer)以查找您感兴趣的所有文档ID。此[链接](https://learn.microsoft.com/en-us/graph/api/resources/onedrive?view=graph-rest-1.0#commonly-accessed-resources)提供了一些有助于检索文档ID的端点列表。
 
-For instance, to retrieve information about all objects that are stored at the root of the Documents folder, you need make a request to: `https://graph.microsoft.com/v1.0/drives/{YOUR DRIVE ID}/root/children`. Once you have the list of IDs that you are interested in, then you can instantiate the loader with the following parameters.
-
+例如，要检索存储在Documents文件夹根目录中的所有对象的信息，您需要向以下位置发出请求：`https://graph.microsoft.com/v1.0/drives/{YOUR DRIVE ID}/root/children`。一旦您获得了您感兴趣的ID列表，然后您可以使用以下参数实例化加载器。
 
 ```python
 from langchain.document_loaders.onedrive import OneDriveLoader
 
 loader = OneDriveLoader(drive_id="YOUR DRIVE ID", object_ids=["ID_1", "ID_2"], auth_with_token=True)
 documents = loader.load()
-```
-
-
-
-```python
-
 ```

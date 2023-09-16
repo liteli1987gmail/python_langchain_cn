@@ -1,10 +1,10 @@
 # AWS Kendra
 
-> AWS Kendra is an intelligent search service provided by Amazon Web Services (AWS). It utilizes advanced natural language processing (NLP) and machine learning algorithms to enable powerful search capabilities across various data sources within an organization. Kendra is designed to help users find the information they need quickly and accurately, improving productivity and decision-making.
+> AWS Kendra 是由亚马逊网络服务 (AWS) 提供的智能搜索服务。它利用先进的自然语言处理 (NLP) 和机器学习算法，在组织内的各种数据源上实现强大的搜索功能。Kendra 旨在帮助用户快速准确地找到所需的信息，提高生产力和决策能力。
 
-> With Kendra, users can search across a wide range of content types, including documents, FAQs, knowledge bases, manuals, and websites. It supports multiple languages and can understand complex queries, synonyms, and contextual meanings to provide highly relevant search results.
+> 使用 Kendra，用户可以搜索各种内容类型，包括文档、常见问题解答 (FAQ)、知识库、手册和网站。它支持多种语言，能够理解复杂的查询、同义词和上下文含义，提供高度相关的搜索结果。
 
-## Using the AWS Kendra Index Retriever
+## 使用 AWS Kendra 索引检索器
 
 
 ```python
@@ -17,7 +17,7 @@ import boto3
 from langchain.retrievers import AwsKendraIndexRetriever
 ```
 
-Create New Retriever
+创建新的检索器
 
 
 ```python
@@ -29,7 +29,7 @@ retriever = AwsKendraIndexRetriever(
 )
 ```
 
-Now you can use retrieved documents from AWS Kendra Index
+现在您可以使用从 AWS Kendra 索引中检索的文档
 
 
 ```python

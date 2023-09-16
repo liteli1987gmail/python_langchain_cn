@@ -1,19 +1,14 @@
 # kNN
-
->In statistics, the [k-nearest neighbors algorithm (k-NN)](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm) is a non-parametric supervised learning method first developed by Evelyn Fix and Joseph Hodges in 1951, and later expanded by Thomas Cover. It is used for classification and regression.
-
-This notebook goes over how to use a retriever that under the hood uses an kNN.
-
-Largely based on https://github.com/karpathy/randomfun/blob/master/knn_vs_svm.html
-
+>In statistics, the [k-nearest neighbors algorithm (k-NN)](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm)是一种非参数的监督学习方法，最早由Evelyn Fix和Joseph Hodges于1951年开发，后来由Thomas Cover扩展。它用于分类和回归。
+>本笔记本介绍了如何使用底层使用kNN的检索器。
+>基本上基于https://github.com/karpathy/randomfun/blob/master/knn_vs_svm.html
 
 ```python
 from langchain.retrievers import KNNRetriever
 from langchain.embeddings import OpenAIEmbeddings
 ```
 
-## Create New Retriever with Texts
-
+## 使用文本创建新的检索器
 
 ```python
 retriever = KNNRetriever.from_texts(
@@ -21,9 +16,9 @@ retriever = KNNRetriever.from_texts(
 )
 ```
 
-## Use Retriever
+## 使用检索器
 
-We can now use the retriever!
+现在我们可以使用检索器了！
 
 
 ```python
@@ -34,13 +29,3 @@ result = retriever.get_relevant_documents("foo")
 ```python
 result
 ```
-
-
-
-
-    [Document(page_content='foo', metadata={}),
-     Document(page_content='foo bar', metadata={}),
-     Document(page_content='hello', metadata={}),
-     Document(page_content='bar', metadata={})]
-
-

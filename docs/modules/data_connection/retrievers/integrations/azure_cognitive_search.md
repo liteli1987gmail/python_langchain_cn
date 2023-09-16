@@ -1,28 +1,26 @@
 # Azure Cognitive Search
 
->[Azure Cognitive Search](https://learn.microsoft.com/en-us/azure/search/search-what-is-azure-search) (formerly known as `Azure Search`) is a cloud search service that gives developers infrastructure, APIs, and tools for building a rich search experience over private, heterogeneous content in web, mobile, and enterprise applications.
+>[Azure Cognitive Search](https://learn.microsoft.com/en-us/azure/search/search-what-is-azure-search) (以前称为 `Azure Search`) 是一个云搜索服务，为开发人员提供了在 web、移动和企业应用程序中构建丰富搜索体验所需的基础设施、API 和工具。搜索是向用户展示文本的任何应用程序的基础，常见的场景包括目录或文档搜索、在线零售应用程序或专有内容的数据探索。创建搜索服务时，您将使用以下功能：
+>- 用于对包含用户拥有的内容的搜索索引进行全文搜索的搜索引擎
+>- 丰富的索引，包括词法分析和可选的人工智能增强，用于内容提取和转换
+>- 用于文本搜索、模糊搜索、自动完成、地理搜索等的丰富查询语法
+>- 通过 Azure SDK 中的 REST API 和客户端库进行编程
+>- 在数据层、机器学习层和人工智能 (认知服务) 层进行 Azure 集成
 
->Search is foundational to any app that surfaces text to users, where common scenarios include catalog or document search, online retail apps, or data exploration over proprietary content. When you create a search service, you'll work with the following capabilities:
->- A search engine for full text search over a search index containing user-owned content
->- Rich indexing, with lexical analysis and optional AI enrichment for content extraction and transformation
->- Rich query syntax for text search, fuzzy search, autocomplete, geo-search and more
->- Programmability through REST APIs and client libraries in Azure SDKs
->- Azure integration at the data layer, machine learning layer, and AI (Cognitive Services)
+这个笔记本展示了如何在 LangChain 中使用 Azure Cognitive Search (ACS)。
 
-This notebook shows how to use Azure Cognitive Search (ACS) within LangChain.
+## 设置 Azure Cognitive Search
 
-## Set up Azure Cognitive Search
+要设置 ACS，请按照此处的说明进行操作（https://learn.microsoft.com/en-us/azure/search/search-create-service-portal）。
 
-To set up ACS, please follow the instrcutions [here](https://learn.microsoft.com/en-us/azure/search/search-create-service-portal).
+请注意
+1. 您的 ACS 服务名称，
+2. 您的 ACS 索引名称，
+3. 您的 API 密钥。
 
-Please note
-1. the name of your ACS service, 
-2. the name of your ACS index,
-3. your API key.
+您的 API 密钥可以是管理密钥或查询密钥，但由于我们只读取数据，建议使用查询密钥。
 
-Your API key can be either Admin or Query key, but as we only read data it is recommended to use a Query key.
-
-## Using the Azure Cognitive Search Retriever
+## 使用 Azure Cognitive Search 检索器
 
 
 ```python
@@ -31,7 +29,7 @@ import os
 from langchain.retrievers import AzureCognitiveSearchRetriever
 ```
 
-Set Service Name, Index Name and API key as environment variables (alternatively, you can pass them as arguments to `AzureCognitiveSearchRetriever`).
+将服务名称、索引名称和 API 密钥设置为环境变量（或者，您可以将它们作为参数传递给 `AzureCognitiveSearchRetriever`）。
 
 
 ```python
@@ -40,14 +38,14 @@ os.environ["AZURE_COGNITIVE_SEARCH_INDEX_NAME"] = "<YOUR_ACS_INDEX_NAME>"
 os.environ["AZURE_COGNITIVE_SEARCH_API_KEY"] = "<YOUR_API_KEY>"
 ```
 
-Create the Retriever
+创建检索器
 
 
 ```python
 retriever = AzureCognitiveSearchRetriever(content_key="content")
 ```
 
-Now you can use retrieve documents from Azure Cognitive Search
+现在您可以从 Azure Cognitive Search 中检索文档
 
 
 ```python

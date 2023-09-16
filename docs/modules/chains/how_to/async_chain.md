@@ -1,8 +1,8 @@
-# Async API
+# 异步 API
 
-LangChain provides async support for Chains by leveraging the [asyncio](https://docs.python.org/3/library/asyncio.html) library.
+LangChain通过利用 [asyncio](https://docs.python.org/3/library/asyncio.html) 库为链提供了异步支持。
 
-Async methods are currently supported in `LLMChain` (through `arun`, `apredict`, `acall`) and `LLMMathChain` (through `arun` and `acall`), `ChatVectorDBChain`, and [QA chains](../index_examples/question_answering.html). Async support for other chains is on the roadmap.
+目前在 `LLMChain`（通过 `arun`、`apredict`、`acall`）和 `LLMMathChain`（通过 `arun` 和 `acall`）、`ChatVectorDBChain` 和 [QA chains](../index_examples/question_answering.html) 中支持异步方法。其他链的异步支持正在路上。
 
 
 ```python
@@ -43,15 +43,15 @@ async def generate_concurrently():
 
 
 s = time.perf_counter()
-# If running this outside of Jupyter, use asyncio.run(generate_concurrently())
+# 如果在 Jupyter 之外运行，请使用 asyncio.run(generate_concurrently())
 await generate_concurrently()
 elapsed = time.perf_counter() - s
-print("\033[1m" + f"Concurrent executed in {elapsed:0.2f} seconds." + "\033[0m")
+print("\033[1m" + f"并发执行花费了 {elapsed:0.2f} 秒." + "\033[0m")
 
 s = time.perf_counter()
 generate_serially()
 elapsed = time.perf_counter() - s
-print("\033[1m" + f"Serial executed in {elapsed:0.2f} seconds." + "\033[0m")
+print("\033[1m" + f"串行执行花费了 {elapsed:0.2f} 秒." + "\033[0m")
 ```
 
     
@@ -69,7 +69,7 @@ print("\033[1m" + f"Serial executed in {elapsed:0.2f} seconds." + "\033[0m")
     
     
     SparkleSmile Toothpaste
-    [1mConcurrent executed in 1.54 seconds.[0m
+    [1m并发执行花费了 1.54 秒.[0m
     
     
     BrightSmile Toothpaste Co.
@@ -85,5 +85,5 @@ print("\033[1m" + f"Serial executed in {elapsed:0.2f} seconds." + "\033[0m")
     
     
     BrightSmile Toothpaste.
-    [1mSerial executed in 6.38 seconds.[0m
+    [1m串行执行花费了 6.38 秒.[0m
     

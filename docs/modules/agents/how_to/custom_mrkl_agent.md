@@ -114,13 +114,13 @@ agent_executor.run("截至2023年加拿大有多少人口？")
 
     
     
-    [1m> 进入新的AgentExecutor链...[0m
-    [32;1m[1;3m思考$：我需要找出加拿大的人口
-    动作$：搜索
-    动作输入$：加拿大2023年人口[0m
-    观察结果$：[36;1m[1;3m根据最新的联合国数据，截至2023年4月16日，加拿大的当前人口为38,661,927。[0m
-    思考$：[32;1m[1;3m我现在知道最终答案
-    最终答案$：啊，加拿大有38,661,927人口，截至2023年！[0m
+    [1m> Entering new AgentExecutor chain...[0m
+    [32;1m[1;3mThought: I need to find out the population of Canada
+    Action: Search
+    Action Input: Population of Canada 2023[0m
+    Observation: [36;1m[1;3mThe current population of Canada is 38,661,927 as of Sunday, April 16, 2023, based on Worldometer elaboration of the latest United Nations data.[0m
+    Thought:[32;1m[1;3m I now know the final answer
+    Final Answer: Arrr, Canada be havin' 38,661,927 people livin' there as of 2023![0m
     
     [1m> 链结束。[0m
     
@@ -177,19 +177,19 @@ agent_executor.run(
 
     
     
-    [1m> 进入新的AgentExecutor链...[0m
-    [32;1m[1;3m思考$：我应该寻找最近的人口估计
-    动作$：搜索
-    动作输入$：2023年加拿大人口[0m
-    观察结果$：[36;1m[1;3m39,566,248[0m
-    思考$：[32;1m[1;3m我应该再次核实这个数字
-    动作$：搜索
-    动作输入$：2023年加拿大人口估计[0m
-    观察结果$：[36;1m[1;3m根据2022年1月1日至2023年1月1日的记录人口增长1,050,110人，在2023年1月1日，加拿大的人口估计为39,566,248。[0m
-    思考$：[32;1m[1;3m我现在知道最终答案
-    最终答案$：La popolazione del Canada è stata stimata a 39.566.248 il 1° gennaio 2023, dopo un record di crescita demografica di 1.050.110 persone dal 1° gennaio 2022 al 1° gennaio 2023.[0m
+    [1m> Entering new AgentExecutor chain...[0m
+    [32;1m[1;3mThought: I should look for recent population estimates.
+    Action: Search
+    Action Input: Canada population 2023[0m
+    Observation: [36;1m[1;3m39,566,248[0m
+    Thought:[32;1m[1;3m I should double check this number.
+    Action: Search
+    Action Input: Canada population estimates 2023[0m
+    Observation: [36;1m[1;3mCanada's population was estimated at 39,566,248 on January 1, 2023, after a record population growth of 1,050,110 people from January 1, 2022, to January 1, 2023.[0m
+    Thought:[32;1m[1;3m I now know the final answer.
+    Final Answer: La popolazione del Canada è stata stimata a 39.566.248 il 1° gennaio 2023, dopo un record di crescita demografica di 1.050.110 persone dal 1° gennaio 2022 al 1° gennaio 2023.[0m
     
-    [1m> 链结束。[0m
+    [1m> Finished chain.[0m
     
 
 
