@@ -1,29 +1,24 @@
 # Pandas DataFrame
-
-This notebook goes over how to load data from a [pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/index.html) DataFrame.
-
+本笔记本介绍了如何从 [pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/index.html) DataFrame 加载数据。
 
 ```python
 #!pip install pandas
 ```
 
-
 ```python
 import pandas as pd
 ```
 
-
 ```python
 df = pd.read_csv("example_data/mlb_teams_2012.csv")
 ```
-
 
 ```python
 df.head()
 ```
 
 
-
+```
 
 <div>
 <style scoped>
@@ -84,23 +79,19 @@ df.head()
 </div>
 
 
-
+```
 
 ```python
 from langchain.document_loaders import DataFrameLoader
 ```
 
-
 ```python
 loader = DataFrameLoader(df, page_content_column="Team")
 ```
 
-
 ```python
 loader.load()
 ```
-
-
 
 
     [Document(page_content='Nationals', metadata={' "Payroll (millions)"': 81.34, ' "Wins"': 98}),

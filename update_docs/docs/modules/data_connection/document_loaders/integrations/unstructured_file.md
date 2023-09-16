@@ -1,47 +1,46 @@
-# Unstructured File
+# 非结构化文件
 
-This notebook covers how to use `Unstructured` package to load files of many types. `Unstructured` currently supports loading of text files, powerpoints, html, pdfs, images, and more.
-
+这个笔记本介绍了如何使用`Unstructured`包加载多种类型的文件。 `Unstructured`目前支持加载文本文件，幻灯片，html，pdf，图像等。
 
 ```python
-# # Install package
+# # 安装包
 !pip install "unstructured[local-inference]"
 !pip install layoutparser[layoutmodels,tesseract]
 ```
 
-
 ```python
-# # Install other dependencies
+# # 安装其他依赖
 # # https://github.com/Unstructured-IO/unstructured/blob/main/docs/source/installing.rst
 # !brew install libmagic
 # !brew install poppler
 # !brew install tesseract
-# # If parsing xml / html documents:
+# # 如果解析xml / html文档:
 # !brew install libxml2
 # !brew install libxslt
 ```
 
-
 ```python
-# import nltk
+# 导入nltk
 # nltk.download('punkt')
 ```
-
 
 ```python
 from langchain.document_loaders import UnstructuredFileLoader
 ```
 
-
 ```python
 loader = UnstructuredFileLoader("./example_data/state_of_the_union.txt")
 ```
 
-
 ```python
+# 加载文档
+
+# 
+# 
+
+
 docs = loader.load()
 ```
-
 
 ```python
 docs[0].page_content[:400]
@@ -49,14 +48,16 @@ docs[0].page_content[:400]
 
 
 
-
-    'Madam Speaker, Madam Vice President, our First Lady and Second Gentleman. Members of Congress and the Cabinet. Justices of the Supreme Court. My fellow Americans.\n\nLast year COVID-19 kept us apart. This year we are finally together again.\n\nTonight, we meet as Democrats Republicans and Independents. But most importantly as Americans.\n\nWith a duty to one another to the American people to the Constit'
-
+    '女士们，先生们，美国副总统，我们的第一夫人和第二绅士。国会和内阁成员。最高法院法官。我的美国同胞们。\n\n去年COVID-19使我们分开。今年我们终于再次在一起。\n\n今晚，我们作为民主党人，共和党人和独立的人见面。但最重要的是作为美国人。\n\n对美国人民，对宪法，我们彼此都有责任。'
 
 
-## Retain Elements
 
-Under the hood, Unstructured creates different "elements" for different chunks of text. By default we combine those together, but you can easily keep that separation by specifying `mode="elements"`.
+
+
+## 保留元素
+
+在底层，Unstructured为不同的文本块创建不同的"元素"。默认情况下，我们将它们合并在一起，但是您可以通过指定`mode="elements"`轻松保留该分隔。
+
 
 
 ```python
@@ -65,36 +66,38 @@ loader = UnstructuredFileLoader(
 )
 ```
 
-
 ```python
+
+
 docs = loader.load()
 ```
 
-
 ```python
+
 docs[:5]
 ```
 
 
 
 
-    [Document(page_content='Madam Speaker, Madam Vice President, our First Lady and Second Gentleman. Members of Congress and the Cabinet. Justices of the Supreme Court. My fellow Americans.', lookup_str='', metadata={'source': '../../state_of_the_union.txt'}, lookup_index=0),
-     Document(page_content='Last year COVID-19 kept us apart. This year we are finally together again.', lookup_str='', metadata={'source': '../../state_of_the_union.txt'}, lookup_index=0),
-     Document(page_content='Tonight, we meet as Democrats Republicans and Independents. But most importantly as Americans.', lookup_str='', metadata={'source': '../../state_of_the_union.txt'}, lookup_index=0),
-     Document(page_content='With a duty to one another to the American people to the Constitution.', lookup_str='', metadata={'source': '../../state_of_the_union.txt'}, lookup_index=0),
-     Document(page_content='And with an unwavering resolve that freedom will always triumph over tyranny.', lookup_str='', metadata={'source': '../../state_of_the_union.txt'}, lookup_index=0)]
+    [Document(page_content='女士们，先生们，美国副总统，我们的第一夫人和第二绅士。国会和内阁成员。最高法院法官。我的美国同胞。', lookup_str='', metadata={'source': '../../state_of_the_union.txt'}, lookup_index=0),
+     Document(page_content='去年COVID-19使我们分开。今年我们终于再次在一起。', lookup_str='', metadata={'source': '../../state_of_the_union.txt'}, lookup_index=0),
+     Document(page_content='今晚，我们作为民主党人，共和党人和独立的人见面。但最重要的是作为美国人。', lookup_str='', metadata={'source': '../../state_of_the_union.txt'}, lookup_index=0),
+     Document(page_content='对美国人民，对宪法，我们彼此都有责任。', lookup_str='', metadata={'source': '../../state_of_the_union.txt'}, lookup_index=0),
+     Document(page_content='并且坚定决心自由将永远战胜暴政。', lookup_str='', metadata={'source': '../../state_of_the_union.txt'}, lookup_index=0)]
 
 
 
-## Define a Partitioning Strategy
 
-Unstructured document loader allow users to pass in a `strategy` parameter that lets `unstructured` know how to partition the document. Currently supported strategies are `"hi_res"` (the default) and `"fast"`. Hi res partitioning strategies are more accurate, but take longer to process. Fast strategies partition the document more quickly, but trade-off accuracy. Not all document types have separate hi res and fast partitioning strategies. For those document types, the `strategy` kwarg is ignored. In some cases, the high res strategy will fallback to fast if there is a dependency missing (i.e. a model for document partitioning). You can see how to apply a strategy to an `UnstructuredFileLoader` below.
+## 定义分区策略
+
+Unstructured文档加载器允许用户传入一个`strategy`参数，让`unstructured`知道如何分割文档。目前支持的策略有`"hi_res"`（默认值）和`"fast"`。高分辨率分区策略更准确，但处理时间较长。快速策略更快地分割文档，但会降低准确性。并非所有文档类型都有单独的高分辨率和快速分区策略。对于这些文档类型，`strategy`关键字参数将被忽略。在某些情况下，如果缺少依赖项（即文档分区的模型），高分辨率策略将回退到快速策略。您可以在下面看到如何将策略应用于`UnstructuredFileLoader`。
+
 
 
 ```python
 from langchain.document_loaders import UnstructuredFileLoader
 ```
-
 
 ```python
 loader = UnstructuredFileLoader(
@@ -102,13 +105,13 @@ loader = UnstructuredFileLoader(
 )
 ```
 
-
 ```python
+
 docs = loader.load()
 ```
 
-
 ```python
+
 docs[:5]
 ```
 
@@ -123,18 +126,18 @@ docs[:5]
 
 
 
-## PDF Example
 
-Processing PDF documents works exactly the same way. Unstructured detects the file type and extracts the same types of elements. Modes of operation are 
-- `single` all the text from all elements are combined into one (default)
-- `elements` maintain individual elements
-- `paged` texts from each page are only combined
+## PDF示例
+
+处理PDF文档的方式完全相同。Unstructured会检测文件类型并提取相同类型的元素。操作模式为
+- `single` 将所有元素的文本合并为一个（默认）
+- `elements` 保留单独的元素
+- `paged` 每个页面的文本仅合并
 
 
 ```python
 !wget  https://raw.githubusercontent.com/Unstructured-IO/unstructured/main/example-docs/layout-parser-paper.pdf -P "../../"
 ```
-
 
 ```python
 loader = UnstructuredFileLoader(
@@ -142,20 +145,20 @@ loader = UnstructuredFileLoader(
 )
 ```
 
-
 ```python
+
 docs = loader.load()
 ```
 
-
 ```python
+
 docs[:5]
 ```
 
 
 
 
-    [Document(page_content='LayoutParser : A Uniﬁed Toolkit for Deep Learning Based Document Image Analysis', lookup_str='', metadata={'source': '../../layout-parser-paper.pdf'}, lookup_index=0),
+    [Document(page_content='LayoutParser : A Uni\ufb01ed Toolkit for Deep Learning Based Document Image Analysis', lookup_str='', metadata={'source': '../../layout-parser-paper.pdf'}, lookup_index=0),
      Document(page_content='Zejiang Shen 1 ( (ea)\n ), Ruochen Zhang 2 , Melissa Dell 3 , Benjamin Charles Germain Lee 4 , Jacob Carlson 3 , and Weining Li 5', lookup_str='', metadata={'source': '../../layout-parser-paper.pdf'}, lookup_index=0),
      Document(page_content='Allen Institute for AI shannons@allenai.org', lookup_str='', metadata={'source': '../../layout-parser-paper.pdf'}, lookup_index=0),
      Document(page_content='Brown University ruochen zhang@brown.edu', lookup_str='', metadata={'source': '../../layout-parser-paper.pdf'}, lookup_index=0),
@@ -163,20 +166,20 @@ docs[:5]
 
 
 
+
 ## Unstructured API
 
-If you want to get up and running with less set up, you can simply run `pip install unstructured` and use `UnstructuredAPIFileLoader` or `UnstructuredAPIFileIOLoader`. That will process your document using the hosted Unstructured API. Note that currently (as of 11 May 2023) the Unstructured API is open, but it will soon require an API. The [Unstructured documentation](https://unstructured-io.github.io/) page will have instructions on how to generate an API key once they’re available. Check out the instructions [here](https://github.com/Unstructured-IO/unstructured-api#dizzy-instructions-for-using-the-docker-image) if you’d like to self-host the Unstructured API or run it locally.
+如果您想通过更少的设置立即开始运行，只需运行`pip install unstructured`并使用`UnstructuredAPIFileLoader`或`UnstructuredAPIFileIOLoader`即可。这将使用托管的Unstructured API处理您的文档。请注意，当前（截至2023年5月11日）Unstructured API是开放的，但很快将需要API密钥。一旦可用，[Unstructured文档](https://unstructured-io.github.io/)页面将提供有关如何生成API密钥的说明。如果您希望自己托管Unstructured API或在本地运行它，请查看[此处的说明](https://github.com/Unstructured-IO/unstructured-api#dizzy-instructions-for-using-the-docker-image)。
+
 
 
 ```python
 from langchain.document_loaders import UnstructuredAPIFileLoader
 ```
 
-
 ```python
 filenames = ["example_data/fake.docx", "example_data/fake-email.eml"]
 ```
-
 
 ```python
 loader = UnstructuredAPIFileLoader(
@@ -185,8 +188,8 @@ loader = UnstructuredAPIFileLoader(
 )
 ```
 
-
 ```python
+
 docs = loader.load()
 docs[0]
 ```
@@ -198,7 +201,9 @@ docs[0]
 
 
 
-You can also batch multiple files through the Unstructured API in a single API using `UnstructuredAPIFileLoader`.
+
+您还可以使用`UnstructuredAPIFileLoader`在单个API中批处理多个文件。
+
 
 
 ```python
@@ -208,8 +213,8 @@ loader = UnstructuredAPIFileLoader(
 )
 ```
 
-
 ```python
+
 docs = loader.load()
 docs[0]
 ```

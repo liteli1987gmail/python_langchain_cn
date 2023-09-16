@@ -1,12 +1,10 @@
 # XML
 
-The `UnstructuredXMLLoader` is used to load `XML` files. The loader works with `.xml` files. The page content will be the text extracted from the XML tags.
-
+`UnstructuredXMLLoader` 用于加载 `XML` 文件。该加载器适用于 `.xml` 文件。页面内容将是从 XML 标签中提取的文本。
 
 ```python
 from langchain.document_loaders import UnstructuredXMLLoader
 ```
-
 
 ```python
 loader = UnstructuredXMLLoader(
@@ -19,7 +17,37 @@ docs[0]
 
 
 
-    Document(page_content='United States\n\nWashington, DC\n\nJoe Biden\n\nBaseball\n\nCanada\n\nOttawa\n\nJustin Trudeau\n\nHockey\n\nFrance\n\nParis\n\nEmmanuel Macron\n\nSoccer\n\nTrinidad & Tobado\n\nPort of Spain\n\nKeith Rowley\n\nTrack & Field', metadata={'source': 'example_data/factbook.xml'})
+    Document(page_content='United States
+
+Washington, DC
+
+Joe Biden
+
+Baseball
+
+Canada
+
+Ottawa
+
+Justin Trudeau
+
+Hockey
+
+France
+
+Paris
+
+Emmanuel Macron
+
+Soccer
+
+Trinidad & Tobado
+
+Port of Spain
+
+Keith Rowley
+
+Track & Field', metadata={'source': 'example_data/factbook.xml'})
 
 
 

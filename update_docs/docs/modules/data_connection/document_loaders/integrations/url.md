@@ -1,12 +1,10 @@
 # URL
 
-This covers how to load HTML documents from a list of URLs into a document format that we can use downstream.
-
+这涵盖了如何从URL列表中加载HTML文档到我们可以在下游使用的文档格式。
 
 ```python
 from langchain.document_loaders import UnstructuredURLLoader
 ```
-
 
 ```python
 urls = [
@@ -15,13 +13,11 @@ urls = [
 ]
 ```
 
-Pass in ssl_verify=False with headers=headers to get past ssl_verification error.
-
+使用headers=headers并传入ssl_verify=False以解决ssl_verification错误。
 
 ```python
 loader = UnstructuredURLLoader(urls=urls)
 ```
-
 
 ```python
 data = loader.load()
@@ -29,20 +25,17 @@ data = loader.load()
 
 # Selenium URL Loader
 
-This covers how to load HTML documents from a list of URLs using the `SeleniumURLLoader`.
+这涵盖了如何使用`SeleniumURLLoader`从URL列表中加载HTML文档。
 
-Using selenium allows us to load pages that require JavaScript to render.
+使用selenium允许我们加载需要JavaScript渲染的页面。
 
-## Setup
+## 设置
 
-To use the `SeleniumURLLoader`, you will need to install `selenium` and `unstructured`.
-
-
+要使用`SeleniumURLLoader`，您需要安装`selenium`和`unstructured`。
 
 ```python
 from langchain.document_loaders import SeleniumURLLoader
 ```
-
 
 ```python
 urls = [
@@ -51,11 +44,9 @@ urls = [
 ]
 ```
 
-
 ```python
 loader = SeleniumURLLoader(urls=urls)
 ```
-
 
 ```python
 data = loader.load()
@@ -63,27 +54,24 @@ data = loader.load()
 
 # Playwright URL Loader
 
-This covers how to load HTML documents from a list of URLs using the `PlaywrightURLLoader`.
+这涵盖了如何使用`PlaywrightURLLoader`从URL列表中加载HTML文档。
 
-As in the Selenium case, Playwright allows us to load pages that need JavaScript to render.
+与Selenium情况类似，Playwright允许我们加载需要JavaScript渲染的页面。
 
-## Setup
+## 设置
 
-To use the `PlaywrightURLLoader`, you will need to install `playwright` and `unstructured`. Additionally, you will need to install the Playwright Chromium browser:
-
+要使用`PlaywrightURLLoader`，您需要安装`playwright`和`unstructured`。此外，您还需要安装Playwright Chromium浏览器:$
 
 ```python
-# Install playwright
+# 安装playwright
 !pip install "playwright"
 !pip install "unstructured"
 !playwright install
 ```
 
-
 ```python
 from langchain.document_loaders import PlaywrightURLLoader
 ```
-
 
 ```python
 urls = [
@@ -92,11 +80,9 @@ urls = [
 ]
 ```
 
-
 ```python
 loader = PlaywrightURLLoader(urls=urls, remove_selectors=["header", "footer"])
 ```
-
 
 ```python
 data = loader.load()

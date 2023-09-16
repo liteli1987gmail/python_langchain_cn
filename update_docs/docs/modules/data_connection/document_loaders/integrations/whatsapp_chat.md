@@ -1,19 +1,15 @@
 # WhatsApp Chat
+>[WhatsApp](https://www.whatsapp.com/)（也称为`WhatsApp Messenger`）是一款免费的跨平台即时通讯（IM）和网络电话（VoIP）服务。它允许用户发送文字和语音消息，进行语音和视频通话，并分享图像、文档、用户位置和其他内容。
 
->[WhatsApp](https://www.whatsapp.com/) (also called `WhatsApp Messenger`) is a freeware, cross-platform, centralized instant messaging (IM) and voice-over-IP (VoIP) service. It allows users to send text and voice messages, make voice and video calls, and share images, documents, user locations, and other content.
-
-This notebook covers how to load data from the `WhatsApp Chats` into a format that can be ingested into LangChain.
-
+本文档介绍了如何将`WhatsApp Chat`中的数据加载到可以被LangChain摄入的格式中。
 
 ```python
 from langchain.document_loaders import WhatsAppChatLoader
 ```
 
-
 ```python
 loader = WhatsAppChatLoader("example_data/whatsapp_chat.txt")
 ```
-
 
 ```python
 loader.load()

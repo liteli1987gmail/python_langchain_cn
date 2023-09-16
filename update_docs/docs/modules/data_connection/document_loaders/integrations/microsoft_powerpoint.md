@@ -1,24 +1,19 @@
 # Microsoft PowerPoint
+>[Microsoft PowerPoint](https://en.wikipedia.org/wiki/Microsoft_PowerPoint)是Microsoft的演示程序。
 
->[Microsoft PowerPoint](https://en.wikipedia.org/wiki/Microsoft_PowerPoint) is a presentation program by Microsoft.
-
-This covers how to load `Microsoft PowerPoint` documents into a document format that we can use downstream.
-
+本文介绍了如何将`Microsoft PowerPoint`文档加载到我们可以在下游使用的文档格式中。
 
 ```python
 from langchain.document_loaders import UnstructuredPowerPointLoader
 ```
 
-
 ```python
 loader = UnstructuredPowerPointLoader("example_data/fake-power-point.pptx")
 ```
 
-
 ```python
 data = loader.load()
 ```
-
 
 ```python
 data

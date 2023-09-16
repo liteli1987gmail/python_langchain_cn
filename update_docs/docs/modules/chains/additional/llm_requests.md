@@ -1,7 +1,6 @@
 # HTTP request chain
 
-Using the request library to get HTML results from a URL and then an LLM to parse results
-
+使用request库从URL获取HTML结果，然后使用LLM解析结果
 
 ```python
 from langchain.llms import OpenAI
@@ -32,7 +31,7 @@ chain = LLMRequestsChain(llm_chain=LLMChain(llm=OpenAI(temperature=0), prompt=PR
 
 
 ```python
-question = "What are the Three (3) biggest countries, and their respective sizes?"
+question = "三个最大的国家及其各自的大小是什么？"
 inputs = {
     "query": question,
     "url": "https://www.google.com/search?q=" + question.replace(" ", "+"),
@@ -47,9 +46,9 @@ chain(inputs)
 
 
 
-    {'query': 'What are the Three (3) biggest countries, and their respective sizes?',
-     'url': 'https://www.google.com/search?q=What+are+the+Three+(3)+biggest+countries,+and+their+respective+sizes?',
-     'output': ' Russia (17,098,242 km²), Canada (9,984,670 km²), United States (9,826,675 km²)'}
+    {'query': '三个最大的国家及其各自的大小是什么？',
+     'url': 'https://www.google.com/search?q=三个最大的国家及其各自的大小是什么？',
+     'output': '俄罗斯（17,098,242平方公里），加拿大（9,984,670平方公里），美国（9,826,675平方公里）'}
 
 
 

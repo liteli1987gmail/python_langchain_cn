@@ -1,64 +1,27 @@
 # Embaas
 
-[embaas](https://embaas.io) is a fully managed NLP API service that offers features like embedding generation, document text extraction, document to embeddings and more. You can choose a [variety of pre-trained models](https://embaas.io/docs/models/embeddings).
+[embaas](https://embaas.io)是一个完全托管的NLP API服务，提供嵌入生成、文档文本提取、文档到嵌入等功能。您可以选择[各种预训练模型](https://embaas.io/docs/models/embeddings)。
 
-In this tutorial, we will show you how to use the embaas Embeddings API to generate embeddings for a given text.
+在本教程中，我们将向您展示如何使用embaas嵌入API为给定的文本生成嵌入。
 
-### Prerequisites
-Create your free embaas account at [https://embaas.io/register](https://embaas.io/register) and generate an [API key](https://embaas.io/dashboard/api-keys).
-
+### 先决条件
+在[https://embaas.io/register](https://embaas.io/register)上创建您的免费embaas帐户，并生成一个[API密钥](https://embaas.io/dashboard/api-keys)。
 
 ```python
-# Set API key
+# 设置API密钥
 embaas_api_key = "YOUR_API_KEY"
-# or set environment variable
+# 或设置环境变量
 os.environ["EMBAAS_API_KEY"] = "YOUR_API_KEY"
 ```
 
+......
 
 ```python
-from langchain.embeddings import EmbaasEmbeddings
+# 为单个文档创建嵌入
+    doc_text = "This is a test document."
+    doc_text_embedding = embeddings.embed_query(doc_text)
 ```
 
-
-```python
-embeddings = EmbaasEmbeddings()
-```
-
-
-```python
-# Create embeddings for a single document
-doc_text = "This is a test document."
-doc_text_embedding = embeddings.embed_query(doc_text)
-```
-
-
-```python
-# Print created embedding
-print(doc_text_embedding)
-```
-
-
-```python
-# Create embeddings for multiple documents
-doc_texts = ["This is a test document.", "This is another test document."]
-doc_texts_embeddings = embeddings.embed_documents(doc_texts)
-```
-
-
-```python
-# Print created embeddings
-for i, doc_text_embedding in enumerate(doc_texts_embeddings):
-    print(f"Embedding for document {i + 1}: {doc_text_embedding}")
-```
-
-
-```python
-# Using a different model and/or custom instruction
-embeddings = EmbaasEmbeddings(
-    model="instructor-large",
-    instruction="Represent the Wikipedia document for retrieval",
-)
-```
+......
 
 For more detailed information about the embaas Embeddings API, please refer to [the official embaas API documentation](https://embaas.io/api-reference).

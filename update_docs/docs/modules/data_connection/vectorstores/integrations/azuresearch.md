@@ -1,6 +1,6 @@
 # Azure Cognitive Search
 
-# Install Azure Cognitive Search SDK
+# 安装 Azure Cognitive Search SDK
 
 
 ```python
@@ -8,7 +8,7 @@
 !pip install azure-identity
 ```
 
-## Import required libraries
+## 导入所需库
 
 
 ```python
@@ -20,12 +20,12 @@ from langchain.schema import BaseRetriever
 from langchain.vectorstores.azuresearch import AzureSearch
 ```
 
-## Configure OpenAI settings
-Configure the OpenAI settings to use Azure OpenAI or OpenAI
+## 配置 OpenAI 设置
+配置 OpenAI 设置以使用 Azure OpenAI 或 OpenAI
 
 
 ```python
-# Load environment variables from a .env file using load_dotenv():
+# 从 .env 文件中加载环境变量使用 load_dotenv():
 load_dotenv()
 
 openai.api_type = "azure"
@@ -35,9 +35,9 @@ openai.api_key = "YOUR_OPENAI_API_KEY"
 model: str = "text-embedding-ada-002"
 ```
 
-## Configure vector store settings
+## 配置向量存储设置
  
-Set up the vector store settings using environment variables:
+使用环境变量设置向量存储设置:
 
 
 ```python
@@ -46,9 +46,9 @@ vector_store_password: str = "YOUR_AZURE_SEARCH_ADMIN_KEY"
 index_name: str = "langchain-vector-demo"
 ```
 
-## Create embeddings and vector store instances
+## 创建嵌入和向量存储实例
  
-Create instances of the OpenAIEmbeddings and AzureSearch classes:
+创建 OpenAIEmbeddings 和 AzureSearch 类的实例:
 
 
 ```python
@@ -61,9 +61,9 @@ vector_store: AzureSearch = AzureSearch(
 )
 ```
 
-## Insert text and embeddings into vector store
+## 将文本和嵌入插入向量存储
  
-Add texts and metadata from the JSON data to the vector store:
+将 JSON 数据中的文本和元数据添加到向量存储:
 
 
 ```python
@@ -79,15 +79,15 @@ docs = text_splitter.split_documents(documents)
 vector_store.add_documents(documents=docs)
 ```
 
-## Perform a vector similarity search
+## 执行向量相似性搜索
  
-Execute a pure vector similarity search using the similarity_search() method:
+使用 similarity_search() 方法执行纯向量相似性搜索:
 
 
 ```python
-# Perform a similarity search
+# 执行相似性搜索
 docs = vector_store.similarity_search(
-    query="What did the president say about Ketanji Brown Jackson",
+    query="总统对 Ketanji Brown Jackson 说了什么",
     k=3,
     search_type="similarity",
 )
@@ -102,16 +102,15 @@ print(docs[0].page_content)
     
     And I did that 4 days ago, when I nominated Circuit Court of Appeals Judge Ketanji Brown Jackson. One of our nation’s top legal minds, who will continue Justice Breyer’s legacy of excellence.
     
+## 执行混合搜索
 
-## Perform a Hybrid Search
-
-Execute hybrid search using the hybrid_search() method:
+使用 hybrid_search() 方法执行混合搜索:
 
 
 ```python
-# Perform a hybrid search
+# 执行混合搜索
 docs = vector_store.similarity_search(
-    query="What did the president say about Ketanji Brown Jackson", k=3
+    query="总统对Ketanji Brown Jackson 说了什么", k=3
 )
 print(docs[0].page_content)
 ```

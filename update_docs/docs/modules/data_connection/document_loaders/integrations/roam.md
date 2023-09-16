@@ -1,34 +1,30 @@
 # Roam
 
->[ROAM](https://roamresearch.com/) is a note-taking tool for networked thought, designed to create a personal knowledge base.
+[ROAM](https://roamresearch.com/) 是一个用于网络思维的笔记工具，旨在创建个人知识库。
 
-This notebook covers how to load documents from a Roam database. This takes a lot of inspiration from the example repo [here](https://github.com/JimmyLv/roam-qa).
+本笔记本介绍了如何从 Roam 数据库加载文档。这主要受到了[这里](https://github.com/JimmyLv/roam-qa)的示例仓库的启发。
 
-## 🧑 Instructions for ingesting your own dataset
+## 🟡 指南：如何导入您自己的数据集
 
-Export your dataset from Roam Research. You can do this by clicking on the three dots in the upper right hand corner and then clicking `Export`.
+从 Roam Research 导出您的数据集。您可以通过点击右上角的三个点，然后点击“导出”来完成此操作。
 
-When exporting, make sure to select the `Markdown & CSV` format option.
+在导出时，请确保选择“Markdown 和 CSV”格式选项。
 
-This will produce a `.zip` file in your Downloads folder. Move the `.zip` file into this repository.
+这将在您的下载文件夹中生成一个 `.zip` 文件。将 `.zip` 文件移动到此存储库中。
 
-Run the following command to unzip the zip file (replace the `Export...` with your own file name as needed).
+运行以下命令解压缩 zip 文件（根据需要替换“Export...”为您自己的文件名）：
 
 ```shell
 unzip Roam-Export-1675782732639.zip -d Roam_DB
 ```
 
-
-
 ```python
 from langchain.document_loaders import RoamLoader
 ```
 
-
 ```python
 loader = RoamLoader("Roam_DB")
 ```
-
 
 ```python
 docs = loader.load()

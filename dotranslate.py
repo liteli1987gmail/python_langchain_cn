@@ -47,10 +47,15 @@ examples_json = """
 
 # 构造翻译指令和MDX内容的组合
 prefix = f"""Please identify and translate into {target_lang} only the natural language sentences in the following file content.
-Recognize that metadata, code blocks, components, and semantic tags, and begin with '[[',and begin with '<',and begin with 'import' are non-natural language elements and should not be translated.
-Headings, paragraphs, ordered lists, unordered lists, and block quotes in Markdown syntax are considered natural language and should be translated.
-The output follow this format example:{examples_json}.
-should be translated content is:
+[rules]
+    1. Recognize that metadata, code blocks, components, and semantic tags, and begin with '[[',and begin with '<',and begin with 'import' are non-natural language elements and should not be translated.
+    2. Headings, paragraphs, ordered lists, unordered lists, and block quotes in Markdown syntax are considered natural language and should be translated.
+    3. The output's format follow this example:
+        ```
+        {examples_json}
+        ```
+    4. Keep all the symbols during translation, and all symbols should be in English mode.    
+Should be translated content is:
 """
 
 # translated_dict = json.loads(OpenAIapi(prompt))
@@ -69,67 +74,118 @@ def process_files_in_batches(input_folder, output_folder):
     # i = 0
     translate_loop(items,output_folder)
 
-def translate_loop(items_list,output_folder):
-    # 初始化配置
-    items = items_list
-    batch_size=initbatch_size
-    i = 0
-
-    while i < len(items):
-
-        # batch_dict = json.dumps(dict(items[i:i + batch_size]))
-
-        # time.sleep(30)
-        batch_items = items[i:i + batch_size] if batch_size > 0 else [items[i]]
-
-        if len(batch_items) == 1:
-            # 对单一元素进行特殊处理
-            batch_dict = json.dumps({batch_items[0][0]: batch_items[0][1]})
-        else:
-            # 对多个元素进行常规处理
-            # batch_dict = json.dumps(dict(batch_items))
-            batch_dict = json.dumps(batch_items)
-
-        # 检查batch_dict长度如果总的字符大于8000，只取1个文件
-        if len(batch_dict) >= maxtokens:
-            print(f"{len(batch_dict) >= maxtokens}")
-            batch_size = 1
-            batch_dict = json.dumps(items[i:i + batch_size])
-            print(f"{batch_size}")
-        elif len(batch_dict) < maxtokens:    
-            batch_size += 1
-
-        i += batch_size
-            
-        # Translate the batch (you would call your translation API here)
-        # For the sake of this example, let's assume translated_batch = batch_dict
-        surfix = f"""-content start-
-                {batch_dict}
-                -content end-
-                翻译时保留所有的符号,所有符号均为英文模式。your json result is:"""
-        prejson = OpenAIapi(prefix+surfix)
-        print(f"""返回：prejson是否成功： {'{' and '}' in prejson}""")
-
-        if not '}' in prejson :
+def translate_loop(untracked_files_list, output_folder):
+    # Initialize configurations
+    # ... (your existing code)
+    
+    # Read each file in untracked_files.txt and translate
+    for file_path in untracked_files_list:
+        # Remove the newline character from the file path
+        file_path = file_path.strip()
+        
+        # Read the file content
+        if os.path.isfile(file_path):
+            with open(file_path, "r", encoding='utf-8') as f:
+                content = f.read().replace("\n", "$n").replace(":", "$:")
+                nontranslate_content_dict = {file_path: content}
+        # Prepare your prompt with the content
+        surfix = f"""
+                ```
+                {nontranslate_content_dict}
+                ```
+                Translate according to the <rules>
+                your format JSON output is:"""
+        
+        # Get the translated content
+        prejson = OpenAIapi(prefix + surfix)
+        
+        if len(prejson) < 4:
             time.sleep(60)
             print(f""" '400' or '999' or '429'""")
             try:
-                batch_dict = json.loads(batch_dict)
-                error_parse.update(batch_dict)
+                error_non_deal = content
+                continue
             except UnboundLocalError as e:
                 print(f"Failed to parse data : {e}")
-                continue     
+                continue
         else:
             try:
-                translated_batch = json.loads(prejson)
-
-                # Write the translated files back to the output folder
-                write_translated_files_to_folder(translated_batch, output_folder)
+                print(f"""api结果是：{prejson}""")
+                # translated_content = json.loads(prejson)
+                
+                # Combine file_path and translated_content into a JSON object
+                result_json = json.loads(prejson)
+                
+                # Write the result to the output folder
+                write_translated_files_to_folder(result_json, output_folder)
 
             except json.JSONDecodeError as e:
-                error_parse.update(batch_dict)
                 print(f"Failed to parse data : {error_parse}")
                 continue  # 继续处理下一个数据项
+
+# def translate_loop_haha(items_list, output_folder):
+#     # 初始化配置
+#     items = items_list
+#     batch_size=initbatch_size
+#     i = 0
+
+#     while i < len(items):
+
+#         # batch_dict = json.dumps(dict(items[i:i + batch_size]))
+
+#         # time.sleep(30)
+#         batch_items = items[i:i + batch_size] if batch_size > 0 else [items[i]]
+
+#         if len(batch_items) == 1:
+#             # 对单一元素进行特殊处理
+#             batch_dict = json.dumps({batch_items[0][0]: batch_items[0][1]})
+#         else:
+#             # 对多个元素进行常规处理
+#             # batch_dict = json.dumps(dict(batch_items))
+#             batch_dict = json.dumps(batch_items)
+
+#         # 检查batch_dict长度如果总的字符大于8000，只取1个文件
+#         if len(batch_dict) >= maxtokens:
+#             print(f"{len(batch_dict) >= maxtokens}")
+#             batch_size = 1
+#             batch_dict = json.dumps(items[i:i + batch_size])
+#             print(f"{batch_size}")
+#         elif len(batch_dict) < maxtokens:    
+#             batch_size += 1
+
+#         i += batch_size
+            
+#         # Translate the batch (you would call your translation API here)
+#         # For the sake of this example, let's assume translated_batch = batch_dict
+#         surfix = f"""
+#                 ```
+#                 {batch_dict}
+#                 ```
+#                 Translate according to the <rules>
+#                 Format your output as a JSON object:"""
+#         prejson = OpenAIapi(prefix+surfix)
+#         print(f"""返回：prejson是否成功： {'{' and '}' in prejson}""")
+#         print(f"""返回 prejson： {prejson}""")
+#         if not '}' in prejson :
+#             time.sleep(60)
+#             print(f""" '400' or '999' or '429'""")
+#             try:
+#                 batch_dict = json.loads(batch_dict)
+#                 # error_parse.update(batch_dict)
+#             except UnboundLocalError as e:
+#                 print(f"Failed to parse data : {e}")
+#                 continue     
+#         else:
+#             try:
+#                 translated_batch = json.loads(prejson)
+
+#                 # Write the translated files back to the output folder
+#                 write_translated_files_to_folder(translated_batch, output_folder)
+
+#             except json.JSONDecodeError as e:
+#                 error_parse.update(batch_dict)
+#                 print(f"Failed to parse data : {error_parse}")
+#                 continue  # 继续处理下一个数据项
 
 
 def write_translated_files_to_folder(translated_dict, output_folder):
@@ -137,18 +193,21 @@ def write_translated_files_to_folder(translated_dict, output_folder):
     Write the translated content back to .md and .mdx files.
     The files are saved in the specified output folder, preserving the original file hierarchy.
     """
-    for relative_path, content in translated_dict.items():
+    # Loop through the dictionary
+    for relative_path, translated_content in translated_dict.items():
+        # Create the full output path for the file
         full_output_path = os.path.join(output_folder, relative_path)
-        done_filenames.append(full_output_path)
-        os.makedirs(os.path.dirname(full_output_path), exist_ok=True)  # Create directories if they don't exist
+        
+        # Create any necessary directories
+        os.makedirs(os.path.dirname(full_output_path), exist_ok=True)
+        
+        # Write the translated content to the file
         with open(full_output_path, 'w', encoding='utf-8') as f:
-            f.write(content.replace("$n", "\n").replace("$:",":"))
-            translated_dict = {}
-
+            f.write(translated_content.replace("$n", "\n").replace("$:", ":"))
 
 def fail_loop(timestamp_path,maxtokens):
 
-    translate_loop(error_parse,output_folder)
+    # translate_loop(error_parse,output_folder)
 
     #  未能调试成功，本想要读取失败的内容再次翻译
     maxtokens = maxtokens + 2000
@@ -183,5 +242,11 @@ def main():
     fail_loop(filename,maxtokens)    
 
 if __name__ == "__main__":
-    main()
+    with open("untracked_files.txt", "r") as f:
+        files_to_translate = f.readlines()
+
+    translate_loop(files_to_translate, output_folder)
+
+
+    # main()
     # fail_loop('./en_docs/codingcrashcourses8533_failed_2023-09-10_21-50-30.json',8000)

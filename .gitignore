@@ -1,6 +1,9 @@
 # Dependencies
 /node_modules
 
+# 翻译暂存区
+/update_docs
+
 # Production
 /build
 
@@ -20,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .vercel
+.py
+
