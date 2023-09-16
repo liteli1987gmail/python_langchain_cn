@@ -1,6 +1,6 @@
 # Tools as OpenAI Functions
 
-This notebook goes over how to use LangChain tools as OpenAI functions.
+本笔记本介绍了如何将LangChain工具用作OpenAI函数。
 
 
 ```python

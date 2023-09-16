@@ -1,6 +1,6 @@
-# Add Memory to OpenAI Functions Agent
+# 给 OpenAI Functions Agent 添加记忆
 
-This notebook goes over how to add memory to OpenAI Functions agent.
+本笔记本介绍了如何给 OpenAI Functions agent 添加记忆功能。
 
 
 ```python
@@ -16,7 +16,7 @@ from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
 ```
 
-    /Users/harrisonchase/.pyenv/versions/3.9.1/envs/langchain/lib/python3.9/site-packages/deeplake/util/check_latest_version.py:32: UserWarning: A newer version of deeplake (3.6.4) is available. It's recommended that you update to the latest version using `pip install -U deeplake`.
+    /Users/harrisonchase/.pyenv/versions/3.9.1/envs/langchain/lib/python3.9/site-packages/deeplake/util/check_latest_version.py:32: UserWarning: 有 deeplake 的新版本可用 (3.6.4)。建议使用 `pip install -U deeplake` 更新到最新版本。
       warnings.warn(
     
 
@@ -84,7 +84,7 @@ agent.run("hi")
 
 
 
-    'Hello! How can I assist you today?'
+    '你好！今天我可以如何帮助您？'
 
 
 
@@ -104,7 +104,7 @@ agent.run("my name is bob")
 
 
 
-    'Nice to meet you, Bob! How can I help you today?'
+    '很高兴见到你，Bob！今天我可以如何帮助您？'
 
 
 
@@ -115,16 +115,16 @@ agent.run("whats my name")
 
     
     
-    [1m> Entering new  chain...[0m
-    [32;1m[1;3mYour name is Bob.[0m
+    [1m> 进入新的链...[0m
+    [32;1m[1;3m你的名字是 Bob。[0m
     
-    [1m> Finished chain.[0m
+    [1m> 完成链。[0m
     
 
 
 
 
-    'Your name is Bob.'
+    '你的名字是 Bob。'
 
 
 

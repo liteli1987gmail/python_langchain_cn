@@ -1,6 +1,6 @@
-# Self ask with search
+# 自问自答带搜索
 
-This walkthrough showcases the Self Ask With Search chain.
+本教程展示了自问自答带搜索的使用方法。
 
 
 ```python
@@ -36,7 +36,7 @@ self_ask_with_search.run(
     Intermediate answer: [36;1m[1;3mEl Palmar, Spain[0m
     [32;1m[1;3mSo the final answer is: El Palmar, Spain[0m
     
-    [1m> Finished chain.[0m
+    [1m> 完成链。[0m
     
 
 

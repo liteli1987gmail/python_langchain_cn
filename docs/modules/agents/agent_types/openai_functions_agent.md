@@ -1,12 +1,10 @@
 # OpenAI Functions Agent
 
-This notebook showcases using an agent that uses the OpenAI functions ability to respond to the prompts of the user using a Large Language Model
+这个 notebook 展示了使用一个代理来使用 OpenAI 函数的能力，以回应用户的提示，使用一个大型语言模型
 
-Install openai,google-search-results packages which are required as the langchain packages call them internally
+安装 openai，google-search-results 包，这些包是作为 langchain 包内部调用它们的
 
 >pip install openai google-search-results
-
-
 
 ```python
 from langchain import (
@@ -21,18 +19,19 @@ from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
 ```
 
-The agent is given ability to perform 3 search functionalities with the respective tools
+代理有能力使用相应的工具执行 3 种搜索功能
 
 SerpAPIWrapper:
+
 >This initializes the SerpAPIWrapper for search functionality (search).
 
-LLMMathChain Initialization:
+LLMMathChain 初始化:
+
 >This component provides math-related functionality.
 
-SQL Database Initialization:
+SQL Database 初始化:
+
 >This component provides the agent to query in Custom Data Base.
-
-
 
 ```python
 # Initialize the OpenAI language model
@@ -74,20 +73,19 @@ tools = [
 
 ```
 
+```
 
-```python
 mrkl = initialize_agent(tools, llm, agent=AgentType.OPENAI_FUNCTIONS, verbose=True)
 ```
 
+```
 
-```python
 mrkl.run(
     "Who is Leo DiCaprio's girlfriend? What is her current age raised to the 0.43 power?"
 )
 ```
 
-    
-    
+
     [1m> Entering new  chain...[0m
     [32;1m[1;3m
     Invoking: `Search` with `{'query': 'Leo DiCaprio girlfriend'}`
@@ -108,14 +106,14 @@ mrkl.run(
     Answer: [33;1m[1;3m3.547023357958959[0m
     [1m> Finished chain.[0m
     [33;1m[1;3mAnswer: 3.547023357958959[0m[32;1m[1;3mLeo DiCaprio's girlfriend is reportedly Eden Polani. Her current age raised to the power of 0.43 is approximately 3.55.[0m
-    
     [1m> Finished chain.[0m
-    
 
 
 
 
-    "Leo DiCaprio's girlfriend is reportedly Eden Polani. Her current age raised to the power of 0.43 is approximately 3.55."
+
+"Leo DiCaprio's girlfriend is reportedly Eden Polani. Her current age raised to the power of 0.43 is approximately 3.55."
+
 
 
 

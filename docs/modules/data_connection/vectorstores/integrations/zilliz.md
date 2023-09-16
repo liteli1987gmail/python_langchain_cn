@@ -1,18 +1,14 @@
 # Zilliz
 
->[Zilliz Cloud](https://zilliz.com/doc/quick_start) is a fully managed service on cloud for `LF AI Milvus®`,
+[Zilliz Cloud](https://zilliz.com/doc/quick_start) 是一个完全托管在云端的 `LF AI Milvus®` 服务，本页展示了与 Zilliz Cloud 托管的向量数据库相关的功能的使用方法。
 
-This notebook shows how to use functionality related to the Zilliz Cloud managed vector database.
-
-To run, you should have a `Zilliz Cloud` instance up and running. Here are the [installation instructions](https://zilliz.com/cloud)
-
+要运行此示例，您需要一个正在运行的 `Zilliz Cloud` 实例。您可以按照[安装说明](https://zilliz.com/cloud)进行安装。
 
 ```python
 !pip install pymilvus
 ```
 
-We want to use `OpenAIEmbeddings` so we have to get the OpenAI API Key.
-
+我们想要使用 `OpenAIEmbeddings`，因此我们需要获取 OpenAI API Key。
 
 ```python
 import os
@@ -32,14 +28,12 @@ ZILLIZ_CLOUD_USERNAME = ""  # example: "username"
 ZILLIZ_CLOUD_PASSWORD = ""  # example: "*********"
 ```
 
-
 ```python
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Milvus
 from langchain.document_loaders import TextLoader
 ```
-
 
 ```python
 from langchain.document_loaders import TextLoader
@@ -51,7 +45,6 @@ docs = text_splitter.split_documents(documents)
 
 embeddings = OpenAIEmbeddings()
 ```
-
 
 ```python
 vector_db = Milvus.from_documents(
@@ -66,12 +59,10 @@ vector_db = Milvus.from_documents(
 )
 ```
 
-
 ```python
 query = "What did the president say about Ketanji Brown Jackson"
 docs = vector_db.similarity_search(query)
 ```
-
 
 ```python
 docs[0].page_content

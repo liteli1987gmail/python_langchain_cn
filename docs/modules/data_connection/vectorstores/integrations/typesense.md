@@ -1,28 +1,26 @@
 # Typesense
 
-> [Typesense](https://typesense.org) is an open source, in-memory search engine, that you can either [self-host](https://typesense.org/docs/guide/install-typesense.html#option-2-local-machine-self-hosting) or run on [Typesense Cloud](https://cloud.typesense.org/).
->
-> Typesense focuses on performance by storing the entire index in RAM (with a backup on disk) and also focuses on providing an out-of-the-box developer experience by simplifying available options and setting good defaults.
->
-> It also lets you combine attribute-based filtering together with vector queries, to fetch the most relevant documents.
+> [Typesense](https://typesense.org) 是一个开源的内存搜索引擎，您可以[自行托管](https://typesense.org/docs/guide/install-typesense.html#option-2-local-machine-self-hosting)或在[Typesense云](https://cloud.typesense.org)上运行。
 
-This notebook shows you how to use Typesense as your VectorStore.
+> Typesense专注于性能，通过将整个索引存储在RAM中（备份在磁盘上），并通过简化可用选项和设置良好的默认值来提供开箱即用的开发者体验。
 
-Let's first install our dependencies:
+> 它还允许您将基于属性的过滤与向量查询结合在一起，以检索最相关的文档。
 
+本笔记本向您展示如何将Typesense用作您的VectorStore。
+
+让我们首先安装依赖项：
 
 ```python
 !pip install typesense openapi-schema-pydantic openai tiktoken
 ```
 
-We want to use `OpenAIEmbeddings` so we have to get the OpenAI API Key.
-
+我们想要使用`OpenAIEmbeddings`，因此我们必须获取OpenAI API密钥。
 
 ```python
 import os
 import getpass
 
-os.environ["OPENAI_API_KEY"] = getpass.getpass("OpenAI API Key:")
+os.environ["OPENAI_API_KEY"] = getpass.getpass("OpenAI API Key：")
 ```
 
 
@@ -33,8 +31,7 @@ from langchain.vectorstores import Typesense
 from langchain.document_loaders import TextLoader
 ```
 
-Let's import our test dataset:
-
+让我们导入我们的测试数据集：
 
 ```python
 loader = TextLoader("../../../state_of_the_union.txt")
@@ -60,7 +57,7 @@ docsearch = Typesense.from_documents(
 )
 ```
 
-## Similarity Search
+## 相似性搜索
 
 
 ```python
@@ -73,9 +70,10 @@ found_docs = docsearch.similarity_search(query)
 print(found_docs[0].page_content)
 ```
 
-## Typesense as a Retriever
 
-Typesense, as all the other vector stores, is a LangChain Retriever, by using cosine similarity.
+## Typesense作为检索器
+
+Typesense和其他向量存储一样，是LangChain的检索器，使用余弦相似性。
 
 
 ```python

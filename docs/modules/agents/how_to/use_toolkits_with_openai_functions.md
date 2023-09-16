@@ -1,6 +1,6 @@
-# Use ToolKits with OpenAI Functions
+# 使用工具包与OpenAI函数
 
-This notebook shows how to use the OpenAI functions agent with arbitrary toolkits.
+本笔记本展示了如何将OpenAI函数代理与任意工具包一起使用。
 
 
 ```python
@@ -18,7 +18,7 @@ from langchain.agents.agent_toolkits import SQLDatabaseToolkit
 from langchain.schema import SystemMessage
 ```
 
-Load the toolkit
+加载工具包
 
 
 ```python
@@ -26,7 +26,7 @@ db = SQLDatabase.from_uri("sqlite:///../../../../../notebooks/Chinook.db")
 toolkit = SQLDatabaseToolkit(llm=ChatOpenAI(), db=db)
 ```
 
-Set a system message specific to that toolkit
+设置特定于该工具包的系统消息
 
 
 ```python
@@ -49,41 +49,41 @@ agent = initialize_agent(
 
 
 ```python
-agent.run("how many different artists are there?")
+agent.run("有多少不同的艺术家？")
 ```
 
     
     
-    [1m> Entering new  chain...[0m
+    [1m> 进入新的链...[0m
     [32;1m[1;3m
-    Invoking: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT artist_name) AS num_artists FROM artists'}`
+    调用: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT artist_name) AS num_artists FROM artists'}`
     
     
-    [0m[36;1m[1;3mError: (sqlite3.OperationalError) no such table: artists
+    [0m[36;1m[1;3m错误: (sqlite3.OperationalError) no such table: artists
     [SQL: SELECT COUNT(DISTINCT artist_name) AS num_artists FROM artists]
-    (Background on this error at: https://sqlalche.me/e/20/e3q8)[0m[32;1m[1;3m
-    Invoking: `sql_db_list_tables` with `{}`
+    (此错误的背景信息：https://sqlalche.me/e/20/e3q8)[0m[32;1m[1;3m
+    调用: `sql_db_list_tables` with `{}`
     
     
     [0m[38;5;200m[1;3mMediaType, Track, Playlist, sales_table, Customer, Genre, PlaylistTrack, Artist, Invoice, Album, InvoiceLine, Employee[0m[32;1m[1;3m
-    Invoking: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT artist_id) AS num_artists FROM Artist'}`
+    调用: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT artist_id) AS num_artists FROM Artist'}`
     
     
-    [0m[36;1m[1;3mError: (sqlite3.OperationalError) no such column: artist_id
+    [0m[36;1m[1;3m错误: (sqlite3.OperationalError) no such column: artist_id
     [SQL: SELECT COUNT(DISTINCT artist_id) AS num_artists FROM Artist]
-    (Background on this error at: https://sqlalche.me/e/20/e3q8)[0m[32;1m[1;3m
-    Invoking: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT Name) AS num_artists FROM Artist'}`
+    (此错误的背景信息：https://sqlalche.me/e/20/e3q8)[0m[32;1m[1;3m
+    调用: `sql_db_query` with `{'query': 'SELECT COUNT(DISTINCT Name) AS num_artists FROM Artist'}`
     
     
-    [0m[36;1m[1;3m[(275,)][0m[32;1m[1;3mThere are 275 different artists in the database.[0m
+    [0m[36;1m[1;3m[(275,)][0m[32;1m[1;3m数据库中有275位不同的艺术家。[0m
     
-    [1m> Finished chain.[0m
+    [1m> 完成链。[0m
     
 
 
 
 
-    'There are 275 different artists in the database.'
+    '数据库中有275位不同的艺术家。'
 
 
 

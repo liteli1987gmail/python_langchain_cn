@@ -1,12 +1,10 @@
 # Pinecone
 
->[Pinecone](https://docs.pinecone.io/docs/overview) is a vector database with broad functionality.
+[Pinecone](https://docs.pinecone.io/docs/overview) 是一个具有广泛功能的向量数据库。
 
-This notebook shows how to use functionality related to the `Pinecone` vector database.
+本笔记本展示了如何使用与 `Pinecone` 向量数据库相关的功能。
 
-To use Pinecone, you must have an API key. 
-Here are the [installation instructions](https://docs.pinecone.io/docs/quickstart).
-
+要使用 Pinecone，您必须拥有一个 API 密钥。[安装说明](https://docs.pinecone.io/docs/quickstart)在这里。
 
 ```python
 !pip install pinecone-client openai tiktoken
@@ -25,8 +23,7 @@ PINECONE_API_KEY = getpass.getpass("Pinecone API Key:")
 PINECONE_ENV = getpass.getpass("Pinecone Environment:")
 ```
 
-We want to use `OpenAIEmbeddings` so we have to get the OpenAI API Key.
-
+我们想要使用 `OpenAIEmbeddings`，因此我们必须获取 OpenAI API 密钥。
 
 ```python
 os.environ["OPENAI_API_KEY"] = getpass.getpass("OpenAI API Key:")
@@ -80,9 +77,7 @@ print(docs[0].page_content)
 
 ### Maximal Marginal Relevance Searches
 
-In addition to using similarity search in the retriever object, you can also use `mmr` as retriever.
-
-
+除了在检索器对象中使用相似性搜索之外，您还可以使用 `mmr` 作为检索器。
 
 ```python
 retriever = docsearch.as_retriever(search_type="mmr")
@@ -92,8 +87,7 @@ for i, d in enumerate(matched_docs):
     print(d.page_content)
 ```
 
-Or use `max_marginal_relevance_search` directly:
-
+或者直接使用 `max_marginal_relevance_search`
 
 ```python
 found_docs = docsearch.max_marginal_relevance_search(query, k=2, fetch_k=10)

@@ -1,21 +1,19 @@
 # Gmail Toolkit
 
-This notebook walks through connecting a LangChain email to the Gmail API.
+这个笔记本介绍了如何连接LangChain电子邮件到Gmail API。
 
-To use this toolkit, you will need to set up your credentials explained in the [Gmail API docs](https://developers.google.com/gmail/api/quickstart/python#authorize_credentials_for_a_desktop_application). Once you've downloaded the `credentials.json` file, you can start using the Gmail API. Once this is done, we'll install the required libraries.
-
+要使用这个工具包，您需要设置您在[Gmail API文档](https://developers.google.com/gmail/api/quickstart/python#authorize_credentials_for_a_desktop_application)中解释的凭据。一旦您下载了`credentials.json`文件，您就可以开始使用Gmail API。完成这个步骤后，我们将安装所需的库。
 
 ```python
 !pip install --upgrade google-api-python-client > /dev/null
 !pip install --upgrade google-auth-oauthlib > /dev/null
 !pip install --upgrade google-auth-httplib2 > /dev/null
-!pip install beautifulsoup4 > /dev/null # This is optional but is useful for parsing HTML messages
+!pip install beautifulsoup4 > /dev/null # 这是可选项，但对于解析HTML消息很有用
 ```
 
-## Create the Toolkit
+## 创建工具包
 
-By default the toolkit reads the local `credentials.json` file. You can also manually provide a `Credentials` object.
-
+默认情况下，工具包会读取本地的`credentials.json`文件。您也可以手动提供一个`Credentials`对象。
 
 ```python
 from langchain.agents.agent_toolkits import GmailToolkit
@@ -23,17 +21,15 @@ from langchain.agents.agent_toolkits import GmailToolkit
 toolkit = GmailToolkit()
 ```
 
-## Customizing Authentication
+## 自定义身份验证
 
-Behind the scenes, a `googleapi` resource is created using the following methods. 
-you can manually build a `googleapi` resource for more auth control. 
-
+在背后，使用以下方法创建了一个`googleapi`资源。您可以手动构建一个`googleapi`资源以获得更多的身份验证控制。
 
 ```python
 from langchain.tools.gmail.utils import build_resource_service, get_gmail_credentials
 
-# Can review scopes here https://developers.google.com/gmail/api/auth/scopes
-# For instance, readonly scope is 'https://www.googleapis.com/auth/gmail.readonly'
+# 可以在这里查看范围 https://developers.google.com/gmail/api/auth/scopes
+# 例如，只读范围是 'https://www.googleapis.com/auth/gmail.readonly'
 credentials = get_gmail_credentials(
     token_file="token.json",
     scopes=["https://mail.google.com/"],
@@ -42,7 +38,6 @@ credentials = get_gmail_credentials(
 api_resource = build_resource_service(credentials=credentials)
 toolkit = GmailToolkit(api_resource=api_resource)
 ```
-
 
 ```python
 tools = toolkit.get_tools()
@@ -60,14 +55,12 @@ tools
 
 
 
-## Use within an Agent
-
+## 在Agent中使用
 
 ```python
 from langchain import OpenAI
 from langchain.agents import initialize_agent, AgentType
 ```
-
 
 ```python
 llm = OpenAI(temperature=0)
@@ -77,7 +70,6 @@ agent = initialize_agent(
     agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION,
 )
 ```
-
 
 ```python
 agent.run(
@@ -91,12 +83,7 @@ agent.run(
     WARNING:root:Failed to persist run: {"detail":"Not Found"}
     
 
-
-
-
     'I have created a draft email for you to edit. The draft Id is r5681294731961864018.'
-
-
 
 
 ```python
@@ -106,9 +93,6 @@ agent.run("Could you search in my drafts for the latest email?")
     WARNING:root:Failed to load default session, using empty session: 0
     WARNING:root:Failed to persist run: {"detail":"Not Found"}
     
-
-
-
 
     "The latest email in your drafts is from hopefulparrot@gmail.com with the subject 'Collaboration Opportunity'. The body of the email reads: 'Dear [Friend], I hope this letter finds you well. I am writing to you in the hopes of rekindling our friendship and to discuss the possibility of collaborating on some research together. I know that we have had our differences in the past, but I believe that we can put them aside and work together for the greater good. I look forward to hearing from you. Sincerely, [Parrot]'"
 

@@ -1,19 +1,19 @@
-# Question Answering Benchmarking: State of the Union Address
+# 问题回答基准测试: 国情咨文
 
-Here we go over how to benchmark performance on a question answering task over a state of the union address.
+在这里，我们将介绍如何对国情咨文上的问题回答任务进行性能基准测试。
 
-It is highly reccomended that you do any evaluation/benchmarking with tracing enabled. See [here](https://langchain.readthedocs.io/en/latest/tracing.html) for an explanation of what tracing is and how to set it up.
+强烈建议在进行任何评估/基准测试时启用追踪。有关追踪是什么以及如何设置，请参见[这里](https$：//langchain.readthedocs.io/en/latest/tracing.html)。
 
 
 ```python
-# Comment this out if you are NOT using tracing
+# 如果您不使用追踪，请将此代码注释掉
 import os
 
 os.environ["LANGCHAIN_HANDLER"] = "langchain"
 ```
 
-## Loading the data
-First, let's load the data.
+## 加载数据
+首先，让我们加载数据。
 
 
 ```python
@@ -22,15 +22,15 @@ from langchain.evaluation.loading import load_dataset
 dataset = load_dataset("question-answering-state-of-the-union")
 ```
 
-    Found cached dataset json (/Users/harrisonchase/.cache/huggingface/datasets/LangChainDatasets___json/LangChainDatasets--question-answering-state-of-the-union-a7e5a3b2db4f440d/0.0.0/0f7e3662623656454fcd2b650f34e886a7db4b9104504885bd462096cc7a9f51)
+    找到缓存的数据集JSON（/Users/harrisonchase/.cache/huggingface/datasets/LangChainDatasets___json/LangChainDatasets--question-answering-state-of-the-union-a7e5a3b2db4f440d/0.0.0/0f7e3662623656454fcd2b650f34e886a7db4b9104504885bd462096cc7a9f51）
     
 
 
-      0%|          | 0/1 [00:00<?, ?it/s]
+      0％|          | 0/1 [00$：00<?, ?it/s]
 
 
-## Setting up a chain
-Now we need to create some pipelines for doing question answering. Step one in that is creating an index over the data in question.
+## 创建链式结构
+现在我们需要创建一些用于问题回答的管道。其中一步是针对所讨论的数据创建索引。
 
 
 ```python
@@ -49,11 +49,10 @@ from langchain.indexes import VectorstoreIndexCreator
 vectorstore = VectorstoreIndexCreator().from_loaders([loader]).vectorstore
 ```
 
-    Running Chroma using direct local API.
-    Using DuckDB in-memory for database. Data will be transient.
+    使用直接本地API运行Chroma。将在内存中使用DuckDB数据库。数据将是暂时的。
     
 
-Now we can create a question answering chain.
+现在我们可以创建一个问题回答链。
 
 
 ```python
@@ -71,9 +70,8 @@ chain = RetrievalQA.from_chain_type(
 )
 ```
 
-## Make a prediction
-
-First, we can make predictions one datapoint at a time. Doing it at this level of granularity allows use to explore the outputs in detail, and also is a lot cheaper than running over multiple datapoints
+## 进行预测
+首先，我们可以逐个数据点进行预测。以这种细粒度的方式进行预测允许我们详细探索输出，并且比多个数据点运行要便宜得多。
 
 
 ```python
@@ -83,22 +81,22 @@ chain(dataset[0])
 
 
 
-    {'question': 'What is the purpose of the NATO Alliance?',
-     'answer': 'The purpose of the NATO Alliance is to secure peace and stability in Europe after World War 2.',
-     'result': ' The NATO Alliance was created to secure peace and stability in Europe after World War 2.'}
+    {'question': '北约联盟的目的是什么？',
+     'answer': '北约联盟的目的是在第二次世界大战后确保欧洲的和平与稳定。',
+     'result': '北约联盟的目的是在第二次世界大战后确保欧洲的和平与稳定。'}
 
 
 
-## Make many predictions
-Now we can make predictions
+## 进行多次预测
+现在我们可以进行多次预测。
 
 
 ```python
 predictions = chain.apply(dataset)
 ```
 
-## Evaluate performance
-Now we can evaluate the predictions. The first thing we can do is look at them by eye.
+## 评估性能
+现在我们可以评估预测结果。首先，我们可以通过目测来查看它们。
 
 
 ```python
@@ -108,13 +106,13 @@ predictions[0]
 
 
 
-    {'question': 'What is the purpose of the NATO Alliance?',
-     'answer': 'The purpose of the NATO Alliance is to secure peace and stability in Europe after World War 2.',
-     'result': ' The purpose of the NATO Alliance is to secure peace and stability in Europe after World War 2.'}
+    {'question': '北约联盟的目的是什么？',
+     'answer': '北约联盟的目的是在第二次世界大战后确保欧洲的和平与稳定。',
+     'result': '北约联盟的目的是在第二次世界大战后确保欧洲的和平与稳定。'}
 
 
 
-Next, we can use a language model to score them programatically
+接下来，我们可以使用语言模型对其进行编程评分。
 
 
 ```python
@@ -130,7 +128,7 @@ graded_outputs = eval_chain.evaluate(
 )
 ```
 
-We can add in the graded output to the `predictions` dict and then get a count of the grades.
+我们可以将评分输出添加到`predictions`字典中，然后计算各个等级的数量。
 
 
 ```python
@@ -152,7 +150,7 @@ Counter([pred["grade"] for pred in predictions])
 
 
 
-We can also filter the datapoints to the incorrect examples and look at them.
+我们还可以将数据点筛选为不正确的示例并查看它们。
 
 
 ```python
@@ -167,9 +165,9 @@ incorrect[0]
 
 
 
-    {'question': 'What is the U.S. Department of Justice doing to combat the crimes of Russian oligarchs?',
-     'answer': 'The U.S. Department of Justice is assembling a dedicated task force to go after the crimes of Russian oligarchs.',
-     'result': ' The U.S. Department of Justice is assembling a dedicated task force to go after the crimes of Russian oligarchs and is naming a chief prosecutor for pandemic fraud.',
+    {'question': '美国司法部正在采取什么措施打击俄罗斯寡头的犯罪行为？',
+     'answer': '美国司法部正在组建一个专门的工作组来打击俄罗斯寡头的犯罪行为。',
+     'result': '美国司法部正在组建一个专门的工作组来打击俄罗斯寡头的犯罪行为，并任命一名首席检察官负责处理疫情欺诈。',
      'grade': ' INCORRECT'}
 
 

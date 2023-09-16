@@ -1,13 +1,13 @@
 # Hologres
 
->[Hologres](https://www.alibabacloud.com/help/en/hologres/latest/introduction) is a unified real-time data warehousing service developed by Alibaba Cloud. You can use Hologres to write, update, process, and analyze large amounts of data in real time. 
->Hologres supports standard SQL syntax, is compatible with PostgreSQL, and supports most PostgreSQL functions. Hologres supports online analytical processing (OLAP) and ad hoc analysis for up to petabytes of data, and provides high-concurrency and low-latency online data services. 
+>[Hologres](https://www.alibabacloud.com/help/en/hologres/latest/introduction) 是由阿里云开发的统一实时数据仓库服务。您可以使用Hologres实时写入、更新、处理和分析大量数据。
+>Hologres支持标准SQL语法，与PostgreSQL兼容，并支持大多数PostgreSQL函数。Hologres支持高达PB级的数据的联机分析处理（OLAP）和即席分析，并提供高并发和低延迟的在线数据服务。
 
->Hologres provides **vector database** functionality by adopting [Proxima](https://www.alibabacloud.com/help/en/hologres/latest/vector-processing).
->Proxima is a high-performance software library developed by Alibaba DAMO Academy. It allows you to search for the nearest neighbors of vectors. Proxima provides higher stability and performance than similar open source software such as Faiss. Proxima allows you to search for similar text or image embeddings with high throughput and low latency. Hologres is deeply integrated with Proxima to provide a high-performance vector search service.
+>Hologres通过采用[Proxima](https://www.alibabacloud.com/help/en/hologres/latest/vector-processing)提供**矢量数据库**功能。
+>Proxima是阿里巴巴达摩院开发的高性能软件库，允许您搜索矢量的最近邻居。 Proxima提供了比Faiss等类似开源软件更高的稳定性和性能。 Proxima允许您以高吞吐量和低延迟搜索相似的文本或图像嵌入。 Hologres与Proxima深度集成，提供高性能的矢量搜索服务。
 
-This notebook shows how to use functionality related to the `Hologres Proxima` vector database.
-Click [here](https://www.alibabacloud.com/zh/product/hologres) to fast deploy a Hologres cloud instance.
+本笔记本展示了使用与`Hologres Proxima`矢量数据库相关的功能。
+单击[此处](https://www.alibabacloud.com/zh/product/hologres)快速部署Hologres云实例。
 
 
 ```python
@@ -16,7 +16,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Hologres
 ```
 
-Split documents and get embeddings by call OpenAI API
+通过调用OpenAI API拆分文档并获取嵌入
 
 
 ```python
@@ -30,16 +30,16 @@ docs = text_splitter.split_documents(documents)
 embeddings = OpenAIEmbeddings()
 ```
 
-Connect to Hologres by setting related ENVIRONMENTS.
+通过设置相关环境变量连接到Hologres
 ```
 export PG_HOST={host}
-export PG_PORT={port} # Optional, default is 80
-export PG_DATABASE={db_name} # Optional, default is postgres
+export PG_PORT={port} # 可选，默认为80
+export PG_DATABASE={db_name} # 可选，默认为postgres
 export PG_USER={username}
 export PG_PASSWORD={password}
 ```
 
-Then store your embeddings and documents into Hologres
+然后将您的嵌入和文档存储到Hologres中
 
 
 ```python
@@ -61,7 +61,7 @@ vector_db = Hologres.from_documents(
 )
 ```
 
-Query and retrieve data
+查询并检索数据
 
 
 ```python

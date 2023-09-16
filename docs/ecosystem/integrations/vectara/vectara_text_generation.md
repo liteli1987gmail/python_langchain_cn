@@ -1,10 +1,10 @@
-# Vectara Text Generation
+# Vectara文本生成
 
-This notebook is based on [text generation](https://github.com/hwchase17/langchain/blob/master/docs/modules/chains/index_examples/vector_db_text_generation.ipynb) notebook and adapted to Vectara.
+这个笔记本是基于[text generation](https://github.com/hwchase17/langchain/blob/master/docs/modules/chains/index_examples/vector_db_text_generation.ipynb) 笔记本，并对Vectara进行了适应。
 
-## Prepare Data
+## 准备数据
 
-First, we prepare the data. For this example, we fetch a documentation site that consists of markdown files hosted on Github and split them into small enough Documents.
+首先，我们准备数据。对于这个例子，我们从Github获取由markdown文件组成的文档站点，并将它们拆分成足够小的文档。
 
 
 ```python
@@ -54,12 +54,12 @@ for source in sources:
         source_chunks.append(chunk)
 ```
 
-    Cloning into '.'...
+    正在克隆到 '.'...
     
 
-## Set Up Vector DB
+## 设置向量数据库
 
-Now that we have the documentation content in chunks, let's put all this information in a vector index for easy retrieval.
+现在我们将文档内容拆分成块，让我们将所有这些信息放入一个向量索引中，以便轻松检索。
 
 
 ```python
@@ -68,9 +68,9 @@ import os
 search_index = Vectara.from_texts(source_chunks, embedding=None)
 ```
 
-## Set Up LLM Chain with Custom Prompt
+## 使用自定义提示设置LLM链
 
-Next, let's set up a simple LLM chain but give it a custom prompt for blog post generation. Note that the custom prompt is parameterized and takes two inputs: `context`, which will be the documents fetched from the vector search, and `topic`, which is given by the user.
+接下来，让我们设置一个简单的LLM链，但为其提供一个自定义提示以生成博客文章。请注意，自定义提示是带参数的，需要两个输入: `context`，将是从向量搜索中获取的文档，以及`topic`，由用户提供。
 
 
 ```python
@@ -88,9 +88,9 @@ llm = OpenAI(openai_api_key=os.environ["OPENAI_API_KEY"], temperature=0)
 chain = LLMChain(llm=llm, prompt=PROMPT)
 ```
 
-## Generate Text
+## 生成文本
 
-Finally, we write a function to apply our inputs to the chain. The function takes an input parameter `topic`. We find the documents in the vector index that correspond to that `topic`, and use them as additional context in our simple LLM chain.
+最后，我们编写一个函数将我们的输入应用到链条上。该函数接受一个输入参数`topic`。我们找到与该`topic`对应的向量索引中的文档，并将它们用作在我们简单的LLM链中的附加上下文。
 
 
 ```python
