@@ -10,6 +10,7 @@ const examplesPath = path.resolve(__dirname, ".", "examples");
 const snippetsPath = path.resolve(__dirname, ".", "snippets");
 
 /** @type {import('@docusaurus/types').Config} */
+// 书籍京东地址：https://pic2.zhimg.com/100/v2-23e6630a548c962582265f27e8967cd1_qhd.jpg
 const config = {
   title: "🦜️🔗 Langchain",
   tagline: "Langchain中文网 跟着langchain学AI应用开发",
