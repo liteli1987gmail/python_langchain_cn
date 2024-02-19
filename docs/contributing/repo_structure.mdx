@@ -1,0 +1,52 @@
+---
+sidebar_position: 0.5
+---
+# 仓库结构
+
+如果你计划对LangChain的代码或文档做出贡献，了解仓库的高级结构可能会很有用。
+
+LangChain被组织为一个包含多个包的[monorep](https://en.wikipedia.org/wiki/Monorepo)。
+
+下面是以树形图展示的结构：
+
+```text
+.
+├── cookbook # 教程和示例
+├── docs # 包含此处文档的内容：https://python.langchain.com/
+├── libs
+│   ├── langchain # 主包
+│   │   ├── tests/unit_tests # 单元测试（每个包中都有，为了简洁未显示）
+│   │   ├── tests/integration_tests # 集成测试（每个包中都有，为了简洁未显示）
+│   ├── langchain-community # 第三方集成
+│   ├── langchain-core # 关键抽象的基本接口
+│   ├── langchain-experimental # 实验性组件和链
+│   ├── partners
+│       ├── langchain-partner-1
+│       ├── langchain-partner-2
+│       ├── ...
+│
+├── templates # 一系列易于部署的参考架构，适用于各种任务。
+```
+
+根目录还包含以下文件：
+
+* `pyproject.toml`：用于构建文档和linting文档、cookbook的依赖项。
+* `Makefile`：一个包含构建、linting和文档和cookbook快捷方式的文件。
+
+根目录级别还有其他文件，但它们的存在应该是不言自明的。随意浏览！
+
+## 文档
+
+`/docs`目录包含在https://python.langchain.com/ 显示的文档内容，以及相关的API参考https://api.python.langchain.com/en/latest/langchain_api_reference.html。
+
+查看[文档](./documentation)指南，了解如何为文档做出贡献。
+
+## 代码
+
+`/libs`目录包含LangChain包的代码。
+
+要了解更多关于如何贡献代码的信息，请参阅以下指南：
+
+- [代码](./code.mdx) 学习如何在LangChain代码库中开发。
+- [集成](./integrations.mdx) 学习如何为langchain-community做出第三方集成贡献，或者开始一个新的合作伙伴包。
+- [测试](./testing.mdx) 指南，学习如何为包编写测试。

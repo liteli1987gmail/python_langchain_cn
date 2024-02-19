@@ -1,0 +1,29 @@
+
+# langchain-core
+
+## 0.1.7 (2024年1月5日)
+
+#### 已删除
+
+没有删除任何内容。
+
+#### 已弃用
+
+- `BaseChatModel` 的方法 `__call__`, `call_as_llm`, `predict`, `predict_messages`。将在0.2.0中删除。请改用 `BaseChatModel.invoke`。
+- `BaseChatModel` 的方法 `apredict`, `apredict_messages`。将在0.2.0中删除。请改用 `BaseChatModel.ainvoke`。
+- `BaseLLM` 的方法 `__call__`, `predict`, `predict_messages`。将在0.2.0中删除。请改用 `BaseLLM.invoke`。
+- `BaseLLM` 的方法 `apredict`, `apredict_messages`。将在0.2.0中删除。请改用 `BaseLLM.ainvoke`。
+
+#### 已修复
+
+- 限制递归URL抓取：[#15559](https://github.com/langchain-ai/langchain/pull/15559)
+
+#### 已添加
+
+没有添加任何内容。
+
+#### 测试版
+
+- 将 `langchain_core.load.load` 和 `langchain_core.load.loads` 标记为测试版。
+- 将 `langchain_core.beta.runnables.context.ContextGet` 和 `langchain_core.beta.runnables.context.ContextSet` 标记为测试版。
+

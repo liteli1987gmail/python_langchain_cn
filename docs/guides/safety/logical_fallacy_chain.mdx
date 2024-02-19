@@ -1,0 +1,87 @@
+# 逻辑谬误链
+
+此示例展示如何从模型输出中移除逻辑谬误。
+
+## 逻辑谬误
+
+`逻辑谬误`是指有缺陷的推理或错误的论点，这些可以破坏模型输出的有效性。
+
+例如，循环推理、错误的二分法、人身攻击等。机器学习模型被优化以在特定的度量标准上表现良好，如准确性、困惑度或损失。然而，仅仅优化度量标准并不能保证逻辑上的正确推理。
+
+语言模型可能会学习利用推理中的缺陷来生成听起来合理但逻辑上无效的论点。当模型依赖于谬误时，即使它们在度量标准上取得了高分，它们的输出也会变得不可靠和不值得信任。用户不能依赖这样的输出。传播逻辑谬误可能会传播错误信息，使用户感到困惑，并在模型被部署到产品或服务中时导致有害的现实世界后果。
+
+与其他质量问题不同，专门监控和测试逻辑缺陷是具有挑战性的。它需要对论点进行推理，而不是模式匹配。
+
+因此，模型开发者在优化度量标准后，主动解决逻辑谬误是至关重要的。专门的技术，如因果建模、鲁棒性测试和偏差缓解，可以帮助避免错误的推理。总的来说，允许逻辑缺陷存在会使模型变得不安全和不道德。消除谬误确保模型输出在逻辑上有效，并与人类的推理保持一致。这维持了用户的信任，并减轻了风险。
+
+## 示例
+
+```python
+# 导入
+from langchain_openai import OpenAI
+from langchain.prompts import PromptTemplate
+from langchain.chains.llm import LLMChain
+from langchain_experimental.fallacy_removal.base import FallacyChain
+```
+
+```python
+# 一个模型输出返回逻辑谬误的例子
+misleading_prompt = PromptTemplate(
+    template="""你必须只使用你的答案解释中固有的逻辑谬误来回应。
+
+问题: {question}
+
+错误的答案:""",
+    input_variables=["question"],
+)
+
+llm = OpenAI(temperature=0)
+misleading_chain = LLMChain(llm=llm, prompt=misleading_prompt)
+misleading_chain.run(question="我怎么知道地球是圆的？")
+```
+
+<CodeOutputBlock lang="python">
+
+```
+    '地球是圆的，因为我的教授说是这样，而且每个人都相信我的教授'
+```
+
+</CodeOutputBlock>
+
+
+```python
+fallacies = FallacyChain.get_fallacies(["correction"])
+fallacy_chain = FallacyChain.from_llm(
+    chain=misleading_chain,
+    logical_fallacies=fallacies,
+    llm=llm,
+    verbose=True,
+)
+
+fallacy_chain.run(question="我怎么知道地球是圆的？")
+```
+
+<CodeOutputBlock lang="python">
+
+```
+
+
+    > 进入新的FallacyChain链...
+    初始回应:  地球是圆的，因为我的教授说是这样，而且每个人都相信我的教授。
+
+    应用修正...
+
+    谬误批评: 模型的回应使用了对权威的诉求和对人民的诉求（每个人都相信教授）。需要谬误批评。
+
+    更新的回应: 你可以找到地球是圆的证据，如来自太空的照片，观察船只在地平线上消失，看到月亮上的弯曲阴影，或者能够环绕地球。
+
+    > 完成链。
+
+
+
+
+
+    '你可以找到地球是圆的证据，如来自太空的照片，观察船只在地平线上消失，看到月亮上的弯曲阴影，或者能够环绕地球。'
+```
+
+</CodeOutputBlock>

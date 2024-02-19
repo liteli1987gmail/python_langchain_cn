@@ -38,4 +38,42 @@ yarn install
 yarn start
 ````
     
+# LangChain 模板的翻译处理
+- 先要在Langchain仓库中下载最新文档，找到根目录下的/templates文件夹。复制到翻译程序文件夹中。
+- 在该文件夹下，找到所有的README文件，以及图片文件。
+- 提取README文件的代码如下：
+```
+import os
+import shutil
 
+def copy_md_files(source_dir, target_dir):
+    # 如果目标文件夹不存在，则创建
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
+
+    # 遍历源文件夹中的所有文件和子文件夹
+    for root, dirs, files in os.walk(source_dir):
+        for file in files:
+            if file.endswith('.md') or file.endswith('.mdx'):
+                # 获取文件的上一级文件夹名字
+                parent_folder_name = os.path.basename(root)
+                # 构建目标文件的完整路径
+                target_file_path = os.path.join(target_dir, f"{parent_folder_name}.md")
+                # 构建源文件的完整路径
+                source_file_path = os.path.join(root, file)
+                # 复制并重命名文件
+                shutil.copy(source_file_path, target_file_path)
+                print(f"复制文件 {source_file_path} 到 {target_file_path}")
+
+# 源文件夹路径
+source_dir = './docs/templates'
+# 目标文件夹路径
+target_dir = './templates'
+
+# 调用函数进行文件复制
+copy_md_files(source_dir, target_dir)
+```
+
+- 执行翻译该文件夹下所有的文件
+- 将翻译好的文件夹复制到 /docs/下，即为 `./docs/templates`
+- 将图片复制到 `static/img`下，并且将代码中的图片路径替换为`/img/xxx.png`

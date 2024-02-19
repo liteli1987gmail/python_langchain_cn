@@ -1,4 +1,4 @@
-# 追踪（ Tracing ）
+# Tracing（追踪）
 
 通过在 LangChain 运行中启用追踪功能，您可以更有效地可视化、逐步检查和调试您的链式和代理程序。
 
@@ -9,7 +9,7 @@
 - [本地托管设置](./local_installation.md)
 - [云托管设置](./hosted_installation.md)
 
-## 追踪演练 tracing
+## Tracing Walkthrough（追踪演练）
 
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
@@ -47,7 +47,7 @@
 
 ![](./explore_llm.png)
 
-## 更改会话
+## Changing Sessions（更改会话）
 
 1. 要将追踪记录到除“default”之外的其他会话，请将 `LANGCHAIN_SESSION` 环境变量设置为您要记录到的会话名称：
 
@@ -58,3 +58,4 @@ os.environ["LANGCHAIN_SESSION"] = "my_session" # Make sure this session actually
 ```
 
 2. 要在脚本或笔记本中切换会话，请不要设置 `LANGCHAIN_SESSION` 环境变量。而是使用 `langchain.set_tracing_callback_manager(session_name="my_session")`
+

@@ -1,0 +1,145 @@
+---
+sidebar_position: 2
+---
+
+# 测试
+
+我们所有的包都有单元测试和集成测试，我们更倾向于单元测试而不是集成测试。
+
+单元测试在每次拉取请求时都会运行，所以它们应该是快速和可靠的。
+
+集成测试每天运行一次，它们需要更多的设置，所以它们应该被保留用于确认与外部服务的接口点。
+
+## 单元测试
+
+单元测试覆盖不需要调用外部API的模块逻辑。
+如果你添加了新的逻辑，请添加一个单元测试。
+
+安装单元测试的依赖项：
+
+```bash
+poetry install --with test
+```
+
+运行单元测试：
+
+```bash
+make test
+```
+
+在Docker中运行单元测试：
+
+```bash
+make docker_tests
+```
+
+运行特定的测试：
+
+```bash
+TEST_FILE=tests/unit_tests/test_imports.py make test
+```
+
+## 集成测试
+
+集成测试覆盖需要调用外部API的逻辑（通常是与其他服务的集成）。
+如果你添加了对新的外部API的支持，请添加一个新的集成测试。
+
+**警告：**几乎没有测试应该是集成测试。
+
+  需要进行网络连接的测试使其他
+  开发者难以测试代码。
+
+  相反，更倾向于依赖`responses`库和/或mock.patch来模拟
+  使用小型固件的请求。
+
+安装集成测试的依赖项：
+
+```bash
+poetry install --with test,test_integration
+```
+
+运行集成测试：
+
+```bash
+make integration_tests
+```
+
+### 准备
+
+集成测试使用了几个搜索引擎和数据库。测试
+旨在根据
+他们的规格和要求验证引擎和数据库的正确行为。
+
+要运行一些集成测试，如位于
+`tests/integration_tests/vectorstores/`的测试，你需要安装以下
+软件：
+
+- Docker
+- Python 3.8.1或更高版本
+
+任何新的依赖项应通过运行以下命令添加：
+
+```bash
+# 添加包并在添加后安装它：
+poetry add tiktoken@latest --group "test_integration" && poetry install --with test_integration
+```
+
+在运行任何测试之前，你应该启动一个特定的Docker容器，该容器已经安装了所有的
+必要依赖项。例如，我们使用`elasticsearch.yml`容器
+用于`test_elasticsearch.py`：
+
+```bash
+cd tests/integration_tests/vectorstores/docker-compose
+docker-compose -f elasticsearch.yml up
+```
+
+对于需要更多准备的环境，查找`*.sh`。例如，
+`opensearch.sh`构建一个所需的docker镜像，然后启动opensearch。
+
+### 为本地测试准备环境变量：
+
+- 将`tests/integration_tests/.env.example`复制到`tests/integration_tests/.env`
+- 在`tests/integration_tests/.env`文件中设置变量，例如`OPENAI_API_KEY`
+
+此外，值得注意的是，一些集成测试可能需要设置某些
+环境变量，如`OPENAI_API_KEY`。在运行测试之前，确保设置任何所需的
+环境变量，以确保它们正确运行。
+
+### 使用pytest-vcr记录HTTP交互
+
+这个仓库中的一些集成测试涉及向
+外部服务发出HTTP请求。为了防止这些请求在每次运行测试时都被发出，我们使用pytest-vcr来记录和重播HTTP交互。
+
+在CI/CD管道中运行测试时，你可能不想修改现有的
+盒子。你可以使用--vcr-record=none命令行选项来禁用记录
+新的盒子。这是一个例子：
+
+```bash
+pytest --log-cli-level=10 tests/integration_tests/vectorstores/test_pinecone.py --vcr-record=none
+pytest tests/integration_tests/vectorstores/test_elasticsearch.py --vcr-record=none
+
+```
+
+### 用覆盖率运行一些测试：
+
+```bash
+pytest tests/integration_tests/vectorstores/test_elasticsearch.py --cov=langchain --cov-report=html
+start "" htmlcov/index.html || open htmlcov/index.html
+
+```
+
+## 覆盖率
+
+代码覆盖率（即被单元测试覆盖的代码量）有助于识别代码中可能更脆弱或更少脆弱的区域。
+
+覆盖率需要集成测试的依赖项：
+
+```bash
+poetry install --with test_integration
+```
+
+要获取当前覆盖率的报告，运行以下命令：
+
+```bash
+make coverage
+```

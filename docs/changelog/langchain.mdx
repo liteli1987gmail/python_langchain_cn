@@ -1,0 +1,37 @@
+
+# langchain
+
+## 0.1.0 (2024年1月5日)
+
+#### 已删除
+
+没有删除项。
+
+#### 已弃用
+
+在0.2.0版本中将删除已弃用的类和方法
+
+| 已弃用                | 替代方案                       | 原因                                         |
+|---------------------------------|-----------------------------------|------------------------------------------------|
+| ChatVectorDBChain               | ConversationalRetrievalChain      | 对所有检索器更通用                 |
+| create_ernie_fn_chain           | create_ernie_fn_runnable          | 在底层使用LCEL                        |
+| created_structured_output_chain | create_structured_output_runnable | 在底层使用LCEL                        |
+| NatBotChain                     |                                   | 未使用                                       |
+| create_openai_fn_chain          | create_openai_fn_runnable         | 在底层使用LCEL                        |
+| create_structured_output_chain  | create_structured_output_runnable | 在底层使用LCEL                        |
+| load_query_constructor_chain    | load_query_constructor_runnable   | 在底层使用LCEL                        |
+| VectorDBQA                      | RetrievalQA                       | 对所有检索器更通用                 |
+| Sequential Chain                | LCEL                              | 由LCEL取代                               |
+| SimpleSequentialChain           | LCEL                              | 由LCEL取代                               |
+| TransformChain                  | LCEL/RunnableLambda               | 由LCEL取代                               |
+| create_tagging_chain            | create_structured_output_runnable | 在底层使用LCEL                        |
+| ChatAgent                       | create_react_agent                | 使用LCEL构建器代替类                  |
+| ConversationalAgent             | create_react_agent                | 使用LCEL构建器代替类                  |
+| ConversationalChatAgent         | create_json_chat_agent            | 使用LCEL构建器代替类                  |
+| initialize_agent                | 单独的创建代理方法   | 单独的创建代理方法更清晰 |
+| ZeroShotAgent                   | create_react_agent                | 使用LCEL构建器代替类                  |
+| OpenAIFunctionsAgent            | create_openai_functions_agent     | 使用LCEL构建器代替类                  |
+| OpenAIMultiFunctionsAgent       | create_openai_tools_agent         | 使用LCEL构建器代替类                  |
+| SelfAskWithSearchAgent          | create_self_ask_with_search       | 使用LCEL构建器代替类                  |
+| StructuredChatAgent             | create_structured_chat_agent      | 使用LCEL构建器代替类                  |
+| XMLAgent                        | create_xml_agent                  | 使用LCEL构建器代替类                  |

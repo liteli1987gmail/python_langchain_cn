@@ -1,0 +1,65 @@
+---
+sidebar_position: 3
+---
+# 贡献文档
+
+docs目录包含文档和API参考。
+
+文档是使用[Quarto](https://quarto.org)和[Docusaurus 2](https://docusaurus.io/)构建的。
+
+API参考主要是由[sphinx](https://www.sphinx-doc.org/en/master/)从代码中自动生成的，并由[Read the Docs](https://readthedocs.org/)托管。
+因此，我们要求您为所有类和方法添加良好的文档。
+
+与linting类似，我们认识到文档可能会令人烦恼。如果你不想做这个，请联系项目维护者，他们可以帮助你。我们不希望这成为好代码贡献的阻碍。
+
+## 在本地构建文档
+
+### 安装依赖项
+
+- [Quarto](https://quarto.org) - 将Jupyter笔记本(`.ipynb`文件)转换为用于在Docusaurus中服务的mdx文件的包。
+- 在monorepo根目录下运行`poetry install --with lint,docs --no-root`。
+
+### 构建
+
+在以下命令中，前缀`api_`表示这些是API参考的操作。
+
+在构建文档之前，清理构建目录总是一个好主意：
+
+```bash
+make docs_clean
+make api_docs_clean
+```
+
+接下来，你可以按照下面的步骤构建文档：
+
+```bash
+make docs_build
+make api_docs_build
+```
+
+最后，运行链接检查器以确保所有链接都有效：
+
+```bash
+make docs_linkcheck
+make api_docs_linkcheck
+```
+
+### Linting和格式化
+
+文档是从monorepo根目录进行lint的。要lint文档，请在那里运行以下命令：
+
+```bash
+make lint
+```
+
+如果你有格式相关的错误，你可以用以下命令自动修复它们：
+
+```bash
+make format
+``` 
+
+## 验证文档更改
+
+在将文档更改推送到仓库后，你可以通过点击拉取请求`Conversation`页面上的`View deployment`或`Visit Preview`按钮来预览并验证更改是否符合你的期望。
+这将带你到文档更改的预览。
+此预览是由[Vercel](https://vercel.com/docs/getting-started-with-vercel)创建的。

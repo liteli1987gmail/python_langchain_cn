@@ -2,83 +2,102 @@
 sidebar_position: 0
 ---
 
-# LangChain 中文文档 v0.0.291
+# LangChain 中文文档 v0.1.7
 
-## LangChain 中文网 500 页超详细中文文档教程，助力 LLM/chatGPT 应用开发
+##### LangChain 中文网 500 页超详细中文文档教程，助力 LLM/chatGPT 应用开发
 
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 
 # LangChain 介绍
 
-**LangChain**是一个基于语言模型开发应用程序的框架。它可以实现以下功能:
-- **数据感知**: 将语言模型与其他数据源连接起来
-- **主体性**: 允许语言模型与其环境进行交互
+**LangChain** 是一个用于开发由语言模型驱动的应用程序的框架。它使得应用程序能够：
+- **具有上下文感知能力**：将语言模型连接到上下文来源（提示指令，少量的示例，需要回应的内容等）
+- **具有推理能力**：依赖语言模型进行推理（根据提供的上下文如何回答，采取什么行动等）
 
-LangChain的主要价值包括:
-1. **组件**: 用于处理语言模型的抽象，以及每个抽象的一系列实现。组件是模块化且易于使用的，无论您是否使用LangChain框架的其他部分，都可以轻松使用
-2. **现成的管道**: 用于完成特定高级任务的结构化组件组合
+这个框架由几个部分组成。
+- **LangChain 库**：Python 和 JavaScript 库。包含了各种组件的接口和集成，一个基本的运行时，用于将这些组件组合成链和代理，以及现成的链和代理的实现。
+- **[LangChain 模板](/docs/templates)**：一系列易于部署的参考架构，用于各种任务。
+- **[LangServe](/docs/langserve)**：一个用于将 LangChain 链部署为 REST API 的库。
+- **[LangSmith](/docs/langsmith)**：一个开发者平台，让你可以调试、测试、评估和监控基于任何 LLM 框架构建的链，并且与 LangChain 无缝集成。
 
-现成的管道使得入门变得容易。对于更复杂的应用程序和细致入微的用例，组件使得自定义现有管道或构建新管道变得容易.
+![图示展示了 LangChain 框架的层次组织结构，显示了跨多个层次的部分之间的相互连接。](https://python.langchain.com/assets/images/langchain_stack-f21828069f74484521f38199910007c1.svg "LangChain 框架概述")
+
+这些产品一起简化了整个应用程序的生命周期：
+- **开发**：在 LangChain/LangChain.js 中编写你的应用程序。使用模板作为参考，快速开始。
+- **生产化**：使用 LangSmith 来检查、测试和监控你的链，这样你可以不断改进并有信心地部署。
+- **部署**：使用 LangServe 将任何链转换为 API。
+
+## LangChain 库
+
+LangChain 包的主要价值主张是：
+1. **组件**：用于处理语言模型的可组合工具和集成。无论你是否使用 LangChain 框架的其余部分，组件都是模块化的，易于使用
+2. **现成的链**：用于完成高级任务的组件的内置组合
+
+现成的链使得开始变得容易。组件使得定制现有链和构建新链变得容易。
+
+LangChain 库本身由几个不同的包组成。
+- **`langchain-core`**：基础抽象和 LangChain 表达式语言。
+- **`langchain-community`**：第三方集成。
+- **`langchain`**：构成应用程序认知架构的链、代理和检索策略。
 
 ## 开始使用
 
-[这里](/docs/get_started/installation.html)是如何安装LangChain，设置您的环境并开始构建的方法.
+[这里](/docs/get_started/installation) 是如何安装 LangChain，设置你的环境，并开始构建的方法。
 
-我们建议按照我们的[快速入门](/docs/get_started/quickstart.html)指南，通过构建您的第一个LangChain应用程序来熟悉该框架.
+我们建议你按照我们的 [快速入门](/docs/get_started/quickstart) 指南，通过构建你的第一个 LangChain 应用程序来熟悉框架。
 
-_**注意**: 这些文档适用于LangChain的[Python包](https://github.com/hwchase17/langchain)。有关[LangChain.js](https://github.com/hwchase17/langchainjs)（JS/TS版本）的文档，请[点击这里](https://js.langchain.com/docs)。_
+阅读我们的 [安全](/docs/security) 最佳实践，确保你在安全地使用 LangChain 进行开发。
+
+:::note
+
+这些文档主要关注 Python LangChain 库。[点击这里](https://js.langchain.com) 查看 JavaScript LangChain 库的文档。
+
+:::
+
+## LangChain 表达式语言 (LCEL)
+
+LCEL 是一种声明性的组合链的方式。LCEL 从第一天开始就被设计为支持将原型投入生产，无需更改代码，从最简单的“提示 + LLM”链到最复杂的链。
+
+- **[概述](/docs/expression_language/)**：LCEL 及其优点
+- **[接口](/docs/expression_language/interface)**：LCEL 对象的标准接口
+- **[如何](/docs/expression_language/how_to)**：LCEL 的关键特性
+- **[烹饪书](/docs/expression_language/cookbook)**：完成常见任务的示例代码
+
 
 ## 模块
 
-LangChain为以下模块提供标准、可扩展的接口和外部集成，从最简单到最复杂的顺序列出:
+LangChain 为以下模块提供了标准的、可扩展的接口和集成：
 
 #### [模型 I/O](/docs/modules/model_io/)
-与语言模型进行接口
+与语言模型的接口
+
 #### [检索](/docs/modules/data_connection/)
-与特定于应用程序的数据进行接口
-#### [管道](/docs/modules/chains/)
-构建调用序列
+与特定应用数据的接口
+
 #### [代理](/docs/modules/agents/)
-让管道根据高级指令选择使用哪些工具
-#### [内存](/docs/modules/memory/)
-在管道运行期间保持应用程序状态
-#### [回调](/docs/modules/callbacks/)
-记录和流式传输任何管道的中间步骤
-
-## 示例、生态和资源
-### [用例](/docs/use_cases/)
-步骤和最佳实践，涵盖常见的端到端用例，例如:
-- [聊天机器人](/docs/use_cases/chatbots)
-- [使用数据源回答问题](/docs/use_cases/question_answering/)
-- [分析结构化数据](/docs/use_cases/sql)
-- 等等...
-
-### [指南](/docs/guides/)
-学习使用LangChain进行开发的最佳实践.
-
-### [生态系统](/docs/ecosystem/)
-LangChain是一个丰富的工具生态系统的一部分，它与我们的框架集成并在其之上构建。查看我们的日益增长的[集成](/docs/integrations/)和[依赖仓库](/docs/additional_resources/dependents)列表。
-
-### [其他资源](/docs/additional_resources/)
-我们的社区充满了富有成效的开发人员、富有创造力的构建者和出色的教师。查看[YouTube教程](/docs/additional_resources/youtube.html)以获取来自社区成员的优秀教程，以及[Gallery](https://github.com/kyrolabs/awesome-langchain)以获取由[KyroLabs](https://kyrolabs.com)的人员编制的精彩LangChain项目列表。
-
-### [社区](/docs/community)
-前往[社区导航器](/docs/community)以寻找提问、分享反馈、结识其他开发人员以及憧憬LLM的未来的场所。
-
-## API 参考
-前往[参考](https://api.python.langchain.com)部分，完整文档介绍了LangChain Python包中的所有类和方法。
+让模型根据高级指令选择使用哪些工具
 
 
-## 网站地图
+## 示例、生态系统和资源
 
-[点击进入 🚀  Langchain 中文文档 PYTHON 版本](https://python.langchain.com.cn/docs/get_started/introduction)
+### [用例](/docs/use_cases/question_answering/)
+常见的端到端用例的演练和技术，如：
+- [文档问题回答](/docs/use_cases/question_answering/)
+- [聊天机器人](/docs/use_cases/chatbots/)
+- [分析结构化数据](/docs/use_cases/sql/)
+- 还有更多...
 
-[点击进入 📚  Langchain 中文文档 JS/TS 版本](https://js.langchain.com.cn/docs/)
+### [集成](/docs/integrations/providers/)
+LangChain 是一个丰富的工具生态系统的一部分，这些工具与我们的框架集成，并在其基础上构建。查看我们不断增长的 [集成](/docs/integrations/providers/) 列表。
 
-[点击进入 📃 Langchain COOKBOOK 中文教程](https://cookbook.langchain.com.cn/docs/)
+### [指南](../guides/debugging.md)
+使用 LangChain 的最佳实践。
 
-[点击进入 🚀  Langchain CONCEPTS 中文教程 ](https://langchain.com.cn)
+### [API 参考](https://api.python.langchain.com)
+前往参考部分，查看 LangChain 和 LangChain Experimental Python 包中所有类和方法的完整文档。
 
-## 学习社群
-![LangChain](https://pic1.zhimg.com/80/v2-31131dcb1732cb5bca7c182c9e8da046_r.jpg 'LangChain中文网学习社群')
+### [开发者指南](/docs/contributing)
+查看开发者指南，获取有关贡献的指南和帮助设置你的开发环境的帮助。
+
+

@@ -1,8 +1,10 @@
-# 审查
+# 安全性
 
-使用LLMs的一个重要问题是它们可能会生成有害或不道德的文本。这是该领域的一个活跃研究领域。在这里，我们介绍一些受到这项研究启发的内置链，旨在使LLMs的输出更安全。
+使用LLMs的关键问题之一是它们可能会生成有害或不道德的文本。这是该领域的一个活跃研究领域。在这里，我们提供了一些受这项研究启发的内置链，旨在使LLMs的输出更安全。
 
-- [审查链](/docs/guides/safety/moderation)$：明确检查任何输出文本是否有害并标记它。
-- [宪法链](/docs/guides/safety/constitutional_chain)$：使用一组原则提示模型应如何行事。
-- [逻辑谬误链](/docs/guides/safety/logical_fallacy_chain)$：检查模型输出是否存在逻辑谬误以纠正任何偏差。
-- [Amazon Comprehend审查链](/docs/guides/safety/amazon_comprehend_chain)$：使用[Amazon Comprehend](https://aws.amazon.com/comprehend/)检测和处理PII和有毒性。
+- [亚马逊理解审查链](/docs/guides/safety/amazon_comprehend_chain)：使用[亚马逊理解](https://aws.amazon.com/comprehend/)来检测和处理个人身份信息(PII)和毒性。
+- [宪法链](/docs/guides/safety/constitutional_chain)：用一套应指导模型行为的原则提示模型。
+- [Hugging Face提示注入识别](/docs/guides/safety/hugging_face_prompt_injection)：检测并处理提示注入攻击。
+- [逻辑谬误链](/docs/guides/safety/logical_fallacy_chain)：检查模型输出是否存在逻辑谬误，以纠正任何偏差。
+- [审查链](/docs/guides/safety/moderation)：检查任何输出文本是否有害并标记它。
+

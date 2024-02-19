@@ -1,0 +1,147 @@
+
+---
+sidebar_position: 5
+---
+# 贡献集成
+
+首先，确保你已经安装了在[代码贡献](./code)指南中列出的所有依赖项。
+
+你可以在以下几个地方为LangChain贡献集成：
+
+- **社区**：主要由LangChain和开源社区维护的轻量级集成。
+- **合作伙伴包**：由LangChain和合作伙伴共同维护的独立包。
+
+大部分新的集成应该添加到社区包中。合作伙伴包作为单独的包需要更多的维护，所以在创建新的合作伙伴包之前，请与LangChain团队确认。
+
+在接下来的部分，我们将通过一个假设的公司`Parrot Link AI`，来演示如何为这些包贡献。
+
+## 社区包
+
+`langchain-community`包位于`libs/community`，包含了大部分集成。
+
+用户可以通过`pip install langchain-community`来安装，可以通过如下代码导入已导出的成员
+
+```python
+from langchain_community.chat_models import ParrotLinkLLM
+from langchain_community.llms import ChatParrotLink
+from langchain_community.vectorstores import ParrotLinkVectorStore
+```
+
+社区包依赖于手动安装的依赖包，所以如果你试图导入一个未安装的包，你会看到错误。在我们的假设例子中，如果你试图在没有安装`parrot-link-sdk`的情况下导入`ParrotLinkLLM`，当你试图使用它时，你会看到一个`ImportError`，告诉你需要安装它。
+
+假设我们想要为Parrot Link AI实现一个聊天模型。我们会在`libs/community/langchain_community/chat_models/parrot_link.py`中创建一个新文件，包含以下代码：
+
+```python
+from langchain_core.language_models.chat_models import BaseChatModel
+
+class ChatParrotLink(BaseChatModel):
+    """ChatParrotLink chat model.
+
+    Example:
+        .. code-block:: python
+
+            from langchain_parrot_link import ChatParrotLink
+
+            model = ChatParrotLink()
+    """
+
+    ...
+```
+
+我们会在以下位置编写测试：
+
+- 单元测试：`libs/community/tests/unit_tests/chat_models/test_parrot_link.py`
+- 集成测试：`libs/community/tests/integration_tests/chat_models/test_parrot_link.py`
+
+并添加文档到：
+
+- `docs/docs/integrations/chat/parrot_link.ipynb`
+
+## 合作伙伴包
+
+合作伙伴包位于`libs/partners/*`，用户可以通过`pip install langchain-{partner}`来安装，可以通过如下代码导入已导出的成员
+
+```python
+from langchain_{partner} import X
+```
+
+### 设置新包
+
+要设置一个新的合作伙伴包，使用最新版本的LangChain CLI。你可以通过以下命令来安装或更新它：
+
+```bash
+pip install -U langchain-cli
+```
+
+假设你想为一个叫做Parrot Link AI的公司创建一个新的合作伙伴包。
+
+然后，运行以下命令来创建一个新的合作伙伴包：
+
+```bash
+cd libs/partners
+langchain-cli integration new
+> Name: parrot-link
+> Name of integration in PascalCase [ParrotLink]: ParrotLink
+```
+
+这将在`libs/partners/parrot-link`中创建一个新的包，包含以下结构：
+
+```
+libs/partners/parrot-link/
+  langchain_parrot_link/ # 包含你的包的文件夹
+    ...
+  tests/
+    ...
+  docs/ # 引导文档笔记本，必须移动到/monorepo root中的/docs
+    ...
+  scripts/ # CI脚本
+    ...
+  LICENSE
+  README.md # 填写关于你的包的信息
+  Makefile # CI的默认命令
+  pyproject.toml # 包元数据，主要由Poetry管理
+  poetry.lock # 包锁定文件，由Poetry管理
+  .gitignore
+```
+
+### 实现你的包
+
+首先，添加你的包需要的任何依赖项，比如你公司的SDK：
+
+```bash
+poetry add parrot-link-sdk
+```
+
+如果你需要为类型检查添加单独的依赖项，你可以将它们添加到`typing`组中：
+
+```bash
+poetry add --group typing types-parrot-link-sdk
+```
+
+然后，在`libs/partners/parrot-link/langchain_parrot_link`中实现你的包。
+
+默认情况下，这将包括一个聊天模型，一个LLM，和/或一个向量存储的桩。你应该删除任何你不会使用的文件，并从`__init__.py`中移除它们。
+
+### 编写单元和集成测试
+
+在tests/目录中生成了一些基本的测试。你应该添加更多的测试来覆盖你的包的功能。
+
+关于运行和实现测试的信息，参见[测试指南](./testing)。
+
+### 编写文档
+
+文档是从`docs/`目录中的Jupyter笔记本生成的。你应该将生成的笔记本移动到monorepo root中的`docs/docs/integrations`目录。
+
+### 其他步骤
+
+贡献者步骤：
+
+- [ ] 在`.github/workflows/_integration_test.yml`中添加秘密名称到手动集成工作流
+- [ ] 在`.github/workflows/_release.yml`中添加秘密到发布工作流（用于预发布测试）
+
+维护者步骤（贡献者**不应**做这些）：
+
+- [ ] 设置pypi和测试pypi项目
+- [ ] 将凭证秘密添加到Github Actions
+- [ ] 将包添加到conda-forge
+

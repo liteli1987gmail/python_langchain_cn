@@ -1,6 +1,6 @@
 # GPT4All（ GPT4All ）
 
-本页面介绍如何在 LangChain 中使用 `GPT4All` 包装器。本教程分为两个部分：安装和设置，然后是示例的使用。
+这个页面介绍了如何在 LangChain 中使用 `GPT4All` 包装器。本教程分为两个部分：安装和设置，然后是示例的使用。
 
 ## 安装和设置
 
@@ -16,11 +16,11 @@
 ```python
 from langchain.llms import GPT4All
 
-# Instantiate the model. Callbacks support token-wise streaming
+# 实例化模型。回调支持逐令牌流式传输
 model = GPT4All(model="./models/gpt4all-model.bin", n_ctx=512, n_threads=8)
 
-# Generate text
-response = model("Once upon a time, ")
+# 生成文本
+response = model("从前，")
 ```
 
 您还可以自定义生成参数，例如 n_predict，temp，top_p，top_k 等。
@@ -31,14 +31,14 @@ response = model("Once upon a time, ")
 from langchain.llms import GPT4All
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
-# There are many CallbackHandlers supported, such as
+# 有许多支持的 CallbackHandlers，例如
 # from langchain.callbacks.streamlit import StreamlitCallbackHandler
 
 callbacks = [StreamingStdOutCallbackHandler()]
 model = GPT4All(model="./models/gpt4all-model.bin", n_ctx=512, n_threads=8)
 
-# Generate text. Tokens are streamed through the callback manager.
-model("Once upon a time, ", callbacks=callbacks)
+# 生成文本。令牌通过回调管理器进行流式传输。
+model("从前，", callbacks=callbacks)
 ```
 
 ## 模型文件
@@ -46,3 +46,4 @@ model("Once upon a time, ", callbacks=callbacks)
 您可以在 [pyllamacpp](https://github.com/nomic-ai/pyllamacpp) 代码仓库中找到模型文件下载链接。
 
 欲了解更详细的操作步骤，请参阅 [此笔记本](/docs/modules/model_io/models/llms/integrations/gpt4all.html)
+

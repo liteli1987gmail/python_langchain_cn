@@ -3,6 +3,78 @@
 ![LangChain](https://pica.zhimg.com/50/v2-56e8bbb52aa271012541c1fe1ceb11a2_r.gif 'LangChain中文网')
 
 
-import Installation from "@snippets/get_started/installation.mdx"
 
-<Installation/>
+要安装LangChain，请运行：
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from "@theme/CodeBlock";
+
+<Tabs>
+  <TabItem value="pip" label="Pip" default>
+    <CodeBlock language="bash">pip install langchain</CodeBlock>
+  </TabItem>
+  <TabItem value="conda" label="Conda">
+    <CodeBlock language="bash">conda install langchain -c conda-forge</CodeBlock>
+  </TabItem>
+</Tabs>
+
+这将安装LangChain的最基本要求。
+LangChain的很多价值在于将其与各种模型提供商、数据存储等进行集成。
+默认情况下，进行此类集成所需的依赖项并未安装。您需要单独安装特定集成的依赖项。
+
+## 来源于源代码
+
+如果你想从源代码安装，你可以通过克隆仓库并确保目录是`PATH/TO/REPO/langchain/libs/langchain`运行：
+
+```bash
+pip install -e .
+```
+
+## LangChain社区
+`langchain-community`包含第三方集成。它由`langchain`自动安装，但也可以单独使用。安装方法如下：
+
+```bash
+pip install langchain-community
+```
+
+## LangChain核心
+`langchain-core`包含LangChain生态系统使用的基础抽象，以及LangChain表达式语言。它由`langchain`自动安装，但也可以单独使用。安装方法如下：
+
+```bash
+pip install langchain-core
+```
+
+## LangChain实验版
+`langchain-experimental`包含实验性的LangChain代码，用于研究和实验用途。
+安装方法如下：
+
+```bash
+pip install langchain-experimental
+```
+
+## LangServe
+LangServe帮助开发者将LangChain可运行文件和链作为REST API部署。
+LangServe由LangChain CLI自动安装。
+如果不使用LangChain CLI，安装方法如下：
+
+```bash
+pip install "langserve[all]"
+```
+用于客户端和服务器依赖项。或者`pip install "langserve[client]"`用于客户端代码，和`pip install "langserve[server]"`用于服务器代码。
+
+## LangChain CLI
+LangChain CLI对于处理LangChain模板和其他LangServe项目非常有用。
+安装方法如下：
+
+```bash
+pip install langchain-cli
+```
+
+## LangSmith SDK
+LangSmith SDK由LangChain自动安装。
+如果不使用LangChain，安装方法如下：
+
+```bash
+pip install langsmith
+```
