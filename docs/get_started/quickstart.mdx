@@ -97,7 +97,7 @@ import PromptTemplateChatModel from "@snippets/get_started/quickstart/prompt_tem
 然而，使用这些而不是原始字符串格式化的优势有几个。您可以“部分”出变量 - 例如，您可以一次只格式化某些变量。您可以将它们组合在一起，轻松地将不同的模板组合成一个单独的提示。有关这些功能的说明，请参阅[提示部分](/docs/modules/model_io/prompts)以获取更多详细信息。
 
 PromptTemplates还可以用于生成消息列表。在这种情况下，提示不仅包含有关内容的信息，还包含每个消息（其角色、其在列表中的位置等）
-在这里，最常见的是ChatPromptTemplate是ChatMessageTemplate的列表。每个ChatMessageTemplate包含了格式化该ChatMessage的指令 - 其角色，以及其内容。让我们在下面看一下这个:
+在这里，最常见的ChatPromptTemplate是ChatMessageTemplate的列表。每个ChatMessageTemplate包含了格式化该ChatMessage的指令 - 其角色，以及其内容。让我们在下面看一下这个:
 
 <PromptTemplateChatModel/>
 
