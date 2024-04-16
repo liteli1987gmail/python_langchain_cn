@@ -159,7 +159,7 @@ module.exports = {
     },
     {
       type: "html",
-      value: '<img src="https://pic1.zhimg.com/80/v2-31131dcb1732cb5bca7c182c9e8da046_r.jpg" alt="扫我，入群" width="280" height="330"/>'
+      value: '<img src="https://www.aiqbh.com/qun.png" alt="10000 AI开发者社群" width="280" height="330"/>'
     }
   ],
 };

@@ -28,8 +28,6 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
-/* Target the TOC container */
-
 
 /* Target the TOC container */
 .table-of-contents {
@@ -40,7 +38,27 @@
   display: block;
   width: 100%; /* or desired width */
   height: 420px; /* or desired height */
-  background-image: url('https://pic2.zhimg.com/100/v2-23e6630a548c962582265f27e8967cd1_qhd.jpg');
+  background-image: url('https://www.aiqbh.com/qun.png'); 
   background-size: cover; /* or as needed */
   background-position: center; /* or as needed */
 }
+
+.table-of-contents::before {
+  content: "";
+  display: block;
+  width: 100%; /* or desired width */
+  height: 420px; /* or desired height for the second image */
+  background-image: url('https://pic2.zhimg.com/100/v2-23e6630a548c962582265f27e8967cd1_qhd.jpg'); /* replace with your second image URL */
+  background-size: cover; /* or as needed */
+  background-position: center; /* or as needed */
+  margin-bottom: 20px; /* add space between the images if needed */
+}
+
+img[alt="LangChain中文网"],
+img[alt="LangChain AI课程"],
+img[alt="LangChain AI 学习社群"] {
+  width: 100%;
+  margin-bottom: -1.25rem;
+}
+
+
