@@ -52,7 +52,7 @@ print(docs[0].page_content)
     
     The LangChain framework is designed around these principles.
     
-    This is the Python specific portion of the documentation. For a purely conceptual guide to LangChain, see [here](https://docs.langchain.com/docs/). For the JavaScript documentation, see [here](https://js.langchain.com/docs/).
+    This is the Python specific portion of the documentation. For a purely conceptual guide to LangChain, see [here](https://docs.langchain.com/docs/). For the JavaScript documentation, see [here](https://js.langchain.com.cn).
     
     ## Getting Started [\#](\#getting-started "Permalink to this headline")
     

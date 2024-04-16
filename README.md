@@ -6,7 +6,7 @@ Langchain 中文网的目的是帮助中国人阅读 Langchain 的 PYTHON 文档
 
 如果遇到翻译错误，请指出错误，欢迎热爱社区的人一起来翻译。
 
-联系人：特美丽，微信号是 abc18601613801。
+联系人：李特丽，微信号是 abc18601613801。
 
 更多关于如何使用Langchain的信息，请参阅[文档](https://python.langchain.com.cn)。
 

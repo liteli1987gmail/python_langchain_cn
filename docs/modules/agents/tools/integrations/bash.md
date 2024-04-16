@@ -81,7 +81,7 @@ self_ask_with_search.run(
     https://github.com/hwchase17/langchain
     https://github.com/hwchase17/langchainjs
     https://github.com/sullivan-sean/chat-langchainjs
-    https://js.langchain.com/docs/
+    https://js.langchain.com.cn
     https://python.langchain.com/en/latest/
     https://twitter.com/langchainai
     [0m
