@@ -183,7 +183,7 @@ const config = {
               },
               {
                 label: "LLM/GPT应用外包开发",
-                href: "http://www.r-p-a.com/llm-gpt-kaifa/",
+                href: "https://www.r-p-a.com/llm-gpt-kaifa/",
               }
             ],
           },
